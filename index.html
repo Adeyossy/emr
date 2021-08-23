@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <title>EMR</title>
+</head>
+
+<body>
+  <div class="emr">
+    <nav>
+      <a href="/" class="emr-nav-brand-link">
+        <div class="emr-nav-brand">
+          <img src="" alt="" class="emr-nav-brand-icon">
+          <h6 class="emr-nav-brand-text">EMR</h6>
+        </div>
+      </a>
+    </nav>
+    <main>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="offset-lg-8 col-lg-4">
+            <div class="emr-centered emr-auth-column">
+              <div class="emr-auth-card emr-rounded-edges emr-default-shadow">
+                <h6 class="emr-headers emr-auth-header">LOGIN</h6>
+                <form action="">
+                  <div class="emr-username-input-group">
+                    <div class="emr-username emr-input-label">
+                      <i class="emr-icons emr-username-icon bi bi-person-fill"></i>
+                      <label for="username">Username</label>
+                    </div>
+                    <input name="username" type="email" placeholder="e.g. johndoe@email.com" id="username" required>
+                  </div>
+                  <div class="emr-password-input-group">
+                    <div class="emr-password emr-input-label">
+                      <i class="emr-icons emr-password-icon bi bi-lock-fill"></i>
+                      <label for="password">Password</label>
+                    </div>
+                    <input type="password" name="password" placeholder="password" id="password" required>
+                  </div>
+                  <button class="emr-button emr-auth-button">
+                    <i class="emr-accent-icon bi bi-cursor-fill"></i>
+                    Login
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="emr-top-notification">
+    <div class="emr-icon-background">
+      <i class="emr-icons emr-icons-dark"></i>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,158 @@
+nav{
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.0625);
+}
+
+.emr-nav-dropdown{
+  display: inline-block;
+  position: relative;
+  cursor: default;
+  vertical-align: middle;
+}
+
+.emr-current-view{
+  display: inline-block;
+  font-size: 10pt;
+  vertical-align: middle;
+  color: var(--emr-secondary-colour);
+}
+
+.emr-dropdown-icon{
+  padding: 0 8px;
+}
+
+.emr-other-views{
+  display: none;
+  background-color: white;
+  border-radius: var(--emr-round-corners);
+  box-shadow: 4px 4px 16px 0 rgba(0, 0, 0, 0.1);
+  animation: dropdown 250ms ease-in;
+}
+
+.emr-other-view{
+  font-size: 10pt;
+  padding: 8px 16px;
+  margin: 8px 0px;
+  transition: background-color 200ms ease-out;
+}
+
+.emr-other-view:hover{
+  background-color: var(--emr-light-colour);
+}
+
+.emr-other-view:active{
+  background-color: var(--emr-primary-light-colour);
+}
+
+.emr-nav-dropdown:hover .emr-other-views{
+  display: inline-block;
+  position: absolute;
+  width: max-content;
+  top: 0px; left: 0;
+  margin: auto;
+  z-index: 2;
+}
+
+.emr-app-center{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.emr-app-search{
+  /* width: 50%; */
+  padding-left: 4px;
+  border-radius: var(--emr-round-corners);
+  background-color: white;
+}
+
+.emr-app-search input{
+  width: 70%;
+  display: inline;
+  border: none;
+  flex-grow: 2;
+  padding-left: 8px;
+}
+
+.emr-app-auth-and-overflow{
+  justify-content: flex-end;
+  width: auto;
+}
+
+.emr-app-auth-group{
+  padding: 0 8px;
+  color: var(--emr-secondary-colour);
+}
+
+.emr-app-auth-group > h6.emr-headers{
+  font-size: 9pt;
+}
+
+.emr-app-auth-group:hover{
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: var(--emr-round-corners);
+  box-shadow: var(--emr-default-shadow);
+  transition: background-color 300ms ease-in;
+}
+
+.emr-app-toolbar{
+  color: var(--emr-secondary-colour);
+}
+
+.emr-app-toolbar > .emr-icon-bg{
+  margin: 0 24px;
+  position: relative;
+}
+
+.emr-app-toolbar .emr-icon-bg{
+  transition: background-color 400ms ease-in, color 400ms ease-in, box-shadow 400ms ease-in;
+}
+
+.emr-app-toolbar .emr-icon-bg:hover{
+  color: var(--emr-accent-light-colour);
+  background-color: var(--emr-secondary-colour);
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.1);
+}
+
+.emr-app-toolbar .emr-icon-bg:active, .emr-app-toolbar .emr-icon-bg.selected{
+  color: var(--emr-accent-colour);
+  background-color: var(--emr-secondary-colour);
+}
+
+.emr-app-toolbar .emr-icon-bg.selected{
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.emr-icon-tooltip{
+  width: max-content;
+  height: max-content;
+  padding: 4px 8px;
+  display: none;
+  position: absolute;
+  top: 64px; right: 0; bottom: 0; left: -16px;
+  margin: auto;
+  font-size: 8pt;
+  font-weight: bold;
+  font-style: normal;
+  color: var(--emr-secondary-colour);
+  border-radius: 4px;
+  background-color: white;
+  z-index: 4;
+}
+
+.emr-icon-bg:hover .emr-icon-tooltip{
+  display: inline-block;
+}
+
+@keyframes dropdown {
+  0%{
+    height: 0;
+    opacity: 0;
+  }
+
+  100%{
+    height: max-content;
+    opacity: 1;
+  }
+}

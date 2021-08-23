@@ -1,0 +1,26 @@
+.emr-history-tab-item{
+  padding: 16px;
+  margin: 8px;
+  color: var(--emr-secondary-colour);
+  background-color: white;
+  border-radius: var(--emr-round-corners);
+  transition: color 300ms ease-in, background-color 300ms ease-in;
+}
+
+.emr-history-tab-item:hover{
+  color: var(--emr-grey-colour);
+  background-color: var(--emr-accent-light-colour);
+}
+
+.emr-history-tab-item:active, .emr-history-tab-item.selected{
+  color: var(--emr-accent-colour);
+  background-color: var(--emr-secondary-colour);
+}
+
+.emr-history-tab-text{
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 8pt;
+  color: inherit;
+}

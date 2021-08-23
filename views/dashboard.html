@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/nav.css">
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <!-- The title must always reflect the current action or page -->
+  <title>EMR</title>
+</head>
+
+<body>
+  <nav>
+    <div class="emr-nav-dropdown">
+      <div class="emr-current-view">
+        <h6 class="emr-headers">Dashboard</h6>
+        <i class="bi bi-caret-down-fill emr-icons emr-dropdown-icon"></i>
+      </div>
+      <div class="emr-other-views show">
+        <p class="emr-other-view">Dashboard</p>
+        <p class="emr-other-view">Patients</p>
+        <p class="emr-other-view">Investigations</p>
+      </div>
+    </div>
+    <div class="emr-app-search">
+      <!-- An input search bar goes here -->
+    </div>
+    <div class="emr-app-toolbar">
+      <!-- Icons appropriate for each screen show here -->
+    </div>
+    <div class="emr-app-auth-overflow">
+      <!-- User details and other auth and app actions go here -->
+    </div>
+  </nav>
+  <main>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Start of the first column of the app -->
+        <div class="col-lg-3 emr-column">
+          <div class="emr-dashboard-welcome emr-first">
+            <h1 class="emr-large-text emr-headers">Welcome</h1>
+            <div class="emr-user">
+              <div class="emr-icon-bg emr-user-icon-bg">
+                <i class="bi bi-person-fill emr-center-icon"></i>
+              </div>
+              <h4 class="emr-user-name">DR. JOHN</h4>
+            </div>
+          </div>
+          <div class="emr-recent-patients">
+            <h6 class="emr-headers">Recent Patients</h6>
+            <div class="emr-card">
+              <div class="emr-patient-list">
+                <!-- Anything with classname as -list-item will be in a for-loop -->
+                <div class="emr-patient-list-item">
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <!-- Insert age-appropriate icon here -->
+                    <i class="bi bi-person-fill emr-center-icon"></i>
+                  </div>
+                  <div class="emr-patient-description">
+                    <p class="emr-patient-name">Bolatito Adebisi</p>
+                    <div class="emr-patient-biodata">
+                      <p class="emr-patient-gender">F</p>
+                      <p class="emr-separator">|</p>
+                      <p class="emr-patient-age">39 yrs</p>
+                      <p class="emr-separator">|</p>
+                      <p class="emr-patient-diagnosis">Epilepsy</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="emr-patient-list-item">
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <!-- Insert age-appropriate icon here -->
+                    <i class="bi bi-person-fill emr-center-icon"></i>
+                  </div>
+                  <div class="emr-patient-description">
+                    <p class="emr-patient-name">Ernest Ofor</p>
+                    <div class="emr-patient-biodata">
+                      <p class="emr-patient-gender">M</p>
+                      <p class="emr-separator">|</p>
+                      <p class="emr-patient-age">42 yrs</p>
+                      <p class="emr-separator">|</p>
+                      <p class="emr-patient-diagnosis">Stroke</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="emr-patient-list-item">
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <!-- Insert age-appropriate icon here -->
+                    <i class="bi bi-person-fill emr-center-icon"></i>
+                  </div>
+                  <div class="emr-patient-description">
+                    <p class="emr-patient-name">Aresejabata Araparegangan</p>
+                    <div class="emr-patient-biodata">
+                      <p class="emr-patient-gender">F</p>
+                      <p class="emr-separator">|</p>
+                      <p class="emr-patient-age">40 yrs</p>
+                      <p class="emr-separator">|</p>
+                      <p class="emr-patient-diagnosis">Epilepsy</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="emr-button emr-card-button">ALL PATIENTS</button>
+            </div>
+          </div>
+          <div class="emr-stats emr-card">
+            <!-- stats on diagnoses go here -->
+            <h6 class="emr-headers emr-card-headers">STATS: Diagnoses</h6>
+            <div class="emr-coming-soon">
+              <p class="emr-coming-soon-text">coming soon</p>
+            </div>
+          </div>
+        </div>
+        <!-- End of the first column of the app -->
+        <!-- Start of the second column of the app -->
+        <div class="col-lg-6 emr-column">
+          <div class="emr-quick-buttons emr-first">
+            <div class="emr-quick-button emr-new-patient emr-quick-button-light-bg">
+              <div class="emr-icon-bg">
+                <i class="bi bi-file-earmark-plus emr-icons emr-center-icon"></i>
+              </div>
+              <div class="emr-quick-button-text">
+                <h6 class="emr-headers emr-card-headers">Create New Patient</h6>
+              </div>
+            </div>
+            <div class="emr-quick-button emr-investigation-portal emr-quick-button-dark-bg">
+              <div class="emr-icon-bg">
+                <i class="bi bi-file-earmark-medical-fill emr-icons emr-center-icon"></i>
+              </div>
+              <div class="emr-quick-button-text">
+                <h6 class="emr-headers emr-card-headers">Investigations Portal</h6>
+              </div>
+            </div>
+          </div>
+          <div class="emr-patient-list">
+            <h6 class="emr-headers">Patients</h6>
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">ICON</th>
+                  <th scope="col">NAME</th>
+                  <th scope="col">AGE</th>
+                  <th scope="col">HOSPITAL NUMBER</th>
+                  <th scope="col">1<sup>o</sup> DIAGNOSIS</th>
+                  <th scope="col">2<sup>o</sup> DIAGNOSIS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="emr-icon-bg emr-icon-bg-dark">
+                      <!-- Insert age-appropriate icon here -->
+                      <i class="bi bi-person-fill emr-center-icon"></i>
+                    </div>
+                  </td> <!-- Icon goes here -->
+                  <td>Bolatito ADEBISI</td>
+                  <td>39 yrs</td>
+                  <td>1253991</td>
+                  <td>Epilepsy</td>
+                  <td>Syncopal Attacks</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="emr-icon-bg emr-icon-bg-dark">
+                      <!-- Insert age-appropriate icon here -->
+                      <i class="bi bi-person-fill emr-center-icon"></i>
+                    </div>
+                  </td> <!-- Icon goes here -->
+                  <td>Ernest Ofor</td>
+                  <td>42 yrs</td>
+                  <td>1222149</td>
+                  <td>Stroke</td>
+                  <td>Hysteria</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="emr-icon-bg emr-icon-bg-dark">
+                      <!-- Insert age-appropriate icon here -->
+                      <i class="bi bi-person-fill emr-center-icon"></i>
+                    </div>
+                  </td> <!-- Icon goes here -->
+                  <td>Bolatito ADEBISI</td>
+                  <td>39 yrs</td>
+                  <td>1253991</td>
+                  <td>Epilepsy</td>
+                  <td>Syncopal Attacks</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="emr-icon-bg emr-icon-bg-dark">
+                      <!-- Insert age-appropriate icon here -->
+                      <i class="bi bi-person-fill emr-center-icon"></i>
+                    </div>
+                  </td> <!-- Icon goes here -->
+                  <td>Araparegangan ARESEJABATA</td>
+                  <td>34 yrs</td>
+                  <td>1347781</td>
+                  <td>Tetanus</td>
+                  <td>NMS</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="emr-icon-bg emr-icon-bg-dark">
+                      <!-- Insert age-appropriate icon here -->
+                      <i class="bi bi-person-fill emr-center-icon"></i>
+                    </div>
+                  </td> <!-- Icon goes here -->
+                  <td>Idayat LAWANI</td>
+                  <td>43 yrs</td>
+                  <td>1348962</td>
+                  <td>Meningitis</td>
+                  <td>Encephalitis</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-lg-3 emr-column">
+          <div class="emr-first"></div>
+          <div class="emr-calendar-schedule">
+            <h6 class="emr-headers">My Schedule</h6>
+            <div class="emr-card emr-schedule-card">
+              <div class="emr-coming-soon">
+                <p class="emr-coming-soon-text">coming soon</p>
+              </div>
+            </div>
+          </div>
+          <div class="emr-next-appointment">
+            <h6 class="emr-headers">Next Appointment</h6>
+            <div class="emr-card emr-appointment-card">
+              <div class="emr-coming-soon">
+                <p class="emr-coming-soon-text">coming soon</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

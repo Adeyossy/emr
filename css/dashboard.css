@@ -1,0 +1,20 @@
+.emr-first{
+  min-height: 90px;
+}
+
+.emr-dashboard-welcome .emr-user{
+  padding-left: var(--emr-default-padding);
+}
+
+.emr-large-text{
+  font-size: 36pt;
+}
+
+.emr-patient-list-item:nth-child(odd){
+  background-color: var(--emr-background-colour);
+}
+
+.emr-quick-buttons{
+  display: flex;
+  justify-content: space-between;
+}
