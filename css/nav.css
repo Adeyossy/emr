@@ -27,7 +27,7 @@ nav{
   background-color: white;
   border-radius: var(--emr-round-corners);
   box-shadow: 4px 4px 16px 0 rgba(0, 0, 0, 0.1);
-  animation: dropdown 250ms ease-in;
+  animation: ease-in 250ms dropdown;
 }
 
 .emr-other-view{
@@ -106,7 +106,7 @@ nav{
 }
 
 .emr-app-toolbar .emr-icon-bg{
-  transition: background-color 400ms ease-in, color 400ms ease-in, box-shadow 400ms ease-in;
+  transition: background-color 200ms ease-in, color 200ms ease-in, box-shadow 200ms ease-in;
 }
 
 .emr-app-toolbar .emr-icon-bg:hover{
@@ -136,7 +136,9 @@ nav{
   font-weight: bold;
   font-style: normal;
   color: var(--emr-secondary-colour);
+  border: 1px solid var(--emr-light-colour);
   border-radius: 4px;
+  box-shadow: var(--emr-default-shadow);
   background-color: white;
   z-index: 4;
 }

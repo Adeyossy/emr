@@ -18,6 +18,7 @@
   --emr-success-gradient: linear-gradient(to bottom right, var(--emr-light-colour), var(--emr-success-colour));
   --emr-failure-gradient: linear-gradient(to bottom right, var(--emr-light-colour), var(--emr-failure-colour));
   --emr-round-corners: 16px;
+  --emr-low-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
   --emr-default-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.15);
   --emr-high-shadow: 4px 4px 16px 2px rgba(0, 0, 0, 0.15);
   --emr-default-padding: 16px;
@@ -86,13 +87,13 @@ textarea{
   padding: 16px;
   /* box-shadow: inset 0 0 1px 1px var(--emr-secondary-colour); */
   border-radius: var(--emr-round-corners);
-  border: none;
+  border: 2px solid var(--emr-primary-light-colour);
   font-size: 9pt;
 }
 
 input:focus-visible, textarea:focus-visible{
   outline: none;
-  border: 1px solid var(--emr-secondary-colour);
+  border: 2px solid var(--emr-secondary-colour);
   border-radius: 16px;
   box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
 }
@@ -131,7 +132,7 @@ hr{
 .emr-card-headers{
   color: var(--emr-secondary-colour);
   margin: 8px 0;
-  font-size: 10pt;
+  font-size: 11pt;
   font-weight: bold;
 }
 

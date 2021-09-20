@@ -15,6 +15,7 @@
 .emr-history-tab-item:active, .emr-history-tab-item.selected{
   color: var(--emr-accent-colour);
   background-color: var(--emr-secondary-colour);
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.0625);
 }
 
 .emr-history-tab-text{
@@ -23,4 +24,55 @@
   text-align: center;
   font-size: 8pt;
   color: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.emr-clerking-tab-data{
+  min-height: 78vh;
+  padding: 32px;
+  background-color: white;
+  border-radius: var(--emr-round-corners);
+}
+
+label, summary, .emr-clerking-tab-data-item h4{
+  color: inherit;
+  font-size: 11pt;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+input{
+  font-size: 9pt;
+  border-width: 2px;
+  border-color: var(--emr-primary-light-colour);
+}
+
+input:hover, input:focus-visible{
+  border-width: 2px;
+}
+
+.emr-clerking-tab-data-items{
+  width: 100%;
+}
+
+.emr-clerking-tab-data-item.level-2{
+  color: white;
+  background-color: var(--emr-secondary-colour);
+}
+
+.emr-clerking-tab-data-item{
+  width: inherit;
+  padding: 32px 5%;
+  margin-bottom: 16px;
+  color: var(--emr-darker-grey-colour);
+  background-color: white;
+  border: 1.5px solid var(--emr-light-colour);
+  border-radius: var(--emr-round-corners);
+  box-shadow: var(--emr-low-shadow);
+}
+
+.emr-clerking-biodata-names > input{
+  width: 32.6%;
 }

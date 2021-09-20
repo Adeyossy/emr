@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/nav.css">
+  <link rel="stylesheet" href="../css/app.css">
+  <link rel="stylesheet" href="../css/patient.css">
+  <link rel="stylesheet" href="../css/history.css">
+  <!-- The title must always reflect the current action or page -->
+  <title>Bolatito Adebisi</title>
+  <!-- Patient name goes here plus section of clerking -->
+</head>
+
+<body>
+  <nav>
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-lg-2">
+          <div class="emr-nav-dropdown">
+            <div class="emr-current-view">
+              <h6 class="emr-headers d-inline">Patients</h6>
+              <i class="bi bi-caret-down-fill emr-icons"></i>
+            </div>
+            <div class="emr-other-views show">
+              <p class="emr-other-view">Dashboard</p>
+              <p class="emr-other-view">Patients</p>
+              <p class="emr-other-view">Investigations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 d-none d-lg-flex">
+          <div class="emr-app-center emr-app-search">
+            <!-- An input search bar goes here -->
+            <div class="emr-icon-bg">
+              <i class="bi bi-search emr-icons emr-center-icon"></i>
+            </div>
+            <input type="text" name="search" id="search" placeholder="Search">
+          </div>
+        </div>
+        <div class="col-lg-6 d-none d-lg-flex">
+          <div class="emr-app-toolbar">
+            <!-- Icons appropriate for each screen show here -->
+            <div class="emr-icon-bg">
+              <i class="bi bi-file-earmark-medical-fill emr-icons emr-center-icon"></i>
+              <i class="emr-icon-tooltip">History</i>
+            </div>
+            <div class="emr-icon-bg selected">
+              <i class="bi bi-nut-fill emr-icons emr-center-icon"></i>
+              <i class="emr-icon-tooltip">History Forms</i>
+            </div>
+            <div class="emr-icon-bg">
+              <i class="bi bi-card-image emr-icons emr-center-icon"></i>
+              <i class="emr-icon-tooltip">Examination</i>
+            </div>
+            <div class="emr-icon-bg">
+              <i class="bi bi-gear-fill emr-icons emr-center-icon"></i>
+              <i class="emr-icon-tooltip">Investigations</i>
+            </div>
+            <div class="emr-icon-bg">
+              <i class="bi bi-lightbulb-fill emr-icons emr-center-icon"></i>
+              <i class="emr-icon-tooltip">Assessment</i>
+            </div>
+            <div class="emr-icon-bg">
+              <i class="bi bi-check-circle-fill emr-icons emr-center-icon"></i>
+              <i class="emr-icon-tooltip">Treatment</i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 d-none d-lg-flex">
+          <div class="emr-app-center emr-app-auth-and-overflow">
+            <!-- User details and other auth and app actions go here -->
+            <div class="emr-app-auth-group emr-app-center">
+              <div class="emr-icon-bg emr-icon-bg-light">
+                <i class="bi bi-person-fill emr-icons emr-center-icon"></i>
+              </div>
+              <h6 class="emr-headers d-inline w-50">DR. JOHN</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <main>
+    <div class="container-fluid">
+      <div class="row g-0">
+        <div class="col-lg-3 emr-sidebar emr-sidebar-l">
+          <div class="emr-left-sidebar">
+            <div class="emr-patients-sidebar">
+              <div class="emr-patient-list-item clicked">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Bolatito Adebisi</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">F</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">39 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Epilepsy</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-patient-list-item">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Aresejabata Araparegangan</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">F</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">40 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Epilepsy</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-patient-list-item">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Ernest Ofor</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">M</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">54 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Epilepsy</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-patient-list-item">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Idayat LAWANI</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">F</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">42 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Stroke</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-patient-list-item">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Bolatito Adebisi</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">F</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">39 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Epilepsy</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-patient-list-item">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Aresejabata Araparegangan</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">F</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">40 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Epilepsy</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-patient-list-item">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Ernest Ofor</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">M</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">54 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Epilepsy</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-patient-list-item">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Idayat LAWANI</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">F</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">42 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Stroke</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-patient-list-item">
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <!-- Insert age-appropriate icon here -->
+                  <i class="bi bi-person-fill emr-center-icon"></i>
+                </div>
+                <div class="emr-patient-description">
+                  <p class="emr-patient-name">Akande ABOLORE</p>
+                  <div class="emr-patient-biodata">
+                    <p class="emr-patient-gender">M</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-age">45 yrs</p>
+                    <p class="emr-separator">|</p>
+                    <p class="emr-patient-diagnosis">Migraine</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Timeline section of the app showing the number of visits -->
+            <div class="emr-patients-timeline">
+              <div class="emr-patients-timeline-bar text-center">
+                <!-- This is a list of icons in the timeline bar -->
+                <div class="emr-icon-bg emr-icon-bg-dark">
+                  <i class="bi bi-info-circle emr-center-icon emr-timeline-bar-icons"></i>
+                </div>
+                <div class="emr-patients-timeline-visits">
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#10</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark selected">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#9</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#8</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#7</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#6</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#5</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#4</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#3</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#2</i>
+                  </div>
+                  <div class="emr-timeline-visits-divider"></div>
+                  <div class="emr-icon-bg emr-icon-bg-dark">
+                    <i class="emr-center-icon emr-timeline-bar-icons">#1</i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- The div closing tag above marks the end of the timeline section -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row g-0">
+        <div class="offset-xl-3 col-xl-6">
+          <!-- This is a list of the tabs controlling the various history sections of the app -->
+          <div class="container-fluid">
+            <div class="row g-0 emr-history-tabs">
+              <div class="col emr-history-tab">
+                <div class="emr-history-tab-item selected">
+                  <p class="emr-history-tab-text">Axis I</p>
+                </div>
+              </div>
+              <div class="col emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">Axis II</p>
+                </div>
+              </div>
+              <div class="col emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">Axis III</p>
+                </div>
+              </div>
+              <div class="col emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">Axis IV</p>
+                </div>
+              </div>
+              <div class="col emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">Axis V</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="emr-clerking-tab-data emr-card m-0">
+            <h4 class="emr-card-headers">Semiology Description</h4>
+            <div class="emr-clerking-tab-data-items">
+              <details class="emr-clerking-tab-data-item">
+                <summary for="familyhistory">Aura</summary>
+                <div class="emr-clerking-tab-data-items">
+                  <div class="emr-clerking-tab-data-item">
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Left</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Right</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Both</p>
+                      </div>
+                    </div>
+                  </div>
+                  <details class="emr-clerking-tab-data-item">
+                    <summary>Visual Hallucination</summary>
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Flashing lights</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Amaurosis</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Visual illusions</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Visual hallucinations</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Blinking</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Ocular movements</p>
+                      </div>
+                    </div>
+                  </details>
+                  <details class="emr-clerking-tab-data-item">
+                    <summary>Dysaethesia</summary>
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Primary sensations e.g. tingling</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Unpleasant sensation e.g. heat</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Negative sensation e.g. absent limb</p>
+                      </div>
+                    </div>
+                  </details>
+                  <div class="emr-clerking-tab-data-item">
+                    <h4>Abdominal</h4>
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Yes</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">No</p>
+                      </div>
+                    </div>
+                  </div>
+                  <details class="emr-clerking-tab-data-item">
+                    <summary>Psychic</summary>
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Mood symptoms e.g. fear, elation</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Experiential symptoms e.g. deja vu, jamais vu, out of body
+                          experience</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Olfactory hallucinations or illusion</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Behavioural abnormalities e.g. emotional or mood changes</p>
+                      </div>
+                    </div>
+                  </details>
+                  <details class="emr-clerking-tab-data-item">
+                    <summary>Auditory</summary>
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Simple hallucinations e.g. buzz, noise</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Vertiginous symptoms</p>
+                      </div>
+                    </div>
+                  </details>
+                  <details class="emr-clerking-tab-data-item">
+                    <summary>Autonomic</summary>
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Palpitations</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Sweating</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Tachycardia</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Flushing</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Vomiting</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Urinary urge</p>
+                      </div>
+                    </div>
+                  </details>
+                </div>
+              </details>
+              <details class="emr-clerking-tab-data-item">
+                <summary for="hypertension">Consciousness</summary>
+                <!-- <input type="number" name="hypertension" id="hypertension" class="mb-4" required> -->
+                <!-- Next list level -->
+                <div class="emr-clerking-tab-data-items">
+                  <div class="emr-clerking-tab-data-item">
+                    <h4 class="emr-card-headers">Alteration in Consciousness</h4>
+                    <div class="emr-clerking-tab-data-items">
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="consciousnessduration">Duration</label>
+                        <input type="number" name="consciousnessduration" id="consciousnessduration">
+                      </div>
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="consciousnessdescription">Describe</label>
+                        <input type="text" name="consciousnessdescription" id="consciousnessdescription">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <h4 class="emr-card-headers">Blank Spell</h4>
+                    <div class="emr-clerking-tab-data-items">
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="blankspellduration">Duration</label>
+                        <input type="number" name="blankspellduration" id="blankspellduration">
+                      </div>
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="blankspelldescription">Describe</label>
+                        <input type="text" name="blankspelldescription" id="blankspelldescription">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <h4 class="emr-card-headers">Amnesia of event</h4>
+                    <div class="emr-clerking-tab-data-items">
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="amnesiaduration">Duration</label>
+                        <input type="number" name="amnesiaduration" id="amnesiaduration">
+                      </div>
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="amnesiadescription">Describe</label>
+                        <input type="text" name="amnesiadescription" id="amnesiadescription">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </details>
+              <details class="emr-clerking-tab-data-item">
+                <summary>Motor</summary>
+                <div class="emr-clerking-tab-data-items">
+                  <div class="emr-clerking-tab-data-item">
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Left</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Right</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Both</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <label for="clonusdescription">Clonus (describe)</label>
+                    <input type="text" name="clonusdescription" id="clonusdescription">
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <h4 class="emr-card-headers">Tonic (describe)</h4>
+                    <div class="emr-clerking-tab-data-items">
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="tonicdescription">Describe</label>
+                        <input type="text" name="tonicdescription" id="tonicdescription">
+                      </div>
+                      <div class="emr-clerking-tab-data-item">
+                        <div class="emr-selectable-items-group">
+                          <div class="emr-selectable-item">
+                            <p class="emr-selectable-item-text">Version</p>
+                          </div>
+                          <div class="emr-selectable-item">
+                            <p class="emr-selectable-item-text">Fencing (M2e) position</p>
+                          </div>
+                          <div class="emr-selectable-item">
+                            <p class="emr-selectable-item-text">Figure four position</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <label for="myoclonusdescription">Myoclonus (describe)</label>
+                    <input type="text" name="myoclonusdescription" id="myoclonusdescription">
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <label for="versiondescription">Version (describe)</label>
+                    <input type="text" name="versiondescription" id="versiondescription">
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <label for="atonicdescription">Atonic (describe)</label>
+                    <input type="text" name="atonicdescription" id="atonicdescription">
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <label for="hypermotordescription">Hyper-motor (describe)</label>
+                    <input type="text" name="hypermotordescription" id="hypermotordescription">
+                  </div>
+                  <div class="emr-clerking-tab-data-item">
+                    <label for="akineticdescription">Akinetic (describe)</label>
+                    <input type="text" name="akineticdescription" id="akineticdescription">
+                  </div>
+                  <details class="emr-clerking-tab-data-item">
+                    <summary>Automatism (smack lips, fidget, behave in an unusual way)</summary>
+                    <div class="emr-selectable-items-group">
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Oro-alimentary</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Gestural</p>
+                      </div>
+                      <div class="emr-selectable-item">
+                        <p class="emr-selectable-item-text">Manipulative e.g. picking, fumbling</p>
+                      </div>
+                    </div>
+                    <div class="emr-clerking-tab-data-items">
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="automatismduration">Duration</label>
+                        <input type="number" name="automatismduration" id="automatismduration">
+                      </div>
+                      <div class="emr-clerking-tab-data-item">
+                        <label for="automatismdescription">Describe</label>
+                        <input type="text" name="automatismdescription" id="automatismdescription">
+                      </div>
+                    </div>
+                  </details>
+                </div>
+              </details>
+              <details class="emr-clerking-tab-data-item">
+                <summary>Others</summary>
+                <div class="emr-selectable-items-group">
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Aphasia</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Dystonic posturing</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Ictal speech</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Urinary urge</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Speech arrest</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Forced thinking</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Laryngeal symptoms</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Sphincteric dysfunction</p>
+                  </div>
+                </div>
+              </details>
+              <details class="emr-clerking-tab-data-item">
+                <summary>Post-ictal manifestation</summary>
+                <div class="emr-selectable-items-group">
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Confusion</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Sleep</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Headache</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Motor deficit</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Aphasia</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Nose wipe</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Fatigue</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Sphincteric dysfunction</p>
+                  </div>
+                </div>
+                <div class="emr-clerking-tab-data-items">
+                  <div class="emr-clerking-tab-data-item">
+                    <label for="postictalduration">Duration of post-ictal phase</label>
+                    <input type="number" name="postictalduration" id="postictalduration">
+                  </div>
+                </div>
+              </details>
+              <div class="emr-clerking-tab-data-item">
+                <label for="symptomspermonth">How often do these symptoms occur per month in the last year?</label>
+                <input type="number" name="symptomspermonth" id="symptomspermonth">
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="seizurespermonth">How many seizures have you experienced in the last month?</label>
+                <input type="number" name="seizurespermonth" id="seizurespermonth">
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="ageatfirstseizure">Age at first seizure</label>
+                <input type="number" name="ageatfirstseizure" id="ageatfirstseizure">
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="ageatfirstdiagnosis">Age at first diagnosis</label>
+                <input type="number" name="ageatfirstdiagnosis" id="ageatfirstdiagnosis">
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="dateoflastseizure">When was the last seizure?</label>
+                <input type="number" name="dateoflastseizure" id="dateoflastseizure">
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="timeofday">Do these symptoms occur at a particular time of day?</label>
+                <input type="number" name="timeofday" id="timeofday">
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="moreatnightorday">Does your attack occur more at night or day? From sleep</label>
+                <input type="number" name="moreatnightorday" id="moreatnightorday">
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <h4 class="emr-card-headers">Do you have incomplete seizure manifestation i.e. aura alone?</h4>
+                <div class="emr-selectable-items-group">
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Yes</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">No</p>
+                  </div>
+                </div>
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="notes">Notes</label>
+                <!-- <input type="text" name="occupation" id="occupation" placeholder="e.g. teacher" required> -->
+                <textarea name="notes" id="notes" cols="30" rows="10" placeholder="write here..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row g-0">
+        <div class="offset-lg-9 col-lg-3 emr-sidebar emr-sidebar-r">
+          <div class="emr-right-sidebar emr-column">
+            <div class="emr-quick-info-card emr-right-sidebar-item">
+              <div class="emr-icon-bg emr-icon-bg-dark">
+                <i class="bi bi-lightbulb-fill emr-icons emr-center-icon"></i>
+              </div>
+              <p class="emr-quick-info-card-title">Diagnosis</p>
+              <p class="emr-quick-info-card-details">Recurrent seizures secondary to falcine meningioma</p>
+            </div>
+            <div class="emr-right-sidebar-item">
+              <h6 class="emr-card-headers emr-right-sidebar-item-header">Notes</h6>
+              <div class="emr-right-sidebar-item-content">
+                <textarea name="consultation_notes" id="consultation" class="emr-right-sidebar-item-textbox">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis 
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+</body>
+
+</html>

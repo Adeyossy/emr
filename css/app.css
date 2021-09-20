@@ -1,7 +1,13 @@
+/* This part controls the css for the app component asides the authentication part */
+
+:hover:not(.selected){
+  transition: color 300ms ease-in, background-color 300ms ease-in;
+}
+
 ::-webkit-scrollbar{
   width: 8px;
   padding: 2px;
-  background-color: var(--emr-light-colour);
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb{
@@ -180,4 +186,43 @@ td{
   color: var(--emr-grey-colour);
   font-style: italic;
   text-align: center;
+}
+
+.emr-selectable-items-group{
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.emr-selectable-item{
+  min-width: 20%;
+  padding: 16px;
+  margin-right: 24px;
+  margin-bottom: 12px;
+  color: var(--emr-darker-grey-colour);
+  border: 2px solid var(--emr-primary-light-colour);
+  border-radius: 32px;
+}
+
+.emr-selectable-item:hover{
+  border-color: var(--emr-secondary-colour);
+  background-color: var(--emr-light-colour);
+}
+
+.emr-selectable-item:active, .emr-selectable-item.selected{
+  color: white;
+  border-color: var(--emr-accent-colour);
+  background-color: var(--emr-secondary-colour);
+  box-shadow: var(--emr-default-shadow);
+}
+
+.emr-selectable-item > p{
+  width: 100%;
+  line-height: inherit;
+  font-size: 9.5pt;
+  font-weight: 700;
+  text-align: center;
+  color: inherit;
+  background-color: transparent;
 }

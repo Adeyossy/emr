@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../css/nav.css">
   <link rel="stylesheet" href="../css/app.css">
   <link rel="stylesheet" href="../css/patient.css">
+  <link rel="stylesheet" href="../css/history.css">
   <!-- The title must always reflect the current action or page -->
   <title>Bolatito Adebisi</title>
   <!-- Patient name goes here plus section of clerking -->
@@ -241,7 +242,7 @@
             <div class="emr-patients-timeline">
               <div class="emr-patients-timeline-bar text-center">
                 <!-- This is a list of icons in the timeline bar -->
-                <div class="emr-icon-bg emr-icon-bg-dark selected">
+                <div class="emr-icon-bg emr-icon-bg-dark">
                   <i class="bi bi-info-circle emr-center-icon emr-timeline-bar-icons"></i>
                 </div>
                 <div class="emr-patients-timeline-visits">
@@ -249,7 +250,7 @@
                     <i class="emr-center-icon emr-timeline-bar-icons">#10</i>
                   </div>
                   <div class="emr-timeline-visits-divider"></div>
-                  <div class="emr-icon-bg emr-icon-bg-dark">
+                  <div class="emr-icon-bg emr-icon-bg-dark selected">
                     <i class="emr-center-icon emr-timeline-bar-icons">#9</i>
                   </div>
                   <div class="emr-timeline-visits-divider"></div>
@@ -296,138 +297,172 @@
       <div class="row g-0">
         <div class="offset-xl-3 col-xl-6">
           <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="emr-card emr-biodata-summary-card">
-                  <div class="emr-biodata-summary-top">
-                    <div class="emr-biodata-name-and-icon d-inline-block">
-                      <div class="emr-icon-bg emr-icon-bg-light emr-summary-icon-bg d-inline-block">
-                        <!-- Insert age-appropriate icon here -->
-                        <i class="bi bi-person-fill emr-center-icon emr-summary-icon"></i>
-                      </div>
-                      <div class="emr-biodata-summary-name ml-3 d-inline-block">
-                        <p class="emr-biodata-summary-title">Mrs.</p>
-                        <p class="emr-biodata-summary-first-name">Bolatito</p>
-                        <p class="emr-biodata-summary-last-name">ADEBISI</p>
-                      </div>
+            <div class="row g-0 emr-history-tabs">
+              <div class="col col-lg-2 emr-history-tab">
+                <div class="emr-history-tab-item selected">
+                  <p class="emr-history-tab-text">Biodata</p>
+                </div>
+              </div>
+              <div class="col col-lg-2 emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">Complaint</p>
+                </div>
+              </div>
+              <div class="col col-lg-2 emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">RoS</p>
+                </div>
+              </div>
+              <div class="col col-lg-2 emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">PMH</p>
+                </div>
+              </div>
+              <div class="col col-lg-2 emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">Drugs|Allergies</p>
+                </div>
+              </div>
+              <div class="col col-lg-2 emr-history-tab">
+                <div class="emr-history-tab-item">
+                  <p class="emr-history-tab-text">FSHx</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="emr-clerking-tab-data emr-card m-0">
+            <h4 class="emr-card-headers">Identifying Information</h4>
+            <div class="emr-clerking-tab-data-items">
+              <div class="emr-clerking-tab-data-item">
+                <label for="firstname">Name</label>
+                <div class="emr-clerking-biodata-names">
+                  <input type="text" name="firstname" id="firstname" placeholder="First name" required>
+                  <input type="text" name="middlename" id="middlename" placeholder="Middle name" required>
+                  <input type="text" name="surname" id="surname" placeholder="Surname" required>
+                </div>
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="age">Age (in years)</label>
+                <input type="number" name="age" id="age" placeholder="e.g. 39" min="0" max="200" required>
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="gender">Gender</label>
+                <div class="emr-selectable-items-group">
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Male</p>
+                  </div>
+                  <div class="emr-selectable-item selected">
+                    <p class="emr-selectable-item-text">Female</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Other</p>
+                  </div>
+                </div>
+                <input type="text" name="gender" id="gender" placeholder="e.g. female" required>
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="occupation">Occupation</label>
+                <input type="text" name="occupation" id="occupation" placeholder="e.g. teacher" required>
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="occupation">Marital Status</label>
+                <div class="emr-selectable-items-group">
+                  <div class="emr-selectable-items-group">
+                    <div class="emr-selectable-item">
+                      <p class="emr-selectable-item-text">Single</p>
                     </div>
-                    <div class="emr-summary-divider"></div>
-                    <div class="emr-biodata-summary-other">
-                      <p class="emr-biodata-summary-gender">Female</p>
-                      <p class="emr-biodata-summary-age">39 yrs</p>
+                    <div class="emr-selectable-item">
+                      <p class="emr-selectable-item-text">Married</p>
                     </div>
-                  </div>
-                  <div class="emr-biodata-summary-bottom">
-                    <div class="emr-biodata-bottom-item">
-                      <i class="bi bi-briefcase-fill emr-accent-icon"></i>
-                      <p class="emr-biodata-bottom-text">Trader</p>
+                    <div class="emr-selectable-item">
+                      <p class="emr-selectable-item-text">Separated</p>
                     </div>
-                    <div class="emr-biodata-bottom-item">
-                      <i class="bi bi-person-fill emr-accent-icon"></i>
-                      <p class="emr-biodata-bottom-text">YORUBA | CHRISTIANITY</p>
+                    <div class="emr-selectable-item">
+                      <p class="emr-selectable-item-text">Divorced</p>
                     </div>
-                    <div class="emr-biodata-bottom-item">
-                      <i class="bi bi-geo-alt-fill emr-accent-icon"></i>
-                      <p class="emr-biodata-bottom-text">12, Igwe Street, Mokola, Ibadan</p>
+                    <div class="emr-selectable-item">
+                      <p class="emr-selectable-item-text">Widowed</p>
                     </div>
                   </div>
                 </div>
+                <input type="text" name="informant" id="informant" placeholder="e.g. patient" required>
               </div>
-              <div class="col-lg-6 emr-column">
-                <div class="emr-quick-info">
-                  <div class="emr-quick-info-top-item emr-quick-visits">
-                    <p class="emr-quick-info-value">9</p>
-                    <h6 class="emr-quick-info-category">VISIT(S)</h6>
+              <div class="emr-clerking-tab-data-item">
+                <label for="address">Address</label>
+                <!-- <input type="text" name="occupation" id="occupation" placeholder="e.g. teacher" required> -->
+                <textarea name="address" id="address" cols="30" rows="10" placeholder="Address goes here"></textarea>
+              </div>
+              <div class="emr-clerking-tab-data-item">
+                <label for="religion">Religion</label>
+                <div class="emr-selectable-items-group">
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Christianity</p>
                   </div>
-                  <div class="emr-quick-info-divider"></div>
-                  <div class="emr-quick-info-top-item emr-quick-comorbidity-1">
-                    <p class="emr-quick-info-value">5 yrs</p>
-                    <h6 class="emr-quick-info-category">HTN</h6>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Islam</p>
                   </div>
-                  <div class="emr-quick-info-divider"></div>
-                  <div class="emr-quick-info-top-item emr-quick-comorbidity-2">
-                    <p class="emr-quick-info-value">1 yr</p>
-                    <h6 class="emr-quick-info-category">DM</h6>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Traditional</p>
                   </div>
-                  <div class="emr-horizontal-divider">
-                    <hr>
-                  </div>
-                  <div class="emr-quick-info-bottom-item emr-quick-drug-one">
-                    <i class="bi bi-suit-heart-fill emr-accent-icon"></i>
-                    <p class="emr-quick-info-drug-duration">3rd month/1 year</p>
-                    <p class="emr-quick-info-drug-name">Carbamazepine</p>
-                    <p class="emr-quick-info-drug-dosage">250mg Daily</p>
-                  </div>
-                  <div class="emr-plus-button">+</div>
-                  <div class="emr-quick-info-bottom-item emr-quick-drug-two">
-                    <i class="bi bi-suit-heart-fill emr-accent-icon"></i>
-                    <p class="emr-quick-info-drug-duration">1st month/1 year</p>
-                    <p class="emr-quick-info-drug-name">Sodium Valproate</p>
-                    <p class="emr-quick-info-drug-dosage">50mg Daily</p>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Other</p>
                   </div>
                 </div>
+                <input type="text" name="religion" id="religion" placeholder="e.g. christianity" required>
               </div>
-              <div class="col-lg-4">
-                <div class="emr-quick-info-card">
-                  <div class="emr-icon-bg emr-icon-bg-dark">
-                    <i class="bi bi-file-earmark-medical-fill emr-icons emr-center-icon"></i>
+              <div class="emr-clerking-tab-data-item">
+                <label for="tribe">Tribe</label>
+                <div class="emr-selectable-items-group">
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Yoruba</p>
                   </div>
-                  <p class="emr-quick-info-card-title">Last Seen</p>
-                  <p class="emr-quick-info-card-details">Thurs, 27th July, 2021</p>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="emr-quick-info-card emr-quick-info-card-2">
-                  <div class="emr-icon-bg emr-icon-bg-dark">
-                    <i class="bi bi-stopwatch-fill emr-icons emr-center-icon emr-accent-icon"></i>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Igbo</p>
                   </div>
-                  <p class="emr-quick-info-card-title">Next Appointment</p>
-                  <p class="emr-quick-info-card-details">Tues, 27th August, 2021</p>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="emr-quick-info-card emr-quick-info-card-3">
-                  <div class="emr-icon-bg emr-icon-bg-dark">
-                    <i class="bi bi-lightbulb-fill emr-icons emr-center-icon emr-accent-icon-2"></i>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Hausa</p>
                   </div>
-                  <p class="emr-quick-info-card-title">Diagnosis</p>
-                  <p class="emr-quick-info-card-details">Recurrent seizures secondary to falcine meningioma</p>
-                </div>
-              </div>
-              <div class="col-12 emr-column">
-                <p class="emr-section-header emr-card-headers">TIMELINE</p>
-              </div>
-              <div class="col-lg-6 emr-column">
-                <div class="emr-chart emr-history-chart">
-                  <h6 class="emr-chart-header">History: Seizures over Time</h6>
-                  <div class="emr-coming-soon emr-card">
-                    <p class="emr-coming-soon-text">coming soon</p>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Fulani</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Ibiobio</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Kanuri</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Other</p>
                   </div>
                 </div>
+                <input type="text" name="tribe" id="tribe" placeholder="e.g. yoruba" required>
               </div>
-              <div class="col-lg-6 emr-column">
-                <div class="emr-chart emr-examination-chart">
-                  <h6 class="emr-chart-header">Examination: Power over Time</h6>
-                  <div class="emr-coming-soon emr-card">
-                    <p class="emr-coming-soon-text">coming soon</p>
+              <div class="emr-clerking-tab-data-item">
+                <label for="tribe">Informant</label>
+                <div class="emr-selectable-items-group">
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Patient</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Parents</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Father</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Mother</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Brother</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Sister</p>
+                  </div>
+                  <div class="emr-selectable-item">
+                    <p class="emr-selectable-item-text">Other</p>
                   </div>
                 </div>
-              </div>
-              <div class="col-lg-6 emr-column">
-                <div class="emr-chart emr-investigation-chart">
-                  <h6 class="emr-chart-header">Investigations: EEG Result</h6>
-                  <div class="emr-coming-soon emr-card">
-                    <p class="emr-coming-soon-text">coming soon</p>
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-6 emr-column">
-                <div class="emr-chart emr-management-chart">
-                  <h6 class="emr-chart-header">Management: Drugs and Adjunct Therapy</h6>
-                  <div class="emr-coming-soon emr-card">
-                    <p class="emr-coming-soon-text">coming soon</p>
-                  </div>
-                </div>
+                <input type="text" name="informant" id="informant" placeholder="e.g. patient" required>
               </div>
             </div>
           </div>
@@ -446,7 +481,7 @@
               <p class="emr-quick-info-card-details">Recurrent seizures secondary to falcine meningioma</p>
             </div>
             <div class="emr-right-sidebar-item">
-              <h6 class="emr-card-headers emr-right-sidebar-item-header">Recent Notes</h6>
+              <h6 class="emr-card-headers emr-right-sidebar-item-header">Notes</h6>
               <div class="emr-right-sidebar-item-content">
                 <textarea name="consultation_notes" id="consultation" class="emr-right-sidebar-item-textbox">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis 
                 </textarea>
