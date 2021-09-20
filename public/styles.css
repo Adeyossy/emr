@@ -1,0 +1,284 @@
+:root{
+  --emr-primary-colour: #4079E4;
+  --emr-secondary-colour: #023086;
+  --emr-primary-light-colour: #ACBAD4;
+  --emr-light-colour: #E6EFFF;
+  --emr-background-colour: #F0F0FF;
+  --emr-accent-colour: #FFDD1C;
+  --emr-accent-light-colour: #FFF5BF;
+  --emr-accent-colour-2: #ED1E79;
+  --emr-accent-light-colour-2: #FFCCE2;
+  --emr-success-colour: #009245;
+  --emr-failure-colour: #FF6969;
+  --emr-grey-colour: #808080;
+  --emr-darker-grey-colour: #404040;
+  --emr-lighter-grey-colour: #F2F2F2;
+  --emr-light-gradient: linear-gradient(to bottom right, var(--emr-light-colour), var(--emr-primary-colour));
+  --emr-dark-gradient: linear-gradient(to bottom right, var(--emr-primary-colour), var(--emr-secondary-colour));
+  --emr-success-gradient: linear-gradient(to bottom right, var(--emr-light-colour), var(--emr-success-colour));
+  --emr-failure-gradient: linear-gradient(to bottom right, var(--emr-light-colour), var(--emr-failure-colour));
+  --emr-round-corners: 16px;
+  --emr-low-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
+  --emr-default-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.15);
+  --emr-high-shadow: 4px 4px 16px 2px rgba(0, 0, 0, 0.15);
+  --emr-default-padding: 16px;
+}
+
+nav{
+  width: 100%;
+  padding: 8px;
+}
+
+main{
+  width: 100%;
+}
+
+#root{
+  height: inherit;
+}
+
+h1, h2, h3, h4, h5, h6, p, label, input, textarea, button, table, div{
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+button{
+  width: 100%;
+  height: 40px;
+  font-size: 10pt;
+  border: none;
+  border-radius: 16px;
+  color: white;
+  background-color: var(--emr-secondary-colour);
+  box-shadow: none;
+  transition: box-shadow ease-in 400ms;
+}
+
+button:hover{
+  box-shadow: 6px 6px 12px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:active{
+  box-shadow: inset 6px 6px 12px 4px rgba(0, 0, 0, 0.2);;
+}
+
+button.emr-card-button{
+  margin: 0;
+}
+
+label{
+  font-size: 11pt;
+}
+
+input{
+  width: 100%;
+  padding: 8px 16px;
+  border: 1px solid var(--emr-primary-colour);
+  border-radius: 16px;
+  font-size: 10pt;
+}
+
+textarea{
+  width: 100%;
+  padding: 16px;
+  /* box-shadow: inset 0 0 1px 1px var(--emr-secondary-colour); */
+  border-radius: var(--emr-round-corners);
+  border: 2px solid var(--emr-primary-light-colour);
+  font-size: 9pt;
+}
+
+input:focus-visible, textarea:focus-visible{
+  outline: none;
+  border: 2px solid var(--emr-secondary-colour);
+  border-radius: 16px;
+  box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
+}
+
+div:focus-visible{
+  outline: none;
+  box-shadow: inset 0 0 4px 1px var(--emr-secondary-colour);
+}
+
+hr{
+  margin: 0;
+}
+
+.emr-column > *{
+  margin: 16px 0 24px 0;
+}
+
+.emr-headers{
+  width: 100%;
+  font-size: 11pt;
+  font-weight: bold;
+}
+
+.emr-card{
+  background-color: white;
+  padding: var(--emr-default-padding) 12px;
+  margin: 8px 0;
+  border-radius: var(--emr-round-corners);
+  box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.0625);
+}
+
+.emr-card > * {
+  margin: 16px 0;
+}
+
+.emr-card-headers{
+  color: var(--emr-secondary-colour);
+  margin: 8px 0;
+  font-size: 11pt;
+  font-weight: bold;
+}
+
+.emr-patient-list{
+  margin: 0;
+}
+
+.emr-patient-list-item{
+  height: 56px;
+  padding: 8px;
+  margin: 8px 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid var(--emr-lighter-grey-colour); */
+  border-radius: var(--emr-round-corners);
+  transition: background-color 200ms ease-in, box-shadow 200ms ease-in;
+}
+
+div.emr-patient-list-item:hover:not(div.emr-patient-list-item.clicked){
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0px 0px 1px 1px var(--emr-secondary-colour);
+  cursor: pointer;
+}
+
+div.emr-patient-list-item:active, div.emr-patient-list-item.clicked{
+  background-color: var(--emr-secondary-colour);
+  box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.3);
+  transform: scale(1.01);
+}
+
+div.emr-patient-list-item:active p.emr-patient-name,
+div.emr-patient-list-item.clicked p.emr-patient-name,
+div.emr-patient-list-item:active div.emr-patient-biodata > p,
+div.emr-patient-list-item.clicked div.emr-patient-biodata > p{
+  color: white;
+}
+
+.emr-patient-description{
+  display: flex;
+  flex-flow: column nowrap;
+  padding-left: 16px;
+  justify-content: flex-start;
+  flex-grow: 2;
+}
+
+p.emr-patient-name{
+  font-size: 10pt;
+  color: var(--emr-darker-grey-colour);
+}
+
+.emr-patient-biodata{
+  display: inline-block;
+  line-height: normal;
+  font-size: 7pt;
+}
+
+.emr-patient-biodata > p {
+  display: inline-block;
+  width: 15.5%;
+  color: var(--emr-darker-grey-colour);
+  font-size: 7pt;
+  font-weight: bold;
+  text-align: left;
+}
+
+.emr-patient-biodata > p:nth-child(4){
+  text-align: center;
+}
+
+p.emr-patient-diagnosis{
+  width: 24%;
+}
+
+.emr-patient-gender, .emr-patient-diagnosis{
+  text-transform: uppercase;
+}
+
+.emr-user{
+  display: flex;
+}
+
+.emr-user-name{
+  padding-left: 16px;
+}
+
+.emr-icon-bg{
+  width: 32px;
+  height: 32px;
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+}
+
+.emr-icon-bg-dark, .emr-patient-list-item.clicked div.emr-icon-bg-white{
+  color: white;
+  background-color: var(--emr-secondary-colour);
+}
+
+.emr-icon-bg-light, .emr-patient-list-item.clicked div.emr-icon-bg-dark, 
+.emr-icon-bg-dark.selected{
+  color: var(--emr-secondary-colour);
+  background-color: white;
+}
+
+.emr-center-icon{
+  width: 16px;
+  height: 16px;
+  color: inherit;
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  margin: auto;
+  line-height: 1;
+}
+
+.emr-rounded-edges{
+  border-radius: 16px;
+}
+
+.emr-default-shadow{
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+}
+
+.emr-icons{
+  color: inherit;
+  line-height: 1;
+}
+
+.emr-accent-icon{
+  color: var(--emr-accent-colour);
+}
+
+.emr-accent-icon-2{
+  color: var(--emr-accent-light-colour-2);
+}
+
+.emr-top-notification{
+  position: absolute;
+  width: 25vmax;
+  margin: auto;
+  top: 64px; right: 32px;
+  padding: 16px;
+  box-shadow: 8px 8px 16px 4px rgba(0, 0, 0, 0.2);
+}
