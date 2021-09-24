@@ -1,38 +1,42 @@
 import React from "react";
+import MultiItemSelectComponent from "../minicomponents/multi_item_select";
+import SingleItemSelectComponent from "../minicomponents/single_item_select";
 
 export default class FSHxComponent extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      positiveFamilyHistory: [],
+      familyHistory: [ "Hypertension", "Diabetes Mellitus", "Asthma", "Peptic Ulcer Dx", "Epilepsy", "Other" ]
+    }
+  }
+
+  displayPositivesInInputBox = (index) => {
+    const positiveFamilyHistory = this.state.familyHistory[index];
+    const positiveFamilyHistories = this.state.positiveFamilyHistory.slice();
+    const alreadyExists = this.state.positiveFamilyHistory.find((contents) => contents === positiveFamilyHistory);
+    if(alreadyExists){
+      this.setState({
+        positiveFamilyHistory: this.state.positiveFamilyHistory.filter((value) => value !== positiveFamilyHistory)
+      });
+    } else {
+      positiveFamilyHistories.push(positiveFamilyHistory);
+      this.setState({
+        positiveFamilyHistory: positiveFamilyHistories
+      });
+    }
   }
 
   render() {
+    const positiveFamilyHistory = this.state.positiveFamilyHistory.join(", ");
     return (
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">Family and Social History</h4>
         <div className="emr-clerking-tab-data-items">
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="familyhistory">Family History of any of the following?</label>
-            <div className="emr-selectable-items-group">
-              <div className="emr-selectable-item">
-                <p className="emr-selectable-item-text">Hypertension</p>
-              </div>
-              <div className="emr-selectable-item">
-                <p className="emr-selectable-item-text">Diabetes Mellitus</p>
-              </div>
-              <div className="emr-selectable-item">
-                <p className="emr-selectable-item-text">Asthma</p>
-              </div>
-              <div className="emr-selectable-item">
-                <p className="emr-selectable-item-text">Peptic Ulcer Disease</p>
-              </div>
-              <div className="emr-selectable-item">
-                <p className="emr-selectable-item-text">Epilepsy</p>
-              </div>
-              <div className="emr-selectable-item">
-                <p className="emr-selectable-item-text">Other</p>
-              </div>
-            </div>
-            <input type="text" name="familyhistory" id="familyhistory"></input>
+            <MultiItemSelectComponent selectableItems={this.state.familyHistory} displayInBox={this.displayPositivesInInputBox} />
+            <input type="text" name="familyhistory" id="familyhistory" defaultValue={positiveFamilyHistory}></input>
           </div>
           <details className="emr-clerking-tab-data-item">
             <summary htmlFor="hypertension">Alcohol Consumption</summary>

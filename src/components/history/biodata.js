@@ -140,6 +140,10 @@ export default class BiodataComponent extends React.Component {
             </div>
             <input type="text" name="informant" id="informant" placeholder="e.g. patient" required></input>
           </div>
+          <div className="emr-clerking-tab-data-item">
+            <label htmlFor="hospital">Hospital</label>
+            <input type="text" name="hospital" id="hospital" placeholder="e.g. UCH" required></input>
+          </div>
         </div>
       </div>
     )

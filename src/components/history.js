@@ -12,8 +12,7 @@ export default class HistoryComponent extends React.Component {
   constructor(props){
     super(props);
     this.items = [ "Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx" ];
-    this.itemsComponents = [ <BiodataComponent/>, <ComplaintComponent/>, <RoSComponent/>, <PMHComponent/>,
-      <DrugsAllergiesComponent/>, <FSHxComponent/> ];
+    this.itemsComponents = 
     this.stateFromItems = this.items.slice().fill("");
     this.stateFromItems[0] = "selected";
     this.state = {
