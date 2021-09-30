@@ -12,17 +12,17 @@ export default class MultiItemSelectComponent extends React.Component {
 
   updateSelection = (index) => {
     //next line checks if the current item is not selected
-    const isCurrentItemNotSelected = this.state.selectionState[index] == "";
+    // const isCurrentItemNotSelected = this.state.selectionState[index] == "";
 
-    let currentSelectionState = this.state.selectionState.slice();
-    if (isCurrentItemNotSelected) {
-      currentSelectionState[index] = "selected";
-    } else {
-      currentSelectionState[index] = "";
-    }
-    this.setState({
-      selectionState: currentSelectionState
-    });
+    // let currentSelectionState = this.state.selectionState.slice();
+    // if (isCurrentItemNotSelected) {
+    //   currentSelectionState[index] = "selected";
+    // } else {
+    //   currentSelectionState[index] = "";
+    // }
+    // this.setState({
+    //   selectionState: currentSelectionState
+    // });
 
     if(this.props.displayInBox){
       this.props.displayInBox(index);
@@ -32,7 +32,7 @@ export default class MultiItemSelectComponent extends React.Component {
   render() {
     const multiSelectableItems = this.props.selectableItems.map((item, index) =>
       <ItemSelectComponent itemText={item} key={index} itemIndex={index} updateSelectionOnClick={this.updateSelection}
-        selected={this.state.selectionState[index]} />);
+        selected={this.props.selectedItem.find((selectedItem) => selectedItem === item) ? "selected" : ""} />);
     return (
       <div className="emr-selectable-items-group">
         {multiSelectableItems}

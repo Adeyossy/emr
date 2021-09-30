@@ -35,7 +35,7 @@ export default class AppComponent extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="subroot">
         <nav>
           <NavComponent navAppBarState={ this.state.navState } changeState={this.updateNavState} />
         </nav>

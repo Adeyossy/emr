@@ -7,19 +7,26 @@ export default class TransfusionComponent extends React.Component {
     super(props);
     this.state = {
       reaction: "",
-      reactions: ["None", "Fever | Hyperthermia", "Required ICU admission", "Other"]
+      reactions: ["None", "Fever | Hyperthermia", "Required ICU admission", "Other"],
     }
   }
 
+  onItemChange = (id, value) => {
+    this.setState({
+      [id]: value
+    });
+    console.log("value of selection => ", value);
+  }
+
   displaySelectedInInputBox = (index) => {
-    let currentReaction = this.state.reaction;
-    if (currentReaction === this.state.reactions[index]) {
+    let currentReaction = this.state.genderItem;
+    if (currentReaction === this.state.genderItems[index]) {
       this.setState({
-        reaction: ""
+        genderItem: ""
       });
     } else {
       this.setState({
-        reaction: this.state.reactions[index]
+        genderItem: this.state.genderItems[index]
       });
     }
   }
@@ -41,9 +48,12 @@ export default class TransfusionComponent extends React.Component {
             <label htmlFor={`transfusionfacility${this.props.index}`}>Health Facility</label>
             <input type="text" name={`transfusionfacility${this.props.index}`} id={`transfusionfacility${this.props.index}`} placeholder="e.g UCH"></input>
           </div>
-          <SingleSelectOutputComponent items={this.state.reactions} index={this.props.index} />
+          <SingleSelectOutputComponent id={`transfusionreaction${this.props.index}`}
+            item={this.state.reaction} items={this.state.reactions}
+            index={this.props.index} onItemChange={this.onItemChange}
+            displayInBox={this.displaySelectedInInputBox} />
         </div>
       </div>
-    )
+    );
   }
 }

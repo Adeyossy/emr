@@ -1,5 +1,8 @@
 import React from "react";
+import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
+import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 import TransfusionComponent from "./blood_transfusion";
+import Comorbidities from "./comorbidites";
 import HospitalizationComponent from "./hospitalization";
 import SurgeryComponent from "./surgeries";
 
@@ -9,47 +12,70 @@ export default class PMHComponent extends React.Component {
     this.state = {
       hospitalizationInt: 0,
       surgeryInt: 0,
-      bloodTransfusionInt: 0
+      bloodTransfusionInt: 0,
+      positiveComorbidites: []
+    }
+  }
+
+  onItemChange = (id, value) => {
+    this.setState({
+      [id]: value
+    });
+
+    if (id === "comorbidities") {
+      if(value){
+        this.setState({
+          positiveComorbidites: value.split(", ")
+        });
+      } else {
+        this.setState({
+          positiveComorbidites: []
+        });
+      }
     }
   }
 
   updateInts = (event) => {
-    if(event.target.name === "numberofhospitalizations"){
+    if (event.target.name === "numberofhospitalizations") {
       this.setState({
         hospitalizationInt: event.target.value
       });
     }
 
-    if(event.target.name === "numberofsurgeries"){
+    if (event.target.name === "numberofsurgeries") {
       this.setState({
         surgeryInt: event.target.value
       });
     }
 
-    if(event.target.name === "numberoftransfusions"){
+    if (event.target.name === "numberoftransfusions") {
       this.setState({
         bloodTransfusionInt: event.target.value
       });
     }
   }
 
+  componentDidUpdate() {
+    console.log("State: ", this.state);
+  }
+
   render() {
     const hospitalizationChildren = [];
-    for(let i = 0; i < this.state.hospitalizationInt; i++){
+    for (let i = 0; i < this.state.hospitalizationInt; i++) {
       hospitalizationChildren.push(
         <HospitalizationComponent key={String(i)} index={i + 1} />
       );
     }
 
     const surgeryChildren = [];
-    for(let i = 0; i < this.state.surgeryInt; i++){
+    for (let i = 0; i < this.state.surgeryInt; i++) {
       surgeryChildren.push(
         <SurgeryComponent key={String(i)} index={i + 1} />
       );
     }
 
     const transfusionChildren = [];
-    for(let i = 0; i < this.state.bloodTransfusionInt; i++){
+    for (let i = 0; i < this.state.bloodTransfusionInt; i++) {
       transfusionChildren.push(
         <TransfusionComponent key={String(i)} index={i + 1} />
       );
@@ -86,124 +112,24 @@ export default class PMHComponent extends React.Component {
               {transfusionChildren}
             </div>
           </div>
-          <div className="emr-clerking-tab-data-item">
-            <label htmlFor="hypertension">Hypertension</label>
-            {/* Next list level */}
-            <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="hypertensionyeardiagnosed">Year diagnosed</label>
-                <input type="number" name="hypertensionyeardiagnosed" id="hypertensionyeardiagnosed"></input>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="yearslivedwithhypertension">Years lived with hypertension</label>
-                <input type="number" name="yearslivedwithhypertension" id="yearslivedwithhypertension"></input>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="hypertensiontreatment">Treatment</label>
-                <input type="text" name="hypertensiontreatment" id="hypertensiontreatment"></input>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="hypertensioncompliance">Compliance</label>
-                <div className="emr-selectable-items-group">
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">None</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Compliant</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Other</p>
-                  </div>
-                </div>
-                <input type="number" name="hypertensioncompliance" id="hypertensioncompliance"
-                  placeholder="e.g appendectomy"></input>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="hypertensionresponse">Response to treatment</label>
-                <div className="emr-selectable-items-group">
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Not responsive</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Responsive</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Other</p>
-                  </div>
-                </div>
-                <input type="text" name="hypertensionresponse" id="hypertensionresponse"></input>
-              </div>
-            </div>
-          </div>
+          <MultiSelectOutputComponent id={"comorbidities"} name={"Comorbidities"}
+            items={["Hypertension", "Diabetes", "Peptic Ulcer Disease", "Asthma", "Epilepsy"]}
+            onItemChange={this.onItemChange} />
+          { this.state.positiveComorbidites.map((item, index) => <Comorbidities key={index.toString()} comorbidity={item} />) }
         </div>
-        <div className="emr-clerking-tab-data-item">
-          <h4 className="emr-card-headers">Blood Group and Rhesus</h4>
+        <details className="emr-clerking-tab-data-item">
+          <summary>Blood Group and Rhesus</summary>
           <div className="emr-clerking-tab-data-items">
-            <div className="emr-clerking-tab-data-item">
-              <label htmlFor="bloodgroup">Blood Group</label>
-              <div className="emr-selectable-items-group">
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">O</p>
-                </div>
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">A</p>
-                </div>
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">B</p>
-                </div>
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">AB</p>
-                </div>
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">Unknown</p>
-                </div>
-              </div>
-              <input type="text" name="bloodgroup" id="bloodgroup" placeholder="" required></input>
-            </div>
-            <div className="emr-clerking-tab-data-item">
-              <label htmlFor="rhesus">Rhesus</label>
-              <div className="emr-selectable-items-group">
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">Positive</p>
-                </div>
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">Negative</p>
-                </div>
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">Indeterminate</p>
-                </div>
-                <div className="emr-selectable-item">
-                  <p className="emr-selectable-item-text">Unknown</p>
-                </div>
-              </div>
-              <input type="text" name="rhesus" id="rhesus" placeholder=""></input>
-            </div>
+            <SingleSelectOutputComponent name={"Blood Group"} id={"bloodgroup"}
+              items={["O", "A", "B", "AB", "Unknown"]} onItemChange={this.onItemChange} />
+            <SingleSelectOutputComponent name={"Rhesus"} id={"rhesus"}
+              items={["Positive", "Negative", "Indeterminate", "Unknown"]}
+              onItemChange={this.onItemChange} />
+            <SingleSelectOutputComponent name={"Genotype"} id={"genotype"}
+              items={["AA", "AS", "AC", "SC", "SS", "Other"]}
+              onItemChange={this.onItemChange} />
           </div>
-        </div>
-        <div className="emr-clerking-tab-data-item">
-          <label htmlFor="genotype">Genotype</label>
-          <div className="emr-selectable-items-group">
-            <div className="emr-selectable-item">
-              <p className="emr-selectable-item-text">AA</p>
-            </div>
-            <div className="emr-selectable-item">
-              <p className="emr-selectable-item-text">AS</p>
-            </div>
-            <div className="emr-selectable-item">
-              <p className="emr-selectable-item-text">AC</p>
-            </div>
-            <div className="emr-selectable-item">
-              <p className="emr-selectable-item-text">SC</p>
-            </div>
-            <div className="emr-selectable-item">
-              <p className="emr-selectable-item-text">SS</p>
-            </div>
-            <div className="emr-selectable-item">
-              <p className="emr-selectable-item-text">Other</p>
-            </div>
-          </div>
-          <input type="text" name="genotype" id="genotype"></input>
-        </div>
+        </details>
         <div className="emr-clerking-tab-data-item">
           <label htmlFor="notes">Notes</label>
           <textarea name="notes" id="notes" cols="30" rows="10" placeholder="write here..."></textarea>

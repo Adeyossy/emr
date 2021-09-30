@@ -22,10 +22,21 @@ import ChestExamComponent from "./examination/chest";
 import AbdominalExamComponent from "./examination/abdomen";
 import OtherExamComponent from "./examination/others";
 import Selectable from "./selectable";
+import NotesOnlyComponent from "./minicomponents/notes_only";
 
 export default class MainComponent extends React.Component {
   constructor(props){
     super(props);
+    
+    this.componentItems = [
+      [ "Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx" ],
+      [ "Axis I", "Axis II", "Axis III", "Axis IV", "Axis V" ],
+      [  ],
+      [ "General", "Neuro", "CVS", "Chest", "Abdomen", "Other" ],
+      [ "Imaging", "Scan", "Haematology", "Chem Path", "Microbiology", "Procedures" ],
+      [ "Assessment", "Plan" ],
+      [ "Pharmacological", "Nonpharmacological", "Other" ]
+    ];
 
     //Tabbed components under History
     this.historyComponents = [ <BiodataComponent/>, <ComplaintComponent/>, <RoSComponent/>, <PMHComponent/>,
@@ -43,23 +54,20 @@ export default class MainComponent extends React.Component {
       <ChestExamComponent />, <AbdominalExamComponent />, <OtherExamComponent /> ]
     
     //Tabbed components under Other Forms
-    this.investigationsComponents = [  ];
+    // this.investigationsComponents = [ <NotesOnlyComponent notesHeader={"Imaging"} /> ];
+    this.investigationsComponents = this.componentItems[4].map((item) => 
+      <NotesOnlyComponent notesHeader={item} />);
     
     //Tabbed components under Other Forms
-    this.assessmentComponents = [  ];
+    // this.assessmentComponents = [  ];
+    this.assessmentComponents = this.componentItems[5].map((item) => 
+      <NotesOnlyComponent notesHeader={item} />);
     
     //Tabbed components under Other Forms
     this.treatmentComponents = [  ];
-    
-    this.componentItems = [
-      [ "Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx" ],
-      [ "Axis I", "Axis II", "Axis III", "Axis IV", "Axis V" ],
-      [  ],
-      [ "General", "Neuro", "CVS", "Chest", "Abdomen", "Other" ],
-      [ "Imaging", "Scan", "Haematology", "Chem. Path", "Microbiology", "Procedures" ],
-      [ "Assessment", "Plan" ],
-      [ "Pharmacological", "Nonpharmacological", "Other" ]
-    ];
+    this.treatmentComponents = this.componentItems[6].map((item) => 
+      <NotesOnlyComponent notesHeader={item} />);
+
     this.componentContents = [ this.historyComponents, this.epilepsyComponents, this.otherFormsComponents,
       this.examComponents, this.investigationsComponents, this.assessmentComponents, 
         this.treatmentComponents ];

@@ -26,16 +26,14 @@ export default class Selectable extends React.Component {
   }
 
   handleSelection = () => {
-    if(this.state.tabState[this.props.index].length == 0){
+    if(this.state.tabState[this.props.index].length === 0){
       this.stateFromItems = this.props.items.slice().fill("");
       // let selectedIndex = this.state.tabIndex[this.props.index];
       this.stateFromItems[0] = "selected";
-      this.tabIndex = [ 0, 0, 0, 0, 0, 0, 0 ];
       this.tabState[this.props.index] = this.stateFromItems;
       // this.tabState = this.state.tabState;
       this.setState({
-        tabState: this.tabState,
-        tabIndex: this.tabIndex
+        tabState: this.tabState
       });
     }
   }

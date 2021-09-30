@@ -21,7 +21,7 @@
 body{
   min-height: 100vh;
   background-color: var(--emr-background-colour);
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 nav{

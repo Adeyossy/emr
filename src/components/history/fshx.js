@@ -1,5 +1,7 @@
 import React from "react";
+import LabelAndInputComponent from "../epilepsy/label_and_input";
 import MultiItemSelectComponent from "../minicomponents/multi_item_select";
+import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 import SingleItemSelectComponent from "../minicomponents/single_item_select";
 
 export default class FSHxComponent extends React.Component {
@@ -7,15 +9,21 @@ export default class FSHxComponent extends React.Component {
     super(props);
     this.state = {
       positiveFamilyHistory: [],
-      familyHistory: [ "Hypertension", "Diabetes Mellitus", "Asthma", "Peptic Ulcer Dx", "Epilepsy", "Other" ]
+      familyHistory: ["Hypertension", "Diabetes Mellitus", "Asthma", "Peptic Ulcer Dx", "Epilepsy", "Other"]
     }
+  }
+
+  onItemChange = (id, value) => {
+    this.setState({
+      [id]: value
+    });
   }
 
   displayPositivesInInputBox = (index) => {
     const positiveFamilyHistory = this.state.familyHistory[index];
     const positiveFamilyHistories = this.state.positiveFamilyHistory.slice();
     const alreadyExists = this.state.positiveFamilyHistory.find((contents) => contents === positiveFamilyHistory);
-    if(alreadyExists){
+    if (alreadyExists) {
       this.setState({
         positiveFamilyHistory: this.state.positiveFamilyHistory.filter((value) => value !== positiveFamilyHistory)
       });
@@ -33,51 +41,31 @@ export default class FSHxComponent extends React.Component {
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">Family and Social History</h4>
         <div className="emr-clerking-tab-data-items">
-          <div className="emr-clerking-tab-data-item">
+          <MultiSelectOutputComponent name={"Family History"} id={"familyhistory"}
+            items={["Hypertension", "Diabetes Mellitus", "Asthma", "Peptic Ulcer Dx", "Epilepsy", "Other"]}
+            onItemChange={this.onItemChange} displayInBox={this.displayPositivesInInputBox} />
+          {/* <div className="emr-clerking-tab-data-item">
             <label htmlFor="familyhistory">Family History of any of the following?</label>
             <MultiItemSelectComponent selectableItems={this.state.familyHistory} displayInBox={this.displayPositivesInInputBox} />
             <input type="text" name="familyhistory" id="familyhistory" defaultValue={positiveFamilyHistory}></input>
-          </div>
+          </div> */}
           <details className="emr-clerking-tab-data-item">
             <summary htmlFor="hypertension">Alcohol Consumption</summary>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="alcoholtype">What kind of alcohol is consumed?</label>
-                <div className="emr-selectable-items-group">
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Beer</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Red wine</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Whiskey</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Brandy</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Vodka</p>
-                  </div>
-                  <div className="emr-selectable-item">
-                    <p className="emr-selectable-item-text">Other</p>
-                  </div>
-                </div>
-                <input type="text" name="alcoholtype" id="alcoholtype"></input>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="alcoholbottlesperweek">Number of bottles consumed per week</label>
-                <input type="number" name="alcoholbottlesperweek" id="alcoholbottlesperweek"></input>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="alcoholbottlesize">Size of each bottle (in ml)</label>
-                <input type="number" name="alcoholbottlesize" id="alcoholbottlesize"></input>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="alcoholconsumptionduration">Total duration of alcohol consumption (in years)</label>
-                <input type="number" name="alcoholconsumptionduration" id="alcoholconsumptionduration"></input>
-              </div>
+              <MultiSelectOutputComponent id={"alcoholtype"}
+                name={"What kind of alcohol is consumed?"}
+                items={["Beer", "Red wine", "Whiskey", "Brandy", "Vodka", "Other"]}
+                onItemChange={this.onItemChange} />
+              <LabelAndInputComponent id={"alcoholbottlesperweek"}
+                title={"Number of bottles consumed per week"} type={"number"}
+                onItemChange={this.onItemChange} />
+              <LabelAndInputComponent id={"alcoholbottlesize"}
+                title={"Size of each bottle (in ml)"} type={"number"}
+                onItemChange={this.onItemChange} />
+              <LabelAndInputComponent id={"alcoholconsumptionduration"}
+                title={"Total duration of alcohol consumption (in years)"} type={"number"}
+                onItemChange={this.onItemChange} />
             </div>
           </details>
           <details className="emr-clerking-tab-data-item">

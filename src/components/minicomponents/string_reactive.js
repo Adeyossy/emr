@@ -18,7 +18,7 @@ export default class StringReactiveComponent extends React.Component {
       <div className="emr-clerking-tab-data-item">
         <label htmlFor="numberofdrugs">Number of Intercurrent Drugs</label>
         <input type="number" name="numberofdrugs" id="numberofdrugs" className="mb-4"
-          value={this.state.int} onChange={this.updateInt} min="0" max="20" required></input>
+          value={this.state.strings} onChange={this.updateInt} min="0" max="20" required></input>
         {children}
       </div>
     )

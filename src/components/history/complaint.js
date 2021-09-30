@@ -1,4 +1,5 @@
 import React from "react";
+import NotesOnlyComponent from "../minicomponents/notes_only";
 
 export default class ComplaintComponent extends React.Component{
   constructor(props){
@@ -7,7 +8,7 @@ export default class ComplaintComponent extends React.Component{
 
   render(){
     return(
-      <div></div>
+      <NotesOnlyComponent notesHeader={"Presenting Complaint(s)"} />
     );
   }
 }

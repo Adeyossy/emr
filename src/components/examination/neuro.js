@@ -1,6 +1,8 @@
 import React from "react";
 import MultiItemSelectComponent from "../minicomponents/multi_item_select";
+import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 import SingleItemSelectComponent from "../minicomponents/single_item_select";
+import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 
 export default class NeuroExamComponent extends React.Component {
   constructor(props) {
@@ -11,6 +13,12 @@ export default class NeuroExamComponent extends React.Component {
     this.limbs = ["Upper Limb", "Lower Limb"];
     this.ankleClonus = ["Sustained", "Absent"];
     this.babinski = ["Flexor", "Extensor", "Flat"];
+  }
+
+  onItemChange = (id, value) => {
+    this.setState({
+      [id]: value
+    });
   }
 
   render() {
@@ -31,15 +39,12 @@ export default class NeuroExamComponent extends React.Component {
           <details className="emr-clerking-tab-data-item">
             <summary>Motor examination</summary>
             <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
-                <MultiItemSelectComponent selectableItems={this.sides} />
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <MultiItemSelectComponent selectableItems={this.limbs} />
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <MultiItemSelectComponent selectableItems={this.inspectionItems} />
-              </div>
+              <MultiSelectOutputComponent name={"Laterality"} id={"sides"}
+                items={this.sides} onItemChange={this.onItemChange} />
+              <MultiSelectOutputComponent name={"Limbs"} id={"limbs"}
+                items={this.limbs} onItemChange={this.onItemChange} />
+              <MultiSelectOutputComponent name={"Inspection"} id={"inspection"}
+                items={this.inspectionItems} onItemChange={this.onItemChange} />
             </div>
             <div className="emr-clerking-tab-data-items">
               <div className="emr-clerking-tab-data-item">
@@ -54,28 +59,18 @@ export default class NeuroExamComponent extends React.Component {
                 <label htmlFor="motorreflexes">Reflexes</label>
                 <textarea name="motorreflexes" id="motorreflexes" cols="30" rows="5" placeholder="write here..."></textarea>
               </div>
-              <div className="emr-clerking-tab-data-item">
-                <h4 className="emr-card-headers">Ankle Clonus</h4>
-                <SingleItemSelectComponent selectableItems={this.ankleClonus} />
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <h4 className="emr-card-headers">Babinski</h4>
-                <SingleItemSelectComponent selectableItems={this.babinski} />
-              </div>
+              <SingleSelectOutputComponent name={"Ankle Clonus"} id={"ankleclonus"}
+                items={this.ankleClonus} onItemChange={this.onItemChange} />
+              <SingleSelectOutputComponent name={"Babinski"} id={"babinski"}
+                items={this.babinski} onItemChange={this.onItemChange} />
             </div>
           </details>
           <details className="emr-clerking-tab-data-item">
             <summary>Sensory examination</summary>
-            <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
-                <MultiItemSelectComponent selectableItems={this.sides} />
-              </div>
-            </div>
-            <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
-                <MultiItemSelectComponent selectableItems={this.limbs} />
-              </div>
-            </div>
+            <MultiSelectOutputComponent name={"Laterality"} id={"sensorysides"}
+                items={this.sides} onItemChange={this.onItemChange} />
+            <MultiSelectOutputComponent name={"Limbs"} id={"sensorylimbs"}
+                items={this.limbs} onItemChange={this.onItemChange} />
             <div className="emr-clerking-tab-data-items">
               <div className="emr-clerking-tab-data-item">
                 <label htmlFor="sensoryfinetouch">Fine touch</label>

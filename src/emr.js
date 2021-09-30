@@ -1,8 +1,9 @@
 import React from 'react';
 import './emr.css';
 import AppComponent from './components/app.js';
+import { authStateObserver } from './modules/auth';
 
-let patient = {
+const patient = {
   biodata: {
     firstname: "",
     middlename: "",
@@ -109,6 +110,8 @@ export default class EMRComponent extends React.Component{
       patient: {}
     }
   }
+
+  authStateObserver();
 
   render(){
     if(this.state.user) {
