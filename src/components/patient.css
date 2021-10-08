@@ -278,23 +278,6 @@ p.emr-right-sidebar-item-text{
   border-radius: var(--emr-round-corners);
 }
 
-.emr-quick-button{
-  width: 100%;
-  box-shadow: none;
-  background: white;
-}
-
-.emr-quick-button-texts{
-  padding-left: 16px;
-  width: 70%;
-  vertical-align: middle;
-}
-
-.emr-quick-button-texts > .emr-quick-button-text{
-  font-size: 9pt;
-  color: black;
-}
-
 .emr-quick-info-card{
   display: flex;
   flex-flow: column nowrap;

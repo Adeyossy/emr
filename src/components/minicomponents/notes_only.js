@@ -18,7 +18,8 @@ export default class NotesOnlyComponent extends React.Component{
             <label htmlFor={`${this.props.notesHeader.split(" ").join("")}notes`}>Relevant Notes</label>
             <textarea name={`${this.props.notesHeader.split(" ").join("")}notes`} 
               id={`${this.props.notesHeader.split(" ").join("")}notes`} cols="30" 
-                rows="10" placeholder="write here..." onChange={this.onThisItemChange}></textarea>
+                rows="10" placeholder="write here..." onChange={this.onThisItemChange}
+                value={this.props.value}></textarea>
           </div>
         </div>
       </div>

@@ -60,8 +60,8 @@ export default class Selectable extends React.Component {
       <div className="container-fluid">
         <div className="row g-0">
           <div className="offset-xl-3 col-xl-6">
-            {console.log("navIndex => ", this.props.index)}
-            {console.log("tabState => ", this.state.tabState)}
+            {/* {console.log("navIndex => ", this.props.index)} */}
+            {/* {console.log("tabState => ", this.state.tabState)} */}
             <TabComponent items={ this.props.items } tabState={ this.state.tabState[this.props.index] } changeTabState={this.updateTabState}></TabComponent>
             {/* <ContentComponent></ContentComponent> */}
             { this.props.itemsComponents.length > 0 ? this.props.itemsComponents[this.state.tabIndex[this.props.index]] : <div></div> }

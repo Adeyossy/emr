@@ -11,31 +11,35 @@ export default class SingleSelectOutputComponent extends React.Component {
 
   displaySelectedInInputBox = (index) => {
     let currentReaction = this.state.item;
+    const modifiableField = this.props.inputName ? this.props.inputName : this.props.id;
     const isAlreadySelected = currentReaction === this.props.items[index];
     if (isAlreadySelected) {
       this.setState({
         item: ""
       });
       if (this.props.onItemChange) {
-        this.props.onItemChange(this.props.id, "");
+        this.props.onItemChange(modifiableField, "");
       }
     } else {
       this.setState({
         item: this.props.items[index]
       });
       if (this.props.onItemChange) {
-        this.props.onItemChange(this.props.id, this.props.items[index]);
+        this.props.onItemChange(modifiableField, 
+          this.props.items[index]);
       }
     }
   }
 
   onItemChange = (event) => {
-    if (event.target.name === this.props.id) {
+    const modifiableField = this.props.inputName ? this.props.inputName : this.props.id;
+    if (event.target.name === modifiableField) {
       this.setState({
         item: event.target.value
       });
 
-      this.props.onItemChange(this.props.id, event.target.value);
+      this.props.onItemChange(modifiableField, 
+        event.target.value);
     }
   }
 
@@ -43,10 +47,10 @@ export default class SingleSelectOutputComponent extends React.Component {
     return (
       <div className="emr-clerking-tab-data-item">
         <label htmlFor={this.props.id}>{this.props.name}</label>
-        <SingleItemSelectComponent selectedItem={this.state.item} selectableItems={this.props.items}
+        <SingleItemSelectComponent selectedItem={this.props.value} selectableItems={this.props.items}
           displayInBox={this.displaySelectedInInputBox} />
-        <input type="text" name={this.props.id}
-          id={this.props.id} value={this.state.item} onChange={this.onItemChange.bind(this)}></input>
+        <input type="text" name={this.props.inputName ? this.props.inputName : this.props.id}
+          id={this.props.id} value={this.props.value} onChange={this.onItemChange.bind(this)}></input>
       </div>
     )
   }

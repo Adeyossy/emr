@@ -13,12 +13,27 @@ export default class NavComponent extends React.Component {
       ["Assessment", "bi-lightbulb-fill"],
       ["Treatment", "bi-check-circle-fill"]
     ];
+
+    this.state = {
+      item: "Dashboard",
+      items: ["Dashboard", "Patients", "Investigations"]
+    }
     // this.changeState = this.props.changeState.bind(this, index);
+  }
+
+  switchView = (item, index) => {
+    this.setState({
+      item: item
+    });
+
+    if(this.props.currentView === "Patients"){
+      this.props.dashboard();
+    }
   }
 
   render() {
     const appBarItems = this.appbar.map((item, index) =>
-      <div className={`emr-icon-bg ${this.props.navAppBarState[index]}`} key={ index } onClick={this.props.changeState.bind(this, index)}>
+      <div className={`emr-icon-bg ${this.props.navIndex === index ? "selected" : ""}`} key={index} onClick={this.props.changeState.bind(this, index)}>
         <i className={`bi ${item[1]} emr-icons emr-center-icon`}></i>
         <i className="emr-icon-tooltip">{item[0]}</i>
       </div>
@@ -29,13 +44,14 @@ export default class NavComponent extends React.Component {
           <div className="col-lg-2">
             <div className="emr-nav-dropdown">
               <div className="emr-current-view">
-                <h6 className="emr-headers d-inline">Patients</h6>
+                <h6 className="emr-headers d-inline">{this.props.currentView}</h6>
                 <i className="bi bi-caret-down-fill emr-icons"></i>
               </div>
               <div className="emr-other-views show">
-                <p className="emr-other-view">Dashboard</p>
-                <p className="emr-other-view">Patients</p>
-                <p className="emr-other-view">Investigations</p>
+                {this.state.items.map((item, index) =>
+                  <p className="emr-other-view" key={index.toString()}
+                    disabled={this.props.currentView === item} 
+                    onClick={this.switchView.bind(this, item, index)}>{item}</p>)}
               </div>
             </div>
           </div>
@@ -49,7 +65,7 @@ export default class NavComponent extends React.Component {
           </div>
           <div className="col-lg-6 d-none d-lg-flex">
             <div className="emr-app-toolbar">
-              { appBarItems }
+              {appBarItems}
             </div>
           </div>
           <div className="col-lg-2 d-none d-lg-flex">

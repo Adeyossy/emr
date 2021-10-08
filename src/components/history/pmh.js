@@ -1,4 +1,6 @@
 import React from "react";
+import { bloodTransfusion, comorbidity, hospitalization, surgery } from "../../models/patient";
+import { PatientContext } from "../../models/patient_context";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 import TransfusionComponent from "./blood_transfusion";
@@ -10,23 +12,29 @@ export default class PMHComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      hospitalizationInt: 0,
-      surgeryInt: 0,
-      bloodTransfusionInt: 0,
       positiveComorbidites: []
     }
   }
 
-  onItemChange = (id, value) => {
-    this.setState({
-      [id]: value
-    });
+  static contextType = PatientContext;
 
+  onItemChange = (id, value) => {
     if (id === "comorbidities") {
-      if(value){
+      if (value) {
         this.setState({
           positiveComorbidites: value.split(", ")
         });
+
+        value.split(", ").forEach((element, index, valueArray) => {
+          const isAlreadyCreated = this.context.past_medical_history.comorbidities
+            .find((item) => item.comorbidity === element);
+          if (!isAlreadyCreated) {
+            this.props.updateItemsInArray("comorbidities", Object.assign({}, comorbidity),
+              valueArray.length);
+            this.props.updatePMHArrays("comorbidity", element, "comorbidities", index);
+          }
+        });
+
       } else {
         this.setState({
           positiveComorbidites: []
@@ -36,48 +44,51 @@ export default class PMHComponent extends React.Component {
   }
 
   updateInts = (event) => {
+    const value = event.target.value;
+    console.log("value in PMHComponent => ", value);
     if (event.target.name === "numberofhospitalizations") {
-      this.setState({
-        hospitalizationInt: event.target.value
-      });
+      this.props.updateItemsInArray("hospitalizations", Object.assign({}, hospitalization),
+        value);
+      // hospitalizationArray.push(hospitalization); 
     }
 
     if (event.target.name === "numberofsurgeries") {
-      this.setState({
-        surgeryInt: event.target.value
-      });
+      this.props.updateItemsInArray("surgeries", Object.assign({}, surgery),
+        value);
     }
 
     if (event.target.name === "numberoftransfusions") {
-      this.setState({
-        bloodTransfusionInt: event.target.value
-      });
+      this.props.updateItemsInArray("blood_transfusions", Object.assign({}, bloodTransfusion),
+        value);
     }
   }
 
   componentDidUpdate() {
-    console.log("State: ", this.state);
+    console.log("Context: ", this.context);
   }
 
   render() {
     const hospitalizationChildren = [];
-    for (let i = 0; i < this.state.hospitalizationInt; i++) {
+    for (let i = 0; i < this.context.past_medical_history.hospitalizations.length; i++) {
       hospitalizationChildren.push(
-        <HospitalizationComponent key={String(i)} index={i + 1} />
+        <HospitalizationComponent updatePMHArrays={this.props.updatePMHArrays}
+          key={String(i)} index={i + 1} />
       );
     }
 
     const surgeryChildren = [];
     for (let i = 0; i < this.state.surgeryInt; i++) {
       surgeryChildren.push(
-        <SurgeryComponent key={String(i)} index={i + 1} />
+        <SurgeryComponent updatePMHArrays={this.props.updatePMHArrays}
+          key={String(i)} index={i + 1} />
       );
     }
 
     const transfusionChildren = [];
     for (let i = 0; i < this.state.bloodTransfusionInt; i++) {
       transfusionChildren.push(
-        <TransfusionComponent key={String(i)} index={i + 1} />
+        <TransfusionComponent updatePMHArrays={this.props.updatePMHArrays}
+          key={String(i)} index={i + 1} />
       );
     }
 
@@ -87,8 +98,10 @@ export default class PMHComponent extends React.Component {
         <div className="emr-clerking-tab-data-items">
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="numberofhospitalizations">Number of Previous Hospitalizations</label>
-            <input type="number" name="numberofhospitalizations" id="numberofhospitalizations" placeholder="e.g 2"
-              className="mb-4" value={this.state.hospitalizationInt} onChange={this.updateInts} required></input>
+            <input type="number" name="numberofhospitalizations" id="numberofhospitalizations"
+              placeholder="e.g 2" className="mb-4"
+              value={this.context.past_medical_history.hospitalizations.length}
+              onChange={this.updateInts} required></input>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               {hospitalizationChildren}
@@ -97,7 +110,7 @@ export default class PMHComponent extends React.Component {
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="numberofsurgeries">Number of Previous Surgeries</label>
             <input type="number" name="numberofsurgeries" id="numberofsurgeries" className="mb-4"
-              value={this.state.surgeryInt} onChange={this.updateInts}></input>
+              value={this.context.past_medical_history.surgeries.length} onChange={this.updateInts}></input>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               {surgeryChildren}
@@ -106,7 +119,7 @@ export default class PMHComponent extends React.Component {
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="numberoftransfusions">Number of Previous Blood Transfusions</label>
             <input type="number" name="numberoftransfusions" id="numberoftransfusions" className="mb-4"
-              value={this.state.bloodTransfusionInt} onChange={this.updateInts}></input>
+              value={this.context.past_medical_history.blood_transfusions.length} onChange={this.updateInts}></input>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               {transfusionChildren}
@@ -114,13 +127,17 @@ export default class PMHComponent extends React.Component {
           </div>
           <MultiSelectOutputComponent id={"comorbidities"} name={"Comorbidities"}
             items={["Hypertension", "Diabetes", "Peptic Ulcer Disease", "Asthma", "Epilepsy"]}
+            value={this.context.past_medical_history.comorbidities.map((item) => item.comorbidity).join(", ")}
             onItemChange={this.onItemChange} />
-          { this.state.positiveComorbidites.map((item, index) => <Comorbidities key={index.toString()} comorbidity={item} />) }
+          {
+            this.context.past_medical_history.comorbidities.map((item, index) =>
+              <Comorbidities key={index.toString()} comorbidity={item.comorbidity} />)
+          }
         </div>
         <details className="emr-clerking-tab-data-item">
           <summary>Blood Group and Rhesus</summary>
           <div className="emr-clerking-tab-data-items">
-            <SingleSelectOutputComponent name={"Blood Group"} id={"bloodgroup"}
+            <SingleSelectOutputComponent name={"Blood Group"} id={"blood_group"}
               items={["O", "A", "B", "AB", "Unknown"]} onItemChange={this.onItemChange} />
             <SingleSelectOutputComponent name={"Rhesus"} id={"rhesus"}
               items={["Positive", "Negative", "Indeterminate", "Unknown"]}
