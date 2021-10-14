@@ -15,6 +15,15 @@ export default class SurgeryComponent extends React.Component {
 
   static contextType = PatientContext;
 
+  onRecoveryItemChange = (id, value) => {
+    this.props.updatePMHArrays(id, value,
+      ["past_medical_history", "surgeries"], this.props.index - 1);
+  }
+
+  onItemChange = (event) => {
+    this.onRecoveryItemChange(event.target.name, event.target.value);
+  }
+
   displaySelectedInInputBox = (index) => {
     console.log("index of selected => ", index)
     console.log("Value => ", this.surgeryReactions[index])
@@ -63,7 +72,7 @@ export default class SurgeryComponent extends React.Component {
             <input type="text" name={`surgeryrecovery${this.props.index}`}
               id={`surgeryrecovery${this.props.index}`}
               value={this.context.past_medical_history[surgeries][this.props.index - 1].recovery}
-              defaultValue={this.state.surgeryReaction} disabled></input>
+              onItemChange={this.onRecoveryItemChange}></input>
           </div>
         </div>
       </div>

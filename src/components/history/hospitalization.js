@@ -16,7 +16,7 @@ export default class HospitalizationComponent extends React.Component {
 
   onRecoveryItemChange = (id, value) => {
     this.props.updatePMHArrays(id, value,
-      "hospitalizations", this.props.index - 1);
+      ["past_medical_history", "hospitalizations"], this.props.index - 1);
   }
 
   onItemChange = (event) => {

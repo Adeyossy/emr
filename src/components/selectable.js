@@ -15,14 +15,19 @@ export default class Selectable extends React.Component {
     // this.stateFromItems = this.props.items.slice().fill("");
     // // console.log("stateFromItems => ", this.stateFromItems)
     // this.stateFromItems[0] = "selected";
-    this.tabState = [[],[],[],[],[],[],[]];
+    this.tabState = [[],[],[],[],[],[],[]].map((item) => {
+      item = this.props.items.slice().fill("");
+      item[0] = "selected";
+      return item;
+    });
+
     this.tabIndex = [0, 0, 0, 0, 0, 0, 0]
     // this.tabState[this.props.index] = this.stateFromItems;
     this.state = {
       tabState: this.tabState,
       tabIndex: this.tabIndex
     }
-    this.handleSelection();
+    // this.handleSelection();
   }
 
   handleSelection = () => {
@@ -55,11 +60,11 @@ export default class Selectable extends React.Component {
   }
 
   render() {
-    this.handleSelection();
+    // this.handleSelection();
     return (
       <div className="container-fluid">
         <div className="row g-0">
-          <div className="offset-xl-3 col-xl-6">
+          <div className="offset-xl-3 col-xl-6 emr-app-main">
             {/* {console.log("navIndex => ", this.props.index)} */}
             {/* {console.log("tabState => ", this.state.tabState)} */}
             <TabComponent items={ this.props.items } tabState={ this.state.tabState[this.props.index] } changeTabState={this.updateTabState}></TabComponent>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { PatientContext } from '../../models/patient_context';
 import SingleItemSelectComponent from '../minicomponents/single_item_select';
 import SingleSelectOutputComponent from '../minicomponents/single_select_output';
 
@@ -11,11 +12,15 @@ export default class TransfusionComponent extends React.Component {
     }
   }
 
-  onItemChange = (id, value) => {
-    this.setState({
-      [id]: value
-    });
-    console.log("value of selection => ", value);
+  static contextType = PatientContext;
+
+  onRecoveryItemChange = (id, value) => {
+    this.props.updatePMHArrays(id, value,
+      ["past_medical_history", "blood_transfusions"], this.props.index - 1);
+  }
+
+  onItemChange = (event) => {
+    this.onRecoveryItemChange(event.target.name, event.target.value);
   }
 
   displaySelectedInInputBox = (index) => {
@@ -59,8 +64,7 @@ export default class TransfusionComponent extends React.Component {
           <SingleSelectOutputComponent id={`transfusionreaction${this.props.index}`}
             item={this.state.reaction} items={this.state.reactions}
             value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].reaction}
-            index={this.props.index} onItemChange={this.onItemChange}
-            displayInBox={this.displaySelectedInInputBox} />
+            index={this.props.index} onItemChange={this.onRecoveryItemChange} />
         </div>
       </div>
     );

@@ -1,8 +1,16 @@
 import React from "react";
+import { PatientContext } from "../../models/patient_context";
+import NotesComponent from "../minicomponents/notes";
 
 export default class AxisIIComponent extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  static contextType = PatientContext;
+
+  onItemChange = (id, value) => {
+    this.props.updatePMHArrays(id, value, ["forms", "epilepsy", "axisII"], null);
   }
 
   render() {
@@ -10,14 +18,12 @@ export default class AxisIIComponent extends React.Component {
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">Seizure Classification (with brain location)</h4>
         <div className="emr-clerking-tab-data-items">
-          <div className="emr-clerking-tab-data-item">
-            <label htmlFor="classification">Classification</label>
-            <textarea name="classification" id="classification" cols="30" rows="10" placeholder="write here..."></textarea>
-          </div>
-          <div className="emr-clerking-tab-data-item">
-            <label htmlFor="brainlocations">Possible Brain Locations</label>
-            <textarea name="brainlocations" id="brainlocations" cols="30" rows="10" placeholder="write here..."></textarea>
-          </div>
+          <NotesComponent id={"classification"} name={"Classification"}
+            value={this.context.forms.epilepsy.axisII.classification}
+            onItemChange={this.onItemChange} />
+          <NotesComponent id={"brain_locations"} name={"Possible Brain Locations"}
+            value={this.context.forms.epilepsy.axisII.brain_locations}
+            onItemChange={this.onItemChange} />
         </div>
       </div>
     );

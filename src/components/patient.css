@@ -30,6 +30,10 @@
   width: 22%;
   padding: 4px;
 }
+/* 
+.emr-patients-sidebar{
+  animation: 300ms ease-in 0s 1 slideInFromTheLeft;
+} */
 
 .emr-patients-sidebar > .emr-patient-list-item{
   background-color: white;
@@ -322,6 +326,16 @@ p.emr-quick-info-card-title{
 
 .emr-quick-info-card-details{
   font-size: 8pt;
+}
+
+@keyframes slideInFromTheLeft{
+  from{
+    transform: translateX(-20%);
+  }
+
+  to{
+    transform: translate(0%);
+  }
 }
 
 @media only screen and (min-width: 1200px){

@@ -10,9 +10,6 @@ export default class LabelAndInputComponent extends React.Component {
 
   onItemChangeInComponent = (event) => {
     this.props.onItemChange(event.target.name, event.target.value);
-    this.setState({
-      [this.props.id]: event.target.value
-    });
   }
 
   render() {
@@ -20,7 +17,7 @@ export default class LabelAndInputComponent extends React.Component {
       <div className="emr-clerking-tab-data-item">
         <label htmlFor={this.props.id}>{this.props.title}</label>
         <input type={this.props.type} name={this.props.id} id={this.props.id}
-          value={this.state[this.props.id]} onChange={this.onItemChangeInComponent}>
+          value={this.props.value} onChange={this.onItemChangeInComponent}>
         </input>
       </div>
     )

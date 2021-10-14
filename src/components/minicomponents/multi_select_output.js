@@ -35,7 +35,7 @@ export default class MultiSelectOutputComponent extends React.Component {
       });
       
       if (this.props.onItemChange) {
-        this.props.onItemChange(this.props.id, currentSelectedItems.join(", "));
+        this.props.onItemChange(this.props.id, itemAtIndex);
         // this.props.onItemChange(this.props.id, this.props.items[index]);
       }
     }
@@ -46,6 +46,8 @@ export default class MultiSelectOutputComponent extends React.Component {
     this.setState({
       item: event.target.value
     });
+
+    // console.log("event triggered in multi_select_output => ", event.target.value);
 
     //If user decides to type, check if the typed content is/are among the selectable items
     //I want to select the corresponding clickable items
@@ -79,18 +81,14 @@ export default class MultiSelectOutputComponent extends React.Component {
     // }
   }
 
-  componentDidUpdate() {
-    console.log("State post-update => ", this.state.items);
-  }
-
   render() {
     return (
-      <details className="emr-clerking-tab-data-item">
+      <details className="emr-clerking-tab-data-item" open={this.props.value}>
         <summary htmlFor={this.props.id}>{this.props.name}</summary>
         <MultiItemSelectComponent selectedItems={this.props.value ? this.props.value.split(", ") : []}
           selectableItems={this.props.items} displayInBox={this.displaySelectedInInputBox} />
         <input type="text" name={this.props.id} id={this.props.id}
-          value={this.state.item} onChange={this.onItemChange.bind(this)}></input>
+          value={this.props.value} onChange={this.onItemChange.bind(this)}></input>
       </details>
     )
   }

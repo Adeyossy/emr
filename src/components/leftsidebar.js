@@ -1,6 +1,10 @@
 import React from "react";
+import { getAppointment } from "../models/patient";
+import { PatientContext } from "../models/patient_context";
 
 export default class LeftSideBarComponent extends React.Component {
+  static contextType = PatientContext;
+
   render() {
     // console.log("patient's first seen => ", this.props.patient.first_seen);
     return (
@@ -18,8 +22,8 @@ export default class LeftSideBarComponent extends React.Component {
                         <i className="bi bi-person-fill emr-center-icon"></i>
                       </div>
                       <div className="emr-patient-description">
-                        <p className="emr-patient-name">{item.biodata.firstname || item.biodata.lastname ? 
-                        item.biodata.firstname + " " + item.biodata.lastname : "New patient"}</p>
+                        <p className="emr-patient-name">{item.biodata.firstname || item.biodata.lastname ?
+                          item.biodata.firstname + " " + item.biodata.lastname : "New patient"}</p>
                         <div className="emr-patient-biodata">
                           <p className="emr-patient-gender">{item.biodata.gender.charAt(0)}</p>
                           <p className="emr-separator">|</p>
@@ -40,44 +44,26 @@ export default class LeftSideBarComponent extends React.Component {
                     <i className="bi bi-info-circle emr-center-icon emr-timeline-bar-icons"></i>
                   </div>
                   <div className="emr-patients-timeline-visits">
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#10</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark selected">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#9</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#8</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#7</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#6</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#5</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#4</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#3</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#2</i>
-                    </div>
-                    <div className="emr-timeline-visits-divider"></div>
-                    <div className="emr-icon-bg emr-icon-bg-dark">
-                      <i className="emr-center-icon emr-timeline-bar-icons">#1</i>
+                    {
+                      this.context.appointments.sort((a, b) => b - a).map((item, index) =>
+                        <>
+                          <div className={`emr-icon-bg emr-icon-bg-dark 
+                            ${this.context.appointments[index].date_seen ===
+                              this.context.appointment.date_seen ? "selected" : ""}`}
+                              key={index.toString()}>
+                            <i className={`emr-center-icon emr-timeline-bar-icons`}>#{index + 1}</i>
+                          </div>
+                          {index > 0 ? <div className="emr-timeline-visits-divider"></div> : null}
+                        </>
+                      )
+                    }
+                  </div>
+                  <div className="emr-new-patient">
+                    <div className="emr-icon-bg emr-icon-bg-dark"
+                      onClick={this.props.updateItemsInArray.bind(this, ["appointments"], getAppointment(),
+                        this.context.appointments.length)}>
+                      <i className="bi bi-plus-lg emr-icons emr-center-icon"></i>
+                      <i className="emr-icon-tooltip">New appointment</i>
                     </div>
                   </div>
                 </div>

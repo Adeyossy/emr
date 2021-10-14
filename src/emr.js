@@ -22,11 +22,11 @@ export class EMRComponent extends React.Component {
 
   onCreateIconClicked = () => {
     const newPatient = Object.assign({}, getFreshPatient());
+    this.state.patients.unshift(newPatient);
     this.setState({
       patient: newPatient,
       emrContext: "Patients"
     });
-    this.state.patients.unshift(newPatient);
   }
 
   onPatientTableClicked = (dateId) => {
@@ -68,39 +68,78 @@ export class EMRComponent extends React.Component {
     console.log("complaint notes => ", value);
   }
 
-  updatePMHArrays = (name, value, field, index) => {
+  getWhereToModify = (fields, found) => {
+    if (fields.length === 0) {
+      return found;
+    }
+
+    found = found[fields.shift()];
+    this.getWhereToModify(fields, found);
+  }
+
+  getWhereSwitched = (fields) => {
+    switch (fields.length) {
+      case 0:
+        return this.state.patient
+
+      case 1:
+        return this.state.patient[fields[0]];
+
+      case 2:
+        return this.state.patient[fields[0]][fields[1]];
+
+      case 3:
+        return this.state.patient[fields[0]][fields[1]][fields[2]]
+
+      case 4:
+        return this.state.patient[fields[0]][fields[1]][fields[2]][fields[3]]
+
+      default:
+        break;
+    }
+  }
+
+  //Update already existing past medical history sections modelled with arrays
+  updatePMHArrays = (name, value, fields, index) => {
     const thisPatient = this.state.patient; //the current patient in the app
-    const pmh = thisPatient.past_medical_history; //access the past medical history of the patient
-    const pmhArray = pmh[field]; //get either hospitalization, surgery, blood transfusion and comorbidities
-    const pmhArrayItem = pmhArray[index];
+    // const pmh = thisPatient.past_medical_history; //access the past medical history of the patient
+    const pmhArray = this.getWhereSwitched(fields); //get either hospitalization, surgery, blood transfusion and comorbidities
+    let pmhArrayItem = undefined;
+    if (Array.isArray(pmhArray))
+      pmhArrayItem = pmhArray[index];
+    else
+      pmhArrayItem = pmhArray;
     pmhArrayItem[name] = value;
     this.setState({
       patient: thisPatient
     });
   }
 
-  updateNumber = (name, value) => {
+  //add or remove entire items (i.e an hospitalization history) in the past medical history array
+  updateItemsInArray = (fields, pmhObject, value) => {
     const thisPatient = this.state.patient;
-    thisPatient[name] = value;
-  }
+    let pmhArray = this.getWhereSwitched(fields);
 
-  updateItemsInArray = (field, pmhObject, value) => {
-    const thisPatient = this.state.patient;
-    let pmhArray = thisPatient.past_medical_history[field];
-    console.log("pmhArray.length => ", pmhArray.length);
-    console.log("new length => ", value);
+    console.log("updateItemsInArray called");
+    console.log("fields => ", fields);
+    console.log("pmhObject => ", pmhObject);
+    console.log("pmhArray => ", pmhArray);
 
-    if (field === "comorbidities") {
+    if (fields.find((item) => item === "comorbidities" || item === "family_history")) {
       pmhArray.splice(pmhArray.length, 0, pmhObject);
     } else {
       if (pmhArray.length < value) {
-        // pmhArray = pmhArray.fill(pmhObject, pmhArray.length, value);
-        // pmhArray.forEach((element) => pmhArray.push(pmhObject));
-        pmhArray.splice(pmhArray.length, 0, pmhObject);
+        // Array.fill()
+        let additions = new Array(value - pmhArray.length).fill(pmhObject);
+        if(typeof pmhObject === 'object'){
+          additions = additions.map(() => Object.assign({}, pmhObject));
+        }
+        pmhArray.splice(pmhArray.length, value, ...additions);
       } else {
-        pmhArray = pmhArray.slice(0, value);
+        pmhArray.splice(value, pmhArray.length - value);
       }
     }
+    // console.log("pmhArray => ", pmhArray);
 
     this.setState({
       patient: thisPatient
@@ -125,6 +164,8 @@ export class EMRComponent extends React.Component {
     });
   }
 
+  createNewApointment = () => { }
+
   // authStateObserver();
 
   render() {
@@ -136,13 +177,13 @@ export class EMRComponent extends React.Component {
           dashboard={this.switchBackToDashboard} patient={this.state.patient}
           patients={this.state.patients} changePatient={this.onPatientChange}
           updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
-          updatePMHArrays={this.updatePMHArrays}
-          updateItemsInArray={this.updateItemsInArray}>
+          updatePMHArrays={this.updatePMHArrays} createNewPatient={this.onCreateIconClicked}
+          updateItemsInArray={this.updateItemsInArray} >
           {
             this.state.patient ?
               null :
               <DashboardComponent
-                recents={this.state.patients.filter(patient => patient.number_of_appointments === 1)
+                recents={this.state.patients.filter(patient => patient.appointments.length === 1)
                   .sort((a, b) => b.first_seen - a.first_seen).slice(0, 3)} createNewPatient={this.onCreateIconClicked}>
                 <PatientTableComponent patients={this.state.patients
                   .sort((a, b) => b.last_seen - a.last_seen).slice(0, 10)

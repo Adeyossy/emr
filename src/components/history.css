@@ -44,7 +44,8 @@ label, summary, .emr-clerking-tab-data-item h4{
 }
 
 input{
-  font-size: 9pt;
+  font-size: 10.5pt;
+  /* font-weight: 500; */
   border-width: 2px;
   border-color: var(--emr-primary-light-colour);
 }

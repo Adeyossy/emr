@@ -24,6 +24,10 @@
   --emr-default-padding: 16px;
 }
 
+*:disabled{
+  opacity: 0.3;
+}
+
 nav{
   width: 100%;
   padding: 8px;
@@ -99,7 +103,7 @@ input:focus-visible, textarea:focus-visible{
   outline: none;
   border: 2px solid var(--emr-secondary-colour);
   border-radius: 16px;
-  box-shadow: inset 0px 0px 2px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
 }
 
 div:focus-visible{
@@ -153,20 +157,24 @@ hr{
   justify-content: space-between;
   align-items: center;
   /* border: 1px solid var(--emr-lighter-grey-colour); */
+  border: 1px solid transparent;
   border-radius: var(--emr-round-corners);
   transition: background-color 200ms ease-in, box-shadow 200ms ease-in;
+  animation: 200ms ease-in 0s 1 dropInAndFadeIn;
 }
 
 div.emr-patient-list-item:hover:not(div.emr-patient-list-item.clicked){
   background-color: rgba(255, 255, 255, 0.7);
   box-shadow: inset 0px 0px 1px 1px var(--emr-secondary-colour);
   cursor: pointer;
+  border: 1px solid var(--emr-accent-light-colour);
 }
 
 div.emr-patient-list-item:active, div.emr-patient-list-item.clicked{
   background-color: var(--emr-secondary-colour);
   box-shadow: 1px 1px 8px 2px rgba(0, 0, 0, 0.3);
   transform: scale(1.01);
+  border: 1px solid var(--emr-accent-colour);
 }
 
 div.emr-patient-list-item:active p.emr-patient-name,
@@ -230,17 +238,21 @@ p.emr-patient-diagnosis{
   display: inline-block;
   position: relative;
   border-radius: 50%;
+  border: 2px solid transparent;
 }
 
 .emr-icon-bg-dark, .emr-patient-list-item.clicked div.emr-icon-bg-white{
   color: white;
   background-color: var(--emr-secondary-colour);
+  border: 2px solid var(--emr-secondary-colour);
 }
 
 .emr-icon-bg-light, .emr-patient-list-item.clicked div.emr-icon-bg-dark, 
 .emr-icon-bg-dark.selected{
   color: var(--emr-secondary-colour);
   background-color: white;
+  border: 2px solid var(--emr-accent-colour);
+
 }
 
 .emr-center-icon{
@@ -281,4 +293,16 @@ p.emr-patient-diagnosis{
   top: 64px; right: 32px;
   padding: 16px;
   box-shadow: 8px 8px 16px 4px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes dropInAndFadeIn{
+  from{
+    transform: translateY(-10%);
+    opacity: 0.5;
+  }
+
+  to{
+    transform: translateY(0%);
+    opacity: 1;
+  }
 }

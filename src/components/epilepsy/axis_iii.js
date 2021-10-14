@@ -1,8 +1,16 @@
 import React from "react";
+import { PatientContext } from "../../models/patient_context";
+import NotesComponent from "../minicomponents/notes";
 
 export default class AxisIIIComponent extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  static contextType = PatientContext;
+
+  onItemChange = (id, value) => {
+    this.props.updatePMHArrays(id, value, ["forms", "epilepsy", "axisIII"], null);
   }
 
   render() {
@@ -10,10 +18,9 @@ export default class AxisIIIComponent extends React.Component {
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">Electro-clinical Syndrome</h4>
         <div className="emr-clerking-tab-data-items">
-          <div className="emr-clerking-tab-data-item">
-            <label htmlFor="classification">Possible electro-clinical syndrome(s)</label>
-            <textarea name="classification" id="classification" cols="30" rows="10" placeholder="write here..."></textarea>
-          </div>
+        <NotesComponent id={"ecs_syndromes"} name={"Possible Electro-clinical Syndromes"}
+            value={this.context.forms.epilepsy.axisIII.ecs_syndromes}
+            onItemChange={this.onItemChange} />
         </div>
       </div>
     );

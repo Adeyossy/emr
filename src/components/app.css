@@ -37,6 +37,10 @@ main{
   padding-top: 56px;
 }
 
+.emr-app-main{
+  animation: 200ms ease-in 0ms 1 fadeIn;
+}
+
 .emr-quick-button{
   width: 47%;
   height: min-content;
@@ -164,7 +168,8 @@ td, th{
 }
 
 td{
-  font-size: 8pt;
+  font-size: 8.5pt;
+  font-weight: 700;
 }
 
 .emr-headers{
@@ -226,4 +231,16 @@ td{
   text-align: center;
   color: inherit;
   background-color: transparent;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity: 0.5;
+    filter: blur(8px);
+  }
+
+  to{
+    opacity: 1;
+    filter: none;
+  }
 }

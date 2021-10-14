@@ -40,7 +40,7 @@ export class AppComponent extends React.Component {
       [],
       ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
       ["Imaging", "Scan", "Haematology", "Chem Path", "Microbiology", "Procedures"],
-      ["Assessment", "Plan"],
+      ["Assessment", "Plan", "Monitoring"],
       ["Pharmacological", "Nonpharmacological", "Other"]
     ];
   }
@@ -68,16 +68,22 @@ export class AppComponent extends React.Component {
     // console.log("this.props.patient => ", this.props.patient);
     //Tabbed components under History
     const historyComponents = [
-    <BiodataComponent patient={this.props.patient} updateBiodata={this.props.updateObjectField} />, 
-    <ComplaintComponent updateComplaints={this.props.updateComplaints} />, 
-      <RoSComponent updateRoS={this.props.updateObjectField}/>, 
-      <PMHComponent updatePMHArrays={this.props.updatePMHArrays} 
-      updateItemsInArray={this.props.updateItemsInArray}/>, 
-      <DrugsAllergiesComponent />, <FSHxComponent />];
+      <BiodataComponent patient={this.props.patient} updateBiodata={this.props.updateObjectField} />,
+      <ComplaintComponent updateComplaints={this.props.updateComplaints} />,
+      <RoSComponent updateRoS={this.props.updateObjectField} />,
+      <PMHComponent updatePMHArrays={this.props.updatePMHArrays}
+        updateItemsInArray={this.props.updateItemsInArray} />,
+      <DrugsAllergiesComponent updatePMHArrays={this.props.updatePMHArrays}
+        updateItemsInArray={this.props.updateItemsInArray} />,
+      <FSHxComponent updatePMHArrays={this.props.updatePMHArrays}
+      updateItemsInArray={this.props.updateItemsInArray} />];
 
     //Tabbed components under Epilepsy
-    const epilepsyComponents = [<AxisIComponent />, <AxisIIComponent />, <AxisIIIComponent />,
-    <AxisIVComponent />, <AxisVComponent />];
+    const epilepsyComponents = [<AxisIComponent updatePMHArrays={this.props.updatePMHArrays}/>, 
+    <AxisIIComponent updatePMHArrays={this.props.updatePMHArrays}/>, 
+    <AxisIIIComponent updatePMHArrays={this.props.updatePMHArrays}/>,
+    <AxisIVComponent updatePMHArrays={this.props.updatePMHArrays}/>, 
+    <AxisVComponent updatePMHArrays={this.props.updatePMHArrays}/>];
 
     //Tabbed components under Other Forms
     const otherFormsComponents = [];
@@ -109,7 +115,8 @@ export class AppComponent extends React.Component {
         <nav>
           <NavComponent navAppBarState={this.state.navState} changeState={this.updateNavState}
             dashboard={this.props.dashboard} patientView={this.props.patientView}
-            currentView={this.props.currentView} navIndex={this.state.navIndex} />
+            currentView={this.props.currentView} navIndex={this.state.navIndex}
+            patient={this.props.patient} createNewPatient={this.props.createNewPatient} />
         </nav>
         {
           this.props.children ? this.props.children :
@@ -119,7 +126,8 @@ export class AppComponent extends React.Component {
                   <div className="row g-0">
                     <div className="col-lg-3 emr-sidebar emr-sidebar-l">
                       <LeftSideBarComponent patient={this.props.patient}
-                        patients={this.props.patients} changePatient={this.props.changePatient}>
+                        patients={this.props.patients} changePatient={this.props.changePatient}
+                        updateItemsInArray={this.props.updateItemsInArray}>
                       </LeftSideBarComponent>
                     </div>
                   </div>

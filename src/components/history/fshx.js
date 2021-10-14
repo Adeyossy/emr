@@ -1,7 +1,9 @@
 import React from "react";
+import { PatientContext } from "../../models/patient_context";
 import LabelAndInputComponent from "../epilepsy/label_and_input";
 import MultiItemSelectComponent from "../minicomponents/multi_item_select";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
+import NotesComponent from "../minicomponents/notes";
 import SingleItemSelectComponent from "../minicomponents/single_item_select";
 
 export default class FSHxComponent extends React.Component {
@@ -13,10 +15,31 @@ export default class FSHxComponent extends React.Component {
     }
   }
 
+  static contextType = PatientContext;
+
   onItemChange = (id, value) => {
-    this.setState({
-      [id]: value
+    console.log("id => ", id);
+    console.log("value => ", value);
+    value.split(", ").forEach((item, index) => {
+      this.props.updateItemsInArray([id], item, this.context.family_history.length + 1);
     });
+    // this.props.updatePMHArrays(id, )
+  }
+
+  onObjectItemChange = (id, value) => {
+    console.log("this.onObjectItemChange");
+    console.log("values => ", Object.values(this.context.alcohol));
+    if(id.includes("alcohol")){
+      this.props.updatePMHArrays(id, value, ["alcohol"], null);
+    }
+
+    if(id.includes("cigarette")){
+      this.props.updatePMHArrays(id, value, ["cigarette"], null);
+    }
+
+    if(id.includes("note")){
+      this.props.updatePMHArrays(id, value, [], null);
+    }
   }
 
   displayPositivesInInputBox = (index) => {
@@ -41,51 +64,56 @@ export default class FSHxComponent extends React.Component {
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">Family and Social History</h4>
         <div className="emr-clerking-tab-data-items">
-          <MultiSelectOutputComponent name={"Family History"} id={"familyhistory"}
+          <MultiSelectOutputComponent name={"Family History"} id={"family_history"}
             items={["Hypertension", "Diabetes Mellitus", "Asthma", "Peptic Ulcer Dx", "Epilepsy", "Other"]}
+            value={this.context.family_history.join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displayPositivesInInputBox} />
           {/* <div className="emr-clerking-tab-data-item">
             <label htmlFor="familyhistory">Family History of any of the following?</label>
             <MultiItemSelectComponent selectableItems={this.state.familyHistory} displayInBox={this.displayPositivesInInputBox} />
             <input type="text" name="familyhistory" id="familyhistory" defaultValue={positiveFamilyHistory}></input>
           </div> */}
-          <details className="emr-clerking-tab-data-item">
+          <details className="emr-clerking-tab-data-item"
+           open={Object.values(this.context.alcohol).find(item => item !== "")}>
             <summary htmlFor="hypertension">Alcohol Consumption</summary>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               <MultiSelectOutputComponent id={"alcoholtype"}
                 name={"What kind of alcohol is consumed?"}
                 items={["Beer", "Red wine", "Whiskey", "Brandy", "Vodka", "Other"]}
-                onItemChange={this.onItemChange} />
+                value={this.context.alcohol.alcoholtype}
+                onItemChange={this.onObjectItemChange} />
               <LabelAndInputComponent id={"alcoholbottlesperweek"}
                 title={"Number of bottles consumed per week"} type={"number"}
-                onItemChange={this.onItemChange} />
+                value={this.context.alcohol.alcoholbottlesperweek}
+                onItemChange={this.onObjectItemChange} />
               <LabelAndInputComponent id={"alcoholbottlesize"}
                 title={"Size of each bottle (in ml)"} type={"number"}
-                onItemChange={this.onItemChange} />
+                value={this.context.alcohol.alcoholbottlesize}
+                onItemChange={this.onObjectItemChange} />
               <LabelAndInputComponent id={"alcoholconsumptionduration"}
                 title={"Total duration of alcohol consumption (in years)"} type={"number"}
-                onItemChange={this.onItemChange} />
+                value={this.context.alcohol.alcoholconsumptionduration}
+                onItemChange={this.onObjectItemChange} />
             </div>
           </details>
-          <details className="emr-clerking-tab-data-item">
+          <details className="emr-clerking-tab-data-item"
+           open={Object.values(this.context.cigarette).find(item => item !== "")}>
             <summary htmlFor="hypertension">Cigarette Smoking</summary>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="cigarettesticksperday">Number of sticks per day</label>
-                <input type="number" name="cigarettesticksperday" id="cigarettesticksperday"></input>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="cigarettesmokingduration">Total duration of cigarette smoking (in years)</label>
-                <input type="number" name="cigarettesmokingduration" id="cigarettesmokingduration"></input>
-              </div>
+              <LabelAndInputComponent id={"cigarettesticksperday"}
+                title={"Number of sticks per day"} type={"number"}
+                value={this.context.cigarette.cigarettesticksperday}
+                onItemChange={this.onObjectItemChange} />
+              <LabelAndInputComponent id={"cigarettesmokingduration"}
+                title={"Total duration of cigarette smoking (in years)"} type={"number"}
+                value={this.context.cigarette.cigarettesmokingduration}
+                onItemChange={this.onObjectItemChange} />
             </div>
           </details>
-          <div className="emr-clerking-tab-data-item">
-            <label htmlFor="notes">Notes</label>
-            <textarea name="notes" id="notes" cols="30" rows="10" placeholder="write here..."></textarea>
-          </div>
+          <NotesComponent id={"fshx_notes"} value={this.context.fshx_notes}
+          onItemChange={this.onObjectItemChange} />
         </div>
       </div>
     );
