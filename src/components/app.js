@@ -180,7 +180,8 @@ export class AppComponent extends React.Component {
         {
           this.props.children ? this.props.children :
             <PatientContext.Provider value={this.props.patient}>
-              <MainComponent navIndex={this.state.navIndex} dashboard={this.props.dashboard}>
+              <MainComponent navIndex={this.state.navIndex} dashboard={this.props.dashboard}
+                        updateAnyObject={this.props.updateAnyObject}>
                 <div className="container-fluid">
                   <div className="row g-0">
                     <div className="col-lg-3 emr-sidebar emr-sidebar-l">

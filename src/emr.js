@@ -34,11 +34,12 @@ export class EMRComponent extends React.Component {
   deletePatient = (id) => {
     // console.log("state patient id => ", this.state.patient.id);
     // console.log("id => ", id);
+    const undeletedPatients = this.state.patients.filter(item => item.id !== id);
     if (this.state.patient.id === id) {
       // console.log("true");
       this.setState({
         patient: null,
-        patients: this.state.patients.filter(item => item.id !== id)
+        patients: undeletedPatients
       });
     } else {
       this.setState({
@@ -222,7 +223,7 @@ export class EMRComponent extends React.Component {
           switchToAppointment={this.switchToAppointment}
           createNewAppointment={this.createNewAppointment} >
           {
-            this.state.patient === null ?
+            this.state.patient !== null ?
               null :
               <DashboardComponent
                 recents={this.state.patients.filter(patient => patient.appointments.length === 1)

@@ -36,7 +36,7 @@ export default class MainComponent extends React.Component {
         <div className="container-fluid">
           <div className="row g-0">
             <div className="offset-lg-9 col-lg-3 emr-sidebar emr-sidebar-r">
-              <RightSideBarComponent/>
+              <RightSideBarComponent updateAnyObject={this.props.updateAnyObject}/>
             </div>
           </div>
         </div>
