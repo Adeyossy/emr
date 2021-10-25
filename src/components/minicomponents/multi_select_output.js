@@ -12,11 +12,19 @@ export default class MultiSelectOutputComponent extends React.Component {
   }
 
   displaySelectedInInputBox = (index) => {
+    //Get the clicked item by getting it with the index
     const itemAtIndex = this.props.items[index];
+
+    //Get the current items in store
     const valueItems = this.props.value ? this.props.value.split(", ") : [];
+
+    //Create a new copy
     let currentSelectedItems = valueItems.slice();
+
+    //Find the clicked item in store
     const isAlreadySelected = currentSelectedItems.find((value) => value === itemAtIndex);
-    //if the item is already selected, deselect it
+
+    //if the item is already selected i.e. in store, deselect it
     if (isAlreadySelected) {
       currentSelectedItems = currentSelectedItems.filter((value) => value !== itemAtIndex);
       this.setState({
@@ -33,7 +41,7 @@ export default class MultiSelectOutputComponent extends React.Component {
         item: this.props.items[index],
         items: currentSelectedItems
       });
-      
+
       if (this.props.onItemChange) {
         this.props.onItemChange(this.props.id, itemAtIndex);
         // this.props.onItemChange(this.props.id, this.props.items[index]);
@@ -59,10 +67,10 @@ export default class MultiSelectOutputComponent extends React.Component {
     const valueItems = this.props.value ? this.props.value.split(", ") : [];
 
     //Is there a selectable item that has not been stored?
-    const shouldBeStored = selectableItemsInTextBox.find((value) => 
+    const shouldBeStored = selectableItemsInTextBox.find((value) =>
       !(valueItems.find((val) => val === value)));
 
-    if(shouldBeStored){
+    if (shouldBeStored) {
       this.props.onItemChange(this.props.id, selectableItemsInTextBox.join(", "));
     }
 
@@ -83,9 +91,11 @@ export default class MultiSelectOutputComponent extends React.Component {
 
   render() {
     return (
-      <details className="emr-clerking-tab-data-item" open={this.props.value}>
+      <details className={`emr-clerking-tab-data-item ${this.props.value ? "filled" : ""}`}
+        open={this.props.value}>
         <summary htmlFor={this.props.id}>{this.props.name}</summary>
-        <MultiItemSelectComponent selectedItems={this.props.value ? this.props.value.split(", ") : []}
+        <MultiItemSelectComponent selectedItems={this.props.value ?
+          this.props.value.split(", ") : []}
           selectableItems={this.props.items} displayInBox={this.displaySelectedInInputBox} />
         <input type="text" name={this.props.id} id={this.props.id}
           value={this.props.value} onChange={this.onItemChange.bind(this)}></input>

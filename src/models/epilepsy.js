@@ -1,11 +1,11 @@
 const axisI = {
   aura_side: "",
-  visual_hallucination: "",
-  dysaesthesia: "",
+  visual_hallucination: [],
+  dysaesthesia: [],
   abdominal: "",
-  psychic: "",
-  auditory: "",
-  autonomic: "",
+  psychic: [],
+  auditory: [],
+  autonomic: [],
   consciousness_alteration_duration: "",
   consciousness_alteration_description: "",
   blank_spell_duration: "",
@@ -15,18 +15,18 @@ const axisI = {
   motor_side: "",
   clonus_description: "",
   tonic_description: "",
-  motor_version: "",
+  motor_version: [],
   myoclonus_description: "",
   myoclonus_description: "",
   version_description: "",
   atonic_description: "",
   hypermotor_description: "",
   akinetic_description: "",
-  automatism: "",
+  automatism: [],
   automatism_duration: "",
   automatism_description: "",
-  others_axis_i: "",
-  postictal_manifestation: "",
+  others_axis_i: [],
+  postictal_manifestation: [],
   postictal_duration: "",
   symptoms_per_month: "",
   seizures_per_month: "",
@@ -35,7 +35,8 @@ const axisI = {
   date_of_last_seizure: "",
   time_of_day: "",
   more_at_night_or_day: "",
-  incomplete_seizure_manifestation: ""
+  incomplete_seizure_manifestation: "",
+  notes: ""
 };
 
 const axisII = {
@@ -48,7 +49,7 @@ const axisIII = {
 }
 
 const axisIV = {
-  aetiology: "",
+  aetiology: [],
   familyhistoryepilepsy: "",
   statusepilepticus: "",
   attacksinclusters: "",
@@ -61,8 +62,8 @@ const axisV = {
   prescriber: "",
   treatmentresult: "",
   adverseeffects: "",
-  cognitivedeficit: "",
-  socialconsequences: "",
+  cognitivedeficit: [],
+  socialconsequences: [],
   moodpersonalitychanges: "",
   restrictedqol: "",
   postictalinjuries: "",
@@ -71,10 +72,10 @@ const axisV = {
 
 export function getFreshEpilepsyForm(){
   const epilepsy = {};
-  epilepsy.axisI = Object.assign({}, axisI);
-  epilepsy.axisII = Object.assign({}, axisII);
-  epilepsy.axisIII = Object.assign({}, axisIII);
-  epilepsy.axisIV = Object.assign({}, axisIV);
-  epilepsy.axisV = Object.assign({}, axisV);
+  epilepsy.axisI = JSON.parse(JSON.stringify(axisI));
+  epilepsy.axisII = JSON.parse(JSON.stringify(axisII));
+  epilepsy.axisIII = JSON.parse(JSON.stringify(axisIII));
+  epilepsy.axisIV = JSON.parse(JSON.stringify(axisIV));
+  epilepsy.axisV = JSON.parse(JSON.stringify(axisV));
   return epilepsy;
 }

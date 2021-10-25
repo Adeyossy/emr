@@ -47,15 +47,15 @@ main{
   padding: var(--emr-default-padding);
   display: flex;
   align-items: center;
+  border: 1px solid var(--emr-accent-colour);
   border-radius: var(--emr-round-corners);
   box-shadow: var(--emr-default-shadow);
-  transition: box-shadow 250ms ease-in, opacity 250ms linear;
 }
 
 .emr-quick-button:hover{
-  box-shadow: 4px 4px 24px 4px rgba(0, 0, 0, 0.1);
-  opacity: 0.8;
+  box-shadow: var(--emr-high-shadow);
   cursor: pointer;
+  transition: box-shadow 250ms ease-in, opacity 250ms linear;
 }
 
 .emr-quick-button:active{
@@ -130,7 +130,7 @@ thead{
 tbody{
   border-collapse: separate;
   border-spacing: 0 8px;
-  color: var(--emr-grey-colour);
+  color: var(--emr-darker-grey-colour);
 }
 
 tbody tr{
@@ -169,7 +169,7 @@ td, th{
 
 td{
   font-size: 8.5pt;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .emr-headers{

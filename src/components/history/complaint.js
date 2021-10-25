@@ -16,9 +16,8 @@ export default class ComplaintComponent extends React.Component{
   render(){
     console.log("this.context => ", this.context);
     return(
-      <NotesOnlyComponent notesHeader={"Presenting Complaint(s)"} 
-      value={this.context.presenting_complaint.notes} 
-        onItemChange={this.props.updateComplaints}
+      <NotesOnlyComponent notesHeader={"Presenting Complaints"}  
+        updateAnyObject={this.props.updateAnyObject} fields={["presenting_complaints"]}
       />
     );
   }

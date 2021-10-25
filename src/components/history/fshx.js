@@ -21,24 +21,32 @@ export default class FSHxComponent extends React.Component {
     console.log("id => ", id);
     console.log("value => ", value);
     value.split(", ").forEach((item, index) => {
-      this.props.updateItemsInArray([id], item, this.context.family_history.length + 1);
+      this.props.updateItemsInArray([id], item, this.context.family_history.slice()
+        .filter(hx => hx !== item).length + 1);
     });
-    // this.props.updatePMHArrays(id, )
+    // this.props.updateAnyObject(id, )
+  }
+
+  onAlcoholItemChange = (id, value) => {
+    console.log("id => ", id);
+    value.split(", ").forEach((item, index) => {
+      this.props.updateItemsInArray(["alcohol", id], item, this.context.alcohol.alcoholtype.length + 1);
+    });
   }
 
   onObjectItemChange = (id, value) => {
     console.log("this.onObjectItemChange");
     console.log("values => ", Object.values(this.context.alcohol));
-    if(id.includes("alcohol")){
-      this.props.updatePMHArrays(id, value, ["alcohol"], null);
+    if (id.includes("alcohol")) {
+      this.props.updateAnyObject(id, value, ["alcohol"], null);
     }
 
-    if(id.includes("cigarette")){
-      this.props.updatePMHArrays(id, value, ["cigarette"], null);
+    if (id.includes("cigarette")) {
+      this.props.updateAnyObject(id, value, ["cigarette"], null);
     }
 
-    if(id.includes("note")){
-      this.props.updatePMHArrays(id, value, [], null);
+    if (id.includes("note")) {
+      this.props.updateAnyObject(id, value, [], null);
     }
   }
 
@@ -65,7 +73,8 @@ export default class FSHxComponent extends React.Component {
         <h4 className="emr-card-headers">Family and Social History</h4>
         <div className="emr-clerking-tab-data-items">
           <MultiSelectOutputComponent name={"Family History"} id={"family_history"}
-            items={["Hypertension", "Diabetes Mellitus", "Asthma", "Peptic Ulcer Dx", "Epilepsy", "Other"]}
+            items={["Hypertension", "Diabetes Mellitus", "Asthma",
+              "Peptic Ulcer Dx", "Epilepsy", "Other"]}
             value={this.context.family_history.join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displayPositivesInInputBox} />
           {/* <div className="emr-clerking-tab-data-item">
@@ -74,15 +83,15 @@ export default class FSHxComponent extends React.Component {
             <input type="text" name="familyhistory" id="familyhistory" defaultValue={positiveFamilyHistory}></input>
           </div> */}
           <details className="emr-clerking-tab-data-item"
-           open={Object.values(this.context.alcohol).find(item => item !== "")}>
+            open={Object.values(this.context.alcohol).find(item => item !== "")}>
             <summary htmlFor="hypertension">Alcohol Consumption</summary>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               <MultiSelectOutputComponent id={"alcoholtype"}
                 name={"What kind of alcohol is consumed?"}
                 items={["Beer", "Red wine", "Whiskey", "Brandy", "Vodka", "Other"]}
-                value={this.context.alcohol.alcoholtype}
-                onItemChange={this.onObjectItemChange} />
+                value={this.context.alcohol.alcoholtype.join(", ")}
+                onItemChange={this.onAlcoholItemChange} />
               <LabelAndInputComponent id={"alcoholbottlesperweek"}
                 title={"Number of bottles consumed per week"} type={"number"}
                 value={this.context.alcohol.alcoholbottlesperweek}
@@ -98,7 +107,7 @@ export default class FSHxComponent extends React.Component {
             </div>
           </details>
           <details className="emr-clerking-tab-data-item"
-           open={Object.values(this.context.cigarette).find(item => item !== "")}>
+            open={Object.values(this.context.cigarette).find(item => item !== "")}>
             <summary htmlFor="hypertension">Cigarette Smoking</summary>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
@@ -112,8 +121,8 @@ export default class FSHxComponent extends React.Component {
                 onItemChange={this.onObjectItemChange} />
             </div>
           </details>
-          <NotesComponent id={"fshx_notes"} value={this.context.fshx_notes}
-          onItemChange={this.onObjectItemChange} />
+          <NotesComponent id={"fshx_notes"} value={this.context.fshx_notes} fields={[]}
+            onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     );

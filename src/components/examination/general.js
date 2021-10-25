@@ -1,6 +1,8 @@
 import React from "react";
+import { PatientContext } from "../../models/patient_context";
 import MultiItemSelectComponent from "../minicomponents/multi_item_select";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
+import NotesComponent from "../minicomponents/notes";
 
 export default class GeneralExamComponent extends React.Component {
   constructor(props) {
@@ -9,9 +11,12 @@ export default class GeneralExamComponent extends React.Component {
       "Peripheral Lymphadenopathy", "Pedal Oedema"];
   }
 
+  static contextType = PatientContext;
+
   onItemChange = (id, value) => {
-    this.setState({
-      [id]: value
+    value.split(", ").forEach((item, index) => {
+      this.props.updateItemsInArray(["general", id], item,
+        this.context.general.onexamination.length + 1);
     });
   }
 
@@ -20,12 +25,15 @@ export default class GeneralExamComponent extends React.Component {
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">General Examination</h4>
         <div className="emr-clerking-tab-data-items">
-          <MultiSelectOutputComponent name={"On Examination: "} id={"onexamination"} 
+          <MultiSelectOutputComponent name={"On Examination: "} id={"onexamination"}
+            value={this.context.general.onexamination.join(", ")}
             items={this.items} onItemChange={this.onItemChange} />
-          <div className="emr-clerking-tab-data-item">
+          {/* <div className="emr-clerking-tab-data-item">
             <label htmlFor="generalexamnotes">Notes</label>
             <textarea name="generalexamnotes" id="generalexamnotes" cols="30" rows="10" placeholder="write here..."></textarea>
-          </div>
+          </div> */}
+          <NotesComponent id={"notes"} fields={["general"]}
+            value={this.context.general.notes} onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     );

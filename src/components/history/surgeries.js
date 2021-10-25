@@ -1,6 +1,7 @@
 import React from "react";
 import { PatientContext } from "../../models/patient_context";
 import SingleItemSelectComponent from "../minicomponents/single_item_select";
+import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 
 export default class SurgeryComponent extends React.Component {
   constructor(props) {
@@ -16,7 +17,7 @@ export default class SurgeryComponent extends React.Component {
   static contextType = PatientContext;
 
   onRecoveryItemChange = (id, value) => {
-    this.props.updatePMHArrays(id, value,
+    this.props.updateAnyObject(id, value,
       ["past_medical_history", "surgeries"], this.props.index - 1);
   }
 
@@ -40,40 +41,37 @@ export default class SurgeryComponent extends React.Component {
         <div className="emr-clerking-tab-data-items">
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`surgerydiagnosis${this.props.index}`}>What was the diagnosis?</label>
-            <input type="text" name={`surgerydiagnosis${this.props.index}`}
+            <input type="text" name={`diagnosis`}
               id={`surgerydiagnosis${this.props.index}`}
               value={this.context.past_medical_history[surgeries][this.props.index - 1].diagnosis}
+              onChange={this.onItemChange}
               placeholder="e.g appendicitis"></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`surgeryduration${this.props.index}`}>Length of hospital stay (in days)</label>
-            <input type="number" name={`surgeryduration${this.props.index}`}
+            <input type="number" name={`duration`}
               id={`surgeryduration${this.props.index}`}
               value={this.context.past_medical_history[surgeries][this.props.index - 1].duration}
-              placeholder="e.g 2"></input>
+              onChange={this.onItemChange} placeholder="e.g 2"></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`surgeryhospital${this.props.index}`}>Health Facility</label>
-            <input type="text" name={`surgeryhospital${this.props.index}`}
+            <input type="text" name={`facility`}
               id={`surgeryhospital${this.props.index}`}
               value={this.context.past_medical_history[surgeries][this.props.index - 1].facility}
-              placeholder="e.g UCH"></input>
+              onChange={this.onItemChange} placeholder="e.g UCH"></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`surgerytreatment${this.props.index}`}>Treatment received</label>
-            <input type="number" name={`surgerytreatment${this.props.index}`}
+            <input type="text" name={`treatment`}
               id={`surgerytreatment${this.props.index}`}
               value={this.context.past_medical_history[surgeries][this.props.index - 1].treatment}
+              onChange={this.onItemChange}
               placeholder="e.g appendectomy"></input>
           </div>
-          <div className="emr-clerking-tab-data-item">
-            <label htmlFor={`surgeryrecovery${this.props.index}`}>Recovery after treatment</label>
-            <SingleItemSelectComponent selectableItems={this.state.surgeryReactions} displayInBox={this.displaySelectedInInputBox} />
-            <input type="text" name={`surgeryrecovery${this.props.index}`}
-              id={`surgeryrecovery${this.props.index}`}
-              value={this.context.past_medical_history[surgeries][this.props.index - 1].recovery}
-              onItemChange={this.onRecoveryItemChange}></input>
-          </div>
+          <SingleSelectOutputComponent id={'recovery'} name={`Recovery after treatment`}
+            items={this.state.surgeryReactions} onItemChange={this.onRecoveryItemChange}
+            value={this.context.past_medical_history[surgeries][this.props.index - 1].recovery} />
         </div>
       </div>
     );

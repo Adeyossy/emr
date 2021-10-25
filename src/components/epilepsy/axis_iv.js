@@ -12,7 +12,13 @@ export default class AxisIVComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    this.props.updatePMHArrays(id, value, ["forms", "epilepsy", "axisIV"], null);
+    this.props.updateAnyObject(id, value, ["forms", "epilepsy", "axisIV"], null);
+  }
+
+  onMultiItemChange = (id, value) => {
+    value.split(", ").forEach((item) =>
+      this.props.updateItemsInArray(["forms", "epilepsy", "axisIV", id], item,
+        this.context.forms.epilepsy.axisIV[id].length + 1));
   }
 
   render() {
@@ -27,14 +33,14 @@ export default class AxisIVComponent extends React.Component {
               "Eventful pregnancy or birth history", "Previous stroke", "Learning disability",
               "Developmental disability",
               "Status epilepticus or Acute repetitive seizures at onset of seizures"]}
-            value={this.context.forms.epilepsy.axisIV.aetiology}
-            onItemChange={this.onItemChange} />
+            value={this.context.forms.epilepsy.axisIV.aetiology.join(", ")}
+            onItemChange={this.onMultiItemChange} />
           {
             this.context.forms.epilepsy.axisIV.aetiology.includes("Family history of epilepsy") ?
               <NotesComponent name={"Family history of epilepsy (describe)"}
-                id="familyhistoryepilepsy"
+                id="familyhistoryepilepsy"  fields={["forms", "epilepsy", "axisIV"]}
                 value={this.context.forms.epilepsy.axisIV.familyhistoryepilepsy}
-                onItemChange={this.onItemChange} /> :
+                onItemChange={this.props.updateAnyObject} /> :
               null
           }
           {
@@ -53,8 +59,9 @@ export default class AxisIVComponent extends React.Component {
             id={"attacksinclusters"} items={["Yes", "No"]}
             onItemChange={this.onItemChange} />
           <NotesComponent id={"seizure_precipitant"} name={"List seizure precipitant"}
+           fields={["forms", "epilepsy", "axisIV"]}
             value={this.context.forms.epilepsy.axisIV.seizure_precipitant}
-            onItemChange={this.onItemChange} />
+            onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     );

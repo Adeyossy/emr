@@ -1,6 +1,8 @@
 import React from "react";
+import { PatientContext } from "../../models/patient_context";
 import MultiItemSelectComponent from "../minicomponents/multi_item_select";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
+import NotesComponent from "../minicomponents/notes";
 import SingleItemSelectComponent from "../minicomponents/single_item_select";
 import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 
@@ -12,12 +14,18 @@ export default class NeuroExamComponent extends React.Component {
     this.sides = ["Right", "Left"];
     this.limbs = ["Upper Limb", "Lower Limb"];
     this.ankleClonus = ["Sustained", "Absent"];
-    this.babinski = ["Flexor", "Extensor", "Flat"];
+    this.babinski = ["Flexion", "Extension", "Flat"];
   }
 
+  static contextType = PatientContext;
+
   onItemChange = (id, value) => {
-    this.setState({
-      [id]: value
+    this.props.updateAnyObject(id, value, ["neuro"], null);
+  }
+
+  onMultiItemChange = (id, value) => {
+    value.split(", ").forEach((item, index) => {
+      this.props.updateItemsInArray(["neuro", id], item, this.context.neuro[id].length + 1);
     });
   }
 
@@ -28,7 +36,7 @@ export default class NeuroExamComponent extends React.Component {
         <div className="emr-clerking-tab-data-items">
           <details className="emr-clerking-tab-data-item">
             <summary>Higher Mental Functions</summary>
-            <label htmlFor="highermentalfunctions">Describe</label>
+            {/* <label htmlFor="highermentalfunctions">Describe</label> */}
             <textarea name="highermentalfunctions" id="highermentalfunctions" cols="30" rows="10" placeholder="write here..."></textarea>
           </details>
           <details className="emr-clerking-tab-data-item">
@@ -36,77 +44,91 @@ export default class NeuroExamComponent extends React.Component {
             <label htmlFor="cranialnerves">Describe</label>
             <textarea name="cranialnerves" id="cranialnerves" cols="30" rows="10" placeholder="write here..."></textarea>
           </details>
-          <details className="emr-clerking-tab-data-item">
+          <details className="emr-clerking-tab-data-item"
+            open={this.context.neuro.motor_sides.join(", ")}>
             <summary>Motor examination</summary>
             <div className="emr-clerking-tab-data-items">
-              <MultiSelectOutputComponent name={"Laterality"} id={"sides"}
-                items={this.sides} onItemChange={this.onItemChange} />
-              <MultiSelectOutputComponent name={"Limbs"} id={"limbs"}
-                items={this.limbs} onItemChange={this.onItemChange} />
-              <MultiSelectOutputComponent name={"Inspection"} id={"inspection"}
-                items={this.inspectionItems} onItemChange={this.onItemChange} />
+              <MultiSelectOutputComponent name={"Laterality"} id={"motor_sides"}
+                items={this.sides} value={this.context.neuro.motor_sides.join(", ")}
+                onItemChange={this.onMultiItemChange} />
+              <MultiSelectOutputComponent name={"Limbs"} id={"motor_limbs"}
+                items={this.limbs} value={this.context.neuro.motor_limbs.join(", ")}
+                onItemChange={this.onMultiItemChange} />
+              <MultiSelectOutputComponent name={"Inspection"} id={"motor_inspection"}
+                items={this.inspectionItems} value={this.context.neuro.motor_inspection.join(", ")}
+                onItemChange={this.onMultiItemChange} />
             </div>
             <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
+              {/* <div className="emr-clerking-tab-data-item">
                 <label htmlFor="motortone">Tone</label>
-                <textarea name="motortone" id="motortone" cols="30" rows="5" placeholder="write here..."></textarea>
+                <textarea name="motortone" id="motor_tone" cols="30" rows="5" placeholder="write here..."></textarea>
               </div>
               <div className="emr-clerking-tab-data-item">
                 <label htmlFor="motorpower">Power</label>
-                <textarea name="motorpower" id="motorpower" cols="30" rows="5" placeholder="write here..."></textarea>
+                <textarea name="motorpower" id="motor_power" cols="30" rows="5" placeholder="write here..."></textarea>
               </div>
               <div className="emr-clerking-tab-data-item">
                 <label htmlFor="motorreflexes">Reflexes</label>
-                <textarea name="motorreflexes" id="motorreflexes" cols="30" rows="5" placeholder="write here..."></textarea>
-              </div>
-              <SingleSelectOutputComponent name={"Ankle Clonus"} id={"ankleclonus"}
+                <textarea name="motorreflexes" id="motor_reflexes" cols="30" rows="5" placeholder="write here..."></textarea>
+              </div> */}
+              <SingleSelectOutputComponent name={"Tone"} id={"motor_tone"}
+                value={this.context.neuro.motor_tone}
+                items={["Hypotonia", "Normal", "Hypertonia"]} onItemChange={this.onItemChange} />
+              <SingleSelectOutputComponent name={"Power"} id={"motor_power"}
+                value={this.context.neuro.motor_power}
+                items={["0", "1", "2", "3", "4", "5"]} onItemChange={this.onItemChange} />
+              <SingleSelectOutputComponent name={"Reflexes"} id={"motor_reflexes"}
+                value={this.context.neuro.motor_reflexes}
+                items={["Reduced", "Normal", "Increased", "Brisk"]}
+                onItemChange={this.onItemChange} />
+              <SingleSelectOutputComponent name={"Ankle Clonus"} id={"ankle_clonus"}
+                value={this.context.neuro.ankle_clonus}
                 items={this.ankleClonus} onItemChange={this.onItemChange} />
               <SingleSelectOutputComponent name={"Babinski"} id={"babinski"}
+                value={this.context.neuro.babinski}
                 items={this.babinski} onItemChange={this.onItemChange} />
             </div>
           </details>
-          <details className="emr-clerking-tab-data-item">
+          <details className="emr-clerking-tab-data-item"
+            open={this.context.neuro.sensorysides.join(", ")}>
             <summary>Sensory examination</summary>
             <MultiSelectOutputComponent name={"Laterality"} id={"sensorysides"}
-                items={this.sides} onItemChange={this.onItemChange} />
+              value={this.context.neuro.sensorysides.join(", ")}
+              items={this.sides} onItemChange={this.onMultiItemChange} />
             <MultiSelectOutputComponent name={"Limbs"} id={"sensorylimbs"}
-                items={this.limbs} onItemChange={this.onItemChange} />
+              value={this.context.neuro.sensorylimbs.join(", ")}
+              items={this.limbs} onItemChange={this.onMultiItemChange} />
             <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="sensoryfinetouch">Fine touch</label>
-                <textarea name="sensoryfinetouch" id="sensoryfinetouch" cols="30" rows="5" placeholder="write here..."></textarea>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="sensorycoarsetouch">Coarse touch</label>
-                <textarea name="sensorycoarsetouch" id="sensorycoarsetouch" cols="30" rows="5" placeholder="write here..."></textarea>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="sensorytemperature">Temperature</label>
-                <textarea name="sensorytemperature" id="sensorytemperature" cols="30" rows="5" placeholder="write here..."></textarea>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="sensoryvibration">Vibration</label>
-                <textarea name="sensoryvibration" id="sensoryvibration" cols="30" rows="5" placeholder="write here..."></textarea>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="sensoryproprioception">Proprioception</label>
-                <textarea name="sensoryproprioception" id="sensoryproprioception" cols="30" rows="5" placeholder="write here..."></textarea>
-              </div>
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="sensorypressure">Pressure</label>
-                <textarea name="sensorypressure" id="sensorypressure" cols="30" rows="5" placeholder="write here..."></textarea>
-              </div>
+              <NotesComponent name="Fine touch" id="sensoryfinetouch" fields={["neuro"]}
+                value={this.context.neuro.sensoryfinetouch}
+                onItemChange={this.props.updateAnyObject} />
+              <NotesComponent name="Coarse touch" id="sensorycoarsetouch" fields={["neuro"]}
+                value={this.context.neuro.sensorycoarsetouch}
+                onItemChange={this.props.updateAnyObject} />
+              <NotesComponent name="Temperature" id="sensorytemperature" fields={["neuro"]}
+                value={this.context.neuro.sensorytemperature}
+                onItemChange={this.props.updateAnyObject} />
+              <NotesComponent name="Vibration" id="sensoryvibration" fields={["neuro"]}
+                value={this.context.neuro.sensoryvibration}
+                onItemChange={this.props.updateAnyObject} />
+              <NotesComponent name="Proprioception" id="sensoryproprioception" fields={["neuro"]}
+                value={this.context.neuro.sensoryproprioception}
+                onItemChange={this.props.updateAnyObject} />
+              <NotesComponent name="Pressure" id="sensorypressure" fields={["neuro"]}
+                value={this.context.neuro.sensorypressure}
+                onItemChange={this.props.updateAnyObject} />
             </div>
           </details>
-          <details className="emr-clerking-tab-data-item">
+          <details className="emr-clerking-tab-data-item"
+            open={this.context.neuro.gaitandcoordination}>
             <summary>Gait and Coordination</summary>
             <div className="emr-clerking-tab-data-items">
-              <div className="emr-clerking-tab-data-item">
-                <label htmlFor="gaitandcoordination">Describe</label>
-                <textarea name="gaitandcoordination" id="gaitandcoordination" cols="30" rows="5" placeholder="write here..."></textarea>
-              </div>
+              <NotesComponent id={"gaitandcoordination"} fields={["neuro"]}
+                value={this.context.neuro.gaitandcoordination} onItemChange={this.props.updateAnyObject} />
             </div>
           </details>
+          <NotesComponent id={"notes"} fields={["neuro"]}
+            value={this.context.neuro.notes} onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     );

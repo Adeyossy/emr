@@ -15,7 +15,7 @@ export default class TransfusionComponent extends React.Component {
   static contextType = PatientContext;
 
   onRecoveryItemChange = (id, value) => {
-    this.props.updatePMHArrays(id, value,
+    this.props.updateAnyObject(id, value,
       ["past_medical_history", "blood_transfusions"], this.props.index - 1);
   }
 

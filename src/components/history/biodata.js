@@ -11,10 +11,11 @@ export default class BiodataComponent extends React.Component {
   }
 
   onItemChange = (id, value) => {
-    this.setState({
-      [id]: value
-    });
-    this.props.updateBiodata(id, value, "biodata");
+    if (id !== "first_seen") {
+      this.props.updateBiodata(id, value, ["biodata"]);
+    } else {
+      this.props.updateBiodata(id, value, []);
+    }
   }
 
   updateField = (event) => {
@@ -34,10 +35,6 @@ export default class BiodataComponent extends React.Component {
         genderItem: this.state.genderItems[index]
       });
     }
-  }
-
-  componentDidUpdate() {
-    // console.log("biodata state => ", this.state);
   }
 
   render() {
@@ -69,7 +66,7 @@ export default class BiodataComponent extends React.Component {
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="occupation">Occupation</label>
             <input type="text" name="occupation" id="occupation" placeholder="e.g. teacher"
-            value={this.props.patient.biodata.occupation} onChange={this.updateField} required></input>
+              value={this.props.patient.biodata.occupation} onChange={this.updateField} required></input>
           </div>
           <SingleSelectOutputComponent name={"Marital Status"} id={"maritalstatus"}
             items={["Single", "Married", "Separated", "Divorced", "Widowed"]}
@@ -78,8 +75,8 @@ export default class BiodataComponent extends React.Component {
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="address">Address</label>
             <textarea name="address" id="address" cols="30" rows="10"
-            value={this.props.patient.biodata.address}
-            onChange={this.updateField} placeholder="Address goes here"></textarea>
+              value={this.props.patient.biodata.address}
+              onChange={this.updateField} placeholder="Address goes here"></textarea>
           </div>
           <SingleSelectOutputComponent name={"Religion"} id={"religion"}
             items={["Christianity", "Islam", "Traditional", "Other"]}
@@ -96,14 +93,38 @@ export default class BiodataComponent extends React.Component {
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="hospital">Hospital</label>
             <input type="text" name="hospital" id="hospital" placeholder="e.g. UCH"
-            value={this.props.patient.biodata.hospital}
-            onChange={this.updateField} required></input>
+              value={this.props.patient.biodata.hospital}
+              onChange={this.updateField} required></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="id">Identification Number</label>
             <input type="text" name="id" id="id" placeholder="i.e. hospital number or other ID"
-            value={this.props.patient.biodata.id}
-            onChange={this.updateField} required></input>
+              value={this.props.patient.biodata.id}
+              onChange={this.updateField} required></input>
+          </div>
+          <div className="emr-clerking-tab-data-item">
+            <label htmlFor="phone_number">Phone Number</label>
+            <input type="number" name="phone_number" id="phone_number" placeholder="i.e. hospital number or other ID"
+              value={this.props.patient.biodata.phone_number}
+              onChange={this.updateField} required></input>
+          </div>
+          <div className="emr-clerking-tab-data-item">
+            <label htmlFor="email_address">Email Address</label>
+            <input type="email" name="email_address" id="email_address" placeholder="i.e. hospital number or other ID"
+              value={this.props.patient.biodata.email_address}
+              onChange={this.updateField} required></input>
+          </div>
+          <div className="emr-clerking-tab-data-item">
+            <label htmlFor="first_seen">Date of First Clinic</label>
+            <input type="email" name="first_seen" id="first_seen"
+              placeholder="i.e. hospital number or other ID" disabled required
+              defaultValue={new Date(this.props.patient.first_seen).toLocaleString()}></input>
+          </div>
+          <div className="emr-clerking-tab-data-item">
+            <label htmlFor="next_of_kin">Next of Kin</label>
+            <input type="text" name="next_of_kin" id="next_of_kin" placeholder="i.e. hospital number or other ID"
+              value={this.props.patient.biodata.next_of_kin}
+              onChange={this.updateField} required></input>
           </div>
         </div>
       </div>

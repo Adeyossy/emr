@@ -6,7 +6,7 @@ export default class LeftSideBarComponent extends React.Component {
   static contextType = PatientContext;
 
   render() {
-    // console.log("patient's first seen => ", this.props.patient.first_seen);
+    // console.log("patient's first seen => ", this.props.patient.id);
     return (
       <div className="container-fluid">
         <div className="row g-0">
@@ -14,10 +14,16 @@ export default class LeftSideBarComponent extends React.Component {
             <div className="emr-left-sidebar">
               <div className="emr-patients-sidebar">
                 {
-                  this.props.patients.map((item, index) =>
+                  this.props.patients.sort((a, b) => a.last_seen - b.last_seen).map((item, index) =>
                     <div className={`emr-patient-list-item 
-                      ${this.props.patient.first_seen === item.first_seen ? "clicked" : ""}`}
+                      ${this.props.patient.id === item.id ? "clicked" : ""}`}
                       key={index.toString()} onClick={this.props.changePatient.bind(this, item)}>
+                      <div className="emr-patient-delete">
+                        <div className="emr-icon-bg emr-icon-bg-dark"
+                          onClick={this.props.deletePatient.bind(this, item.id)}>
+                          <i className="bi bi-trash-fill emr-center-icon"></i>
+                        </div>
+                      </div>
                       <div className="emr-icon-bg emr-icon-bg-dark">
                         <i className="bi bi-person-fill emr-center-icon"></i>
                       </div>
@@ -29,7 +35,8 @@ export default class LeftSideBarComponent extends React.Component {
                           <p className="emr-separator">|</p>
                           <p className="emr-patient-age">{`${item.biodata.ageinyears} yrs`}</p>
                           <p className="emr-separator">|</p>
-                          <p className="emr-patient-diagnosis">{item.primary_diagnosis ? item.primary_diagnosis : "pending"}</p>
+                          <p className="emr-patient-diagnosis">
+                            {item.primary_diagnosis ? item.primary_diagnosis : "pending"}</p>
                         </div>
                       </div>
                     </div>
@@ -40,28 +47,32 @@ export default class LeftSideBarComponent extends React.Component {
               <div className="emr-patients-timeline">
                 <div className="emr-patients-timeline-bar text-center">
                   {/* <!-- This is a list of icons in the timeline bar --> */}
-                  <div className="emr-icon-bg emr-icon-bg-dark">
-                    <i className="bi bi-info-circle emr-center-icon emr-timeline-bar-icons"></i>
+                  <div className={`emr-icon-bg emr-icon-bg-dark 
+                            ${!this.context.appointment ? "selected" : ""}`}
+                    onClick={this.props.switchToAppointment.bind(this, null)}
+                    disabled={this.context.appointments.length === 1}>
+                    <i className="bi bi-info-circle emr-center-icon emr-timeline-bar-icons"
+                      disabled={this.context.appointments.length === 1}></i>
                   </div>
                   <div className="emr-patients-timeline-visits">
                     {
-                      this.context.appointments.sort((a, b) => b - a).map((item, index) =>
-                        <>
-                          <div className={`emr-icon-bg emr-icon-bg-dark 
-                            ${this.context.appointments[index].date_seen ===
-                              this.context.appointment.date_seen ? "selected" : ""}`}
-                              key={index.toString()}>
-                            <i className={`emr-center-icon emr-timeline-bar-icons`}>#{index + 1}</i>
-                          </div>
-                          {index > 0 ? <div className="emr-timeline-visits-divider"></div> : null}
-                        </>
-                      )
+                      this.context.appointments.sort((a, b) => b.date_seen - a.date_seen)
+                        .map((item, index, array) =>
+                          <>
+                            <div className={`emr-icon-bg emr-icon-bg-dark 
+                            ${item && Object.is(item, this.context.appointment) ? "selected" : ""}`}
+                              key={index.toString()} onClick={this.props.switchToAppointment.bind(this, item)}>
+                              <i className={`emr-center-icon emr-timeline-bar-icons`}>
+                                #{array.length - index}</i>
+                            </div>
+                            {index < array.length - 1 ? <div className="emr-timeline-visits-divider"></div> : null}
+                          </>
+                        )
                     }
                   </div>
                   <div className="emr-new-patient">
                     <div className="emr-icon-bg emr-icon-bg-dark"
-                      onClick={this.props.updateItemsInArray.bind(this, ["appointments"], getAppointment(),
-                        this.context.appointments.length)}>
+                      onClick={this.props.createNewAppointment}>
                       <i className="bi bi-plus-lg emr-icons emr-center-icon"></i>
                       <i className="emr-icon-tooltip">New appointment</i>
                     </div>

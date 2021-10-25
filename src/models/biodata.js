@@ -11,7 +11,10 @@ export const biodata = {
   tribe: "",
   informant: "",
   hospital: "",
-  id: ""
+  id: "",
+  phone_number: "",
+  email_address: "",
+  next_of_kin: ""
 }
 
 function populateBiodata(source){

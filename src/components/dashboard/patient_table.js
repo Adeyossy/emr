@@ -23,7 +23,7 @@ export default class PatientTableComponent extends React.Component {
           <tbody>
             {
               this.props.patients.map((item, index) => 
-              <tr key={index.toString()} onClick={this.props.onItemClicked.bind(this, item.first_seen)}>
+              <tr key={index.toString()} onClick={this.props.onItemClicked.bind(this, item.patient_id)}>
                 <td>
                   <div className="emr-icon-bg emr-icon-bg-dark">
                     {/* <!-- Insert age-appropriate icon here --> */}

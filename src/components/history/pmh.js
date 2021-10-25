@@ -28,25 +28,20 @@ export default class PMHComponent extends React.Component {
   onItemChange = (id, value) => {
     if (id === "comorbidities") {
       if (value) {
-        this.setState({
-          positiveComorbidites: value.split(", ")
-        });
-
         value.split(", ").forEach((element, index, valueArray) => {
-          // const isAlreadyCreated = this.context.past_medical_history.comorbidities
-          //   .find((item) => item.comorbidity === element);
-          if (true) {
-            this.props.updateItemsInArray(["past_medical_history", "comorbidities"],
-              Object.assign({}, comorbidity), this.context.past_medical_history.comorbidities.length + 1);
-            this.props.updatePMHArrays("comorbidity", element,
-              ["past_medical_history", "comorbidities"], index);
-          }
+          const comorbidityObject = Object.assign({}, comorbidity);
+          comorbidityObject.comorbidity = element;
+          this.props.updateItemsInArray(["past_medical_history", "comorbidities"],
+            comorbidityObject, this.context.past_medical_history.comorbidities
+              .slice().filter(cmdy => cmdy.comorbidity === element).length + 1);
+          // this.props.updateAnyObject("comorbidity", element,
+          //   ["past_medical_history", "comorbidities"], index);
         });
 
       } else { //remove from source of truth
       }
     } else {
-      this.props.updatePMHArrays(id, value, ["past_medical_history"]);
+      this.props.updateAnyObject(id, value, ["past_medical_history"]);
     }
   }
 
@@ -85,7 +80,7 @@ export default class PMHComponent extends React.Component {
               {/* {hospitalizationChildren} */}
               {
                 this.context.past_medical_history.hospitalizations.map((item, i) =>
-                  <HospitalizationComponent updatePMHArrays={this.props.updatePMHArrays}
+                  <HospitalizationComponent updateAnyObject={this.props.updateAnyObject}
                     key={String(i)} index={i + 1} />)
               }
             </div>
@@ -98,7 +93,7 @@ export default class PMHComponent extends React.Component {
             <div className="emr-clerking-tab-data-items">
               {
                 this.context.past_medical_history.surgeries.map((item, i) =>
-                  <SurgeryComponent updatePMHArrays={this.props.updatePMHArrays}
+                  <SurgeryComponent updateAnyObject={this.props.updateAnyObject}
                     key={String(i)} index={i + 1} />)
               }
             </div>
@@ -111,7 +106,7 @@ export default class PMHComponent extends React.Component {
             <div className="emr-clerking-tab-data-items">
               {
                 this.context.past_medical_history.blood_transfusions.map((item, i) =>
-                  <TransfusionComponent updatePMHArrays={this.props.updatePMHArrays}
+                  <TransfusionComponent updateAnyObject={this.props.updateAnyObject}
                     key={String(i)} index={i + 1} />)
               }
             </div>
@@ -122,7 +117,8 @@ export default class PMHComponent extends React.Component {
             onItemChange={this.onItemChange} />
           {
             this.context.past_medical_history.comorbidities.map((item, index) =>
-              <Comorbidities key={index.toString()} comorbidity={item.comorbidity} />)
+              <Comorbidities key={index.toString()} comorbidity={item.comorbidity}
+                value={item} updateAnyObject={this.props.updateAnyObject} index={index} />)
           }
         </div>
         <details className="emr-clerking-tab-data-item">
@@ -130,7 +126,7 @@ export default class PMHComponent extends React.Component {
           <div className="emr-clerking-tab-data-items">
             <SingleSelectOutputComponent name={"Blood Group"} id={"blood_group"}
               items={["O", "A", "B", "AB", "Unknown"]}
-              value={this.context.past_medical_history.blood_group} 
+              value={this.context.past_medical_history.blood_group}
               onItemChange={this.onItemChange} />
             <SingleSelectOutputComponent name={"Rhesus"} id={"rhesus"}
               items={["Positive", "Negative", "Indeterminate", "Unknown"]}
@@ -143,7 +139,8 @@ export default class PMHComponent extends React.Component {
           </div>
         </details>
         <NotesComponent id="notes" value={this.context.past_medical_history.notes}
-        onItemChange={this.onItemChange} />
+          fields={["past_medical_history"]}
+          onItemChange={this.props.updateAnyObject} />
       </div>
     );
   }

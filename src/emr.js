@@ -1,7 +1,7 @@
 import React from 'react';
 import './emr.css';
 import { AppComponent } from './components/app.js';
-import { getFreshPatient } from './models/patient';
+import { getAppointment, getFreshPatient, patient } from './models/patient';
 import { authStateObserver } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
@@ -22,16 +22,36 @@ export class EMRComponent extends React.Component {
 
   onCreateIconClicked = () => {
     const newPatient = Object.assign({}, getFreshPatient());
-    this.state.patients.unshift(newPatient);
+    this.state.patients.push(newPatient);
     this.setState({
       patient: newPatient,
       emrContext: "Patients"
     });
+
+    //TODO: create on database as well
+  }
+
+  deletePatient = (id) => {
+    // console.log("state patient id => ", this.state.patient.id);
+    // console.log("id => ", id);
+    if (this.state.patient.id === id) {
+      // console.log("true");
+      this.setState({
+        patient: null,
+        patients: this.state.patients.filter(item => item.id !== id)
+      });
+    } else {
+      this.setState({
+        patients: this.state.patients.filter(item => item.id !== id)
+      });
+    }
+
+    //TODO: delete from database as well
   }
 
   onPatientTableClicked = (dateId) => {
     this.setState({
-      patient: this.state.patients.find((value) => dateId === value.first_seen),
+      patient: this.state.patients.find((value) => dateId === value.id),
       emrContext: "Patients"
     });
   }
@@ -49,9 +69,9 @@ export class EMRComponent extends React.Component {
     });
   }
 
-  updateObjectField = (name, value, field) => {
+  updateObjectField = (name, value, fields) => {
     const thisPatient = this.state.patient;
-    const thisField = thisPatient[field];
+    const thisField = this.getWhereSwitched(fields);
     thisField[name] = value;
     this.setState({
       patient: thisPatient
@@ -100,7 +120,7 @@ export class EMRComponent extends React.Component {
   }
 
   //Update already existing past medical history sections modelled with arrays
-  updatePMHArrays = (name, value, fields, index) => {
+  updateAnyObject = (name, value, fields, index) => {
     const thisPatient = this.state.patient; //the current patient in the app
     // const pmh = thisPatient.past_medical_history; //access the past medical history of the patient
     const pmhArray = this.getWhereSwitched(fields); //get either hospitalization, surgery, blood transfusion and comorbidities
@@ -119,26 +139,28 @@ export class EMRComponent extends React.Component {
   updateItemsInArray = (fields, pmhObject, value) => {
     const thisPatient = this.state.patient;
     let pmhArray = this.getWhereSwitched(fields);
-
-    console.log("updateItemsInArray called");
-    console.log("fields => ", fields);
-    console.log("pmhObject => ", pmhObject);
-    console.log("pmhArray => ", pmhArray);
-
-    if (fields.find((item) => item === "comorbidities" || item === "family_history")) {
-      pmhArray.splice(pmhArray.length, 0, pmhObject);
-    } else {
+    // console.log("pmhArray => ", pmhArray);
+    // console.log("fields => ", fields);
+    if (value) {
       if (pmhArray.length < value) {
-        // Array.fill()
         let additions = new Array(value - pmhArray.length).fill(pmhObject);
-        if(typeof pmhObject === 'object'){
-          additions = additions.map(() => Object.assign({}, pmhObject));
+        if (typeof pmhObject === 'object') {
+          additions = additions.map(() => JSON.parse(JSON.stringify(pmhObject)));
         }
-        pmhArray.splice(pmhArray.length, value, ...additions);
+        pmhArray.splice(pmhArray.length, 0, ...additions);
       } else {
         pmhArray.splice(value, pmhArray.length - value);
       }
+    } else {
+      if (typeof pmhObject === 'object') {
+        pmhArray = pmhArray.filter((item) => !Object.is(item, pmhObject));
+      }
+
+      if (typeof pmhObject === 'object') {
+        pmhArray = pmhArray.filter((item) => item !== pmhObject);
+      }
     }
+
     // console.log("pmhArray => ", pmhArray);
 
     this.setState({
@@ -164,7 +186,24 @@ export class EMRComponent extends React.Component {
     });
   }
 
-  createNewApointment = () => { }
+  createNewAppointment = () => {
+    const appointment = getAppointment();
+    this.state.patient.last_seen = appointment.date_seen;
+    this.state.patient.appointments.unshift(appointment);
+    this.switchToAppointment(appointment);
+  }
+
+  switchToAppointment = (appointment) => {
+    console.log("appointment => ", appointment);
+    this.state.patient.appointment = appointment;
+    this.setState({
+      patient: this.state.patient
+    });
+  }
+
+  componentDidUpdate() {
+    console.log("patient => ", this.state.patient);
+  }
 
   // authStateObserver();
 
@@ -176,21 +215,25 @@ export class EMRComponent extends React.Component {
         <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
           dashboard={this.switchBackToDashboard} patient={this.state.patient}
           patients={this.state.patients} changePatient={this.onPatientChange}
+          deletePatient={this.deletePatient}
           updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
-          updatePMHArrays={this.updatePMHArrays} createNewPatient={this.onCreateIconClicked}
-          updateItemsInArray={this.updateItemsInArray} >
+          updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
+          updateItemsInArray={this.updateItemsInArray}
+          switchToAppointment={this.switchToAppointment}
+          createNewAppointment={this.createNewAppointment} >
           {
-            this.state.patient ?
+            this.state.patient === null ?
               null :
               <DashboardComponent
                 recents={this.state.patients.filter(patient => patient.appointments.length === 1)
-                  .sort((a, b) => b.first_seen - a.first_seen).slice(0, 3)} createNewPatient={this.onCreateIconClicked}>
+                  .sort((a, b) => b.id - a.id).slice(0, 3)}
+                createNewPatient={this.onCreateIconClicked}>
                 <PatientTableComponent patients={this.state.patients
                   .sort((a, b) => b.last_seen - a.last_seen).slice(0, 10)
                   .map((item) => {
                     item.biodata.primary_diagnosis = item.primary_diagnosis;
                     item.biodata.secondary_diagnosis = item.secondary_diagnosis;
-                    item.biodata.first_seen = item.first_seen;
+                    item.biodata.patient_id = item.id;
                     return item.biodata;
                   })} onItemClicked={this.onPatientTableClicked} />
               </DashboardComponent>

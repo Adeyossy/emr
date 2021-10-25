@@ -44,7 +44,8 @@ export const comorbidity = {
   year_diagnosed: 0,   //number
   duration: 0,    //number
   treatment: "",
-  compliance: ""
+  compliance: "",
+  response: ""
 };
 
 export const drug = {
@@ -60,7 +61,7 @@ export const allergy = {
 };
 
 export const alcohol = {
-  alcoholtype: "",
+  alcoholtype: [],
   alcoholbottlesperweek: "",   //number
   alcoholbottlesize: "",   //number
   alcoholconsumptionduration: ""   //number
@@ -72,13 +73,14 @@ export const cigarette = {
 }
 
 export const patient = {
+  id: "",
   next_appointment: 0,
   last_seen: 0,
   first_seen: 0,
-  appointment: 0,
+  appointment: {},
   appointments: [],
   biodata: {},
-  presenting_complaint: Object.assign({}, presenting_complaint),
+  presenting_complaints: Object.assign({}, presenting_complaint),
   review_of_systems: {},
   past_medical_history: {},
   drugs: [],
@@ -90,10 +92,29 @@ export const patient = {
   fshx_notes: "",
   summary: "",
   general: {
-    extras: [],
+    onexamination: [],
     notes: ""
   },
   neuro: {
+    highermentalfunctions: "",
+    cranialnerves: "",
+    motor_sides: [],
+    motor_limbs: [],
+    motor_inspection: [],
+    motor_tone: "",
+    motor_power: "",
+    motor_reflexes: "",
+    ankle_clonus: "",
+    babinski: "",
+    sensorysides: [],
+    sensorylimbs: [],
+    sensoryfinetouch: "",
+    sensorycoarsetouch: "",
+    sensorytemperature: "",
+    sensoryvibration: "",
+    sensoryproprioception: "",
+    sensorypressure: "",
+    gaitandcoordination: "",
     notes: ""
   },
   cvs: {
@@ -117,7 +138,7 @@ export const patient = {
   haematology: {
     notes: ""
   },
-  chempath: {
+  labs: {
     notes: ""
   },
   microbiology: {
@@ -126,15 +147,37 @@ export const patient = {
   procedures: {
     notes: ""
   },
+  pharmacological: {
+    notes: ""
+  },
+  nonpharmacological: {
+    notes: ""
+  },
+  other: {
+    notes: ""
+  },
+  assessment: {
+    notes: ""
+  },
+  plan: {
+    notes: ""
+  },
+  monitoring: {
+    notes: ""
+  },
   primary_diagnosis: "",
   secondary_diagnosis: "",
-  forms: {}
+  forms: {},
+  last_notes: ""
 }
 
 export function getFreshPatient() {
   const appointmentTime = Date.now();
-  const newPatient = Object.assign({}, patient);
+  // const newPatient = Object.assign({}, patient);
+  const newPatient = JSON.parse(JSON.stringify(patient));
+  newPatient.id = appointmentTime.toString();
   newPatient.first_seen = appointmentTime;
+  newPatient.last_seen = appointmentTime;
   newPatient.appointments = [];
   newPatient.appointments.unshift({
     time: appointmentTime,
@@ -144,12 +187,12 @@ export function getFreshPatient() {
     others: ""
   });
   newPatient.biodata = Object.assign({}, biodata);
-  newPatient.presenting_complaint = Object.assign({}, presenting_complaint);
+  newPatient.presenting_complaints = Object.assign({}, presenting_complaint);
   newPatient.review_of_systems = {
-    cardiorespiratory: "",
-    gastrointestinal: "",
-    genitourinary: "",
-    endocrine: "",
+    cardiorespiratory: [],
+    gastrointestinal: [],
+    genitourinary: [],
+    endocrine: [],
     notes: ""
   };
 
@@ -182,7 +225,7 @@ export function getFreshPatient() {
     appointment
   ];
 
-  newPatient.alcohol = Object.assign({}, alcohol);
+  newPatient.alcohol = JSON.parse(JSON.stringify(alcohol));
   newPatient.cigarette = Object.assign({}, cigarette);
   newPatient.fshx_notes = "";
   newPatient.forms = {};
@@ -196,7 +239,7 @@ export function getAppointment() {
     notes: "",
     assessment: "",
     plan: "",
-    date_seen: "",
+    date_seen: Date.now(),
     next_visit: "",
     monitoring: []
   }

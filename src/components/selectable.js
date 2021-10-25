@@ -7,31 +7,45 @@ import FSHxComponent from "./history/fshx";
 import PMHComponent from "./history/pmh";
 import RoSComponent from "./history/ros";
 import TabComponent from "./tabs";
+import AxisIComponent from "./epilepsy/axis_i";
+import AxisIIComponent from "./epilepsy/axis_ii";
+import AxisIIIComponent from "./epilepsy/axis_iii";
+import AxisIVComponent from "./epilepsy/axis_iv";
+import AxisVComponent from "./epilepsy/axis_v";
+import GeneralExamComponent from "./examination/general";
+import NeuroExamComponent from "./examination/neuro";
+import CVSExamComponent from "./examination/cardiovascular";
+import ChestExamComponent from "./examination/chest";
+import AbdominalExamComponent from "./examination/abdomen";
+import OtherExamComponent from "./examination/others";
+import NotesOnlyComponent from "./minicomponents/notes_only";
 
 export default class Selectable extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    // this.items = [ "Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx" ];
-    // this.stateFromItems = this.props.items.slice().fill("");
-    // // console.log("stateFromItems => ", this.stateFromItems)
-    // this.stateFromItems[0] = "selected";
-    this.tabState = [[],[],[],[],[],[],[]].map((item) => {
-      item = this.props.items.slice().fill("");
-      item[0] = "selected";
-      return item;
-    });
 
-    this.tabIndex = [0, 0, 0, 0, 0, 0, 0]
-    // this.tabState[this.props.index] = this.stateFromItems;
+    
+
     this.state = {
-      tabState: this.tabState,
-      tabIndex: this.tabIndex
+      tabIndex: [0, 0, 0, 0, 0, 0, 0],
+      tabState: this.tabState
     }
-    // this.handleSelection();
+  }
+
+  componentDidMount() {
+    // this.tabState = [[], [], [], [], [], [], []].map((item) => {
+    //   item = this.props.items.slice().fill("");
+    //   item[0] = "selected";
+    //   return item;
+    // });
+
+    // this.setState({
+    //   tabState: this.tabState
+    // });
   }
 
   handleSelection = () => {
-    if(this.state.tabState[this.props.index].length === 0){
+    if (this.state.tabState[this.props.index].length === 0) {
       this.stateFromItems = this.props.items.slice().fill("");
       // let selectedIndex = this.state.tabIndex[this.props.index];
       this.stateFromItems[0] = "selected";
@@ -60,16 +74,14 @@ export default class Selectable extends React.Component {
   }
 
   render() {
-    // this.handleSelection();
+    // console.log("this.props.patient => ", this.props.patient);
+    //Tabbed components under History
+
     return (
       <div className="container-fluid">
         <div className="row g-0">
           <div className="offset-xl-3 col-xl-6 emr-app-main">
-            {/* {console.log("navIndex => ", this.props.index)} */}
-            {/* {console.log("tabState => ", this.state.tabState)} */}
-            <TabComponent items={ this.props.items } tabState={ this.state.tabState[this.props.index] } changeTabState={this.updateTabState}></TabComponent>
-            {/* <ContentComponent></ContentComponent> */}
-            { this.props.itemsComponents.length > 0 ? this.props.itemsComponents[this.state.tabIndex[this.props.index]] : <div></div> }
+            {this.props.children}
           </div>
         </div>
       </div>

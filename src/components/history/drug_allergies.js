@@ -20,7 +20,7 @@ export default class DrugsAllergiesComponent extends React.Component {
     console.log("index => ", index);
     console.log("id => ", id);
     console.log("value => ", value);
-    this.props.updatePMHArrays(id, value, fields, index);
+    this.props.updateAnyObject(id, value, fields, index);
   }
 
   onItemChange = (name, index, fields, event) => {
@@ -104,7 +104,7 @@ export default class DrugsAllergiesComponent extends React.Component {
                       </div>
                       <div className="emr-clerking-tab-data-item">
                         <label htmlFor="allergicreaction">Allergic reaction experienced</label>
-                        <input type="number" name="allergicreaction" id="allergicreaction"
+                        <input type="text" name="allergicreaction" id="allergicreaction"
                           value={this.context.allergies[index].reaction}
                           onChange={this.onItemChange.bind(this, "reaction", index, ["allergies"])}></input>
                       </div>
@@ -115,8 +115,8 @@ export default class DrugsAllergiesComponent extends React.Component {
             }
           </div>
           <NotesComponent id="drugs_and_allergies_notes"
-            value={this.context.drugs_and_allergies_notes}
-            onItemChange={this.onItemChangeKeyed.bind(this, null, [])} />
+            value={this.context.drugs_and_allergies_notes} fields={[]}
+            onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     );

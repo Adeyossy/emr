@@ -2,33 +2,32 @@ import React from "react";
 import { PatientContext } from "../../models/patient_context";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 import NotesComponent from "../minicomponents/notes";
-import SingleItemSelectComponent from "../minicomponents/single_item_select";
 import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 import LabelAndInputComponent from "./label_and_input";
 
 export default class AxisIComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      consciousnessduration: "",
-      consciousnessdescription: "",
-      blankspellduration: "",
-      blankspelldescription: "",
-      amnesiaduration: "",
-      amnesiadescription: "",
-      clonusdescription: "",
-      tonicdescription: ""
-    }
   }
 
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    this.props.updatePMHArrays(id, value, ["forms", "epilepsy", "axisI"], null);
+    this.props.updateAnyObject(id, value, ["forms", "epilepsy", "axisI"], null);
+  }
+
+  onMultiItemChange = (id, value) => {
+    value.split(", ").forEach((item) => this.props.updateItemsInArray(
+      ["forms", "epilepsy", "axisI", id], item,
+      this.context.forms.epilepsy.axisI[id].length + 1));
   }
 
   onItemChangeInComponent = (event) => {
     this.onItemChange(event.target.name, event.target.value);
+  }
+
+  componentDidUpdate(){
+    console.log("Patient => ", this.context.forms.epilepsy);
   }
 
   render() {
@@ -43,35 +42,35 @@ export default class AxisIComponent extends React.Component {
                 value={this.context.forms.epilepsy.axisI.aura_side}
                 items={["Left", "Right", "Both"]} onItemChange={this.onItemChange} />
               <MultiSelectOutputComponent name={"Visual Hallucination"} id={"visual_hallucination"}
-                value={this.context.forms.epilepsy.axisI.visual_hallucination}
+                value={this.context.forms.epilepsy.axisI.visual_hallucination.join(", ")}
                 items={["Flashing lights", "Amaurosis", "Visual illusions",
                   "Visual hallucinations", "Blinking", "Ocular movements"]}
-                onItemChange={this.onItemChange} />
+                onItemChange={this.onMultiItemChange} />
               <MultiSelectOutputComponent name={"Dysaesthesia"} id={"dysaesthesia"}
-                value={this.context.forms.epilepsy.axisI.dysaesthesia}
+                value={this.context.forms.epilepsy.axisI.dysaesthesia.join(", ")}
                 items={["Primary sensations e.g. tingling", "Unpleasant sensation e.g. heat",
                   "Negative sensation e.g. absent limb"]}
-                onItemChange={this.onItemChange} />
+                onItemChange={this.onMultiItemChange} />
               <SingleSelectOutputComponent name={"Abdominal"} id={"abdominal"}
                 value={this.context.forms.epilepsy.axisI.abdominal}
                 items={["Yes", "No"]} onItemChange={this.onItemChange} />
               <MultiSelectOutputComponent name={"Psychic"} id={"psychic"}
-                value={this.context.forms.epilepsy.axisI.psychic}
-                items={["Mood symptoms e.g. fear, elation",
-                  "Experiential symptoms e.g. deja vu, jamais vu, out of body experience",
+                value={this.context.forms.epilepsy.axisI.psychic.join(", ")}
+                items={["Mood symptoms e.g. fear",
+                  "Experiential symptoms e.g. deja vu",
                   "Olfactory hallucinations or illusion",
                   "Behavioural abnormalities e.g. emotional or mood changes"]}
-                onItemChange={this.onItemChange} />
+                onItemChange={this.onMultiItemChange} />
               <MultiSelectOutputComponent name={"Auditory"} id={"auditory"}
-                value={this.context.forms.epilepsy.axisI.auditory}
+                value={this.context.forms.epilepsy.axisI.auditory.join(", ")}
                 items={["Simple hallucinations e.g. buzz, noise",
                   "Vertiginous symptoms"]}
-                onItemChange={this.onItemChange} />
+                onItemChange={this.onMultiItemChange} />
               <MultiSelectOutputComponent name={"Autonomic"} id={"autonomic"}
-                value={this.context.forms.epilepsy.axisI.autonomic}
+                value={this.context.forms.epilepsy.axisI.autonomic.join(", ")}
                 items={["Palpitations", "Sweating", "Tachycardia", "Flushing",
                   "Vomiting", "Urinary urge"]}
-                onItemChange={this.onItemChange} />
+                onItemChange={this.onMultiItemChange} />
             </div>
           </details>
           <details className="emr-clerking-tab-data-item">
@@ -128,9 +127,9 @@ export default class AxisIComponent extends React.Component {
                     value={this.context.forms.epilepsy.axisI.tonic_description}
                     onItemChange={this.onItemChange} type={"text"} />
                   <MultiSelectOutputComponent name={""} id={"motor_version"}
-                    value={this.context.forms.epilepsy.axisI.motor_version}
+                    value={this.context.forms.epilepsy.axisI.motor_version.join(", ")}
                     items={["Version", "Fencing (M2e) position", "Figure four position"]}
-                    onItemChange={this.onItemChange} />
+                    onItemChange={this.onMultiItemChange} />
                 </div>
               </div>
               <LabelAndInputComponent id={"myoclonus_description"} title={"Myoclonus (describe)"}
@@ -151,8 +150,8 @@ export default class AxisIComponent extends React.Component {
               <details className="emr-clerking-tab-data-item">
                 <summary>Automatism</summary>
                 <MultiSelectOutputComponent name={"Automatism (smack lips, fidget, behave in an unusual way)"}
-                  id={"automatism"} onItemChange={this.onItemChange}
-                  value={this.context.forms.epilepsy.axisI.automatism}
+                  id={"automatism"} onItemChange={this.onMultiItemChange}
+                  value={this.context.forms.epilepsy.axisI.automatism.join(", ")}
                   items={["Oro-alimentary", "Gestural", "Manipulative e.g. picking, fumbling"]} />
                 <div className="emr-clerking-tab-data-items">
                   <LabelAndInputComponent id={"automatism_duration"} title={"Duration"}
@@ -168,16 +167,16 @@ export default class AxisIComponent extends React.Component {
           <MultiSelectOutputComponent name={"Others"} id={"others_axis_i"}
             items={["Aphasia", "Dystonic posturing", "Ictal speech", "Urinary urge",
               "Speech arrest", "Forced thinking", "Laryngeal symptoms", "Sphincteric dysfunction"]}
-            value={this.context.forms.epilepsy.axisI.others_axis_i}
-            onItemChange={this.onItemChange} />
+            value={this.context.forms.epilepsy.axisI.others_axis_i.join(", ")}
+            onItemChange={this.onMultiItemChange} />
           <details className="emr-clerking-tab-data-item">
             <summary>Post-ictal manifestation</summary>
             <div className="emr-clerking-tab-data-items">
               <MultiSelectOutputComponent name={"Post-ictal manifestations"}
                 id={"postictal_manifestation"}
-                value={this.context.forms.epilepsy.axisI.postictal_manifestation}
+                value={this.context.forms.epilepsy.axisI.postictal_manifestation.join(", ")}
                 items={["Confusion", "Sleep", "Headache", "Motor deficit", "Aphasia", "Nose wipe",
-                  "Fatigue", "Sphincteric dysfunction"]} onItemChange={this.onItemChange} />
+                  "Fatigue", "Sphincteric dysfunction"]} onItemChange={this.onMultiItemChange} />
               <LabelAndInputComponent id={"postictal_duration"} type={"number"}
                 value={this.context.forms.epilepsy.axisI.postictal_duration}
                 title={"Duration of post-ictal phase"} onItemChange={this.onItemChange} />
@@ -213,9 +212,9 @@ export default class AxisIComponent extends React.Component {
             id={"incomplete_seizure_manifestation"} items={["Yes", "No"]}
             value={this.context.forms.epilepsy.axisI.incomplete_seizure_manifestation}
             onItemChange={this.onItemChange} />
-          <NotesComponent id={"notes"}
-            value={this.context.forms.epilepsy.axisI.motor_side}
-            onItemChange={this.onItemChange} />
+          <NotesComponent id={"notes"} fields={["forms", "epilepsy", "axisI"]}
+            value={this.context.forms.epilepsy.axisI.notes}
+            onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     );

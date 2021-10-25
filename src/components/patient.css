@@ -309,7 +309,7 @@ p.emr-right-sidebar-item-text{
 .emr-quick-info-card > p {
   width: 100%;
   text-align: center;
-  color: var(--emr-grey-colour);
+  color: var(--emr-darker-grey-colour);
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;

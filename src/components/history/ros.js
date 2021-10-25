@@ -1,6 +1,7 @@
 import React from "react";
 import { PatientContext } from "../../models/patient_context";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
+import NotesComponent from "../minicomponents/notes";
 import NotesOnlyComponent from "../minicomponents/notes_only";
 
 export default class RoSComponent extends React.Component {
@@ -11,11 +12,10 @@ export default class RoSComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    this.setState({
-      [id]: value
+    value.split(", ").forEach((item, index) => {
+      this.props.updateItemsInArray(["review_of_systems", id], item,
+        this.context.review_of_systems[id].length + 1);
     });
-
-    this.props.updateRoS(id, value, "review_of_systems");
   }
 
   displaySelectedInInputBox = (index) => {
@@ -39,30 +39,26 @@ export default class RoSComponent extends React.Component {
           <MultiSelectOutputComponent name={"Cardiorespiratory"} id={"cardiorespiratory"}
             items={["Cough", "Dyspnoea", "Orthopnoea", "PND", "Chest Pain", "Haemoptysis",
               "Leg Swelling", "Palpitations", "Cyanosis", "Other"]}
-            value={this.context.review_of_systems["cardiorespiratory"]}
+            value={this.context.review_of_systems["cardiorespiratory"].join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <MultiSelectOutputComponent name={"Gastrointestinal"} id={"gastrointestinal"}
             items={["Abd pain", "Abd swelling", "Anorexia", "Nausea", "Diarrhoea", "Constipation",
               "Vomiting", "Jaundice", "Haematemesis", "Melena", "Other"]}
-            value={this.context.review_of_systems["gastrointestinal"]}
+            value={this.context.review_of_systems["gastrointestinal"].join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <MultiSelectOutputComponent name={"Genitourinary"} id={"genitourinary"}
             items={["Dysuria", "Frequency", "Urgency", "Dribbling", "Hesitancy", "Intermittency",
               "Haematuria", "Incontinence", "Weak Stream", "Discharge", "Other"]}
-            value={this.context.review_of_systems["genitourinary"]}
+            value={this.context.review_of_systems["genitourinary"].join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <MultiSelectOutputComponent name={"Endocrine"} id={"endocrine"}
             items={["Polyuria", "Polyphagia", "Polydipsia", "Weight loss", "Recurrent Infections", "Heat Intolerance",
               "Cold Intolerance", "Incontinence", "Weak Stream", "Discharge", "Other"]}
-            value={this.context.review_of_systems["endocrine"]}
+            value={this.context.review_of_systems["endocrine"].join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
-          <div className="emr-clerking-tab-data-item">
-            <label htmlFor="notes">Notes</label>
-            <textarea name="notes" id="notes" cols="30" rows="10"
-              value={this.context.review_of_systems["notes"]}
-              onChange={this.onItemChange} placeholder="write here...">
-            </textarea>
-          </div>
+          <NotesComponent id="notes" fields={["review_of_systems"]}
+            value={this.context.review_of_systems.notes} 
+            onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     )

@@ -71,7 +71,7 @@ export default class NavComponent extends React.Component {
           </div>
           <div className="col-lg-6 d-none d-lg-flex">
             <div className="emr-app-toolbar">
-              {this.props.patient ? appBarItems : null}
+              {this.props.patient && this.props.patient.appointment ? appBarItems : null}
             </div>
           </div>
           <div className="col-lg-2 d-none d-lg-flex">

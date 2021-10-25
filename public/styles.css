@@ -3,7 +3,7 @@
   --emr-secondary-colour: #023086;
   --emr-primary-light-colour: #ACBAD4;
   --emr-light-colour: #E6EFFF;
-  --emr-background-colour: #F0F0FF;
+  --emr-background-colour: #FAFAFA;
   --emr-accent-colour: #FFDD1C;
   --emr-accent-light-colour: #FFF5BF;
   --emr-accent-colour-2: #ED1E79;
@@ -19,7 +19,7 @@
   --emr-failure-gradient: linear-gradient(to bottom right, var(--emr-light-colour), var(--emr-failure-colour));
   --emr-round-corners: 16px;
   --emr-low-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
-  --emr-default-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.15);
+  --emr-default-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.1);
   --emr-high-shadow: 4px 4px 16px 2px rgba(0, 0, 0, 0.15);
   --emr-default-padding: 16px;
 }
@@ -149,6 +149,7 @@ hr{
 }
 
 .emr-patient-list-item{
+  position: relative;
   height: 56px;
   padding: 8px;
   margin: 8px 0;
@@ -182,6 +183,27 @@ div.emr-patient-list-item.clicked p.emr-patient-name,
 div.emr-patient-list-item:active div.emr-patient-biodata > p,
 div.emr-patient-list-item.clicked div.emr-patient-biodata > p{
   color: white;
+}
+
+div.emr-patient-list-item.clicked:hover div.emr-patient-delete{
+  display: inline-block;
+  opacity: 1;
+  animation: 250ms ease-in 1 fadeIn;
+}
+
+.emr-patient-delete{
+  position: absolute;
+  margin: auto;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  opacity: 0.5;
+  text-align: right;
+  padding: 8px 16px 0px 0px;
+  border-radius: var(--emr-round-corners);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
 }
 
 .emr-patient-description{
