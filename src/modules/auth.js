@@ -6,7 +6,7 @@ import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDyAoQjoB-HgfBahyvWp2EOuExh4iZfp9o",
@@ -22,21 +22,33 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
-export const authStateObserver = () => {
-  onAuthStateChanged(getAuth(), (user => user));
+export const authStateObserver = (callback) => {
+  onAuthStateChanged(getAuth(), (user => {
+    callback(user);
+  }));
 }
 
-export const signUserIn = (email, password) => {
+export const signUserIn = (email, password, onUserSignIn) => {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
-      return userCredential.user;
+      console.log("user => ", userCredential.user);
+      onUserSignIn(true);
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      return error;
+      onUserSignIn(false);
     });
+}
+
+export const signUserOut = (callback) => {
+  signOut(getAuth()).then(() => {
+    console.log("signed out");
+    callback();
+  }).catch(() => {
+    console.log("error occurred on signing out");
+  });
 }

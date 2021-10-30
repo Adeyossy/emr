@@ -12,11 +12,11 @@ export default class NotesComponent extends React.Component {
 
   render() {
     return (
-      <div className="emr-clerking-tab-data-item">
+      <div className={`emr-clerking-tab-data-item ${this.props.value ? "filled" : ""}`}>
         <label htmlFor={this.props.id}>{this.props.name ? this.props.name : "Notes"}</label>
         <textarea name={this.props.id} id={this.props.id} cols="30"
-          rows="5" placeholder="write here..." onChange={this.onThisItemChange}
-          value={this.props.value}></textarea>
+          rows="4" placeholder="write here..." onChange={this.onThisItemChange}
+          value={this.props.value} className={this.props.value ? "filled" : ""}></textarea>
       </div>
     );
   }

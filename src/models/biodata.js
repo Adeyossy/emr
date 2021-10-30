@@ -7,14 +7,18 @@ export const biodata = {
   occupation: "",
   maritalstatus: "",
   address: "",
+  city: "",
+  state: "",
   religion: "",
   tribe: "",
   informant: "",
   hospital: "",
   id: "",
   phone_number: "",
+  phone_number_1: "",
   email_address: "",
-  next_of_kin: ""
+  next_of_kin: "",
+  next_of_kin_relationship: ""
 }
 
 function populateBiodata(source){

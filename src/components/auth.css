@@ -1,0 +1,91 @@
+body{
+  overflow: auto;
+}
+
+.emr{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/home_background.jpg?alt=media&token=ab7625a0-7a0c-4e52-811c-aefa6b1f3439');
+  background-color: var(--emr-primary-colour);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-blend-mode: luminosity;
+}
+
+.emr nav{
+  background-color: rgba(0, 0, 0, 0.25);
+  height: 48px;
+}
+
+main{
+  flex-grow: 9;
+  height: 100%;
+}
+
+.container-fluid{
+  height: inherit;
+}
+
+.row{
+  height: inherit;
+}
+
+.emr-auth-column{
+  height: 100%;
+  padding-right: 0px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.emr-auth-card{
+  width: 100%;
+  padding: 24px 28px;
+  /* background: linear-gradient(to bottom right, white, var(--emr-primary-light-colour)); */
+  background-color: rgba(255, 255, 255, 0.9);
+  background-blend-mode: multiply;
+}
+
+.emr-auth-header{
+  margin-top: 16px;
+  font-size: 11pt;
+  color: var(--emr-secondary-colour);
+  text-align: center;
+}
+
+.emr-auth-button{
+  margin: 48px 0px 16px 0px;
+}
+
+.emr-auth-button:hover{
+  background-color: var(--emr-primary-colour);
+}
+
+.emr-auth-button.triggered{
+  animation: 300ms ease-in infinite alternate blink;
+}
+
+.emr-username-input-group{
+  margin: 32px 0;
+}
+
+@keyframes blink{
+  from{
+    background-color: var(--emr-secondary-colour);
+    opacity: 0.5;
+  }
+
+  to{
+    background-color: var(--emr-primary-colour);
+    opacity: 1;
+  }
+}
+
+@media only screen and (min-width: 992px){
+  .emr-auth-column{
+    padding-right: 32px;
+  }
+}

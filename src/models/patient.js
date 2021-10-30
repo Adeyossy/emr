@@ -175,7 +175,7 @@ export function getFreshPatient() {
   const appointmentTime = Date.now();
   // const newPatient = Object.assign({}, patient);
   const newPatient = JSON.parse(JSON.stringify(patient));
-  newPatient.id = appointmentTime.toString();
+  newPatient._id = appointmentTime.toString();
   newPatient.first_seen = appointmentTime;
   newPatient.last_seen = appointmentTime;
   newPatient.appointments = [];

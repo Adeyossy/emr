@@ -106,9 +106,11 @@ export class AppComponent extends React.Component {
     ];
 
     const historyComponents = [
-      <BiodataComponent patient={this.props.patient} updateBiodata={this.props.updateObjectField} />,
+      <BiodataComponent patient={this.props.patient} 
+      updateBiodata={this.props.updateObjectField} />,
       <ComplaintComponent updateComplaints={this.props.updateComplaints}
-        updateAnyObject={this.props.updateAnyObject} />,
+        updateAnyObject={this.props.updateAnyObject} 
+        updateItemsInArray={this.props.updateItemsInArray} />,
       <RoSComponent updateAnyObject={this.props.updateAnyObject}
         updateItemsInArray={this.props.updateItemsInArray} />,
       <PMHComponent updateAnyObject={this.props.updateAnyObject}
@@ -175,7 +177,8 @@ export class AppComponent extends React.Component {
           <NavComponent navAppBarState={this.state.navState} changeState={this.updateNavState}
             dashboard={this.props.dashboard} patientView={this.props.patientView}
             currentView={this.props.currentView} navIndex={this.state.navIndex}
-            patient={this.props.patient} createNewPatient={this.props.createNewPatient} />
+            patient={this.props.patient} createNewPatient={this.props.createNewPatient}
+            onUserSignOut={this.props.onUserSignOut} />
         </nav>
         {
           this.props.children ? this.props.children :

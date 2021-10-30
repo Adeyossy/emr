@@ -9,10 +9,10 @@ export default class DashboardComponent extends React.Component {
   render() {
     return (
       <main>
-        <div className="container-fluid">
+        <div className="container-fluid emr-dashboard-container">
           <div className="row">
             {/* <!-- Start of the first column of the app --> */}
-            <div className="col-lg-3 emr-column">
+            <div className="col-xl-3 col-lg-4 col-md-10 mx-auto emr-column">
               <div className="emr-dashboard-welcome emr-first">
                 <h1 className="emr-large-text emr-headers">Welcome</h1>
                 <div className="emr-user">
@@ -28,7 +28,8 @@ export default class DashboardComponent extends React.Component {
                   <div className="emr-patient-list">
                     {/* <!-- Anything with classname as -list-item will be in a for-loop --> */}
                     {this.props.recents.map((item, index) =>
-                      <div className="emr-patient-list-item" key={index.toString()}>
+                      <div className="emr-patient-list-item" key={index.toString()}
+                        onClick={this.props.viewPatient.bind(this, item._id)}>
                         <div className="emr-icon-bg emr-icon-bg-dark">
                           {/* <!-- Insert age-appropriate icon here --> */}
                           <i className="bi bi-person-fill emr-center-icon"></i>
@@ -59,29 +60,36 @@ export default class DashboardComponent extends React.Component {
             </div>
             {/* <!-- End of the first column of the app --> */}
             {/* <!-- Start of the second column of the app --> */}
-            <div className="col-lg-6 emr-column">
-              <div className="emr-quick-buttons emr-first">
-                <div className="emr-quick-button emr-new-patient emr-quick-button-light-bg" onClick={this.props.createNewPatient}>
-                  <div className="emr-icon-bg">
-                    <i className="bi bi-file-earmark-plus emr-icons emr-center-icon"></i>
+            <div className="col-lg-8 col-xl-6 emr-column">
+              <div className="container-fluid emr-first">
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="emr-quick-button emr-new-patient emr-quick-button-light-bg"
+                      onClick={this.props.createNewPatient}>
+                      <div className="emr-icon-bg">
+                        <i className="bi bi-file-earmark-plus emr-icons emr-center-icon"></i>
+                      </div>
+                      <div className="emr-quick-button-text">
+                        <h6 className="emr-headers emr-card-headers">Create New Patient</h6>
+                      </div>
+                    </div>
                   </div>
-                  <div className="emr-quick-button-text">
-                    <h6 className="emr-headers emr-card-headers">Create New Patient</h6>
-                  </div>
-                </div>
-                <div className="emr-quick-button emr-investigation-portal emr-quick-button-dark-bg">
-                  <div className="emr-icon-bg">
-                    <i className="bi bi-file-earmark-medical-fill emr-icons emr-center-icon"></i>
-                  </div>
-                  <div className="emr-quick-button-text">
-                    <h6 className="emr-headers emr-card-headers">Investigations Portal</h6>
+                  <div className="col-md-6">
+                    <div className="emr-quick-button emr-investigation-portal emr-quick-button-dark-bg">
+                      <div className="emr-icon-bg">
+                        <i className="bi bi-file-earmark-medical-fill emr-icons emr-center-icon"></i>
+                      </div>
+                      <div className="emr-quick-button-text">
+                        <h6 className="emr-headers emr-card-headers">Investigations Portal</h6>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               {this.props.children}
             </div>
-            <div className="col-lg-3 emr-column">
-              <div className="emr-first"></div>
+            <div className="col-xl-3 col-lg-8 col-md-10 mx-auto emr-column">
+              {/* <div className="emr-first"></div> */}
               <div className="emr-calendar-schedule">
                 <h6 className="emr-headers">My Schedule</h6>
                 <div className="emr-card emr-schedule-card">

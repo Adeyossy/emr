@@ -6,7 +6,7 @@ export default class LeftSideBarComponent extends React.Component {
   static contextType = PatientContext;
 
   render() {
-    // console.log("patient's first seen => ", this.props.patient.id);
+    // console.log("patient's first seen => ", this.props.patient._id);
     return (
       <div className="container-fluid">
         <div className="row g-0">
@@ -16,11 +16,11 @@ export default class LeftSideBarComponent extends React.Component {
                 {
                   this.props.patients.sort((a, b) => a.last_seen - b.last_seen).map((item, index) =>
                     <div className={`emr-patient-list-item 
-                      ${this.props.patient.id === item.id ? "clicked" : ""}`}
+                      ${this.props.patient._id === item._id ? "clicked" : ""}`}
                       key={index.toString()} onClick={this.props.changePatient.bind(this, item)}>
                       <div className="emr-patient-delete">
                         <div className="emr-icon-bg emr-icon-bg-dark"
-                          onClick={this.props.deletePatient.bind(this, item.id)}>
+                          onClick={this.props.deletePatient.bind(this, item._id)}>
                           <i className="bi bi-trash-fill emr-center-icon"></i>
                         </div>
                       </div>
@@ -58,15 +58,16 @@ export default class LeftSideBarComponent extends React.Component {
                     {
                       this.context.appointments.sort((a, b) => b.date_seen - a.date_seen)
                         .map((item, index, array) =>
-                          <>
+                          <React.Fragment key={index.toString()}>
                             <div className={`emr-icon-bg emr-icon-bg-dark 
-                            ${item && Object.is(item, this.context.appointment) ? "selected" : ""}`}
+                            ${item !== null && item.date_seen ===
+                                this.context.appointment.date_seen ? "selected" : ""}`}
                               key={index.toString()} onClick={this.props.switchToAppointment.bind(this, item)}>
                               <i className={`emr-center-icon emr-timeline-bar-icons`}>
                                 #{array.length - index}</i>
                             </div>
                             {index < array.length - 1 ? <div className="emr-timeline-visits-divider"></div> : null}
-                          </>
+                          </React.Fragment>
                         )
                     }
                   </div>
@@ -74,7 +75,7 @@ export default class LeftSideBarComponent extends React.Component {
                     <div className="emr-icon-bg emr-icon-bg-dark"
                       onClick={this.props.createNewAppointment}>
                       <i className="bi bi-plus-lg emr-icons emr-center-icon"></i>
-                      <i className="emr-icon-tooltip">New appointment</i>
+                      <i className="emr-icon-tooltip">New</i>
                     </div>
                   </div>
                 </div>

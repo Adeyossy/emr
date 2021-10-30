@@ -64,18 +64,25 @@ input:hover, input:focus-visible{
 }
 
 .emr-clerking-tab-data-item.filled{
-  /* color: white; */
-  border-color: var(--emr-primary-light-colour);
-  background-color: var(--emr-background-colour);
-  transition: background-color 250ms ease-in, box-shadow 250ms ease-in;
+  border-color: var(--emr-primary-colour);
+  /* background-color: var(--emr-background-colour); */
+  box-shadow: var(--emr-high-shadow);
   /* background: linear-gradient(180deg, white 50%, var(--emr-light-colour)); */
-  box-shadow: var(--emr-default-shadow);
+  transition: all 250ms ease-in;
 }
+
+/* .emr-clerking-tab-data-item.filled::after{
+  box-shadow: var(--emr-high-shadow);
+  mix-blend-mode: multiply;
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+} */
 
 .emr-clerking-tab-data-item{
   width: inherit;
   padding: 32px 5%;
-  margin-bottom: 16px;
+  margin-bottom: 48px;
   color: var(--emr-darker-grey-colour);
   background-color: white;
   /* background-position: 0% 0%; */
@@ -85,6 +92,16 @@ input:hover, input:focus-visible{
   box-shadow: var(--emr-low-shadow);
 }
 
+.emr-clerking-tab-data-item:last-child{
+  margin-bottom: 16px;
+}
+
 .emr-clerking-biodata-names > input{
   width: 32.6%;
+}
+
+.emr-collapsible-summary{
+  font-weight: normal;
+  color: var(--emr-secondary-colour);
+  margin-left: 4px;
 }

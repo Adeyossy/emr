@@ -24,17 +24,28 @@ nav{
 
 .emr-other-views{
   display: none;
-  background-color: white;
+  background-color: var(--emr-background-colour);
   border-radius: var(--emr-round-corners);
   box-shadow: 4px 4px 16px 0 rgba(0, 0, 0, 0.1);
   animation: ease-in 250ms dropdown;
 }
 
 .emr-other-view{
-  font-size: 10pt;
-  padding: 8px 16px;
-  margin: 8px 0px;
+  font-size: 10.5pt;
+  padding: 16px 16px;
+  /* margin: 8px 0px; */
   transition: background-color 200ms ease-out;
+  cursor: default;
+}
+
+.emr-other-view:nth-child(even){
+  background-color: white;
+  border-radius: var(--emr-round-corners);
+  /* padding: 16px 16px; */
+}
+
+.emr-other-view:first-child:hover, .emr-other-view:last-child:hover{
+  border-radius: var(--emr-round-corners);
 }
 
 .emr-other-view:hover{
@@ -45,11 +56,11 @@ nav{
   background-color: var(--emr-primary-light-colour);
 }
 
-.emr-nav-dropdown:hover .emr-other-views{
+.emr-nav-dropdown:hover .emr-other-views, .emr-app-auth-and-overflow:hover .emr-other-views{
   display: inline-block;
   position: absolute;
-  width: max-content;
-  top: 0px; left: 0;
+  width: 160px;
+  top: 24px; left: 0;
   margin: auto;
   z-index: 2;
 }
@@ -90,6 +101,7 @@ nav{
 }
 
 .emr-app-auth-and-overflow{
+  position: relative;
   justify-content: flex-end;
   width: auto;
 }

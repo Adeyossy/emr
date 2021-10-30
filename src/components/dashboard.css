@@ -1,3 +1,7 @@
+.emr-dashboard-container{
+  animation: 400ms ease-in 1 fadeIn;
+}
+
 .emr-first{
   min-height: 90px;
 }

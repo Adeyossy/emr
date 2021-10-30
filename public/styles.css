@@ -20,12 +20,13 @@
   --emr-round-corners: 16px;
   --emr-low-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
   --emr-default-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.1);
-  --emr-high-shadow: 4px 4px 16px 2px rgba(0, 0, 0, 0.15);
+  --emr-high-shadow: 4px 4px 16px 0px rgba(0, 0, 0, 0.1);
   --emr-default-padding: 16px;
 }
 
 *:disabled{
   opacity: 0.3;
+  cursor: not-allowed;
 }
 
 nav{
@@ -103,7 +104,11 @@ input:focus-visible, textarea:focus-visible{
   outline: none;
   border: 2px solid var(--emr-secondary-colour);
   border-radius: 16px;
-  box-shadow: inset 0px 0px 2px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0px 0px 2px 0px var(--emr-secondary-colour);
+}
+
+input.filled, textarea.filled{
+  border-color: var(--emr-primary-colour);
 }
 
 div:focus-visible{

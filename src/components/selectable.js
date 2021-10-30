@@ -1,30 +1,9 @@
 import React from "react";
 import './history.css';
-import BiodataComponent from "./history/biodata";
-import ComplaintComponent from "./history/complaint";
-import DrugsAllergiesComponent from "./history/drug_allergies";
-import FSHxComponent from "./history/fshx";
-import PMHComponent from "./history/pmh";
-import RoSComponent from "./history/ros";
-import TabComponent from "./tabs";
-import AxisIComponent from "./epilepsy/axis_i";
-import AxisIIComponent from "./epilepsy/axis_ii";
-import AxisIIIComponent from "./epilepsy/axis_iii";
-import AxisIVComponent from "./epilepsy/axis_iv";
-import AxisVComponent from "./epilepsy/axis_v";
-import GeneralExamComponent from "./examination/general";
-import NeuroExamComponent from "./examination/neuro";
-import CVSExamComponent from "./examination/cardiovascular";
-import ChestExamComponent from "./examination/chest";
-import AbdominalExamComponent from "./examination/abdomen";
-import OtherExamComponent from "./examination/others";
-import NotesOnlyComponent from "./minicomponents/notes_only";
 
 export default class Selectable extends React.Component {
   constructor(props) {
-    super(props);
-
-    
+    super(props);    
 
     this.state = {
       tabIndex: [0, 0, 0, 0, 0, 0, 0],

@@ -1,4 +1,4 @@
-const complaint = {
+export const complaint = {
   complaint: "",
   duration: ""
 }

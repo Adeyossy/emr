@@ -27,20 +27,20 @@ export default class MultiSelectOutputComponent extends React.Component {
     //if the item is already selected i.e. in store, deselect it
     if (isAlreadySelected) {
       currentSelectedItems = currentSelectedItems.filter((value) => value !== itemAtIndex);
-      this.setState({
-        item: "",
-        items: currentSelectedItems
-      });
+      // this.setState({
+      //   item: "",
+      //   items: currentSelectedItems
+      // });
 
       if (this.props.onItemChange) {
         this.props.onItemChange(this.props.id, "");
       }
     } else { //else select the item
       currentSelectedItems.push(itemAtIndex);
-      this.setState({
-        item: this.props.items[index],
-        items: currentSelectedItems
-      });
+      // this.setState({
+      //   item: this.props.items[index],
+      //   items: currentSelectedItems
+      // });
 
       if (this.props.onItemChange) {
         this.props.onItemChange(this.props.id, itemAtIndex);
@@ -50,10 +50,10 @@ export default class MultiSelectOutputComponent extends React.Component {
   }
 
   onItemChange = (event) => {
-    console.log("text box text => ", event.target.value);
-    this.setState({
-      item: event.target.value
-    });
+    // console.log("text box text => ", event.target.value);
+    // this.setState({
+    //   item: event.target.value
+    // });
 
     // console.log("event triggered in multi_select_output => ", event.target.value);
 
@@ -98,7 +98,8 @@ export default class MultiSelectOutputComponent extends React.Component {
           this.props.value.split(", ") : []}
           selectableItems={this.props.items} displayInBox={this.displaySelectedInInputBox} />
         <input type="text" name={this.props.id} id={this.props.id}
-          value={this.props.value} onChange={this.onItemChange.bind(this)}></input>
+          value={this.props.value} onChange={this.onItemChange.bind(this)}
+          className={this.props.value ? "filled" : ""}></input>
       </details>
     )
   }

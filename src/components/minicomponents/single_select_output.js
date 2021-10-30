@@ -14,16 +14,16 @@ export default class SingleSelectOutputComponent extends React.Component {
     const modifiableField = this.props.inputName ? this.props.inputName : this.props.id;
     const isAlreadySelected = currentReaction === this.props.items[index];
     if (isAlreadySelected) {
-      this.setState({
-        item: ""
-      });
+      // this.setState({
+      //   item: ""
+      // });
       if (this.props.onItemChange) {
         this.props.onItemChange(modifiableField, "");
       }
     } else {
-      this.setState({
-        item: this.props.items[index]
-      });
+      // this.setState({
+      //   item: this.props.items[index]
+      // });
       if (this.props.onItemChange) {
         this.props.onItemChange(modifiableField, 
           this.props.items[index]);
@@ -34,9 +34,9 @@ export default class SingleSelectOutputComponent extends React.Component {
   onItemChange = (event) => {
     const modifiableField = this.props.inputName ? this.props.inputName : this.props.id;
     if (event.target.name === modifiableField) {
-      this.setState({
-        item: event.target.value
-      });
+      // this.setState({
+      //   item: event.target.value
+      // });
 
       this.props.onItemChange(modifiableField, 
         event.target.value);
@@ -45,12 +45,13 @@ export default class SingleSelectOutputComponent extends React.Component {
 
   render() {
     return (
-      <div className="emr-clerking-tab-data-item">
+      <div className={`emr-clerking-tab-data-item ${this.props.value ? "filled" : ""}`}>
         <label htmlFor={this.props.id}>{this.props.name}</label>
         <SingleItemSelectComponent selectedItem={this.props.value} selectableItems={this.props.items}
           displayInBox={this.displaySelectedInInputBox} />
         <input type="text" name={this.props.inputName ? this.props.inputName : this.props.id}
-          id={this.props.id} value={this.props.value} onChange={this.onItemChange.bind(this)}></input>
+          id={this.props.id} value={this.props.value} onChange={this.onItemChange.bind(this)}
+          className={this.props.value ? "filled" : ""}></input>
       </div>
     )
   }

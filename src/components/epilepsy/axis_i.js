@@ -26,7 +26,7 @@ export default class AxisIComponent extends React.Component {
     this.onItemChange(event.target.name, event.target.value);
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     console.log("Patient => ", this.context.forms.epilepsy);
   }
 
@@ -35,7 +35,8 @@ export default class AxisIComponent extends React.Component {
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">Semiology Description</h4>
         <div className="emr-clerking-tab-data-items">
-          <details className="emr-clerking-tab-data-item">
+          <details className="emr-clerking-tab-data-item"
+            open={this.context.forms.epilepsy.axisI.aura_side}>
             <summary htmlFor="familyhistory">Aura</summary>
             <div className="emr-clerking-tab-data-items">
               <SingleSelectOutputComponent name={""} id={"aura_side"}
@@ -73,7 +74,8 @@ export default class AxisIComponent extends React.Component {
                 onItemChange={this.onMultiItemChange} />
             </div>
           </details>
-          <details className="emr-clerking-tab-data-item">
+          <details className="emr-clerking-tab-data-item"
+            open={this.context.forms.epilepsy.axisI.consciousness_alteration_duration}>
             <summary htmlFor="hypertension">Consciousness</summary>
             <div className="emr-clerking-tab-data-items">
               <div className="emr-clerking-tab-data-item">
@@ -81,7 +83,7 @@ export default class AxisIComponent extends React.Component {
                 <div className="emr-clerking-tab-data-items">
                   <LabelAndInputComponent id={"consciousness_alteration_duration"} title={"Duration"}
                     value={this.context.forms.epilepsy.axisI.consciousness_alteration_duration}
-                    onItemChange={this.onItemChange} type={"number"} />
+                    onItemChange={this.onItemChange} type={"text"} />
                   <LabelAndInputComponent id={"consciousness_alteration_description"} title={"Describe"}
                     value={this.context.forms.epilepsy.axisI.consciousness_alteration_description}
                     onItemChange={this.onItemChange} type={"text"} />
@@ -92,7 +94,7 @@ export default class AxisIComponent extends React.Component {
                 <div className="emr-clerking-tab-data-items">
                   <LabelAndInputComponent id={"blank_spell_duration"} title={"Duration"}
                     value={this.context.forms.epilepsy.axisI.blank_spell_duration}
-                    onItemChange={this.onItemChange} type={"number"} />
+                    onItemChange={this.onItemChange} type={"text"} />
                   <LabelAndInputComponent id={"blank_spell_description"} title={"Describe"}
                     value={this.context.forms.epilepsy.axisI.blank_spell_description}
                     onItemChange={this.onItemChange} type={"text"} />
@@ -103,7 +105,7 @@ export default class AxisIComponent extends React.Component {
                 <div className="emr-clerking-tab-data-items">
                   <LabelAndInputComponent id={"amnesia_duration"} title={"Duration"}
                     value={this.context.forms.epilepsy.axisI.amnesia_duration}
-                    onItemChange={this.onItemChange} type={"number"} />
+                    onItemChange={this.onItemChange} type={"text"} />
                   <LabelAndInputComponent id={"amnesia_description"} title={"Describe"}
                     value={this.context.forms.epilepsy.axisI.amnesia_description}
                     onItemChange={this.onItemChange} type={"text"} />
@@ -126,7 +128,7 @@ export default class AxisIComponent extends React.Component {
                   <LabelAndInputComponent id={"tonic_description"} title={"Describe"}
                     value={this.context.forms.epilepsy.axisI.tonic_description}
                     onItemChange={this.onItemChange} type={"text"} />
-                  <MultiSelectOutputComponent name={""} id={"motor_version"}
+                  <MultiSelectOutputComponent name={"Version or other"} id={"motor_version"}
                     value={this.context.forms.epilepsy.axisI.motor_version.join(", ")}
                     items={["Version", "Fencing (M2e) position", "Figure four position"]}
                     onItemChange={this.onMultiItemChange} />
@@ -156,7 +158,7 @@ export default class AxisIComponent extends React.Component {
                 <div className="emr-clerking-tab-data-items">
                   <LabelAndInputComponent id={"automatism_duration"} title={"Duration"}
                     value={this.context.forms.epilepsy.axisI.automatism_duration}
-                    onItemChange={this.onItemChange} type={"number"} />
+                    onItemChange={this.onItemChange} type={"text"} />
                   <LabelAndInputComponent id={"automatism_description"} title={"Describe"}
                     value={this.context.forms.epilepsy.axisI.automatism_description}
                     onItemChange={this.onItemChange} type={"text"} />

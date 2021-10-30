@@ -2,10 +2,13 @@ import React from 'react';
 import './emr.css';
 import { AppComponent } from './components/app.js';
 import { getAppointment, getFreshPatient, patient } from './models/patient';
-import { authStateObserver } from './modules/auth';
+import { authStateObserver, signOut, signUserOut } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
 import MainComponent from './components/main';
+import { createNewDoc, deleteDoc, getOfflineDocs, updateDoc } from './modules/db';
+import AuthComponent from './components/auth';
+import NotificationComponent from './components/minicomponents/notification';
 
 export const PatientContext = React.createContext(null);
 
@@ -13,11 +16,46 @@ export class EMRComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: true,
+      user: null,
       patients: [],
       patient: null,
       emrContext: "Dashboard"
     }
+  }
+
+  componentDidMount() {
+    authStateObserver(this.authStateChanged);
+    // getOfflineDocs(this.docsFromOfflineDB);
+  }
+
+  componentWillUnmount() {
+    console.log("unmount called");
+    signUserOut();
+  }
+
+  authStateChanged = (user) => {
+    if (user) {
+      this.setState({
+        user: user
+      });
+
+      getOfflineDocs(this.docsFromOfflineDB);
+    }
+  }
+
+  signUserIn = () => { }
+
+  onUserSignOut = () => {
+    this.setState({
+      user: null
+    });
+  }
+
+  docsFromOfflineDB = (docs) => {
+    //We're expecting an array of object with 'doc' as the needed key for the value
+    this.setState({
+      patients: docs.map(item => item.doc)
+    });
   }
 
   onCreateIconClicked = () => {
@@ -29,13 +67,14 @@ export class EMRComponent extends React.Component {
     });
 
     //TODO: create on database as well
+    createNewDoc(newPatient, null);
   }
 
   deletePatient = (id) => {
-    // console.log("state patient id => ", this.state.patient.id);
+    // console.log("state patient id => ", this.state.patient._id);
     // console.log("id => ", id);
-    const undeletedPatients = this.state.patients.filter(item => item.id !== id);
-    if (this.state.patient.id === id) {
+    const undeletedPatients = this.state.patients.filter(item => item._id !== id);
+    if (this.state.patient._id === id) {
       // console.log("true");
       this.setState({
         patient: null,
@@ -43,16 +82,17 @@ export class EMRComponent extends React.Component {
       });
     } else {
       this.setState({
-        patients: this.state.patients.filter(item => item.id !== id)
+        patients: this.state.patients.filter(item => item._id !== id)
       });
     }
 
     //TODO: delete from database as well
+    deleteDoc(id);
   }
 
-  onPatientTableClicked = (dateId) => {
+  onPatientTableClicked = (id) => {
     this.setState({
-      patient: this.state.patients.find((value) => dateId === value.id),
+      patient: this.state.patients.find((value) => id === value._id),
       emrContext: "Patients"
     });
   }
@@ -77,6 +117,8 @@ export class EMRComponent extends React.Component {
     this.setState({
       patient: thisPatient
     });
+
+    updateDoc(thisPatient);
   }
 
   updateComplaints = (name, value) => {
@@ -86,7 +128,9 @@ export class EMRComponent extends React.Component {
     this.setState({
       patient: thisPatient
     });
-    console.log("complaint notes => ", value);
+    // console.log("complaint notes => ", value);
+
+    updateDoc(thisPatient);
   }
 
   getWhereToModify = (fields, found) => {
@@ -134,6 +178,8 @@ export class EMRComponent extends React.Component {
     this.setState({
       patient: thisPatient
     });
+
+    updateDoc(thisPatient);
   }
 
   //add or remove entire items (i.e an hospitalization history) in the past medical history array
@@ -167,6 +213,8 @@ export class EMRComponent extends React.Component {
     this.setState({
       patient: thisPatient
     });
+
+    updateDoc(thisPatient);
   }
 
   updateStringReactiveArray = (field, pmhObject) => {
@@ -200,46 +248,58 @@ export class EMRComponent extends React.Component {
     this.setState({
       patient: this.state.patient
     });
+
+    updateDoc(this.state.patient);
   }
 
   componentDidUpdate() {
-    console.log("patient => ", this.state.patient);
+    // console.log("patient => ", this.state.patient);
   }
-
-  // authStateObserver();
 
   render() {
     //:1 => if there is a user i.e. logged in, display the app
     if (this.state.user) {
       //:2 => if there is a selected patient, display the details
       return (
-        <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
-          dashboard={this.switchBackToDashboard} patient={this.state.patient}
-          patients={this.state.patients} changePatient={this.onPatientChange}
-          deletePatient={this.deletePatient}
-          updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
-          updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
-          updateItemsInArray={this.updateItemsInArray}
-          switchToAppointment={this.switchToAppointment}
-          createNewAppointment={this.createNewAppointment} >
-          {
-            this.state.patient !== null ?
-              null :
-              <DashboardComponent
-                recents={this.state.patients.filter(patient => patient.appointments.length === 1)
-                  .sort((a, b) => b.id - a.id).slice(0, 3)}
-                createNewPatient={this.onCreateIconClicked}>
-                <PatientTableComponent patients={this.state.patients
-                  .sort((a, b) => b.last_seen - a.last_seen).slice(0, 10)
-                  .map((item) => {
-                    item.biodata.primary_diagnosis = item.primary_diagnosis;
-                    item.biodata.secondary_diagnosis = item.secondary_diagnosis;
-                    item.biodata.patient_id = item.id;
-                    return item.biodata;
-                  })} onItemClicked={this.onPatientTableClicked} />
-              </DashboardComponent>
-          }
-        </AppComponent>
+        <>
+          <NotificationComponent />
+          <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
+            dashboard={this.switchBackToDashboard} patient={this.state.patient}
+            patients={this.state.patients} changePatient={this.onPatientChange}
+            deletePatient={this.deletePatient}
+            updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
+            updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
+            updateItemsInArray={this.updateItemsInArray}
+            switchToAppointment={this.switchToAppointment}
+            createNewAppointment={this.createNewAppointment}
+            onUserSignOut={this.onUserSignOut} >
+            {
+              this.state.patient !== null ?
+                null :
+                <DashboardComponent
+                  recents={this.state.patients.filter(patient => patient.appointments.length === 1)
+                    .sort((a, b) => b._id - a._id).slice(0, 3)}
+                  createNewPatient={this.onCreateIconClicked}
+                  viewPatient={this.onPatientTableClicked}>
+                  <PatientTableComponent patients={this.state.patients
+                    .sort((a, b) => b.last_seen - a.last_seen).slice(0, 10)
+                    .map((item) => {
+                      item.biodata.primary_diagnosis = item.primary_diagnosis;
+                      item.biodata.secondary_diagnosis = item.secondary_diagnosis;
+                      item.biodata.patient_id = item._id;
+                      return item.biodata;
+                    })} onItemClicked={this.onPatientTableClicked} />
+                </DashboardComponent>
+            }
+          </AppComponent>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <NotificationComponent />
+          <AuthComponent signIn={this.signUserIn} />
+        </>
       )
     }
   }
