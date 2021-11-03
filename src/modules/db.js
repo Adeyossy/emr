@@ -1,7 +1,7 @@
 import PouchDB from 'pouchdb';
 import { authStateObserver, getCurrentUser } from './auth';
 
-let dbName = "patients2";
+let dbName = "neuro";
 
 let patientsDB = new PouchDB(dbName);
 
