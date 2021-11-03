@@ -44,24 +44,26 @@ export default class TransfusionComponent extends React.Component {
         <div className="emr-clerking-tab-data-items">
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`transfusionvolume${this.props.index}`}>How many pints (500ml) of blood?</label>
-            <input type="number" name={`transfusionvolume${this.props.index}`} 
-            id={`transfusionvolume${this.props.index}`}
-            value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].pints}></input>
+            <input type="number" name={`pints`}
+              id={`transfusionvolume${this.props.index}`}
+              value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].pints}
+              onChange={this.onItemChange}></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`transfusiondonor${this.props.index}`}>Who donated blood?</label>
-            <input type="text" name={`transfusiondonor${this.props.index}`} 
-            id={`transfusiondonor${this.props.index}`}
-            value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].donor}></input>
+            <input type="text" name={`donor`}
+              id={`transfusiondonor${this.props.index}`}
+              value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].donor}
+              onChange={this.onItemChange}></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`transfusionfacility${this.props.index}`}>Health Facility</label>
-            <input type="text" name={`transfusionfacility${this.props.index}`} 
-            id={`transfusionfacility${this.props.index}`}
-            value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].facility}
-             placeholder="e.g UCH"></input>
+            <input type="text" name={`facility`}
+              id={`transfusionfacility${this.props.index}`}
+              value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].facility}
+              placeholder="e.g UCH" onChange={this.onItemChange}></input>
           </div>
-          <SingleSelectOutputComponent id={`transfusionreaction${this.props.index}`}
+          <SingleSelectOutputComponent id={`reaction`}
             item={this.state.reaction} items={this.state.reactions}
             value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].reaction}
             index={this.props.index} onItemChange={this.onRecoveryItemChange} />

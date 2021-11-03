@@ -132,9 +132,16 @@ nav{
 }
 
 .emr-app-toolbar .emr-icon-bg{
+  /* width: 40px;
+  height: 40px; */
   transition: background-color 200ms ease-in, color 200ms ease-in, box-shadow 200ms ease-in;
   border: 1px solid transparent;
 }
+
+/* .emr-app-toolbar i{
+  width: 20px;
+  height: 20px;
+} */
 
 .emr-app-toolbar .emr-icon-bg:hover{
   color: var(--emr-accent-light-colour);

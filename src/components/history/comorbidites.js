@@ -14,7 +14,7 @@ export default class Comorbidities extends React.Component {
         <label htmlFor={this.props.comorbidity.toLowerCase()}>{this.props.comorbidity}</label>
         {/* Next list level */}
         <div className="emr-clerking-tab-data-items">
-          <LabelAndInputComponent id="year_diagnosed" type="number" title={"Years diagnosed"}
+          <LabelAndInputComponent id="year_diagnosed" type="number" title={"Year of Diagnosis"}
             value={this.props.value.year_diagnosed} onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="duration" type="number"
             title={"Years lived with " + this.props.comorbidity}

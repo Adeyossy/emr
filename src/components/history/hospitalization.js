@@ -31,7 +31,7 @@ export default class HospitalizationComponent extends React.Component {
 
   render() {
     const hospitalization = "hospitalizations";
-    console.log("hospitalization => ", this.context.past_medical_history[hospitalization]);
+    // console.log("hospitalization => ", this.context.past_medical_history[hospitalization]);
     return (
       <div className="emr-clerking-tab-data-item">
         <h4 className="emr-card-headers">Hospitalization {this.props.index}</h4>

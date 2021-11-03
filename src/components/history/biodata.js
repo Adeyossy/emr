@@ -79,7 +79,7 @@ export default class BiodataComponent extends React.Component {
             value={this.props.patient.biodata.maritalstatus}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <NotesComponent id="address" name="Address" value={this.props.patient.biodata.address}
-            onChange={this.onItemChange} />
+            onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="state" title="State"
             value={this.props.patient.biodata.state}
             type="text" onItemChange={this.onItemChange} />

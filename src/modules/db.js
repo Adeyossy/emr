@@ -1,21 +1,85 @@
 import PouchDB from 'pouchdb';
+import { authStateObserver, getCurrentUser } from './auth';
 
-const patientsDB = new PouchDB("patients");
+let dbName = "patients2";
+
+let patientsDB = new PouchDB(dbName);
 
 const iam = {
-  "apikey": "Tk0RBcjRB18XC-ok6TlQmZv1MaT9z5q5bkgmBMJY1C-3",
-  "host": "01a1e1b5-f52c-4c0a-955a-986e456beb6d-bluemix.cloudantnosqldb.appdomain.cloud",
-  "iam_apikey_description": "Auto-generated for key f0a3c6b1-3940-40fb-a2f1-94a0b7491668",
+  "apikey": "3lz3rnXiAu1rAe_JbyM8NdQJmPGqeoAV2bKI2RinDZKK",
+  "host": "958c9646-c639-4883-a1bd-c90b136518ae-bluemix.cloudantnosqldb.appdomain.cloud",
+  "iam_apikey_description": "Auto-generated for key 8f891658-85e5-47b5-af00-967aed814636",
   "iam_apikey_name": "Service credentials-1",
   "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Manager",
-  "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/94da1d88e2254c1eb153932397cfad89::serviceid:ServiceId-e5cdf176-d594-4f34-93ff-24478142a04c",
-  "url": "https://01a1e1b5-f52c-4c0a-955a-986e456beb6d-bluemix.cloudantnosqldb.appdomain.cloud",
-  "username": "01a1e1b5-f52c-4c0a-955a-986e456beb6d-bluemix"
+  "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/94da1d88e2254c1eb153932397cfad89::serviceid:ServiceId-f0dafdca-41f1-4b86-9407-63db3769bd2a",
+  "password": "c6621874fc1b2303e40a0a77f42bc5b6",
+  "port": 443,
+  "url": "https://apikey-v2-1tnjrz93x68an3wfjtzpts17cull47mf9380zxkl3j2w:c6621874fc1b2303e40a0a77f42bc5b6@958c9646-c639-4883-a1bd-c90b136518ae-bluemix.cloudantnosqldb.appdomain.cloud",
+  "username": "apikey-v2-1tnjrz93x68an3wfjtzpts17cull47mf9380zxkl3j2w"
+}
+
+function changeDbName(user) {
+  if (user !== null) {
+    if (user.email === "johndoe@mail.com") {
+      dbName = "patients";
+    }
+
+    if (user.email === "janedoe@mail.com") {
+      dbName = "patients2";
+    }
+
+    if (user.email === "jyaria@yahoo.com") {
+      dbName = "neuro";
+    }
+
+    return dbName;
+  }
+}
+
+// authStateObserver(changeDbName);
+
+export function createDB (user) {
+  // patientsDB = new PouchDB(changeDbName(user));
+}
+
+function fetchFromRemoteOp(callback, user) {
+  console.log("fetchOp user => ", user);
+  // const newDB = changeDbName(user);
+  // patientsDB = new PouchDB(newDB);
+}
+
+export function fetchFromRemote(callback) {
+  if(patientsDB !== null){
+    patientsDB.replicate.from(iam.url.concat("/").concat(dbName)).on("complete", (info) => {
+      console.log("on complete => ", info);
+      getOfflineDocs(callback);
+      patientsDB.sync(iam.url.concat("/").concat(dbName), { live: true, retry: true })
+        .on("change", (info) => {
+          console.log("on change => ", info);
+        }).on("paused", (err) => {
+          console.log("on paused => ", err);
+        }).on("error", (err) => {
+          console.log("on error => ", err);
+        });
+    }).on("active", () => {
+      console.log("on active");
+    }).on("change", (info) => {
+      console.log("on change => ", info);
+    }).on("paused", (err) => {
+      console.log("on paused => ", err);
+    }).on("error", (err) => {
+      console.log("on error => ", err);
+      getOfflineDocs(callback);
+    }).on("denied", (err) => {
+      console.log("on denied => ", err);
+    });
+  }
 }
 
 export function getOfflineDocs(callback) {
   patientsDB.allDocs({ include_docs: true, descending: true }, (error, doc) => {
-    console.log("doc => ", doc.rows);
+    console.log("doc => ", doc);
+    console.log("doc.rows => ", doc.rows);
     if (error) {
       console.log("error => ", error);
     }

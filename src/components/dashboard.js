@@ -19,7 +19,7 @@ export default class DashboardComponent extends React.Component {
                   <div className="emr-icon-bg emr-user-icon-bg">
                     <i className="bi bi-person-fill emr-center-icon"></i>
                   </div>
-                  <h4 className="emr-user-name">DR. JOHN</h4>
+                  <h4 className="emr-user-name">DR. {this.props.user ? this.props.user.displayName.split(" ")[0].toUpperCase() : ""}</h4>
                 </div>
               </div>
               <div className="emr-recent-patients">
@@ -50,7 +50,7 @@ export default class DashboardComponent extends React.Component {
                   <button className="emr-button emr-card-button">ALL PATIENTS</button>
                 </div>
               </div>
-              <div className="emr-stats emr-card">
+              <div className="emr-stats emr-card d-none d-lg-block">
                 {/* <!-- stats on diagnoses go here --> */}
                 <h6 className="emr-headers emr-card-headers">STATS: Diagnoses</h6>
                 <div className="emr-coming-soon">

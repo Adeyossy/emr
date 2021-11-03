@@ -1,4 +1,5 @@
 import React from "react";
+import DialogComponent from "./minicomponents/dialog";
 import './patient.css';
 import RightSideBarComponent from "./rightsidebar";
 

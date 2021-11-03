@@ -1,13 +1,12 @@
 import React from 'react';
 import './emr.css';
+import AuthComponent from './components/auth';
 import { AppComponent } from './components/app.js';
 import { getAppointment, getFreshPatient, patient } from './models/patient';
 import { authStateObserver, signOut, signUserOut } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
-import MainComponent from './components/main';
-import { createNewDoc, deleteDoc, getOfflineDocs, updateDoc } from './modules/db';
-import AuthComponent from './components/auth';
+import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
 
 export const PatientContext = React.createContext(null);
@@ -19,7 +18,15 @@ export class EMRComponent extends React.Component {
       user: null,
       patients: [],
       patient: null,
-      emrContext: "Dashboard"
+      emrContext: "Dashboard",
+      isSignedIn: false,
+      showNotification: false,
+      info: "",
+      showDialog: false,
+      dialogMessage: "",
+      dialogTitle: "",
+      dialogAction: this.dismissDialog.bind(this),
+      authComplete: false
     }
   }
 
@@ -30,31 +37,59 @@ export class EMRComponent extends React.Component {
 
   componentWillUnmount() {
     console.log("unmount called");
-    signUserOut();
+    // signUserOut();
   }
 
   authStateChanged = (user) => {
     if (user) {
+      // console.log("firebase user => ", user);
+      if (user.displayName) {
+        console.log("displayname => ", user.displayName);
+        // this.continueToApp();
+      }
+
       this.setState({
         user: user
       });
 
-      getOfflineDocs(this.docsFromOfflineDB);
+      // createDB(user);
     }
+  }
+
+  continueToApp = () => {
+    this.setState({
+      isSignedIn: true,
+      showNotification: true,
+      info: "Welcome"
+    });
+
+    fetchFromRemote(this.docsFromOfflineDB);
+    // getOfflineDocs(this.docsFromOfflineDB);
   }
 
   signUserIn = () => { }
 
   onUserSignOut = () => {
     this.setState({
-      user: null
+      user: null,
+      isSignedIn: false,
+      patient: null
+    });
+  }
+
+  dismissNotification = () => {
+    this.setState({
+      showNotification: false,
+      info: ""
     });
   }
 
   docsFromOfflineDB = (docs) => {
     //We're expecting an array of object with 'doc' as the needed key for the value
+    // console.log(docs);
     this.setState({
-      patients: docs.map(item => item.doc)
+      patients: docs.map(item => item.doc),
+      authComplete: true
     });
   }
 
@@ -63,7 +98,9 @@ export class EMRComponent extends React.Component {
     this.state.patients.push(newPatient);
     this.setState({
       patient: newPatient,
-      emrContext: "Patients"
+      emrContext: "Patients",
+      showNotification: true,
+      info: "New patient created"
     });
 
     //TODO: create on database as well
@@ -78,7 +115,9 @@ export class EMRComponent extends React.Component {
       // console.log("true");
       this.setState({
         patient: null,
-        patients: undeletedPatients
+        patients: undeletedPatients,
+        showNotification: true,
+        info: `${this.state.patients.find(item => item._id === id).biodata.lastname.toUpperCase()} deleted`
       });
     } else {
       this.setState({
@@ -99,7 +138,9 @@ export class EMRComponent extends React.Component {
 
   onPatientChange = (patient) => {
     this.setState({
-      patient: patient
+      patient: patient,
+      showNotification: true,
+      info: `Switched ${patient.biodata.firstname ? "to ".concat(patient.biodata.firstname.toUpperCase()) : "patient"}`
     });
   }
 
@@ -252,17 +293,35 @@ export class EMRComponent extends React.Component {
     updateDoc(this.state.patient);
   }
 
+  showDialog = (title, message, action) => {
+    this.setState({
+      showDialog: true,
+      dialogMessage: message,
+      dialogTitle: title,
+      dialogAction: action
+    });
+  }
+
+  dismissDialog = () => {
+    this.setState({
+      showDialog: false,
+      dialogMessage: "",
+      dialogTitle: ""
+    });
+  }
+
   componentDidUpdate() {
     // console.log("patient => ", this.state.patient);
   }
 
   render() {
     //:1 => if there is a user i.e. logged in, display the app
-    if (this.state.user) {
+    if (this.state.isSignedIn) {
       //:2 => if there is a selected patient, display the details
       return (
         <>
-          <NotificationComponent />
+          <NotificationComponent showNotification={this.state.showNotification} 
+          info={this.state.info} dismissNotification={this.dismissNotification} />
           <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
             dashboard={this.switchBackToDashboard} patient={this.state.patient}
             patients={this.state.patients} changePatient={this.onPatientChange}
@@ -272,7 +331,10 @@ export class EMRComponent extends React.Component {
             updateItemsInArray={this.updateItemsInArray}
             switchToAppointment={this.switchToAppointment}
             createNewAppointment={this.createNewAppointment}
-            onUserSignOut={this.onUserSignOut} >
+            onUserSignOut={this.onUserSignOut} showDialogOnClick={this.showDialog}
+            showDialog={this.state.showDialog} dialogMessage={this.state.dialogMessage}
+            dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction} 
+            dialogTitle={this.state.dialogTitle}>
             {
               this.state.patient !== null ?
                 null :
@@ -280,7 +342,7 @@ export class EMRComponent extends React.Component {
                   recents={this.state.patients.filter(patient => patient.appointments.length === 1)
                     .sort((a, b) => b._id - a._id).slice(0, 3)}
                   createNewPatient={this.onCreateIconClicked}
-                  viewPatient={this.onPatientTableClicked}>
+                  viewPatient={this.onPatientTableClicked} user={this.state.user}>
                   <PatientTableComponent patients={this.state.patients
                     .sort((a, b) => b.last_seen - a.last_seen).slice(0, 10)
                     .map((item) => {
@@ -288,7 +350,9 @@ export class EMRComponent extends React.Component {
                       item.biodata.secondary_diagnosis = item.secondary_diagnosis;
                       item.biodata.patient_id = item._id;
                       return item.biodata;
-                    })} onItemClicked={this.onPatientTableClicked} />
+                    })} onItemClicked={this.onPatientTableClicked} 
+                      authComplete={this.state.authComplete}
+                    />
                 </DashboardComponent>
             }
           </AppComponent>
@@ -298,7 +362,9 @@ export class EMRComponent extends React.Component {
       return (
         <>
           <NotificationComponent />
-          <AuthComponent signIn={this.signUserIn} />
+          <AuthComponent signIn={this.signUserIn} continueToApp={this.continueToApp}
+            user={this.state.user}
+          />
         </>
       )
     }

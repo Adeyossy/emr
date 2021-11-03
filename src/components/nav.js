@@ -48,7 +48,7 @@ export default class NavComponent extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row align-items-center">
-          <div className="col-4 col-md-2 col-lg-2">
+          <div className="col-5 col-md-2 col-lg-2">
             <div className="emr-nav-dropdown">
               <div className="emr-current-view">
                 <h6 className="emr-headers d-inline">{this.props.currentView}</h6>
@@ -95,8 +95,8 @@ export default class NavComponent extends React.Component {
                 </div>
                 <h6 className="emr-headers d-inline w-50">DR. JOHN</h6>
               </div>
-              <div class="emr-other-views show">
-                <p class="emr-other-view" onClick={this.onSignOut}>Logout</p>
+              <div className="emr-other-views show">
+                <p className="emr-other-view" onClick={this.onSignOut}>Logout</p>
               </div>
             </div>
           </div>

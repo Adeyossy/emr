@@ -6,7 +6,10 @@ import { getAnalytics } from "firebase/analytics";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged,
+  signOut, updateProfile
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDyAoQjoB-HgfBahyvWp2EOuExh4iZfp9o",
@@ -34,13 +37,13 @@ export const signUserIn = (email, password, onUserSignIn) => {
     .then((userCredential) => {
       // Signed in 
       console.log("user => ", userCredential.user);
-      onUserSignIn(true);
+      onUserSignIn(userCredential.user);
       // ...
     })
     .catch((error) => {
       const errorCode = error.code;
       const errorMessage = error.message;
-      onUserSignIn(false);
+      onUserSignIn(null);
     });
 }
 
@@ -51,4 +54,25 @@ export const signUserOut = (callback) => {
   }).catch(() => {
     console.log("error occurred on signing out");
   });
+}
+
+export const updateUserProfile = (displayName, callback) => {
+  const auth = getAuth();
+  updateProfile(auth.currentUser, {
+    displayName: displayName
+  }).then(() => {
+    // Profile updated!
+    // ...
+    console.log("profile successfully updated");
+    callback();
+  }).catch((error) => {
+    // An error occurred
+    // ...
+    console.log("error on profile update => ", error);
+  });
+}
+
+export const getCurrentUser = () => {
+  const auth = getAuth();
+  return auth.currentUser
 }

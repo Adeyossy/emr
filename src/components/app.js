@@ -25,7 +25,7 @@ import NotesOnlyComponent from "./minicomponents/notes_only";
 import { PatientContext } from "../models/patient_context";
 import OverviewComponent from "./overview";
 import TabComponent from "./tabs";
-
+import DialogComponent from "./minicomponents/dialog";
 export class AppComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -106,10 +106,10 @@ export class AppComponent extends React.Component {
     ];
 
     const historyComponents = [
-      <BiodataComponent patient={this.props.patient} 
-      updateBiodata={this.props.updateObjectField} />,
+      <BiodataComponent patient={this.props.patient}
+        updateBiodata={this.props.updateObjectField} />,
       <ComplaintComponent updateComplaints={this.props.updateComplaints}
-        updateAnyObject={this.props.updateAnyObject} 
+        updateAnyObject={this.props.updateAnyObject}
         updateItemsInArray={this.props.updateItemsInArray} />,
       <RoSComponent updateAnyObject={this.props.updateAnyObject}
         updateItemsInArray={this.props.updateItemsInArray} />,
@@ -173,6 +173,9 @@ export class AppComponent extends React.Component {
 
     return (
       <>
+        <DialogComponent showDialog={this.props.showDialog} dismissDialog={this.props.dismissDialog}
+          dialogMessage={this.props.dialogMessage} dialogAction={this.props.dialogAction}
+            dialogTitle={this.props.dialogTitle} />
         <nav>
           <NavComponent navAppBarState={this.state.navState} changeState={this.updateNavState}
             dashboard={this.props.dashboard} patientView={this.props.patientView}
@@ -184,7 +187,7 @@ export class AppComponent extends React.Component {
           this.props.children ? this.props.children :
             <PatientContext.Provider value={this.props.patient}>
               <MainComponent navIndex={this.state.navIndex} dashboard={this.props.dashboard}
-                        updateAnyObject={this.props.updateAnyObject}>
+                updateAnyObject={this.props.updateAnyObject}>
                 <div className="container-fluid">
                   <div className="row g-0">
                     <div className="col-lg-3 emr-sidebar emr-sidebar-l">
@@ -193,7 +196,8 @@ export class AppComponent extends React.Component {
                         deletePatient={this.props.deletePatient}
                         updateItemsInArray={this.props.updateItemsInArray}
                         switchToAppointment={this.props.switchToAppointment}
-                        createNewAppointment={this.props.createNewAppointment} >
+                        createNewAppointment={this.props.createNewAppointment} 
+                        showDialogOnClick={this.props.showDialogOnClick}>
                       </LeftSideBarComponent>
                     </div>
                   </div>

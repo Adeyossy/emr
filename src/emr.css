@@ -24,7 +24,7 @@ body{
 }
 
 nav{
-  min-height: 56px;
+  min-height: 64px;
   background-color: var(--emr-background-colour);
   /* border-bottom: 0.5px solid var(--emr-primary-light-colour); */
   position: fixed;
@@ -180,12 +180,17 @@ main{
 }
 
 .emr-notification-box{
+  display: none;
   width: 85%;
   margin: auto;
   position: fixed;
   right: 0; bottom: 32px; left: 0;
   z-index: 10;
   animation: 300ms ease-in 1 slideUp;
+}
+
+.emr-notification-box.show{
+  display: block;
 }
 
 @keyframes slideUp{

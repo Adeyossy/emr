@@ -17,10 +17,13 @@ export default class LeftSideBarComponent extends React.Component {
                   this.props.patients.sort((a, b) => a.last_seen - b.last_seen).map((item, index) =>
                     <div className={`emr-patient-list-item 
                       ${this.props.patient._id === item._id ? "clicked" : ""}`}
-                      key={index.toString()} onClick={this.props.changePatient.bind(this, item)}>
+                      key={index.toString()} onClick={this.props.patient._id !== item._id ?
+                        this.props.changePatient.bind(this, item) : null}>
                       <div className="emr-patient-delete">
                         <div className="emr-icon-bg emr-icon-bg-dark"
-                          onClick={this.props.deletePatient.bind(this, item._id)}>
+                          onClick={this.props.showDialogOnClick.bind(this, "DELETE PATIENT",
+                            `${item.biodata.firstname ? item.biodata.firstname : "This patient"} will be deleted`,
+                            this.props.deletePatient.bind(this, item._id))}>
                           <i className="bi bi-trash-fill emr-center-icon"></i>
                         </div>
                       </div>

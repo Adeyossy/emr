@@ -47,7 +47,7 @@ export default class PMHComponent extends React.Component {
 
   updateInts = (event) => {
     const value = event.target.value;
-    console.log("value in PMHComponent => ", value);
+    // console.log("value in PMHComponent => ", value);
     if (event.target.name === "numberofhospitalizations") {
       this.props.updateItemsInArray(["past_medical_history", "hospitalizations"],
         Object.assign({}, hospitalization), value);

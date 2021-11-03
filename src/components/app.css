@@ -1,7 +1,7 @@
 /* This part controls the css for the app component asides the authentication part */
 
 :hover:not(.selected){
-  transition: color 300ms ease-in, background-color 300ms ease-in;
+  transition: color 300ms ease-in, background-color 300ms ease-in, box-shadow 500ms ease-in;
 }
 
 ::-webkit-scrollbar{
@@ -192,6 +192,62 @@ td{
   text-align: center;
   color: inherit;
   background-color: transparent;
+}
+
+.container-fluid.emr-dialog-backdrop.show{
+  display: block;
+}
+
+.container-fluid.emr-dialog-backdrop{
+  display: none;
+  position: fixed;
+  height: 100vh;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.emr-dialog{
+  margin-top: 33.33vh;
+  background-color: white;
+  border-radius: var(--emr-round-corners);
+  box-shadow: var(--emr-default-shadow);
+}
+
+.emr-dialog > *{
+  padding: var(--emr-default-padding);
+}
+
+.emr-dialog-details{
+  width: 100%;
+  padding: 32px var(--emr-default-padding);
+  color: var(--emr-grey-colour);
+  font-size: 10pt;
+  /* display: inline-block;
+  text-align: center; */
+  background-color: white;
+  border-top: 1px solid var(--emr-lighter-grey-colour);
+  border-bottom: 1px solid var(--emr-lighter-grey-colour);
+}
+
+button.emr-dialog-cancel-button{
+  background-color: var(--emr-light-colour);
+  color: var(--emr-secondary-colour);
+}
+
+button.emr-dialog-cancel-button:hover{
+  background-color: var(--emr-accent-light-colour);
+}
+
+button.emr-dialog-cancel-button, button.emr-dialog-ok-button {
+  transition: background-color 500ms ease-in;
+}
+
+button.emr-dialog-ok-button:hover{
+  background-color: var(--emr-primary-colour);
+}
+
+.emr-dialog-title-text{
+  color: var(--emr-secondary-colour);
 }
 
 @keyframes fadeIn{

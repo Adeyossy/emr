@@ -64,7 +64,7 @@ export default class AxisIComponent extends React.Component {
                 onItemChange={this.onMultiItemChange} />
               <MultiSelectOutputComponent name={"Auditory"} id={"auditory"}
                 value={this.context.forms.epilepsy.axisI.auditory.join(", ")}
-                items={["Simple hallucinations e.g. buzz, noise",
+                items={["Simple hallucinations e.g. buzz",
                   "Vertiginous symptoms"]}
                 onItemChange={this.onMultiItemChange} />
               <MultiSelectOutputComponent name={"Autonomic"} id={"autonomic"}

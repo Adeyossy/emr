@@ -1,3 +1,4 @@
+import { getCurrentUser } from "../modules/auth";
 import { biodata } from "./biodata";
 import { presenting_complaint } from "./complaint";
 import { getFreshEpilepsyForm } from "./epilepsy";
@@ -175,6 +176,7 @@ export function getFreshPatient() {
   const appointmentTime = Date.now();
   // const newPatient = Object.assign({}, patient);
   const newPatient = JSON.parse(JSON.stringify(patient));
+  // newPatient.user = currentUser;
   newPatient._id = appointmentTime.toString();
   newPatient.first_seen = appointmentTime;
   newPatient.last_seen = appointmentTime;

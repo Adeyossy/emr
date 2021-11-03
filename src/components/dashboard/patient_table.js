@@ -22,7 +22,7 @@ export default class PatientTableComponent extends React.Component {
           </thead>
           <tbody>
             {
-              this.props.patients.length !== 0 ?
+              this.props.authComplete ?
                 this.props.patients.map((item, index) =>
                   <tr key={index.toString()} onClick={this.props.onItemClicked.bind(this, item.patient_id)}>
                     <td className="d-none d-lg-table-cell">
