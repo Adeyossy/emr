@@ -5,10 +5,6 @@ import NotesComponent from "../minicomponents/notes";
 import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 
 export default class AxisIVComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {

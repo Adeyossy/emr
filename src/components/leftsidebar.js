@@ -1,5 +1,4 @@
 import React from "react";
-import { getAppointment } from "../models/patient";
 import { PatientContext } from "../models/patient_context";
 
 export default class LeftSideBarComponent extends React.Component {

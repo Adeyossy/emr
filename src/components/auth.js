@@ -119,7 +119,7 @@ export default class AuthComponent extends React.Component {
                               <label htmlFor="displayname">Display Name</label>
                             </div>
                             <input name="displayname" type="text" value={this.state.displayname}
-                              placeholder="" id="displayname"
+                              placeholder="" id="displayname" pattern={/[a-z][A-Z]/}
                               onChange={this.onItemChange} required></input>
                           </div>
                           <button className={`emr-button emr-auth-button`}

@@ -1,13 +1,8 @@
 import React from "react";
-import DialogComponent from "./minicomponents/dialog";
 import './patient.css';
 import RightSideBarComponent from "./rightsidebar";
 
 export default class MainComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <main>

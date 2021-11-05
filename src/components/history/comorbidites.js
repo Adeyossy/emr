@@ -22,10 +22,10 @@ export default class Comorbidities extends React.Component {
           <LabelAndInputComponent id="treatment" title="Treatment" type="text"
             value={this.props.value.treatment} onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Compliance"} id={"compliance"}
-            items={["None", "Compliant", "Other"]} onItemChange={this.onItemChange}
+            items={["None", "Compliant"]} onItemChange={this.onItemChange}
             value={this.props.value.compliance} />
           <SingleSelectOutputComponent name={"Response to treatment"} id={"response"}
-            items={["Not Responsive", "Responsive", "Other"]} onItemChange={this.onItemChange}
+            items={["Not Responsive", "Responsive"]} onItemChange={this.onItemChange}
             value={this.props.value.response} />
         </div>
       </div>

@@ -1,6 +1,5 @@
 import React from "react";
 import { PatientContext } from "../../models/patient_context";
-import MultiItemSelectComponent from "../minicomponents/multi_item_select";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 import NotesComponent from "../minicomponents/notes";
 

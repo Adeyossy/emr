@@ -5,17 +5,13 @@ import NotesComponent from "../minicomponents/notes";
 import NotesOnlyComponent from "../minicomponents/notes_only";
 
 export default class RoSComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    value.split(", ").forEach((item, index) => {
-      this.props.updateItemsInArray(["review_of_systems", id], item,
-        this.context.review_of_systems[id].length + 1);
-    });
+    // value.split(", ").forEach((item, index) => {
+    // });
+    this.props.updateItemsInArray(["review_of_systems", id], value,
+      null);
   }
 
   displaySelectedInInputBox = (index) => {
@@ -38,22 +34,22 @@ export default class RoSComponent extends React.Component {
         <div className="emr-clerking-tab-data-items">
           <MultiSelectOutputComponent name={"Cardiorespiratory"} id={"cardiorespiratory"}
             items={["Cough", "Dyspnoea", "Orthopnoea", "PND", "Chest Pain", "Haemoptysis",
-              "Leg Swelling", "Palpitations", "Cyanosis", "Other"]}
+              "Leg Swelling", "Palpitations", "Cyanosis"]}
             value={this.context.review_of_systems["cardiorespiratory"].join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <MultiSelectOutputComponent name={"Gastrointestinal"} id={"gastrointestinal"}
             items={["Abd pain", "Abd swelling", "Anorexia", "Nausea", "Diarrhoea", "Constipation",
-              "Vomiting", "Jaundice", "Haematemesis", "Melena", "Other"]}
+              "Vomiting", "Jaundice", "Haematemesis", "Melena"]}
             value={this.context.review_of_systems["gastrointestinal"].join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <MultiSelectOutputComponent name={"Genitourinary"} id={"genitourinary"}
             items={["Dysuria", "Frequency", "Urgency", "Dribbling", "Hesitancy", "Intermittency",
-              "Haematuria", "Incontinence", "Weak Stream", "Discharge", "Other"]}
+              "Haematuria", "Incontinence", "Weak Stream", "Discharge"]}
             value={this.context.review_of_systems["genitourinary"].join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <MultiSelectOutputComponent name={"Endocrine"} id={"endocrine"}
             items={["Polyuria", "Polyphagia", "Polydipsia", "Weight loss", "Recurrent Infections", "Heat Intolerance",
-              "Cold Intolerance", "Incontinence", "Weak Stream", "Discharge", "Other"]}
+              "Cold Intolerance", "Incontinence", "Weak Stream", "Discharge"]}
             value={this.context.review_of_systems["endocrine"].join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <NotesComponent id="notes" fields={["review_of_systems"]}

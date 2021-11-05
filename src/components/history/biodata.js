@@ -9,18 +9,18 @@ export default class BiodataComponent extends React.Component {
     super(props);
     this.state = {
       genderItem: "",
-      genderItems: ["Male", "Female", "Other"]
+      genderItems: ["Male", "Female"]
     }
   }
 
   onItemChange = (id, value) => {
     if (id !== "first_seen") {
-      this.props.updateBiodata(id, value, ["biodata"]);
+      this.props.updateAnyObject(id, value, ["biodata"]);
     } else {
       const enteredDate = new Date(value);
       // console.log("entered date => ", enteredDate);
       // console.log("entered time in milliseconds => ", enteredDate.getTime());
-      this.props.updateBiodata(id, enteredDate.getTime(), []);
+      this.props.updateAnyObject(id, enteredDate.getTime(), []);
     }
   }
 
@@ -67,10 +67,9 @@ export default class BiodataComponent extends React.Component {
           <LabelAndInputComponent id="ageinyears" title="Age (in years)"
             value={this.props.patient.biodata.ageinyears}
             type="text" onItemChange={this.onItemChange} />
-          <SingleSelectOutputComponent name={"Gender"} id={"gender"} items={["Male", "Female", "Other"]}
+          <SingleSelectOutputComponent name={"Gender"} id={"gender"} items={["Male", "Female"]}
             value={this.props.patient.biodata.gender}
-            onItemChange={this.onItemChange}
-            displayInBox={this.displaySelectedInInputBox} />
+            onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="occupation" title="Occupation"
             value={this.props.patient.biodata.occupation}
             type="text" onItemChange={this.onItemChange} />
@@ -87,11 +86,11 @@ export default class BiodataComponent extends React.Component {
             value={this.props.patient.biodata.city}
             type="text" onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Religion"} id={"religion"}
-            items={["Christianity", "Islam", "Traditional", "Other"]}
+            items={["Christianity", "Islam", "Traditional"]}
             value={this.props.patient.biodata.religion}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <SingleSelectOutputComponent name={"Tribe"} id={"tribe"}
-            items={["Yoruba", "Igbo", "Hausa", "Fulani", "Ibiobio", "Kanuri", "Other"]}
+            items={["Yoruba", "Igbo", "Hausa", "Fulani", "Ibiobio", "Kanuri"]}
             value={this.props.patient.biodata.tribe}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <LabelAndInputComponent id="hospital" title="Hospital"
@@ -115,10 +114,10 @@ export default class BiodataComponent extends React.Component {
           <LabelAndInputComponent id="next_of_kin" title="Next of Kin Name"
             value={this.props.patient.biodata.next_of_kin} type="text"
             onItemChange={this.onItemChange} />
-          <MultiSelectOutputComponent name="Relationship to next of kin"
+          <SingleSelectOutputComponent name="Relationship to next of kin"
             id="next_of_kin_relationship" value={this.props.patient.biodata.next_of_kin_relationship}
             onItemChange={this.onItemChange} items={["Father", "Mother", "Brother",
-              "Sister", "Child", "Cousin"]} />
+              "Sister", "Child", "Cousin", "Spouse"]} />
         </div>
       </div>
     )

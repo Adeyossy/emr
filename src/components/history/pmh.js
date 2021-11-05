@@ -32,8 +32,7 @@ export default class PMHComponent extends React.Component {
           const comorbidityObject = Object.assign({}, comorbidity);
           comorbidityObject.comorbidity = element;
           this.props.updateItemsInArray(["past_medical_history", "comorbidities"],
-            comorbidityObject, this.context.past_medical_history.comorbidities
-              .slice().filter(cmdy => cmdy.comorbidity === element).length + 1);
+            comorbidityObject, 'comorbidity');
           // this.props.updateAnyObject("comorbidity", element,
           //   ["past_medical_history", "comorbidities"], index);
         });
@@ -133,7 +132,7 @@ export default class PMHComponent extends React.Component {
               value={this.context.past_medical_history.rhesus}
               onItemChange={this.onItemChange} />
             <SingleSelectOutputComponent name={"Genotype"} id={"genotype"}
-              items={["AA", "AS", "AC", "SC", "SS", "Other"]}
+              items={["AA", "AS", "AC", "SC", "SS"]}
               value={this.context.past_medical_history.genotype}
               onItemChange={this.onItemChange} />
           </div>

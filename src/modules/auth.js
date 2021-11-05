@@ -72,7 +72,11 @@ export const updateUserProfile = (displayName, callback) => {
   });
 }
 
-export const getCurrentUser = () => {
+export const getCurrentUser = (callback) => {
   const auth = getAuth();
-  return auth.currentUser
+  var unsubscribeAuth = onAuthStateChanged(auth, (user => {
+    callback(user);
+  }));
+
+  unsubscribeAuth();
 }

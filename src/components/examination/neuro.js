@@ -1,9 +1,7 @@
 import React from "react";
 import { PatientContext } from "../../models/patient_context";
-import MultiItemSelectComponent from "../minicomponents/multi_item_select";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 import NotesComponent from "../minicomponents/notes";
-import SingleItemSelectComponent from "../minicomponents/single_item_select";
 import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 
 export default class NeuroExamComponent extends React.Component {
@@ -34,16 +32,18 @@ export default class NeuroExamComponent extends React.Component {
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">Neurological Examination</h4>
         <div className="emr-clerking-tab-data-items">
-          <details className="emr-clerking-tab-data-item">
-            <summary>Higher Mental Functions</summary>
-            {/* <label htmlFor="highermentalfunctions">Describe</label> */}
-            <textarea name="highermentalfunctions" id="highermentalfunctions" cols="30" rows="10" placeholder="write here..."></textarea>
-          </details>
-          <details className="emr-clerking-tab-data-item">
+          <NotesComponent name="Higher Mental Functions" id="highermentalfunctions"
+            value={this.context.neuro.highermentalfunctions}
+            onItemChange={this.props.updateAnyObject} fields={["neuro"]} />
+          <NotesComponent name="Cranial Nerves" id="cranialnerves"
+            value={this.context.neuro.cranialnerves}
+            onItemChange={this.props.updateAnyObject} fields={["neuro"]} />
+          {/* <details className="emr-clerking-tab-data-item">
             <summary>Cranial Nerves</summary>
             <label htmlFor="cranialnerves">Describe</label>
-            <textarea name="cranialnerves" id="cranialnerves" cols="30" rows="10" placeholder="write here..."></textarea>
-          </details>
+            <textarea name="cranialnerves" id="cranialnerves" cols="30" rows="10"
+              placeholder="write here..."></textarea>
+          </details> */}
           <details className="emr-clerking-tab-data-item"
             open={this.context.neuro.motor_sides.join(", ")}>
             <summary>Motor examination</summary>

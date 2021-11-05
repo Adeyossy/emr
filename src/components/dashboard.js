@@ -2,10 +2,6 @@ import React from "react";
 import "./dashboard.css";
 
 export default class DashboardComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <main>

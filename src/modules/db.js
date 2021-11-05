@@ -1,9 +1,9 @@
 import PouchDB from 'pouchdb';
 import { authStateObserver, getCurrentUser } from './auth';
 
-let dbName = "neuro";
+let dbName = "";
 
-let patientsDB = new PouchDB(dbName);
+let patientsDB = null;
 
 const iam = {
   "apikey": "3lz3rnXiAu1rAe_JbyM8NdQJmPGqeoAV2bKI2RinDZKK",
@@ -28,18 +28,26 @@ function changeDbName(user) {
       dbName = "patients2";
     }
 
-    if (user.email === "jyaria@yahoo.com") {
-      dbName = "neuro";
-    }
-
     return dbName;
   }
 }
 
 // authStateObserver(changeDbName);
 
-export function createDB (user) {
+export function createDB(user) {
   // patientsDB = new PouchDB(changeDbName(user));
+  if (user.email === "jyaria@yahoo.com") {
+    dbName = "neuro";
+  } else {
+    if (user.email === "johndoe@mail.com") {
+      dbName = "default";
+    } else {
+      dbName = "db".concat(user.uid).toLowerCase();
+    }
+  }
+
+  patientsDB = new PouchDB(dbName);
+  console.log("dbName => ", dbName);
 }
 
 function fetchFromRemoteOp(callback, user) {
@@ -49,7 +57,12 @@ function fetchFromRemoteOp(callback, user) {
 }
 
 export function fetchFromRemote(callback) {
-  if(patientsDB !== null){
+  // console.log("dbName => ", dbName);
+  if (patientsDB === null) {
+    getCurrentUser(createDB);
+  }
+
+  if (patientsDB !== null) {
     patientsDB.replicate.from(iam.url.concat("/").concat(dbName)).on("complete", (info) => {
       console.log("on complete => ", info);
       getOfflineDocs(callback);
@@ -89,6 +102,11 @@ export function getOfflineDocs(callback) {
 }
 
 export function createNewDoc(patient, callback) {
+  // console.log("dbName => ", dbName);
+  if (patientsDB === null) {
+    getCurrentUser(createDB);
+  }
+
   patientsDB.put(patient, (error, doc) => {
     if (!error)
       console.log("doc to be put or already put =>", doc);
@@ -98,6 +116,11 @@ export function createNewDoc(patient, callback) {
 }
 
 export function updateDoc(patient) {
+  // console.log("dbName => ", dbName);
+  if (patientsDB === null) {
+    getCurrentUser(createDB);
+  }
+
   patientsDB.get(patient._id).then(doc => {
     patient._rev = doc._rev;
     return patientsDB.put(patient)
@@ -107,7 +130,25 @@ export function updateDoc(patient) {
 }
 
 export function deleteDoc(id) {
+  console.log("dbName => ", dbName);
+  if (patientsDB === null) {
+    getCurrentUser(createDB);
+  }
+
   patientsDB.get(id).then(doc => {
     patientsDB.remove(doc);
   }).catch(error => console.log("Error on delete => ", error));
+}
+
+export function closeDB(callback) {
+  console.log("dbName => ", dbName);
+  if (patientsDB === null) {
+    getCurrentUser(createDB);
+  }
+  patientsDB.close().then(() => {
+    console.log("db is closed");
+    callback();
+  }).catch((error) => {
+    console.log("error closing database => ", error);
+  });
 }

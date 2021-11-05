@@ -95,19 +95,19 @@ export class AppComponent extends React.Component {
   }
 
   render() {
-    const componentItems = [
-      ["Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx"],
-      ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"],
-      [],
-      ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
-      ["Imaging", "Electrical", "Haematology", "Labs", "Microbiology", "Procedures"],
-      ["Assessment", "Plan", "Monitoring"],
-      ["Pharmacological", "Nonpharmacological", "Other"]
-    ];
+    // const componentItems = [
+    //   ["Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx"],
+    //   ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"],
+    //   [],
+    //   ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
+    //   ["Imaging", "Electrical", "Haematology", "Labs", "Microbiology", "Procedures"],
+    //   ["Assessment", "Plan", "Monitoring"],
+    //   ["Pharmacological", "Nonpharmacological", "Other"]
+    // ];
 
     const historyComponents = [
       <BiodataComponent patient={this.props.patient}
-        updateBiodata={this.props.updateObjectField} />,
+        updateAnyObject={this.props.updateAnyObject} />,
       <ComplaintComponent updateComplaints={this.props.updateComplaints}
         updateAnyObject={this.props.updateAnyObject}
         updateItemsInArray={this.props.updateItemsInArray} />,
@@ -159,13 +159,15 @@ export class AppComponent extends React.Component {
     //Tabbed components under Other Forms
     // this.assessmentComponents = [  ];
     const assessmentComponents = this.componentItems[5].map((item) =>
-      <NotesOnlyComponent fields={[item.toLowerCase()]}
-        updateAnyObject={this.props.updateAnyObject} notesHeader={item} />);
+      <NotesOnlyComponent fields={["appointment", item.toLowerCase()]}
+        updateAnyObject={this.props.updateAnyObject} notesHeader={item} 
+          value={item.toLowerCase()} />);
 
     //Tabbed components under Other Forms
     const treatmentComponents = this.componentItems[6].map((item) =>
-      <NotesOnlyComponent fields={[item.toLowerCase()]}
-        updateAnyObject={this.props.updateAnyObject} notesHeader={item} />);
+      <NotesOnlyComponent fields={["appointment", item.toLowerCase()]}
+        updateAnyObject={this.props.updateAnyObject} notesHeader={item}
+          value={item.toLowerCase()}/>);
 
     const componentContents = [historyComponents, epilepsyComponents, otherFormsComponents,
       examComponents, investigationsComponents, assessmentComponents,
@@ -181,7 +183,7 @@ export class AppComponent extends React.Component {
             dashboard={this.props.dashboard} patientView={this.props.patientView}
             currentView={this.props.currentView} navIndex={this.state.navIndex}
             patient={this.props.patient} createNewPatient={this.props.createNewPatient}
-            onUserSignOut={this.props.onUserSignOut} />
+            onUserSignOut={this.props.onUserSignOut} user={this.props.user}/>
         </nav>
         {
           this.props.children ? this.props.children :

@@ -75,7 +75,7 @@ export default class DrugsAllergiesComponent extends React.Component {
                       </div>
                       <SingleSelectOutputComponent name={"Drug Usage"} id={"usage"}
                         items={["Once Daily", "Twice Daily", "Three times daily",
-                          "Four times daily", "Other"]}
+                          "Four times daily"]}
                         value={this.context.drugs[index].usage}
                         onItemChange={this.onItemChangeKeyed.bind(this, index, ["drugs"])} />
                     </div>

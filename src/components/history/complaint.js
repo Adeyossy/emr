@@ -3,14 +3,9 @@ import { complaint } from "../../models/complaint";
 import { PatientContext } from "../../models/patient_context";
 import LabelAndInputComponent from "../epilepsy/label_and_input";
 import NotesComponent from "../minicomponents/notes";
-import NotesOnlyComponent from "../minicomponents/notes_only";
 import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 
 export default class ComplaintComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   static contextType = PatientContext;
 
   onItemChange = (index, id, value) => {
@@ -61,7 +56,7 @@ export default class ComplaintComponent extends React.Component {
             </div>
           </div>
           <SingleSelectOutputComponent name={"Informant"} id={"informant"}
-            items={["Patient", "Parents", "Father", "Mother", "Brother", "Sister", "Other"]}
+            items={["Patient", "Parents", "Father", "Mother", "Brother", "Sister"]}
             value={this.context.biodata.informant} onItemChange={this.onInformantItemChange} />
           <NotesComponent id={"notes"} name={"Complaints Notes"}
             fields={["presenting_complaints"]}

@@ -6,7 +6,7 @@ import { getAppointment, getFreshPatient, patient } from './models/patient';
 import { authStateObserver, signOut, signUserOut } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
-import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, updateDoc } from './modules/db';
+import { closeDB, createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
 
 export const PatientContext = React.createContext(null);
@@ -37,12 +37,13 @@ export class EMRComponent extends React.Component {
 
   componentWillUnmount() {
     console.log("unmount called");
-    // signUserOut();
+    // closeDB(signUserOut());
   }
 
   authStateChanged = (user) => {
     if (user) {
       // console.log("firebase user => ", user);
+      createDB(user);
       if (user.displayName) {
         console.log("displayname => ", user.displayName);
         // this.continueToApp();
@@ -73,7 +74,9 @@ export class EMRComponent extends React.Component {
     this.setState({
       user: null,
       isSignedIn: false,
-      patient: null
+      patient: null,
+      patients: [],
+      authComplete: false
     });
   }
 
@@ -87,10 +90,36 @@ export class EMRComponent extends React.Component {
   docsFromOfflineDB = (docs) => {
     //We're expecting an array of object with 'doc' as the needed key for the value
     // console.log(docs);
+    const dataFromDocs = docs.map(item => item.doc);
+
+    //if there are any updates to the data structure
+    if(dataFromDocs.length > 0) this.upgradeDataStructure(dataFromDocs);
+
     this.setState({
-      patients: docs.map(item => item.doc),
+      patients: dataFromDocs,
       authComplete: true
     });
+  }
+
+  upgradeDataStructure = (dataFromDocs) => {
+    const currentAppointmentModel = getAppointment();
+    const currentAppointmentModelKeys = Object.keys(currentAppointmentModel);
+    
+    dataFromDocs.forEach((item, index) => {
+      let dbAppointmentKeys = [];
+      if(typeof item.appointment === 'object'){
+        dbAppointmentKeys = Object.keys(item.appointment);
+        currentAppointmentModelKeys.forEach((modelKey) => {
+          const itemExists = dbAppointmentKeys.find(key => key === modelKey);
+          if(itemExists) {
+            // item.appointment[modelKey] = 
+          }
+        })
+      }
+    });
+    console.log("db object structure => ", Object.entries(dataFromDocs[0].appointment));
+    console.log("App updated object structure => ", Object.entries(currentAppointmentModel));
+    // if()
   }
 
   onCreateIconClicked = () => {
@@ -209,7 +238,8 @@ export class EMRComponent extends React.Component {
   updateAnyObject = (name, value, fields, index) => {
     const thisPatient = this.state.patient; //the current patient in the app
     // const pmh = thisPatient.past_medical_history; //access the past medical history of the patient
-    const pmhArray = this.getWhereSwitched(fields); //get either hospitalization, surgery, blood transfusion and comorbidities
+    const pmhArray = this.getWhereSwitched(fields); 
+    //get either hospitalization, surgery, blood transfusion and comorbidities
     let pmhArrayItem = undefined;
     if (Array.isArray(pmhArray))
       pmhArrayItem = pmhArray[index];
@@ -229,7 +259,7 @@ export class EMRComponent extends React.Component {
     let pmhArray = this.getWhereSwitched(fields);
     // console.log("pmhArray => ", pmhArray);
     // console.log("fields => ", fields);
-    if (value) {
+    if (typeof value === 'number') {
       if (pmhArray.length < value) {
         let additions = new Array(value - pmhArray.length).fill(pmhObject);
         if (typeof pmhObject === 'object') {
@@ -239,13 +269,25 @@ export class EMRComponent extends React.Component {
       } else {
         pmhArray.splice(value, pmhArray.length - value);
       }
+      //else if there is no numeric $value supplied, it is likely string or object
     } else {
+      // console.log("value => ", value);
       if (typeof pmhObject === 'object') {
-        pmhArray = pmhArray.filter((item) => !Object.is(item, pmhObject));
+        pmhArray = pmhArray.filter((item) => item[value] !== pmhObject[value]);
       }
 
-      if (typeof pmhObject === 'object') {
-        pmhArray = pmhArray.filter((item) => item !== pmhObject);
+      if (typeof pmhObject === 'string') {
+        console.log("The edit is on a string");
+        // const alreadyExists = pmhArray.find((item) => item === pmhObject);
+        // if(alreadyExists) {
+        //   pmhArray = pmhArray.filter((item) => item !== pmhObject);
+        // } else {
+        //   pmhArray.push(pmhObject);
+        // }
+        console.log("pmhObject => ", pmhObject);
+        pmhArray.splice(0, pmhArray.length, ...pmhObject.split(", "));
+        // pmhArray.push(pmhObject);
+        // pmhArray = pmhObject;
       }
     }
 
@@ -310,8 +352,9 @@ export class EMRComponent extends React.Component {
     });
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     // console.log("patient => ", this.state.patient);
+    if(prevState.user === null && this.state.user){}
   }
 
   render() {
@@ -334,7 +377,7 @@ export class EMRComponent extends React.Component {
             onUserSignOut={this.onUserSignOut} showDialogOnClick={this.showDialog}
             showDialog={this.state.showDialog} dialogMessage={this.state.dialogMessage}
             dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction} 
-            dialogTitle={this.state.dialogTitle}>
+            dialogTitle={this.state.dialogTitle} user={this.state.user}>
             {
               this.state.patient !== null ?
                 null :

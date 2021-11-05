@@ -10,11 +10,27 @@ const system = {
 
 export const appointment = {
   notes: "",
-  assessment: "",
-  plan: "",
+  assessment: {
+    notes: ""
+  },
+  plan: {
+    notes: ""
+  },
   date_seen: "",
   next_visit: "",
-  monitoring: []
+  monitoring: {
+    markers: [],
+    notes: ""
+  },
+  pharmacological: {
+    notes: ""
+  },
+  nonpharmacological: {
+    notes: ""
+  },
+  other: {
+    notes: ""
+  }
 }
 
 export const monitoring = {
@@ -181,13 +197,13 @@ export function getFreshPatient() {
   newPatient.first_seen = appointmentTime;
   newPatient.last_seen = appointmentTime;
   newPatient.appointments = [];
-  newPatient.appointments.unshift({
-    time: appointmentTime,
-    notes: "",
-    assessment: "",
-    plan: "",
-    others: ""
-  });
+  // newPatient.appointments.unshift({
+  //   time: appointmentTime,
+  //   notes: "",
+  //   assessment: "",
+  //   plan: "",
+  //   others: ""
+  // });
   newPatient.biodata = Object.assign({}, biodata);
   newPatient.presenting_complaints = Object.assign({}, presenting_complaint);
   newPatient.review_of_systems = {
@@ -212,19 +228,13 @@ export function getFreshPatient() {
   newPatient.drugs = [];
   newPatient.allergies = [];
 
-  const appointment = {
-    notes: "",
-    assessment: "",
-    plan: "",
-    date_seen: appointmentTime,
-    next_visit: "",
-    monitoring: []
-  };
+  // const appointment = JSON.parse(JSON.stringify(appointment));
 
-  newPatient.appointment = appointment;
+  newPatient.appointment = JSON.parse(JSON.stringify(appointment));
+  newPatient.appointment.date_seen = appointmentTime;
 
   newPatient.appointments = [
-    appointment
+    newPatient.appointment
   ];
 
   newPatient.alcohol = JSON.parse(JSON.stringify(alcohol));
@@ -237,14 +247,11 @@ export function getFreshPatient() {
 }
 
 export function getAppointment() {
-  const appointment = {
-    notes: "",
-    assessment: "",
-    plan: "",
-    date_seen: Date.now(),
-    next_visit: "",
-    monitoring: []
-  }
+  const newAppointment = JSON.parse(JSON.stringify(appointment));
+  newAppointment.date_seen = Date.now();
+  return newAppointment;
+}
 
-  return appointment;
+export function createPatientFromDB(patientFromDB) {
+  // patientFromDB
 }

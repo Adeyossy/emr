@@ -10,9 +10,8 @@ export default class SingleSelectOutputComponent extends React.Component {
   }
 
   displaySelectedInInputBox = (index) => {
-    let currentReaction = this.state.item;
     const modifiableField = this.props.inputName ? this.props.inputName : this.props.id;
-    const isAlreadySelected = currentReaction === this.props.items[index];
+    const isAlreadySelected = this.props.value === this.props.items[index];
     if (isAlreadySelected) {
       // this.setState({
       //   item: ""

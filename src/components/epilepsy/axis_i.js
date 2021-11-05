@@ -6,10 +6,6 @@ import SingleSelectOutputComponent from "../minicomponents/single_select_output"
 import LabelAndInputComponent from "./label_and_input";
 
 export default class AxisIComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {

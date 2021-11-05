@@ -1,17 +1,15 @@
 import React from "react";
 import { PatientContext } from "../../models/patient_context";
 import LabelAndInputComponent from "../epilepsy/label_and_input";
-import MultiItemSelectComponent from "../minicomponents/multi_item_select";
 import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 import NotesComponent from "../minicomponents/notes";
-import SingleItemSelectComponent from "../minicomponents/single_item_select";
 
 export default class FSHxComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       positiveFamilyHistory: [],
-      familyHistory: ["Hypertension", "Diabetes Mellitus", "Asthma", "Peptic Ulcer Dx", "Epilepsy", "Other"]
+      familyHistory: ["Hypertension", "Diabetes Mellitus", "Asthma", "Peptic Ulcer Dx", "Epilepsy"]
     }
   }
 
@@ -67,14 +65,14 @@ export default class FSHxComponent extends React.Component {
   }
 
   render() {
-    const positiveFamilyHistory = this.state.positiveFamilyHistory.join(", ");
+    // const positiveFamilyHistory = this.state.positiveFamilyHistory.join(", ");
     return (
       <div className="emr-clerking-tab-data emr-card m-0">
         <h4 className="emr-card-headers">Family and Social History</h4>
         <div className="emr-clerking-tab-data-items">
           <MultiSelectOutputComponent name={"Family History"} id={"family_history"}
             items={["Hypertension", "Diabetes Mellitus", "Asthma",
-              "Peptic Ulcer Dx", "Epilepsy", "Other"]}
+              "Peptic Ulcer Dx", "Epilepsy"]}
             value={this.context.family_history.join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displayPositivesInInputBox} />
           {/* <div className="emr-clerking-tab-data-item">
@@ -89,7 +87,7 @@ export default class FSHxComponent extends React.Component {
             <div className="emr-clerking-tab-data-items">
               <MultiSelectOutputComponent id={"alcoholtype"}
                 name={"What kind of alcohol is consumed?"}
-                items={["Beer", "Red wine", "Whiskey", "Brandy", "Vodka", "Other"]}
+                items={["Beer", "Red wine", "Whiskey", "Brandy", "Vodka"]}
                 value={this.context.alcohol.alcoholtype.join(", ")}
                 onItemChange={this.onAlcoholItemChange} />
               <LabelAndInputComponent id={"alcoholbottlesperweek"}

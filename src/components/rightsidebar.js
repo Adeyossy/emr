@@ -2,10 +2,6 @@ import React from "react";
 import { PatientContext } from "../models/patient_context";
 
 export default class RightSideBarComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   static contextType = PatientContext;
 
   onItemChange = (event) => {

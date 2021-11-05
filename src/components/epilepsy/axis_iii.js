@@ -3,10 +3,6 @@ import { PatientContext } from "../../models/patient_context";
 import NotesComponent from "../minicomponents/notes";
 
 export default class AxisIIIComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {

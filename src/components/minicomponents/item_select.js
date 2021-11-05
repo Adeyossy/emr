@@ -1,10 +1,6 @@
 import React from "react";
 
 export default class ItemSelectComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className={`emr-selectable-item ${this.props.selected}`} 

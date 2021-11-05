@@ -1,6 +1,5 @@
 import React from 'react'
 import { PatientContext } from '../../models/patient_context';
-import SingleItemSelectComponent from '../minicomponents/single_item_select';
 import SingleSelectOutputComponent from '../minicomponents/single_select_output';
 
 export default class TransfusionComponent extends React.Component {
@@ -8,7 +7,7 @@ export default class TransfusionComponent extends React.Component {
     super(props);
     this.state = {
       reaction: "",
-      reactions: ["None", "Fever | Hyperthermia", "Required ICU admission", "Other"],
+      reactions: ["None", "Fever | Hyperthermia", "Required ICU admission"],
     }
   }
 

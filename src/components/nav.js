@@ -1,5 +1,6 @@
 import React from "react";
 import { signUserOut } from "../modules/auth";
+import { closeDB } from "../modules/db";
 import "./nav.css";
 
 export default class NavComponent extends React.Component {
@@ -33,7 +34,7 @@ export default class NavComponent extends React.Component {
   }
 
   onSignOut = () => {
-    signUserOut(this.props.onUserSignOut);
+    closeDB(signUserOut.bind(this, this.props.onUserSignOut));
   }
 
   render() {
@@ -79,7 +80,7 @@ export default class NavComponent extends React.Component {
               {this.props.patient && this.props.patient.appointment ? appBarItems : null}
             </div>
           </div>
-          <div className="col-lg-1 col-xl-2 d-none d-lg-flex">
+          <div className="col-lg-1 col-xl-1 d-none d-lg-flex">
             <div className="emr-app-center emr-app-search">
               <div className="emr-icon-bg">
                 <i className="bi bi-search emr-icons emr-center-icon"></i>
@@ -87,13 +88,13 @@ export default class NavComponent extends React.Component {
               <input type="text" name="search" id="search" placeholder="Search"></input>
             </div>
           </div>
-          <div className="col-lg-1 d-none d-lg-block">
+          <div className="offset-xl-1 col-lg-1 d-none d-lg-block">
             <div className="emr-app-center emr-app-auth-and-overflow">
               <div className="emr-app-auth-group emr-app-center">
                 <div className="emr-icon-bg emr-icon-bg-light">
                   <i className="bi bi-person-fill emr-icons emr-center-icon"></i>
                 </div>
-                <h6 className="emr-headers d-inline w-50">DR. JOHN</h6>
+                <h6 className="emr-headers emr-app-user d-inline w-50">DR. {this.props.user ? this.props.user.displayName : ""}</h6>
               </div>
               <div className="emr-other-views show">
                 <p className="emr-other-view" onClick={this.onSignOut}>Logout</p>

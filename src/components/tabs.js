@@ -1,10 +1,6 @@
 import React from "react";
 
 export default class TabComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     // const tabItems = this.props.items.map((item, index) =>
     //   <div className="col emr-history-tab" key={index.toString() + item} 

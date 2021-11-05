@@ -1,10 +1,6 @@
 import React from "react";
 
 export default class NotesComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   onThisItemChange = (event) => {
     this.props.onItemChange(event.target.name, event.target.value, this.props.fields, null);
     // console.log(event.target.name, " => ", event.target.value);

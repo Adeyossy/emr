@@ -8,7 +8,7 @@ export default class HospitalizationComponent extends React.Component {
     super(props);
     this.state = {
       recovery: "",
-      recoveries: ["Complete Recovery", "Partial Recovery", "No Recovery", "Other"]
+      recoveries: ["Complete Recovery", "Partial Recovery", "No Recovery"]
     }
   }
 

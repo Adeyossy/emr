@@ -11,7 +11,7 @@ export default class MultiSelectOutputComponent extends React.Component {
     }
   }
 
-  displaySelectedInInputBox = (index) => {
+  /* displaySelectedInInputBox = (index) => {
     //Get the clicked item by getting it with the index
     const itemAtIndex = this.props.items[index];
 
@@ -47,6 +47,20 @@ export default class MultiSelectOutputComponent extends React.Component {
         // this.props.onItemChange(this.props.id, this.props.items[index]);
       }
     }
+  } */
+
+  displaySelectedInInputBox = (index) => {
+    //Get the clicked item by getting it with the index
+    const itemAtIndex = this.props.items[index];
+
+    let currentSelections = this.props.value.split(", ");
+    const isAlreadySelected = currentSelections.find((value) => value === itemAtIndex);
+    if(isAlreadySelected) {
+      currentSelections = currentSelections.filter(value => value !== itemAtIndex);
+    } else {
+      currentSelections.push(itemAtIndex);
+    }
+    this.props.onItemChange(this.props.id, currentSelections.join(", "));
   }
 
   onItemChange = (event) => {
@@ -55,25 +69,26 @@ export default class MultiSelectOutputComponent extends React.Component {
     //   item: event.target.value
     // });
 
-    // console.log("event triggered in multi_select_output => ", event.target.value);
+    console.log("event triggered in multi_select_output => ", event.target.value);
 
     //If user decides to type, check if the typed content is/are among the selectable items
     //I want to select the corresponding clickable items
     //Is it part of the items that I can possibly select?
-    const selectableItemsInTextBox = this.props.items.filter((value) =>
-      event.target.value.includes(value));
+    // const selectableItemsInTextBox = this.props.items.filter((value) =>
+    //   event.target.value.includes(value));
 
-    //Value from the containing component which should actually be the selected items
-    const valueItems = this.props.value ? this.props.value.split(", ") : [];
+    // //Value from the containing component which should actually be the selected items
+    // const valueItems = this.props.value ? this.props.value.split(", ") : [];
 
-    //Is there a selectable item that has not been stored?
-    const shouldBeStored = selectableItemsInTextBox.find((value) =>
-      !(valueItems.find((val) => val === value)));
+    // //Is there a selectable item that has not been stored?
+    // const shouldBeStored = selectableItemsInTextBox.find((value) =>
+    //   !(valueItems.find((val) => val === value)));
 
-    if (shouldBeStored) {
-      this.props.onItemChange(this.props.id, selectableItemsInTextBox.join(", "));
-    }
-
+    // if (shouldBeStored) {
+    //   this.props.onItemChange(this.props.id, selectableItemsInTextBox.join(", "));
+    // }
+    
+    this.props.onItemChange(this.props.id, event.target.value);
     //Is the item currently selected? The currently selected item
     // const isItAlreadySelected = currentSelectedItems.filter((value) => event.target.value.includes(value));
     // if (isTypedTextinItems && !isItAlreadySelected) {

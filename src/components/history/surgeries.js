@@ -8,10 +8,10 @@ export default class SurgeryComponent extends React.Component {
     super(props);
     this.state = {
       surgeryReaction: "",
-      surgeryReactions: ["Complete Recovery", "Partial Recovery", "No Recovery", "Other"]
+      surgeryReactions: ["Complete Recovery", "Partial Recovery", "No Recovery"]
     }
 
-    this.surgeryReactions = ["Complete Recovery", "Partial Recovery", "No Recovery", "Other"];
+    this.surgeryReactions = ["Complete Recovery", "Partial Recovery", "No Recovery"];
   }
 
   static contextType = PatientContext;
