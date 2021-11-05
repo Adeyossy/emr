@@ -31,6 +31,7 @@ export class EMRComponent extends React.Component {
   }
 
   componentDidMount() {
+    // "I am in main branch"
     authStateObserver(this.authStateChanged);
     // getOfflineDocs(this.docsFromOfflineDB);
   }
