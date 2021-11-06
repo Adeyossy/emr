@@ -272,23 +272,8 @@ export class EMRComponent extends React.Component {
       //else if there is no numeric $value supplied, it is likely string or object
     } else {
       // console.log("value => ", value);
-      if (typeof pmhObject === 'object') {
-        pmhArray = pmhArray.filter((item) => item[value] !== pmhObject[value]);
-      }
-
-      if (typeof pmhObject === 'string') {
-        console.log("The edit is on a string");
-        // const alreadyExists = pmhArray.find((item) => item === pmhObject);
-        // if(alreadyExists) {
-        //   pmhArray = pmhArray.filter((item) => item !== pmhObject);
-        // } else {
-        //   pmhArray.push(pmhObject);
-        // }
-        console.log("pmhObject => ", pmhObject);
-        pmhArray.splice(0, pmhArray.length, ...pmhObject.split(", "));
-        // pmhArray.push(pmhObject);
-        // pmhArray = pmhObject;
-      }
+      
+      pmhArray.splice(0, pmhArray.length, ...pmhObject);
     }
 
     // console.log("pmhArray => ", pmhArray);

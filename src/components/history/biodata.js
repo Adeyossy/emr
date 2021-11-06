@@ -27,7 +27,7 @@ export default class BiodataComponent extends React.Component {
   updateField = (event) => {
     // console.log("biodata => ", this.props.patient.biodata);
     // this.props.patient.biodata[event.target.name] = event.target.value;
-    this.onItemChange(event.target.name, event.target.value);
+    this.onItemChange(event.target.name, event.target.value.trim());
   }
 
   displaySelectedInInputBox = (index) => {

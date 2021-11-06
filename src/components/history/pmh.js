@@ -28,14 +28,20 @@ export default class PMHComponent extends React.Component {
   onItemChange = (id, value) => {
     if (id === "comorbidities") {
       if (value) {
-        value.split(", ").forEach((element, index, valueArray) => {
-          const comorbidityObject = Object.assign({}, comorbidity);
-          comorbidityObject.comorbidity = element;
-          this.props.updateItemsInArray(["past_medical_history", "comorbidities"],
-            comorbidityObject, 'comorbidity');
-          // this.props.updateAnyObject("comorbidity", element,
-          //   ["past_medical_history", "comorbidities"], index);
+        const comorbidityArray = value.split(", ").map(element => {
+          const alreadyExists = this.context.past_medical_history.comorbidities
+            .find(comorbidity => comorbidity.comorbidy === element);
+          if(alreadyExists) {
+            return alreadyExists;
+          } else {
+            const comorbidityObject = Object.assign({}, comorbidity);
+            comorbidityObject.comorbidity = element;
+            return comorbidityObject;
+          }
         });
+
+        this.props.updateItemsInArray(["past_medical_history", "comorbidities"],
+          comorbidityArray, 'comorbidity');
 
       } else { //remove from source of truth
       }
@@ -49,17 +55,17 @@ export default class PMHComponent extends React.Component {
     // console.log("value in PMHComponent => ", value);
     if (event.target.name === "numberofhospitalizations") {
       this.props.updateItemsInArray(["past_medical_history", "hospitalizations"],
-        Object.assign({}, hospitalization), value);
+        Object.assign({}, hospitalization), Number(value));
     }
 
     if (event.target.name === "numberofsurgeries") {
       this.props.updateItemsInArray(["past_medical_history", "surgeries"],
-        Object.assign({}, surgery), value);
+        Object.assign({}, surgery), Number(value));
     }
 
     if (event.target.name === "numberoftransfusions") {
       this.props.updateItemsInArray(["past_medical_history", "blood_transfusions"],
-        Object.assign({}, bloodTransfusion), value);
+        Object.assign({}, bloodTransfusion), Number(value));
     }
   }
 

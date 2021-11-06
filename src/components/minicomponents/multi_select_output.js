@@ -53,7 +53,10 @@ export default class MultiSelectOutputComponent extends React.Component {
     //Get the clicked item by getting it with the index
     const itemAtIndex = this.props.items[index];
 
-    let currentSelections = this.props.value.split(", ");
+    let currentSelections = this.props.value ? this.props.value.split(", ") : [];
+    console.log("currentselections => ", currentSelections);
+    console.log("value of currentselections => ", this.props.value);
+
     const isAlreadySelected = currentSelections.find((value) => value === itemAtIndex);
     if(isAlreadySelected) {
       currentSelections = currentSelections.filter(value => value !== itemAtIndex);
