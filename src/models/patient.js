@@ -199,7 +199,8 @@ export function parseOldPatient() {
     const apntmnt = JSON.parse(JSON.stringify(appointmentModel));
     Object.keys(apntmnt).map(key => {
       if (item.hasOwnProperty(key)) {
-        apntmnt[key] = item[key];
+        if(key === "notes" || key === "date_seen") apntmnt[key] = item[key];
+        else apntmnt[key] = firstApntmnt[key];
         if(!apntmnt[key]) apntmnt[key] = firstApntmnt[key]
       } else {
         apntmnt[key] = firstApntmnt[key];

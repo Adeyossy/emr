@@ -1,5 +1,6 @@
 import React from 'react';
 import './emr.css';
+import { data1 } from './data1';
 import AuthComponent from './components/auth';
 import { AppComponent } from './components/app.js';
 import { getAppointment, getFreshPatient, getOldAppointment, parseOldPatient, patient } from './models/patient';
@@ -92,11 +93,18 @@ export class EMRComponent extends React.Component {
     // console.log(docs);
     let dataFromDocs = docs.map(item => item.doc);
 
+    let data = [];
     //if there are any updates to the data structure
-    if (dataFromDocs.length > 0) dataFromDocs = this.upgradeDataStructure(dataFromDocs);
+    if (dataFromDocs.length > 0){
+      const data1Parsed = JSON.parse(JSON.stringify(data1));
+      console.log('parsed JSON file => ', data1Parsed);
+      data = this.upgradeDataStructure(data1Parsed.rows.map(item => item.doc));
+    }
+
+    console.log("data1.json parsed => ", data);
 
     this.setState({
-      patients: dataFromDocs,
+      patients: data,
       authComplete: true
     });
   }

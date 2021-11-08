@@ -30,11 +30,6 @@ export class AppComponent extends React.Component {
   constructor(props) {
     super(props);
 
-    // this.tabState = [[], [], [], [], [], [], []].map((item) => {
-    //   item = this.componentItems.slice().fill("");
-    //   item[0] = "selected";
-    //   return item;
-    // });
     this.componentItems = [
       ["Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx"],
       ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"],
@@ -47,8 +42,6 @@ export class AppComponent extends React.Component {
 
     const tabState = this.componentItems.map(item => item.slice().fill("selected", 0, 1)
       .fill("", 1, item.length));
-
-    // console.log("tabState => ", tabState);
 
     this.state = {
       navState: ["", "", "", "", "", "", ""], //history, Epilepsy form, other forms, examination, investigations, assessment, treatment

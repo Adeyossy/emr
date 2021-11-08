@@ -309,6 +309,8 @@ p.emr-right-sidebar-item-text{
   font-weight: 700;
   background: transparent;
   vertical-align: middle;
+  text-align: center;
+  resize: none;
 }
 
 .emr-quick-info-card.primary-diagnosis{
