@@ -13,9 +13,8 @@ export default class AxisIComponent extends React.Component {
   }
 
   onMultiItemChange = (id, value) => {
-    value.split(", ").forEach((item) => this.props.updateItemsInArray(
-      ["forms", "epilepsy", "axisI", id], item,
-      this.context.forms.epilepsy.axisI[id].length + 1));
+    this.props.updateItemsInArray(
+      ["forms", "epilepsy", "axisI", id], value.split(", "), null);
   }
 
   onItemChangeInComponent = (event) => {
@@ -28,7 +27,7 @@ export default class AxisIComponent extends React.Component {
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Semiology Description</h4>
         <div className="emr-clerking-tab-data-items">
           <details className="emr-clerking-tab-data-item"
@@ -77,39 +76,64 @@ export default class AxisIComponent extends React.Component {
               <div className="emr-clerking-tab-data-item">
                 <h4 className="emr-card-headers">Alteration in Consciousness</h4>
                 <div className="emr-clerking-tab-data-items">
-                  <LabelAndInputComponent id={"consciousness_alteration_duration"} title={"Duration"}
-                    value={this.context.forms.epilepsy.axisI.consciousness_alteration_duration}
-                    onItemChange={this.onItemChange} type={"text"} />
-                  <LabelAndInputComponent id={"consciousness_alteration_description"} title={"Describe"}
-                    value={this.context.forms.epilepsy.axisI.consciousness_alteration_description}
-                    onItemChange={this.onItemChange} type={"text"} />
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-md-6">
+                        <LabelAndInputComponent id={"consciousness_alteration_duration"} title={"Duration"}
+                          value={this.context.forms.epilepsy.axisI.consciousness_alteration_duration}
+                          onItemChange={this.onItemChange} type={"text"} />
+                      </div>
+                      <div className="col-md-6">
+                        <LabelAndInputComponent id={"consciousness_alteration_description"} title={"Describe"}
+                          value={this.context.forms.epilepsy.axisI.consciousness_alteration_description}
+                          onItemChange={this.onItemChange} type={"text"} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="emr-clerking-tab-data-item">
                 <h4 className="emr-card-headers">Blank Spell</h4>
                 <div className="emr-clerking-tab-data-items">
-                  <LabelAndInputComponent id={"blank_spell_duration"} title={"Duration"}
-                    value={this.context.forms.epilepsy.axisI.blank_spell_duration}
-                    onItemChange={this.onItemChange} type={"text"} />
-                  <LabelAndInputComponent id={"blank_spell_description"} title={"Describe"}
-                    value={this.context.forms.epilepsy.axisI.blank_spell_description}
-                    onItemChange={this.onItemChange} type={"text"} />
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-md-6">
+                        <LabelAndInputComponent id={"blank_spell_duration"} title={"Duration"}
+                          value={this.context.forms.epilepsy.axisI.blank_spell_duration}
+                          onItemChange={this.onItemChange} type={"text"} />
+                      </div>
+                      <div className="col-md-6">
+                        <LabelAndInputComponent id={"blank_spell_description"} title={"Describe"}
+                          value={this.context.forms.epilepsy.axisI.blank_spell_description}
+                          onItemChange={this.onItemChange} type={"text"} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="emr-clerking-tab-data-item">
                 <h4 className="emr-card-headers">Amnesia of event</h4>
                 <div className="emr-clerking-tab-data-items">
-                  <LabelAndInputComponent id={"amnesia_duration"} title={"Duration"}
-                    value={this.context.forms.epilepsy.axisI.amnesia_duration}
-                    onItemChange={this.onItemChange} type={"text"} />
-                  <LabelAndInputComponent id={"amnesia_description"} title={"Describe"}
-                    value={this.context.forms.epilepsy.axisI.amnesia_description}
-                    onItemChange={this.onItemChange} type={"text"} />
+                  <div className="container-fluid">
+                    <div className="row">
+                      <div className="col-md-6">
+                        <LabelAndInputComponent id={"amnesia_duration"} title={"Duration"}
+                          value={this.context.forms.epilepsy.axisI.amnesia_duration}
+                          onItemChange={this.onItemChange} type={"text"} />
+                      </div>
+                      <div className="col-md-6">
+                        <LabelAndInputComponent id={"amnesia_description"} title={"Describe"}
+                          value={this.context.forms.epilepsy.axisI.amnesia_description}
+                          onItemChange={this.onItemChange} type={"text"} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </details>
-          <details className="emr-clerking-tab-data-item">
+          <details className="emr-clerking-tab-data-item"
+            open={this.context.forms.epilepsy.axisI.motor_side}>
             <summary>Motor</summary>
             <div className="emr-clerking-tab-data-items">
               <SingleSelectOutputComponent name={""} id={"motor_side"}
@@ -150,7 +174,7 @@ export default class AxisIComponent extends React.Component {
                 <MultiSelectOutputComponent name={"Automatism (smack lips, fidget, behave in an unusual way)"}
                   id={"automatism"} onItemChange={this.onMultiItemChange}
                   value={this.context.forms.epilepsy.axisI.automatism.join(", ")}
-                  items={["Oro-alimentary", "Gestural", "Manipulative e.g. picking, fumbling"]} />
+                  items={["Oro-alimentary", "Gestural", "Manipulative e.g. picking"]} />
                 <div className="emr-clerking-tab-data-items">
                   <LabelAndInputComponent id={"automatism_duration"} title={"Duration"}
                     value={this.context.forms.epilepsy.axisI.automatism_duration}
@@ -175,12 +199,12 @@ export default class AxisIComponent extends React.Component {
                 value={this.context.forms.epilepsy.axisI.postictal_manifestation.join(", ")}
                 items={["Confusion", "Sleep", "Headache", "Motor deficit", "Aphasia", "Nose wipe",
                   "Fatigue", "Sphincteric dysfunction"]} onItemChange={this.onMultiItemChange} />
-              <LabelAndInputComponent id={"postictal_duration"} type={"number"}
+              <LabelAndInputComponent id={"postictal_duration"} type={"text"}
                 value={this.context.forms.epilepsy.axisI.postictal_duration}
                 title={"Duration of post-ictal phase"} onItemChange={this.onItemChange} />
             </div>
           </details>
-          <LabelAndInputComponent id={"symptoms_per_month"} type={"number"}
+          <LabelAndInputComponent id={"symptoms_per_month"} type={"text"}
             title={"How often do these symptoms occur per month in the last year?"}
             value={this.context.forms.epilepsy.axisI.symptoms_per_month}
             onItemChange={this.onItemChange} />

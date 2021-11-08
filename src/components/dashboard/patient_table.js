@@ -30,8 +30,8 @@ export default class PatientTableComponent extends React.Component {
                     <td>{item.firstname || item.lastname ? item.firstname + " " + item.lastname : "--"}</td>
                     <td>{item.ageinyears ? `${item.ageinyears} yrs` : "--"}</td>
                     <td className="d-none d-lg-table-cell">{item.id}</td>
-                    <td>{item.primary_diagnosis}</td>
-                    <td className="d-none d-lg-table-cell">{item.secondary_diagnosis}</td>
+                    <td className="emr-text-wrap">{item.primary_diagnosis}</td>
+                    <td className="d-none d-lg-table-cell emr-text-wrap">{item.secondary_diagnosis}</td>
                   </tr>) : 
                   new Array(5).fill("").map((item, index) => 
                   <tr key={index.toString()} className="emr-loading">

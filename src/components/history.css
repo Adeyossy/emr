@@ -4,6 +4,7 @@
   color: var(--emr-secondary-colour);
   background-color: white;
   border-radius: var(--emr-round-corners);
+  border: 2px solid transparent;
   transition: color 300ms ease-in, background-color 300ms ease-in;
 }
 
@@ -15,6 +16,7 @@
 .emr-history-tab-item:active, .emr-history-tab-item.selected{
   color: var(--emr-accent-colour);
   background-color: var(--emr-secondary-colour);
+  border-color: var(--emr-accent-colour);
   box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.0625);
 }
 
@@ -31,9 +33,9 @@
 
 .emr-clerking-tab-data{
   min-height: 78vh;
-  padding: 32px;
-  background-color: white;
-  border-radius: var(--emr-round-corners);
+  padding: 32px 0px 4px 0px;
+  background-color: transparent;
+  /* border-radius: var(--emr-round-corners); */
 }
 
 label, summary, .emr-clerking-tab-data-item h4{
@@ -80,8 +82,8 @@ input:hover, input:focus-visible{
 } */
 
 .emr-clerking-tab-data-item{
-  width: inherit;
-  padding: 32px 5%;
+  width: 100%;
+  padding: 5%;
   margin-bottom: 48px;
   color: var(--emr-darker-grey-colour);
   background-color: white;
@@ -92,7 +94,7 @@ input:hover, input:focus-visible{
   box-shadow: var(--emr-low-shadow);
 }
 
-.emr-clerking-tab-data-item:last-child{
+.emr-clerking-tab-data-item ~ .emr-clerking-tab-data-item:last-child{
   margin-bottom: 16px;
 }
 
@@ -104,4 +106,13 @@ input:hover, input:focus-visible{
   font-weight: normal;
   color: var(--emr-secondary-colour);
   margin-left: 4px;
+}
+
+@media only screen and (min-width: 1024px){
+  .emr-clerking-tab-data{
+    min-height: 78vh;
+    padding: 32px;
+    background-color: white;
+    border-radius: var(--emr-round-corners);
+  }
 }

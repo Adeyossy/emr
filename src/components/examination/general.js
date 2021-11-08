@@ -13,15 +13,12 @@ export default class GeneralExamComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    value.split(", ").forEach((item, index) => {
-      this.props.updateItemsInArray(["general", id], item,
-        this.context.general.onexamination.length + 1);
-    });
+      this.props.updateItemsInArray(["general", id], value.split(", "), null);
   }
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">General Examination</h4>
         <div className="emr-clerking-tab-data-items">
           <MultiSelectOutputComponent name={"On Examination: "} id={"onexamination"}

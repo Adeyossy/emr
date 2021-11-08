@@ -27,24 +27,23 @@ export default class PMHComponent extends React.Component {
 
   onItemChange = (id, value) => {
     if (id === "comorbidities") {
-      if (value) {
-        const comorbidityArray = value.split(", ").map(element => {
-          const alreadyExists = this.context.past_medical_history.comorbidities
-            .find(comorbidity => comorbidity.comorbidy === element);
-          if(alreadyExists) {
-            return alreadyExists;
-          } else {
-            const comorbidityObject = Object.assign({}, comorbidity);
-            comorbidityObject.comorbidity = element;
-            return comorbidityObject;
-          }
-        });
+      const comorbidityArray = value.split(", ").filter(item => item !== "").map(element => {
+        const alreadyExists = this.context.past_medical_history.comorbidities
+          .find(comorbidity => comorbidity.comorbidy === element);
+        if (alreadyExists) {
+          return alreadyExists;
+        }
 
-        this.props.updateItemsInArray(["past_medical_history", "comorbidities"],
-          comorbidityArray, 'comorbidity');
+        if (typeof alreadyExists === 'undefined') {
+          const comorbidityObject = Object.assign({}, comorbidity);
+          comorbidityObject.comorbidity = element;
+          return comorbidityObject;
+        }
+      });
+      console.log("In pmh onItemChange => ", comorbidityArray);
 
-      } else { //remove from source of truth
-      }
+      this.props.updateItemsInArray(["past_medical_history", "comorbidities"],
+        comorbidityArray, 'comorbidity');
     } else {
       this.props.updateAnyObject(id, value, ["past_medical_history"]);
     }
@@ -71,7 +70,7 @@ export default class PMHComponent extends React.Component {
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Past Medical History</h4>
         <div className="emr-clerking-tab-data-items">
           <div className="emr-clerking-tab-data-item">

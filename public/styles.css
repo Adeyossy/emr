@@ -26,7 +26,7 @@
 }
 
 *:disabled{
-  opacity: 0.3;
+  opacity: 0.9;
   cursor: not-allowed;
 }
 
@@ -46,6 +46,12 @@ main{
 h1, h2, h3, h4, h5, h6, p, label, input, textarea, button, table, div{
   font-family: Arial, sans-serif;
   margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6, p, label, .emr-text-wrap{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 a{

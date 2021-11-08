@@ -15,7 +15,7 @@ export default class RoSComponent extends React.Component {
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Review of Systems</h4>
         <div className="emr-clerking-tab-data-items">
           <MultiSelectOutputComponent name={"Cardiorespiratory"} id={"cardiorespiratory"}

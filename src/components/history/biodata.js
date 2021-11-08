@@ -1,6 +1,5 @@
 import React from "react";
 import LabelAndInputComponent from "../epilepsy/label_and_input";
-import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 import NotesComponent from "../minicomponents/notes";
 import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 
@@ -46,7 +45,7 @@ export default class BiodataComponent extends React.Component {
   render() {
     // console.log("this.props.patient => ", this.props.patient);
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Identifying Information</h4>
         <div className="emr-clerking-tab-data-items">
           <div className={`emr-clerking-tab-data-item ${this.props.patient.biodata.firstname

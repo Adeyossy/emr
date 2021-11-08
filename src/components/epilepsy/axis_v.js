@@ -19,13 +19,12 @@ export default class AxisVComponent extends React.Component {
   }
 
   onMultiItemChange = (id, value) => {
-    value.split(", ").forEach((item) => this.props.updateItemsInArray(["forms", "epilepsy", "axisV", id], item, 
-    this.context.forms.epilepsy.axisV[id].length + 1));
+    this.props.updateItemsInArray(["forms", "epilepsy", "axisV", id], value.split(", "), null);
   }
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Comorbidities</h4>
         <div className="emr-clerking-tab-data-items">
           <SingleSelectOutputComponent name={`Has there been prior treatment or 

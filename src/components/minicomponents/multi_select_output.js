@@ -59,7 +59,9 @@ export default class MultiSelectOutputComponent extends React.Component {
 
     const isAlreadySelected = currentSelections.find((value) => value === itemAtIndex);
     if(isAlreadySelected) {
+      console.log("Already Selected");
       currentSelections = currentSelections.filter(value => value !== itemAtIndex);
+    console.log("currentselections => ", currentSelections);
     } else {
       currentSelections.push(itemAtIndex);
     }

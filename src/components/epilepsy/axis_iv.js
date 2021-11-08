@@ -12,14 +12,12 @@ export default class AxisIVComponent extends React.Component {
   }
 
   onMultiItemChange = (id, value) => {
-    value.split(", ").forEach((item) =>
-      this.props.updateItemsInArray(["forms", "epilepsy", "axisIV", id], item,
-        this.context.forms.epilepsy.axisIV[id].length + 1));
+      this.props.updateItemsInArray(["forms", "epilepsy", "axisIV", id], value.split(", "), null);
   }
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Aetiology</h4>
         <div className="emr-clerking-tab-data-items">
           <MultiSelectOutputComponent name={"Syndromes"} id={"aetiology"}

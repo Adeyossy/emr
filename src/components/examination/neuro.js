@@ -22,14 +22,12 @@ export default class NeuroExamComponent extends React.Component {
   }
 
   onMultiItemChange = (id, value) => {
-    value.split(", ").forEach((item, index) => {
-      this.props.updateItemsInArray(["neuro", id], item, this.context.neuro[id].length + 1);
-    });
+    this.props.updateItemsInArray(["neuro", id], value.split(", "), null);
   }
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Neurological Examination</h4>
         <div className="emr-clerking-tab-data-items">
           <NotesComponent name="Higher Mental Functions" id="highermentalfunctions"

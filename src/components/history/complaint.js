@@ -21,12 +21,12 @@ export default class ComplaintComponent extends React.Component {
     const value = event.target.value;
     // console.log("value in PMHComponent => ", value);
     this.props.updateItemsInArray(["presenting_complaints", "complaints"],
-      Object.assign({}, complaint), value);
+      Object.assign({}, complaint), Number(value));
   }
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Presenting Complaints</h4>
         <div className="emr-clerking-tab-data-items">
           <div className="emr-clerking-tab-data-item">
@@ -39,17 +39,27 @@ export default class ComplaintComponent extends React.Component {
             <div className="emr-clerking-tab-data-items">
               {
                 this.context.presenting_complaints.complaints.map((item, i) =>
-                  <div className="emr-clerking-tab-data-item" key={i.toString()}>
+                  <div className={`emr-clerking-tab-data-item 
+                  ${item.complaint && item.duration ? "filled" : ""}`}
+                  key={i.toString()}>
                     <details className="emr-clerking-tab-data-items"
                       open={Object.values(item).join("")}>
                       <summary>Complaint {i + 1}:
                         <small className="emr-collapsible-summary">{item.complaint}
                           {item.duration ? " (".concat(item.duration).concat(")")
                             .toLowerCase() : ""}</small></summary>
-                      <LabelAndInputComponent id="complaint" type="text" title="Complaint"
-                        value={item.complaint} onItemChange={this.onItemChange.bind(this, i)} />
-                      <LabelAndInputComponent id="duration" type="text" title="Duration"
-                        value={item.duration} onItemChange={this.onItemChange.bind(this, i)} />
+                      <div className="container-fluid">
+                        <div className="row">
+                          <div className="col-md-6">
+                            <LabelAndInputComponent id="complaint" type="text" title="Complaint"
+                              value={item.complaint} onItemChange={this.onItemChange.bind(this, i)} />
+                          </div>
+                          <div className="col-md-6">
+                            <LabelAndInputComponent id="duration" type="text" title="Duration"
+                              value={item.duration} onItemChange={this.onItemChange.bind(this, i)} />
+                          </div>
+                        </div>
+                      </div>
                     </details>
                   </div>)
               }

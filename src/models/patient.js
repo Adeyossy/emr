@@ -3,13 +3,80 @@ import { biodata } from "./biodata";
 import { presenting_complaint } from "./complaint";
 import { getFreshEpilepsyForm } from "./epilepsy";
 
-const system = {
-  system: "",
-  symptoms: [""]
+const system = { system: "", symptoms: [""] };
+
+export const appointment = { notes: "", assessment: { notes: "" },
+  plan: { notes: "" }, date_seen: "", next_visit: "", monitoring: { markers: [], notes: "" },
+  pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: ""} }
+
+export const monitoringMarker = { field: "", value: "", unit: "" }
+
+export const hospitalization = {
+  diagnosis: "", duration: 0, facility: "", treatment: "", recovery: "" 
 };
 
-export const appointment = {
-  notes: "",
+export const surgery = Object.assign({}, hospitalization);
+
+export const bloodTransfusion = { pints: 0, donor: "", facility: "", reaction: "" };
+
+export const comorbidity = {
+  comorbidity: "",
+  year_diagnosed: 0,   //number
+  duration: 0,    //number
+  treatment: "", compliance: "", response: ""
+};
+
+export const drug = { name: "", dosage: "", usage: "", reaction: "" };
+
+export const allergy = { substance: "", reaction: "" 
+};
+
+export const alcohol = {
+  alcoholtype: [],
+  alcoholbottlesperweek: "",   //number
+  alcoholbottlesize: "",   //number
+  alcoholconsumptionduration: ""   //number
+};
+
+export const cigarette = { cigarettesticksperday: "", cigarettesmokingduration: "" }
+
+export const patientModel = {
+  _id: "",
+  next_appointment: 0,
+  last_seen: 0,
+  first_seen: 0,
+  appointment: {},
+  appointments: [],
+  primary_diagnosis: "",
+  secondary_diagnosis: "",
+  last_notes: ""
+}
+
+export const appointmentModel = {
+  biodata: {},
+  presenting_complaints: Object.assign({}, presenting_complaint),
+  review_of_systems: {},
+  past_medical_history: {},
+  drugs: [],
+  allergies: [],
+  drugs_and_allergies_notes: "",
+  family_history: [],
+  alcohol: {},
+  cigarette: {},
+  fshx_notes: "",
+  summary: "",
+  general: { onexamination: [], notes: "" },
+  neuro: {
+    highermentalfunctions: "", cranialnerves: "", motor_sides: [], motor_limbs: [], 
+    motor_inspection: [], motor_tone: "", motor_power: "", motor_reflexes: "", ankle_clonus: "",
+    babinski: "", sensorysides: [], sensorylimbs: [], sensoryfinetouch: "", sensorycoarsetouch: "",
+    sensorytemperature: "", sensoryvibration: "", sensoryproprioception: "", sensorypressure: "",
+    gaitandcoordination: "", notes: ""
+  },
+  cvs: { notes: "" },  chest: { notes: "" },  abdomen: { notes: "" },  others: { notes: "" },
+  imaging: { notes: "" },  electrical: { notes: "" },  haematology: { notes: "" },
+  labs: { notes: "" },  microbiology: { notes: "" },  procedures: { notes: "" },
+  pharmacological: { notes: "" },  nonpharmacological: { notes: "" },  other: { notes: "" },
   assessment: {
     notes: ""
   },
@@ -22,75 +89,11 @@ export const appointment = {
     markers: [],
     notes: ""
   },
-  pharmacological: {
-    notes: ""
-  },
-  nonpharmacological: {
-    notes: ""
-  },
-  other: {
-    notes: ""
-  }
-}
-
-export const monitoring = {
-  field: "",
-  value: "",
-  unit: ""
-}
-
-export const hospitalization = {
-  diagnosis: "",
-  duration: 0,
-  facility: "",
-  treatment: "",
-  recovery: ""
-};
-
-export const surgery = Object.assign({}, hospitalization);
-
-export const bloodTransfusion = {
-  pints: 0,
-  donor: "",
-  facility: "",
-  reaction: ""
-};
-
-export const comorbidity = {
-  comorbidity: "",
-  year_diagnosed: 0,   //number
-  duration: 0,    //number
-  treatment: "",
-  compliance: "",
-  response: ""
-};
-
-export const drug = {
-  name: "",
-  dosage: "",
-  usage: "",
-  reaction: ""
-};
-
-export const allergy = {
-  substance: "",
-  reaction: ""
-};
-
-export const alcohol = {
-  alcoholtype: [],
-  alcoholbottlesperweek: "",   //number
-  alcoholbottlesize: "",   //number
-  alcoholconsumptionduration: ""   //number
-};
-
-export const cigarette = {
-  cigarettesticksperday: "",
-  cigarettesmokingduration: ""
+  notes: ""
 }
 
 export const patient = {
-  id: "",
+  _id: "",
   next_appointment: 0,
   last_seen: 0,
   first_seen: 0,
@@ -113,97 +116,27 @@ export const patient = {
     notes: ""
   },
   neuro: {
-    highermentalfunctions: "",
-    cranialnerves: "",
-    motor_sides: [],
-    motor_limbs: [],
-    motor_inspection: [],
-    motor_tone: "",
-    motor_power: "",
-    motor_reflexes: "",
-    ankle_clonus: "",
-    babinski: "",
-    sensorysides: [],
-    sensorylimbs: [],
-    sensoryfinetouch: "",
-    sensorycoarsetouch: "",
-    sensorytemperature: "",
-    sensoryvibration: "",
-    sensoryproprioception: "",
-    sensorypressure: "",
-    gaitandcoordination: "",
-    notes: ""
+    highermentalfunctions: "", cranialnerves: "", motor_sides: [], motor_limbs: [], 
+    motor_inspection: [], motor_tone: "", motor_power: "", motor_reflexes: "", ankle_clonus: "",
+    babinski: "", sensorysides: [], sensorylimbs: [], sensoryfinetouch: "", sensorycoarsetouch: "",
+    sensorytemperature: "", sensoryvibration: "", sensoryproprioception: "", sensorypressure: "",
+    gaitandcoordination: "", notes: ""
   },
-  cvs: {
-    notes: ""
-  },
-  chest: {
-    notes: ""
-  },
-  abdomen: {
-    notes: ""
-  },
-  others: {
-    notes: ""
-  },
-  imaging: {
-    notes: ""
-  },
-  electrical: {
-    notes: ""
-  },
-  haematology: {
-    notes: ""
-  },
-  labs: {
-    notes: ""
-  },
-  microbiology: {
-    notes: ""
-  },
-  procedures: {
-    notes: ""
-  },
-  pharmacological: {
-    notes: ""
-  },
-  nonpharmacological: {
-    notes: ""
-  },
-  other: {
-    notes: ""
-  },
-  assessment: {
-    notes: ""
-  },
-  plan: {
-    notes: ""
-  },
-  monitoring: {
-    notes: ""
-  },
-  primary_diagnosis: "",
-  secondary_diagnosis: "",
-  forms: {},
-  last_notes: ""
+  cvs: { notes: "" },  chest: { notes: "" },  abdomen: { notes: "" },  others: { notes: "" },
+  imaging: { notes: "" }, electrical: { notes: "" }, haematology: { notes: "" }, 
+  labs: { notes: "" }, microbiology: { notes: "" }, procedures: { notes: "" }, 
+  pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: "" },
+  assessment: { notes: "" }, plan: { notes: "" }, monitoring: { notes: "" }, 
+  primary_diagnosis: "", secondary_diagnosis: "", forms: {}, last_notes: ""
 }
 
 export function getFreshPatient() {
   const appointmentTime = Date.now();
-  // const newPatient = Object.assign({}, patient);
   const newPatient = JSON.parse(JSON.stringify(patient));
-  // newPatient.user = currentUser;
   newPatient._id = appointmentTime.toString();
   newPatient.first_seen = appointmentTime;
   newPatient.last_seen = appointmentTime;
   newPatient.appointments = [];
-  // newPatient.appointments.unshift({
-  //   time: appointmentTime,
-  //   notes: "",
-  //   assessment: "",
-  //   plan: "",
-  //   others: ""
-  // });
   newPatient.biodata = Object.assign({}, biodata);
   newPatient.presenting_complaints = Object.assign({}, presenting_complaint);
   newPatient.review_of_systems = {
@@ -246,8 +179,54 @@ export function getFreshPatient() {
   return newPatient;
 }
 
-export function getAppointment() {
+export function parseOldPatient() {
+  const newPatient = JSON.parse(JSON.stringify(patientModel));
+  newPatient._id = this._id;
+  newPatient.first_seen = this.first_seen;
+  newPatient.last_seen = this.last_seen;
+  const firstApntmnt = JSON.parse(JSON.stringify(this));
+  firstApntmnt.date_seen = this.first_seen;
+  // firstApntmnt = this;
+  delete firstApntmnt.first_seen; delete firstApntmnt.last_seen; delete firstApntmnt._id;
+  delete firstApntmnt.primary_diagnosis; delete firstApntmnt.secondary_diagnosis;
+  delete firstApntmnt.next_appointment; delete firstApntmnt.last_notes;
+  delete firstApntmnt.appointment; delete firstApntmnt.appointments;
+
+  newPatient.appointments = this.appointments.map(item => {
+    const apntmnt = JSON.parse(JSON.stringify(appointmentModel));
+    Object.keys(apntmnt).map(key => {
+      if(item.hasOwnProperty(key)) {
+        apntmnt[key] = item[key];
+      } else {
+        apntmnt[key] = firstApntmnt[key];
+      }
+    });
+
+    return apntmnt;
+  });
+
+  // newPatient.appointments.push(firstApntmnt);
+  console.log("New patient => ", newPatient);
+}
+
+export function emrPatient() {
+  const idApntmntTime = Date.now();
+  this._id = idApntmntTime.toString();
+  this.first_seen = idApntmntTime;
+  this.last_seen = idApntmntTime;
+  this.appointments = [];
+  const newApntmnt = getAppointment();
+  // newApntmnt
+}
+
+export function getOldAppointment() {
   const newAppointment = JSON.parse(JSON.stringify(appointment));
+  newAppointment.date_seen = Date.now();
+  return newAppointment;
+}
+
+export function getAppointment() {
+  const newAppointment = JSON.parse(JSON.stringify(appointmentModel));
   newAppointment.date_seen = Date.now();
   return newAppointment;
 }

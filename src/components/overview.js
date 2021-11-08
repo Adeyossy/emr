@@ -113,7 +113,7 @@ export default class OverviewComponent extends React.Component {
                       <i className="bi bi-file-earmark-medical-fill emr-icons emr-center-icon"></i>
                     </div>
                     <p className="emr-quick-info-card-title">Last Seen</p>
-                    <p className="emr-quick-info-card-details">{new Date(this.context.last_seen).toLocaleString()}</p>
+                    <p className="emr-quick-info-card-details">{new Date(this.context.last_seen).toLocaleString('en-ng')}</p>
                   </div>
                 </div>
                 <div className="col-lg-4">

@@ -160,14 +160,14 @@ export class AppComponent extends React.Component {
     // this.assessmentComponents = [  ];
     const assessmentComponents = this.componentItems[5].map((item) =>
       <NotesOnlyComponent fields={["appointment", item.toLowerCase()]}
-        updateAnyObject={this.props.updateAnyObject} notesHeader={item} 
-          value={item.toLowerCase()} />);
+        updateAnyObject={this.props.updateAnyObject} notesHeader={item}
+        value={item.toLowerCase()} />);
 
     //Tabbed components under Other Forms
     const treatmentComponents = this.componentItems[6].map((item) =>
       <NotesOnlyComponent fields={["appointment", item.toLowerCase()]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={item}
-          value={item.toLowerCase()}/>);
+        value={item.toLowerCase()} />);
 
     const componentContents = [historyComponents, epilepsyComponents, otherFormsComponents,
       examComponents, investigationsComponents, assessmentComponents,
@@ -177,33 +177,27 @@ export class AppComponent extends React.Component {
       <>
         <DialogComponent showDialog={this.props.showDialog} dismissDialog={this.props.dismissDialog}
           dialogMessage={this.props.dialogMessage} dialogAction={this.props.dialogAction}
-            dialogTitle={this.props.dialogTitle} />
+          dialogTitle={this.props.dialogTitle} />
         <nav>
           <NavComponent navAppBarState={this.state.navState} changeState={this.updateNavState}
             dashboard={this.props.dashboard} patientView={this.props.patientView}
             currentView={this.props.currentView} navIndex={this.state.navIndex}
             patient={this.props.patient} createNewPatient={this.props.createNewPatient}
-            onUserSignOut={this.props.onUserSignOut} user={this.props.user}/>
+            onUserSignOut={this.props.onUserSignOut} user={this.props.user} />
         </nav>
         {
           this.props.children ? this.props.children :
             <PatientContext.Provider value={this.props.patient}>
               <MainComponent navIndex={this.state.navIndex} dashboard={this.props.dashboard}
                 updateAnyObject={this.props.updateAnyObject}>
-                <div className="container-fluid">
-                  <div className="row g-0">
-                    <div className="col-lg-3 emr-sidebar emr-sidebar-l">
-                      <LeftSideBarComponent patient={this.props.patient}
-                        patients={this.props.patients} changePatient={this.props.changePatient}
-                        deletePatient={this.props.deletePatient}
-                        updateItemsInArray={this.props.updateItemsInArray}
-                        switchToAppointment={this.props.switchToAppointment}
-                        createNewAppointment={this.props.createNewAppointment} 
-                        showDialogOnClick={this.props.showDialogOnClick}>
-                      </LeftSideBarComponent>
-                    </div>
-                  </div>
-                </div>
+                <LeftSideBarComponent patient={this.props.patient}
+                  patients={this.props.patients} changePatient={this.props.changePatient}
+                  deletePatient={this.props.deletePatient}
+                  updateItemsInArray={this.props.updateItemsInArray}
+                  switchToAppointment={this.props.switchToAppointment}
+                  createNewAppointment={this.props.createNewAppointment}
+                  showDialogOnClick={this.props.showDialogOnClick}>
+                </LeftSideBarComponent>
                 {
                   !this.props.patient.appointment && this.props.patient.appointments.length > 1 ?
                     <OverviewComponent /> :

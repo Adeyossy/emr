@@ -11,7 +11,7 @@ export default class AxisIIComponent extends React.Component {
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Seizure Classification (with brain location)</h4>
         <div className="emr-clerking-tab-data-items">
           <NotesComponent id={"classification"} name={"Classification"}

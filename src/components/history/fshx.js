@@ -16,20 +16,13 @@ export default class FSHxComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    console.log("id => ", id);
-    console.log("value => ", value);
-    value.split(", ").forEach((item, index) => {
-      this.props.updateItemsInArray([id], item, this.context.family_history.slice()
-        .filter(hx => hx !== item).length + 1);
-    });
+    this.props.updateItemsInArray([id], value.split(", "), null);
     // this.props.updateAnyObject(id, )
   }
 
   onAlcoholItemChange = (id, value) => {
     console.log("id => ", id);
-    value.split(", ").forEach((item, index) => {
-      this.props.updateItemsInArray(["alcohol", id], item, this.context.alcohol.alcoholtype.length + 1);
-    });
+    this.props.updateItemsInArray(["alcohol", id], value.split(", "), null);
   }
 
   onObjectItemChange = (id, value) => {
@@ -67,7 +60,7 @@ export default class FSHxComponent extends React.Component {
   render() {
     // const positiveFamilyHistory = this.state.positiveFamilyHistory.join(", ");
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Family and Social History</h4>
         <div className="emr-clerking-tab-data-items">
           <MultiSelectOutputComponent name={"Family History"} id={"family_history"}
@@ -109,14 +102,22 @@ export default class FSHxComponent extends React.Component {
             <summary htmlFor="hypertension">Cigarette Smoking</summary>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
-              <LabelAndInputComponent id={"cigarettesticksperday"}
-                title={"Number of sticks per day"} type={"number"}
-                value={this.context.cigarette.cigarettesticksperday}
-                onItemChange={this.onObjectItemChange} />
-              <LabelAndInputComponent id={"cigarettesmokingduration"}
-                title={"Total duration of cigarette smoking (in years)"} type={"number"}
-                value={this.context.cigarette.cigarettesmokingduration}
-                onItemChange={this.onObjectItemChange} />
+              <div className="container-fluid">
+                <div className="row">
+                  <div className="col-md-6">
+                    <LabelAndInputComponent id={"cigarettesticksperday"}
+                      title={"Number of sticks per day"} type={"number"}
+                      value={this.context.cigarette.cigarettesticksperday}
+                      onItemChange={this.onObjectItemChange} />
+                  </div>
+                  <div className="col-md-6">
+                    <LabelAndInputComponent id={"cigarettesmokingduration"}
+                      title={"Total duration of cigarette smoking (in years)"} type={"number"}
+                      value={this.context.cigarette.cigarettesmokingduration}
+                      onItemChange={this.onObjectItemChange} />
+                  </div>
+                </div>
+              </div>
             </div>
           </details>
           <NotesComponent id={"fshx_notes"} value={this.context.fshx_notes} fields={[]}

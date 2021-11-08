@@ -66,13 +66,16 @@ nav{
 }
 
 .emr-new-patient .emr-icon-bg{
-  border: 2px solid var(--emr-secondary-colour);
+  border: 2px solid var(--emr-darker-grey-colour);
+  /* color: var(--emr-darker-grey-colour); */
+  background-color: var(--emr-darker-grey-colour);
 }
 
 .emr-new-patient .emr-icon-bg:hover{
   border: 2px solid var(--emr-accent-colour);
   color: var(--emr-accent-colour);
   box-shadow: var(--emr-high-shadow);
+  background-color: var(--emr-secondary-colour);
 }
 
 .emr-new-patient .emr-icon-bg:active{
@@ -107,8 +110,10 @@ nav{
 }
 
 .emr-app-auth-group{
+  width: 100%;
   padding: 0 8px;
   color: var(--emr-secondary-colour);
+  justify-content: center;
 }
 
 .emr-app-auth-group > h6.emr-headers{
@@ -123,7 +128,7 @@ nav{
 }
 
 .emr-app-toolbar{
-  color: var(--emr-secondary-colour);
+  color: var(--emr-darker-grey-colour);
 }
 
 .emr-app-toolbar > .emr-icon-bg{
@@ -141,6 +146,7 @@ nav{
 .emr-app-toolbar i.emr-icons{
   width: max-content;
   height: max-content;
+  /* color: var(--emr-darker-grey-colour); */
 }
 
 .emr-app-toolbar .emr-icon-bg:hover{
@@ -151,9 +157,9 @@ nav{
 }
 
 .emr-app-toolbar .emr-icon-bg:active, .emr-app-toolbar .emr-icon-bg.selected{
-  color: var(--emr-accent-light-colour);
+  color: var(--emr-accent-colour);
   background-color: var(--emr-secondary-colour);
-  border: 2px solid var(--emr-primary-colour);
+  border: 2px solid var(--emr-accent-colour);
 }
 
 .emr-app-toolbar .emr-icon-bg.selected{

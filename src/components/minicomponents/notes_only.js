@@ -5,7 +5,7 @@ export default class NotesOnlyComponent extends React.Component {
   static contextType = PatientContext;
 
   onThisItemChange = (event) => {
-    console.log("notes only where => ", event.target.name, this.props.fields);
+    // console.log("notes only where => ", event.target.name, this.props.fields);
     this.props.updateAnyObject(event.target.name, event.target.value,
       this.props.fields, null);
   }
@@ -17,7 +17,7 @@ export default class NotesOnlyComponent extends React.Component {
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">{this.props.notesHeader}</h4>
         <div className="emr-clerking-tab-data-items">
           <div className="emr-clerking-tab-data-item">

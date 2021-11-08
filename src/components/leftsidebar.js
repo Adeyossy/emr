@@ -9,7 +9,7 @@ export default class LeftSideBarComponent extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row g-0">
-          <div className="col-lg-3 emr-sidebar emr-sidebar-l">
+          <div className="d-none d-lg-block col-xl-3 col-lg-4 emr-sidebar emr-sidebar-l">
             <div className="emr-left-sidebar">
               <div className="emr-patients-sidebar">
                 {
@@ -62,7 +62,7 @@ export default class LeftSideBarComponent extends React.Component {
                         .map((item, index, array) =>
                           <React.Fragment key={index.toString()}>
                             <div className={`emr-icon-bg emr-icon-bg-dark 
-                            ${item !== null && item.date_seen ===
+                            ${item !== null && this.context.appointment && item.date_seen ===
                                 this.context.appointment.date_seen ? "selected" : ""}`}
                               key={index.toString()} onClick={this.props.switchToAppointment.bind(this, item)}>
                               <i className={`emr-center-icon emr-timeline-bar-icons`}>

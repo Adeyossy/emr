@@ -11,7 +11,7 @@ export default class AxisIIIComponent extends React.Component {
 
   render() {
     return (
-      <div className="emr-clerking-tab-data emr-card m-0">
+      <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Electro-clinical Syndrome</h4>
         <div className="emr-clerking-tab-data-items">
         <NotesComponent id={"ecs_syndromes"} name={"Possible Electro-clinical Syndromes"}

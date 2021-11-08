@@ -9,7 +9,7 @@ export default class MainComponent extends React.Component {
         {this.props.children}
         <div className="container-fluid">
           <div className="row g-0">
-            <div className="offset-lg-9 col-lg-3 emr-sidebar emr-sidebar-r">
+            <div className="offset-xl-9 col-xl-3 d-none d-xl-block emr-sidebar emr-sidebar-r">
               <RightSideBarComponent updateAnyObject={this.props.updateAnyObject} />
             </div>
           </div>

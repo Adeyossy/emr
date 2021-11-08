@@ -1,5 +1,4 @@
 .emr-sidebar{
-  display: none;
   position: fixed;
 }
 
@@ -248,11 +247,15 @@ p.emr-biodata-summary-age{
   /* box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.05); */
 }
 
-.emr-right-sidebar-item:nth-child(1){
-  height: 28%;
+.emr-right-sidebar .container-fluid{
+  height: auto;
 }
 
-.emr-right-sidebar-item:nth-child(2){
+.emr-right-sidebar-item{
+  height: 28vh;
+}
+
+.emr-right-sidebar-item.notes{
   height: 72%;
   /* flex-grow: 2; */
 }
@@ -290,8 +293,35 @@ p.emr-right-sidebar-item-text{
   padding: 32px;
   margin: 32px 16px 16px 16px;
   background: linear-gradient(to bottom right, white, var(--emr-light-colour));
+  /* background-color: var(--emr-light-colour); */
   border-radius: var(--emr-round-corners);
   box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.1);
+}
+
+.emr-quick-info-card.diagnosis{
+  padding: 8px;
+}
+
+.emr-quick-info-card.diagnosis textarea{
+  border: none;
+  box-shadow: none;
+  font-size: 8.5pt;
+  font-weight: 700;
+  background: transparent;
+  vertical-align: middle;
+}
+
+.emr-quick-info-card.primary-diagnosis{
+  background: white;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.emr-quick-info-card.secondary-diagnosis{
+  color: white;
+  background: var(--emr-secondary-colour);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .emr-quick-info-card.emr-right-sidebar-item{
@@ -300,10 +330,12 @@ p.emr-right-sidebar-item-text{
 
 .emr-quick-info-card-2{
   background: linear-gradient(to bottom right, white, var(--emr-accent-light-colour));
+  /* background-color: var(--emr-accent-light-colour); */
 }
 
 .emr-quick-info-card-3{
   background: linear-gradient(to bottom right, white, var(--emr-accent-light-colour-2));
+  /* background-color: var(--emr-accent-light-colour-2); */
 }
 
 .emr-quick-info-card > p {
@@ -338,8 +370,8 @@ p.emr-quick-info-card-title{
   }
 }
 
-@media only screen and (min-width: 1200px){
-  .emr-sidebar{
-    display: initial;
+@media only screen and (min-width: 1024px){
+  .emr-sidebar-l{
+    /* display: initial; */
   }
 }
