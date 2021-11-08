@@ -12,6 +12,8 @@ export const biodata = {
   religion: "",
   tribe: "",
   informant: "",
+  education: "",
+  handedness: "",
   hospital: "",
   id: "",
   phone_number: "",
