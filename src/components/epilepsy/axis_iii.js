@@ -6,7 +6,7 @@ export default class AxisIIIComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    this.props.updateAnyObject(id, value, ["forms", "epilepsy", "axisIII"], null);
+    this.props.updateAnyObject(id, value, ["appointment", "forms", "epilepsy", "axisIII"], null);
   }
 
   render() {
@@ -15,8 +15,8 @@ export default class AxisIIIComponent extends React.Component {
         <h4 className="emr-card-headers">Electro-clinical Syndrome</h4>
         <div className="emr-clerking-tab-data-items">
         <NotesComponent id={"ecs_syndromes"} name={"Possible Electro-clinical Syndromes"}
-         fields={["forms", "epilepsy", "axisIII"]}
-            value={this.context.forms.epilepsy.axisIII.ecs_syndromes}
+         fields={["appointment", "forms", "epilepsy", "axisIII"]}
+            value={this.context.appointment.forms.epilepsy.axisIII.ecs_syndromes}
             onItemChange={this.props.updateAnyObject} />
         </div>
       </div>

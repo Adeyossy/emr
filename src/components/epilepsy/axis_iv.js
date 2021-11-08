@@ -8,11 +8,11 @@ export default class AxisIVComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    this.props.updateAnyObject(id, value, ["forms", "epilepsy", "axisIV"], null);
+    this.props.updateAnyObject(id, value, ["appointment", "forms", "epilepsy", "axisIV"], null);
   }
 
   onMultiItemChange = (id, value) => {
-      this.props.updateItemsInArray(["forms", "epilepsy", "axisIV", id], value.split(", "), null);
+      this.props.updateItemsInArray(["appointment", "forms", "epilepsy", "axisIV", id], value.split(", "), null);
   }
 
   render() {
@@ -27,34 +27,34 @@ export default class AxisIVComponent extends React.Component {
               "Eventful pregnancy or birth history", "Previous stroke", "Learning disability",
               "Developmental disability",
               "Status epilepticus or Acute repetitive seizures at onset of seizures"]}
-            value={this.context.forms.epilepsy.axisIV.aetiology.join(", ")}
+            value={this.context.appointment.forms.epilepsy.axisIV.aetiology.join(", ")}
             onItemChange={this.onMultiItemChange} />
           {
-            this.context.forms.epilepsy.axisIV.aetiology.includes("Family history of epilepsy") ?
+            this.context.appointment.forms.epilepsy.axisIV.aetiology.includes("Family history of epilepsy") ?
               <NotesComponent name={"Family history of epilepsy (describe)"}
-                id="familyhistoryepilepsy"  fields={["forms", "epilepsy", "axisIV"]}
-                value={this.context.forms.epilepsy.axisIV.familyhistoryepilepsy}
+                id="familyhistoryepilepsy"  fields={["appointment", "forms", "epilepsy", "axisIV"]}
+                value={this.context.appointment.forms.epilepsy.axisIV.familyhistoryepilepsy}
                 onItemChange={this.props.updateAnyObject} /> :
               null
           }
           {
-            this.context.forms.epilepsy.axisIV.aetiology
+            this.context.appointment.forms.epilepsy.axisIV.aetiology
               .includes("Status epilepticus or Acute repetitive seizures at onset of seizures") ?
               <SingleSelectOutputComponent
                 name={"Status epilepticus or Acute repetitive seizures at onset of seizures"}
-                value={this.context.forms.epilepsy.axisIV.statusepilepticus}
+                value={this.context.appointment.forms.epilepsy.axisIV.statusepilepticus}
                 id={"statusepilepticus"} items={["Yes", "No"]} onItemChange={this.onItemChange} />
               : null
           }
           <SingleSelectOutputComponent
             name={`Ever had attacks occur in clusters that last more than 5 mins or regain 
                 consciousness more than 1 hour`}
-            value={this.context.forms.epilepsy.axisIV.attacksinclusters}
+            value={this.context.appointment.forms.epilepsy.axisIV.attacksinclusters}
             id={"attacksinclusters"} items={["Yes", "No"]}
             onItemChange={this.onItemChange} />
           <NotesComponent id={"seizure_precipitant"} name={"List seizure precipitant"}
-           fields={["forms", "epilepsy", "axisIV"]}
-            value={this.context.forms.epilepsy.axisIV.seizure_precipitant}
+           fields={["appointment", "forms", "epilepsy", "axisIV"]}
+            value={this.context.appointment.forms.epilepsy.axisIV.seizure_precipitant}
             onItemChange={this.props.updateAnyObject} />
         </div>
       </div>

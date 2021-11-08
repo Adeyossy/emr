@@ -19,21 +19,23 @@ export default class PatientTableComponent extends React.Component {
           <tbody>
             {
               this.props.authComplete ?
-                this.props.patients.map((item, index) =>
-                  <tr key={index.toString()} onClick={this.props.onItemClicked.bind(this, item.patient_id)}>
+                this.props.patients.sort((a, b) => b - a).slice(0, 10).map((item, index) =>
+                  <tr key={index.toString()} onClick={this.props.onItemClicked.bind(this, item._id)}>
                     <td className="d-none d-lg-table-cell">
                       <div className="emr-icon-bg emr-icon-bg-dark">
                         {/* <!-- Insert age-appropriate icon here --> */}
                         <i className="bi bi-person-fill emr-center-icon"></i>
                       </div>
                     </td>
-                    <td>{item.firstname || item.lastname ? item.firstname + " " + item.lastname : "--"}</td>
-                    <td>{item.ageinyears ? `${item.ageinyears} yrs` : "--"}</td>
-                    <td className="d-none d-lg-table-cell">{item.id}</td>
+                    <td>{item.appointment.biodata.firstname || item.appointment.biodata.lastname ?
+                      item.appointment.biodata.firstname + " " + item.appointment.biodata.lastname : "--"}</td>
+                    <td>{item.appointment.biodata.ageinyears ? `${item.appointment.biodata.ageinyears} 
+                    yrs` : "--"}</td>
+                    <td className="d-none d-lg-table-cell">{item.appointment.biodata.id}</td>
                     <td className="emr-text-wrap">{item.primary_diagnosis}</td>
                     <td className="d-none d-lg-table-cell emr-text-wrap">{item.secondary_diagnosis}</td>
-                  </tr>) : 
-                  new Array(5).fill("").map((item, index) => 
+                  </tr>) :
+                new Array(5).fill("").map((item, index) =>
                   <tr key={index.toString()} className="emr-loading">
                     {new Array(6).fill().map((h, i) => <td key={i.toString()} className="emr-loading">
                       <p className="emr-loading">Loading... Loading...</p>

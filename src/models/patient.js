@@ -5,14 +5,16 @@ import { getFreshEpilepsyForm } from "./epilepsy";
 
 const system = { system: "", symptoms: [""] };
 
-export const appointment = { notes: "", assessment: { notes: "" },
+export const appointment = {
+  notes: "", assessment: { notes: "" },
   plan: { notes: "" }, date_seen: "", next_visit: "", monitoring: { markers: [], notes: "" },
-  pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: ""} }
+  pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: "" }
+}
 
 export const monitoringMarker = { field: "", value: "", unit: "" }
 
 export const hospitalization = {
-  diagnosis: "", duration: 0, facility: "", treatment: "", recovery: "" 
+  diagnosis: "", duration: 0, facility: "", treatment: "", recovery: ""
 };
 
 export const surgery = Object.assign({}, hospitalization);
@@ -28,7 +30,8 @@ export const comorbidity = {
 
 export const drug = { name: "", dosage: "", usage: "", reaction: "" };
 
-export const allergy = { substance: "", reaction: "" 
+export const allergy = {
+  substance: "", reaction: ""
 };
 
 export const alcohol = {
@@ -67,16 +70,16 @@ export const appointmentModel = {
   summary: "",
   general: { onexamination: [], notes: "" },
   neuro: {
-    highermentalfunctions: "", cranialnerves: "", motor_sides: [], motor_limbs: [], 
+    highermentalfunctions: "", cranialnerves: "", motor_sides: [], motor_limbs: [],
     motor_inspection: [], motor_tone: "", motor_power: "", motor_reflexes: "", ankle_clonus: "",
     babinski: "", sensorysides: [], sensorylimbs: [], sensoryfinetouch: "", sensorycoarsetouch: "",
     sensorytemperature: "", sensoryvibration: "", sensoryproprioception: "", sensorypressure: "",
     gaitandcoordination: "", notes: ""
   },
-  cvs: { notes: "" },  chest: { notes: "" },  abdomen: { notes: "" },  others: { notes: "" },
-  imaging: { notes: "" },  electrical: { notes: "" },  haematology: { notes: "" },
-  labs: { notes: "" },  microbiology: { notes: "" },  procedures: { notes: "" },
-  pharmacological: { notes: "" },  nonpharmacological: { notes: "" },  other: { notes: "" },
+  cvs: { notes: "" }, chest: { notes: "" }, abdomen: { notes: "" }, others: { notes: "" },
+  imaging: { notes: "" }, electrical: { notes: "" }, haematology: { notes: "" },
+  labs: { notes: "" }, microbiology: { notes: "" }, procedures: { notes: "" },
+  pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: "" },
   assessment: {
     notes: ""
   },
@@ -88,7 +91,7 @@ export const appointmentModel = {
   monitoring: {
     markers: [],
     notes: ""
-  },
+  }, forms: {},
   notes: ""
 }
 
@@ -116,17 +119,17 @@ export const patient = {
     notes: ""
   },
   neuro: {
-    highermentalfunctions: "", cranialnerves: "", motor_sides: [], motor_limbs: [], 
+    highermentalfunctions: "", cranialnerves: "", motor_sides: [], motor_limbs: [],
     motor_inspection: [], motor_tone: "", motor_power: "", motor_reflexes: "", ankle_clonus: "",
     babinski: "", sensorysides: [], sensorylimbs: [], sensoryfinetouch: "", sensorycoarsetouch: "",
     sensorytemperature: "", sensoryvibration: "", sensoryproprioception: "", sensorypressure: "",
     gaitandcoordination: "", notes: ""
   },
-  cvs: { notes: "" },  chest: { notes: "" },  abdomen: { notes: "" },  others: { notes: "" },
-  imaging: { notes: "" }, electrical: { notes: "" }, haematology: { notes: "" }, 
-  labs: { notes: "" }, microbiology: { notes: "" }, procedures: { notes: "" }, 
+  cvs: { notes: "" }, chest: { notes: "" }, abdomen: { notes: "" }, others: { notes: "" },
+  imaging: { notes: "" }, electrical: { notes: "" }, haematology: { notes: "" },
+  labs: { notes: "" }, microbiology: { notes: "" }, procedures: { notes: "" },
   pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: "" },
-  assessment: { notes: "" }, plan: { notes: "" }, monitoring: { notes: "" }, 
+  assessment: { notes: "" }, plan: { notes: "" }, monitoring: { notes: "" },
   primary_diagnosis: "", secondary_diagnosis: "", forms: {}, last_notes: ""
 }
 
@@ -185,7 +188,7 @@ export function parseOldPatient() {
   newPatient.first_seen = this.first_seen;
   newPatient.last_seen = this.last_seen;
   const firstApntmnt = JSON.parse(JSON.stringify(this));
-  firstApntmnt.date_seen = this.first_seen;
+  // firstApntmnt.date_seen = this.first_seen;
   // firstApntmnt = this;
   delete firstApntmnt.first_seen; delete firstApntmnt.last_seen; delete firstApntmnt._id;
   delete firstApntmnt.primary_diagnosis; delete firstApntmnt.secondary_diagnosis;
@@ -195,18 +198,28 @@ export function parseOldPatient() {
   newPatient.appointments = this.appointments.map(item => {
     const apntmnt = JSON.parse(JSON.stringify(appointmentModel));
     Object.keys(apntmnt).map(key => {
-      if(item.hasOwnProperty(key)) {
+      if (item.hasOwnProperty(key)) {
         apntmnt[key] = item[key];
+        if(!apntmnt[key]) apntmnt[key] = firstApntmnt[key]
       } else {
         apntmnt[key] = firstApntmnt[key];
       }
+
+      if (apntmnt['forms'] === 'undefined') {
+        apntmnt[key] = {};
+        apntmnt[key].epilepsy = getFreshEpilepsyForm();
+      }
     });
 
+    newPatient.appointment = apntmnt;
+    // newPatient.forms = {};
+    // newPatient.forms.epilepsy = getFreshEpilepsyForm();
     return apntmnt;
   });
 
   // newPatient.appointments.push(firstApntmnt);
   console.log("New patient => ", newPatient);
+  return newPatient;
 }
 
 export function emrPatient() {

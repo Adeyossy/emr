@@ -48,7 +48,7 @@ h1, h2, h3, h4, h5, h6, p, label, input, textarea, button, table, div{
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p, label, .emr-text-wrap{
+h1, h2, h3, h4, h5, h6, p, .emr-text-wrap{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

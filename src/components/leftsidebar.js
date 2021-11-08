@@ -21,7 +21,8 @@ export default class LeftSideBarComponent extends React.Component {
                       <div className="emr-patient-delete">
                         <div className="emr-icon-bg emr-icon-bg-dark"
                           onClick={this.props.showDialogOnClick.bind(this, "DELETE PATIENT",
-                            `${item.biodata.firstname ? item.biodata.firstname : "This patient"} will be deleted`,
+                            `${item.appointment.biodata.firstname ? 
+                            item.appointment.biodata.firstname : "This patient"} will be deleted`,
                             this.props.deletePatient.bind(this, item._id))}>
                           <i className="bi bi-trash-fill emr-center-icon"></i>
                         </div>
@@ -30,12 +31,12 @@ export default class LeftSideBarComponent extends React.Component {
                         <i className="bi bi-person-fill emr-center-icon"></i>
                       </div>
                       <div className="emr-patient-description">
-                        <p className="emr-patient-name">{item.biodata.firstname || item.biodata.lastname ?
-                          item.biodata.firstname + " " + item.biodata.lastname : "New patient"}</p>
+                        <p className="emr-patient-name">{item.appointment.biodata.firstname || item.appointment.biodata.lastname ?
+                          item.appointment.biodata.firstname + " " + item.appointment.biodata.lastname : "New patient"}</p>
                         <div className="emr-patient-biodata">
-                          <p className="emr-patient-gender">{item.biodata.gender.charAt(0)}</p>
+                          <p className="emr-patient-gender">{item.appointment.biodata.gender.charAt(0)}</p>
                           <p className="emr-separator">|</p>
-                          <p className="emr-patient-age">{`${item.biodata.ageinyears} yrs`}</p>
+                          <p className="emr-patient-age">{`${item.appointment.biodata.ageinyears} yrs`}</p>
                           <p className="emr-separator">|</p>
                           <p className="emr-patient-diagnosis">
                             {item.primary_diagnosis ? item.primary_diagnosis : "pending"}</p>

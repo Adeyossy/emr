@@ -8,7 +8,7 @@ export default class AbdominalExamComponent extends React.Component{
 
   render(){
     return(
-      <NotesOnlyComponent fields={["abdomen"]}
+      <NotesOnlyComponent fields={["appointment", "abdomen"]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={"Abdomen"} />
     );
   }

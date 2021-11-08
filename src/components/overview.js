@@ -29,33 +29,33 @@ export default class OverviewComponent extends React.Component {
                         <div className="emr-biodata-summary-name ml-3 d-inline-block">
                           <p className="emr-biodata-summary-title">
                             {
-                              this.context.biodata.maritalstatus === "Single" ?
-                                this.context.biodata.gender === "Female" ? "Ms." : "Mrs." : "Mr."
+                              this.context.appointment.biodata.maritalstatus === "Single" ?
+                                this.context.appointment.biodata.gender === "Female" ? "Ms." : "Mrs." : "Mr."
                             }
                           </p>
-                          <p className="emr-biodata-summary-first-name">{this.context.biodata.firstname}</p>
-                          <p className="emr-biodata-summary-last-name">{this.context.biodata.lastname.toUpperCase()}</p>
+                          <p className="emr-biodata-summary-first-name">{this.context.appointment.biodata.firstname}</p>
+                          <p className="emr-biodata-summary-last-name">{this.context.appointment.biodata.lastname.toUpperCase()}</p>
                         </div>
                       </div>
                       <div className="emr-summary-divider"></div>
                       <div className="emr-biodata-summary-other">
-                        <p className="emr-biodata-summary-gender">{this.context.biodata.gender}</p>
-                        <p className="emr-biodata-summary-age">{this.context.biodata.ageinyears} yrs</p>
+                        <p className="emr-biodata-summary-gender">{this.context.appointment.biodata.gender}</p>
+                        <p className="emr-biodata-summary-age">{this.context.appointment.biodata.ageinyears} yrs</p>
                       </div>
                     </div>
                     <div className="emr-biodata-summary-bottom">
                       <div className="emr-biodata-bottom-item">
                         <i className="bi bi-briefcase-fill emr-accent-icon"></i>
-                        <p className="emr-biodata-bottom-text">{this.context.biodata.occupation}</p>
+                        <p className="emr-biodata-bottom-text">{this.context.appointment.biodata.occupation}</p>
                       </div>
                       <div className="emr-biodata-bottom-item">
                         <i className="bi bi-person-fill emr-accent-icon"></i>
-                        <p className="emr-biodata-bottom-text">{this.context.biodata.tribe.toUpperCase() + "   |   "
-                          + this.context.biodata.religion.toUpperCase()}</p>
+                        <p className="emr-biodata-bottom-text">{this.context.appointment.biodata.tribe.toUpperCase() + "   |   "
+                          + this.context.appointment.biodata.religion.toUpperCase()}</p>
                       </div>
                       <div className="emr-biodata-bottom-item">
                         <i className="bi bi-geo-alt-fill emr-accent-icon"></i>
-                        <p className="emr-biodata-bottom-text">{this.context.biodata.address}</p>
+                        <p className="emr-biodata-bottom-text">{this.context.appointment.biodata.address}</p>
                       </div>
                     </div>
                   </div>
@@ -67,7 +67,7 @@ export default class OverviewComponent extends React.Component {
                       <h6 className="emr-quick-info-category">VISIT(S)</h6>
                     </div>
                     {
-                      this.context.past_medical_history.comorbidities
+                      this.context.appointment.past_medical_history.comorbidities
                         .filter(item => item.comorbidity && item.duration).slice(0, 2).map((item) =>
                           <>
                             <div className="emr-quick-info-divider"></div>
@@ -113,7 +113,7 @@ export default class OverviewComponent extends React.Component {
                       <i className="bi bi-file-earmark-medical-fill emr-icons emr-center-icon"></i>
                     </div>
                     <p className="emr-quick-info-card-title">Last Seen</p>
-                    <p className="emr-quick-info-card-details">{new Date(this.context.last_seen).toLocaleString('en-ng')}</p>
+                    <p className="emr-quick-info-card-details">{new Date(this.context.appointment.last_seen).toLocaleString('en-ng')}</p>
                   </div>
                 </div>
                 <div className="col-lg-4">

@@ -9,7 +9,7 @@ export default class RoSComponent extends React.Component {
   onItemChange = (id, value) => {
     // value.split(", ").forEach((item, index) => {
     // });
-    this.props.updateItemsInArray(["review_of_systems", id], 
+    this.props.updateItemsInArray(["appointment", "review_of_systems", id], 
     value.split(", "), null);
   }
 
@@ -21,26 +21,26 @@ export default class RoSComponent extends React.Component {
           <MultiSelectOutputComponent name={"Cardiorespiratory"} id={"cardiorespiratory"}
             items={["Cough", "Dyspnoea", "Orthopnoea", "PND", "Chest Pain", "Haemoptysis",
               "Leg Swelling", "Palpitations", "Cyanosis"]}
-            value={this.context.review_of_systems["cardiorespiratory"].join(", ")}
+            value={this.context.appointment.review_of_systems["cardiorespiratory"].join(", ")}
             onItemChange={this.onItemChange} />
           <MultiSelectOutputComponent name={"Gastrointestinal"} id={"gastrointestinal"}
             items={["Abd pain", "Abd swelling", "Anorexia", "Nausea", "Diarrhoea", "Constipation",
               "Vomiting", "Jaundice", "Haematemesis", "Melena"]}
-            value={this.context.review_of_systems["gastrointestinal"].join(", ")}
+            value={this.context.appointment.review_of_systems["gastrointestinal"].join(", ")}
             onItemChange={this.onItemChange} />
           <MultiSelectOutputComponent name={"Genitourinary"} id={"genitourinary"}
             items={["Dysuria", "Frequency", "Urgency", "Dribbling", "Hesitancy", "Intermittency",
               "Haematuria", "Incontinence", "Weak Stream", "Discharge"]}
-            value={this.context.review_of_systems["genitourinary"].join(", ")}
+            value={this.context.appointment.review_of_systems["genitourinary"].join(", ")}
             onItemChange={this.onItemChange} />
           <MultiSelectOutputComponent name={"Endocrine"} id={"endocrine"}
             items={["Polyuria", "Polyphagia", "Polydipsia", "Weight loss",
               "Recurrent Infections", "Heat Intolerance", "Cold Intolerance",
               "Incontinence", "Weak Stream", "Discharge"]}
-            value={this.context.review_of_systems["endocrine"].join(", ")}
+            value={this.context.appointment.review_of_systems["endocrine"].join(", ")}
             onItemChange={this.onItemChange} />
           <NotesComponent id="notes" fields={["review_of_systems"]}
-            value={this.context.review_of_systems.notes}
+            value={this.context.appointment.review_of_systems.notes}
             onItemChange={this.props.updateAnyObject} />
         </div>
       </div>

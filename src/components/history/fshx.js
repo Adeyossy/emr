@@ -16,28 +16,28 @@ export default class FSHxComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    this.props.updateItemsInArray([id], value.split(", "), null);
+    this.props.updateItemsInArray(["appointment", id], value.split(", "), null);
     // this.props.updateAnyObject(id, )
   }
 
   onAlcoholItemChange = (id, value) => {
     console.log("id => ", id);
-    this.props.updateItemsInArray(["alcohol", id], value.split(", "), null);
+    this.props.updateItemsInArray(["appointment", "alcohol", id], value.split(", "), null);
   }
 
   onObjectItemChange = (id, value) => {
     console.log("this.onObjectItemChange");
-    console.log("values => ", Object.values(this.context.alcohol));
+    console.log("values => ", Object.values(this.context.appointment.alcohol));
     if (id.includes("alcohol")) {
-      this.props.updateAnyObject(id, value, ["alcohol"], null);
+      this.props.updateAnyObject(id, value, ["appointment", "alcohol"], null);
     }
 
     if (id.includes("cigarette")) {
-      this.props.updateAnyObject(id, value, ["cigarette"], null);
+      this.props.updateAnyObject(id, value, ["appointment", "cigarette"], null);
     }
 
     if (id.includes("note")) {
-      this.props.updateAnyObject(id, value, [], null);
+      this.props.updateAnyObject(id, value, ["appointment"], null);
     }
   }
 
@@ -66,7 +66,7 @@ export default class FSHxComponent extends React.Component {
           <MultiSelectOutputComponent name={"Family History"} id={"family_history"}
             items={["Hypertension", "Diabetes Mellitus", "Asthma",
               "Peptic Ulcer Dx", "Epilepsy"]}
-            value={this.context.family_history.join(", ")}
+            value={this.context.appointment.family_history.join(", ")}
             onItemChange={this.onItemChange} displayInBox={this.displayPositivesInInputBox} />
           {/* <div className="emr-clerking-tab-data-item">
             <label htmlFor="familyhistory">Family History of any of the following?</label>
@@ -74,31 +74,31 @@ export default class FSHxComponent extends React.Component {
             <input type="text" name="familyhistory" id="familyhistory" defaultValue={positiveFamilyHistory}></input>
           </div> */}
           <details className="emr-clerking-tab-data-item"
-            open={Object.values(this.context.alcohol).find(item => item !== "")}>
+            open={Object.values(this.context.appointment.alcohol).find(item => item !== "")}>
             <summary htmlFor="hypertension">Alcohol Consumption</summary>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               <MultiSelectOutputComponent id={"alcoholtype"}
                 name={"What kind of alcohol is consumed?"}
                 items={["Beer", "Red wine", "Whiskey", "Brandy", "Vodka"]}
-                value={this.context.alcohol.alcoholtype.join(", ")}
+                value={this.context.appointment.alcohol.alcoholtype.join(", ")}
                 onItemChange={this.onAlcoholItemChange} />
               <LabelAndInputComponent id={"alcoholbottlesperweek"}
                 title={"Number of bottles consumed per week"} type={"number"}
-                value={this.context.alcohol.alcoholbottlesperweek}
+                value={this.context.appointment.alcohol.alcoholbottlesperweek}
                 onItemChange={this.onObjectItemChange} />
               <LabelAndInputComponent id={"alcoholbottlesize"}
                 title={"Size of each bottle (in ml)"} type={"number"}
-                value={this.context.alcohol.alcoholbottlesize}
+                value={this.context.appointment.alcohol.alcoholbottlesize}
                 onItemChange={this.onObjectItemChange} />
               <LabelAndInputComponent id={"alcoholconsumptionduration"}
                 title={"Total duration of alcohol consumption (in years)"} type={"number"}
-                value={this.context.alcohol.alcoholconsumptionduration}
+                value={this.context.appointment.alcohol.alcoholconsumptionduration}
                 onItemChange={this.onObjectItemChange} />
             </div>
           </details>
           <details className="emr-clerking-tab-data-item"
-            open={Object.values(this.context.cigarette).find(item => item !== "")}>
+            open={Object.values(this.context.appointment.cigarette).find(item => item !== "")}>
             <summary htmlFor="hypertension">Cigarette Smoking</summary>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
@@ -107,20 +107,20 @@ export default class FSHxComponent extends React.Component {
                   <div className="col-md-6">
                     <LabelAndInputComponent id={"cigarettesticksperday"}
                       title={"Number of sticks per day"} type={"number"}
-                      value={this.context.cigarette.cigarettesticksperday}
+                      value={this.context.appointment.cigarette.cigarettesticksperday}
                       onItemChange={this.onObjectItemChange} />
                   </div>
                   <div className="col-md-6">
                     <LabelAndInputComponent id={"cigarettesmokingduration"}
                       title={"Total duration of cigarette smoking (in years)"} type={"number"}
-                      value={this.context.cigarette.cigarettesmokingduration}
+                      value={this.context.appointment.cigarette.cigarettesmokingduration}
                       onItemChange={this.onObjectItemChange} />
                   </div>
                 </div>
               </div>
             </div>
           </details>
-          <NotesComponent id={"fshx_notes"} value={this.context.fshx_notes} fields={[]}
+          <NotesComponent id={"fshx_notes"} value={this.context.appointment.fshx_notes} fields={[]}
             onItemChange={this.props.updateAnyObject} />
         </div>
       </div>

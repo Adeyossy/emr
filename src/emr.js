@@ -90,10 +90,10 @@ export class EMRComponent extends React.Component {
   docsFromOfflineDB = (docs) => {
     //We're expecting an array of object with 'doc' as the needed key for the value
     // console.log(docs);
-    const dataFromDocs = docs.map(item => item.doc);
+    let dataFromDocs = docs.map(item => item.doc);
 
     //if there are any updates to the data structure
-    if(dataFromDocs.length > 0) this.upgradeDataStructure(dataFromDocs);
+    if (dataFromDocs.length > 0) dataFromDocs = this.upgradeDataStructure(dataFromDocs);
 
     this.setState({
       patients: dataFromDocs,
@@ -104,19 +104,19 @@ export class EMRComponent extends React.Component {
   upgradeDataStructure = (dataFromDocs) => {
     const currentAppointmentModel = getAppointment();
     const currentAppointmentModelKeys = Object.keys(currentAppointmentModel);
-    
-    const upgradedDataFromDocs = dataFromDocs.slice().forEach((item, index) => {
+
+    const upgradedDataFromDocs = dataFromDocs.slice().map((item, index) => {
       let dbAppointmentKeys = [];
       //The next line is to prevent any unintended changes
       item = JSON.parse(JSON.stringify(item));
-      item.appointments.map(apntmnt => {
-        if(typeof apntmnt === 'object'){
+      const apntmntItems = item.appointments.map(apntmnt => {
+        if (typeof apntmnt === 'object') {
           dbAppointmentKeys = Object.keys(apntmnt);
           currentAppointmentModelKeys.forEach((modelKey) => {
             // const itemExists = dbAppointmentKeys.find(key => key === modelKey);
-            if(apntmnt.hasOwnProperty(modelKey)) {
-              if(apntmnt[modelKey]){
-                if(typeof currentAppointmentModel[modelKey] === 'object'){
+            if (apntmnt.hasOwnProperty(modelKey)) {
+              if (apntmnt[modelKey]) {
+                if (typeof currentAppointmentModel[modelKey] === 'object') {
                   currentAppointmentModel[modelKey].notes = apntmnt;
                 }
               } else {
@@ -125,12 +125,20 @@ export class EMRComponent extends React.Component {
             }
           });
         }
+
+        // item.appointment = apntmnt;
+        return apntmnt;
       });
 
+      // const isApt = apntmntItems.find(apt => apt.date_seen === item.last_seen);
+      // item.appointment = isApt ? isApt : getAppointment();
+
       console.log("Old patient data => ", item);
-      parseOldPatient.call(item);
+      return parseOldPatient.call(item);
       // console.log("Corrected appointment data structure => ", item.appointment);
     });
+
+    return upgradedDataFromDocs;
     // console.log("db object structure => ", Object.entries(dataFromDocs[0].appointment));
     // console.log("App updated object structure => ", Object.entries(currentAppointmentModel));
     // if()
@@ -183,7 +191,7 @@ export class EMRComponent extends React.Component {
     this.setState({
       patient: patient,
       showNotification: true,
-      info: `Switched ${patient.biodata.firstname ? "to ".concat(patient.biodata.firstname.toUpperCase()) : "patient"}`
+      info: `Switched ${patient.appointment.biodata.firstname ? "to ".concat(patient.appointment.biodata.firstname.toUpperCase()) : "patient"}`
     });
   }
 
@@ -243,6 +251,9 @@ export class EMRComponent extends React.Component {
       case 4:
         return this.state.patient[fields[0]][fields[1]][fields[2]][fields[3]]
 
+      case 5:
+        return this.state.patient[fields[0]][fields[1]][fields[2]][fields[3]][fields[4]]
+
       default:
         break;
     }
@@ -252,7 +263,7 @@ export class EMRComponent extends React.Component {
   updateAnyObject = (name, value, fields, index) => {
     const thisPatient = this.state.patient; //the current patient in the app
     // const pmh = thisPatient.past_medical_history; //access the past medical history of the patient
-    const pmhArray = this.getWhereSwitched(fields); 
+    const pmhArray = this.getWhereSwitched(fields);
     //get either hospitalization, surgery, blood transfusion and comorbidities
     let pmhArrayItem = undefined;
     if (Array.isArray(pmhArray))
@@ -293,21 +304,8 @@ export class EMRComponent extends React.Component {
     updateDoc(thisPatient);
   }
 
-  removeItemsInArray = (field, where) => {
-    const thisPatient = this.state.patient;
-    let pmhArray = thisPatient.past_medical_history[field];
-    if (typeof where === 'string') {
-      const itemLocation = pmhArray.findIndex((item) => item.comorbidity === where);
-      pmhArray.splice(itemLocation, 0);
-    }
-
-    this.setState({
-      patient: thisPatient
-    });
-  }
-
   createNewAppointment = () => {
-    const appointment = getOldAppointment();
+    const appointment = getAppointment();
     this.state.patient.last_seen = appointment.date_seen;
     this.state.patient.appointments.unshift(appointment);
     this.switchToAppointment(appointment);
@@ -342,7 +340,7 @@ export class EMRComponent extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     // console.log("patient => ", this.state.patient);
-    if(prevState.user === null && this.state.user){}
+    if (prevState.user === null && this.state.user) { }
   }
 
   render() {
@@ -351,8 +349,8 @@ export class EMRComponent extends React.Component {
       //:2 => if there is a selected patient, display the details
       return (
         <>
-          <NotificationComponent showNotification={this.state.showNotification} 
-          info={this.state.info} dismissNotification={this.dismissNotification} />
+          <NotificationComponent showNotification={this.state.showNotification}
+            info={this.state.info} dismissNotification={this.dismissNotification} />
           <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
             dashboard={this.switchBackToDashboard} patient={this.state.patient}
             patients={this.state.patients} changePatient={this.onPatientChange}
@@ -364,7 +362,7 @@ export class EMRComponent extends React.Component {
             createNewAppointment={this.createNewAppointment}
             onUserSignOut={this.onUserSignOut} showDialogOnClick={this.showDialog}
             showDialog={this.state.showDialog} dialogMessage={this.state.dialogMessage}
-            dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction} 
+            dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction}
             dialogTitle={this.state.dialogTitle} user={this.state.user}>
             {
               this.state.patient !== null ?
@@ -374,16 +372,9 @@ export class EMRComponent extends React.Component {
                     .sort((a, b) => b._id - a._id).slice(0, 3)}
                   createNewPatient={this.onCreateIconClicked}
                   viewPatient={this.onPatientTableClicked} user={this.state.user}>
-                  <PatientTableComponent patients={this.state.patients
-                    .sort((a, b) => b.last_seen - a.last_seen).slice(0, 10)
-                    .map((item) => {
-                      item.biodata.primary_diagnosis = item.primary_diagnosis;
-                      item.biodata.secondary_diagnosis = item.secondary_diagnosis;
-                      item.biodata.patient_id = item._id;
-                      return item.biodata;
-                    })} onItemClicked={this.onPatientTableClicked} 
-                      authComplete={this.state.authComplete}
-                    />
+                  <PatientTableComponent patients={this.state.patients} onItemClicked={this.onPatientTableClicked}
+                    authComplete={this.state.authComplete}
+                  />
                 </DashboardComponent>
             }
           </AppComponent>

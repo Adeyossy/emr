@@ -16,7 +16,7 @@ export default class HospitalizationComponent extends React.Component {
 
   onRecoveryItemChange = (id, value) => {
     this.props.updateAnyObject(id, value,
-      ["past_medical_history", "hospitalizations"], this.props.index - 1);
+      ["appointment", "past_medical_history", "hospitalizations"], this.props.index - 1);
   }
 
   onItemChange = (event) => {
@@ -31,7 +31,7 @@ export default class HospitalizationComponent extends React.Component {
 
   render() {
     const hospitalization = "hospitalizations";
-    // console.log("hospitalization => ", this.context.past_medical_history[hospitalization]);
+    // console.log("hospitalization => ", this.context.appointment.past_medical_history[hospitalization]);
     return (
       <div className="emr-clerking-tab-data-item">
         <h4 className="emr-card-headers">Hospitalization {this.props.index}</h4>
@@ -40,7 +40,7 @@ export default class HospitalizationComponent extends React.Component {
             <label htmlFor={`hospitalizationdiagnosis1${this.props.index}`}>What was the diagnosis?</label>
             <input type="text" name={"diagnosis"}
               id={`hospitalizationdiagnosis1${this.props.index}`}
-              value={this.context.past_medical_history[hospitalization][this.props.index - 1].diagnosis}
+              value={this.context.appointment.past_medical_history[hospitalization][this.props.index - 1].diagnosis}
               onChange={this.onItemChange}
               placeholder="e.g severe malaria"></input>
           </div>
@@ -48,7 +48,7 @@ export default class HospitalizationComponent extends React.Component {
             <label htmlFor={`hospitalizationduration1${this.props.index}`}>Length of hospital stay (in days)</label>
             <input type="number" name={"duration"}
               id={`hospitalizationduration1${this.props.index}`}
-              value={this.context.past_medical_history[hospitalization][this.props.index - 1].duration}
+              value={this.context.appointment.past_medical_history[hospitalization][this.props.index - 1].duration}
               onChange={this.onItemChange}
               placeholder="e.g 2" required></input>
           </div>
@@ -56,7 +56,7 @@ export default class HospitalizationComponent extends React.Component {
             <label htmlFor={`hospitalizationhospital1${this.props.index}`}>Health Facility</label>
             <input type="text" name={"facility"}
               id={`hospitalizationhospital1${this.props.index}`}
-              value={this.context.past_medical_history[hospitalization][this.props.index - 1].facility}
+              value={this.context.appointment.past_medical_history[hospitalization][this.props.index - 1].facility}
               onChange={this.onItemChange}
               placeholder="e.g UCH"></input>
           </div>
@@ -64,7 +64,7 @@ export default class HospitalizationComponent extends React.Component {
             <label htmlFor={`hospitalizationtreatment1${this.props.index}`}>Treatment received</label>
             <input type="text" name={`treatment`}
               id={`hospitalizationtreatment1${this.props.index}`}
-              value={this.context.past_medical_history[hospitalization][this.props.index - 1].treatment}
+              value={this.context.appointment.past_medical_history[hospitalization][this.props.index - 1].treatment}
               onChange={this.onItemChange}
               placeholder="e.g IV fluids"></input>
           </div>
@@ -72,7 +72,7 @@ export default class HospitalizationComponent extends React.Component {
             inputName={"recovery"}
             id={`hospitalizationrecovery1${this.props.index}`}
             items={this.state.recoveries}
-            value={this.context.past_medical_history[hospitalization][this.props.index - 1].recovery}
+            value={this.context.appointment.past_medical_history[hospitalization][this.props.index - 1].recovery}
             onItemChange={this.onRecoveryItemChange} />
         </div>
       </div>

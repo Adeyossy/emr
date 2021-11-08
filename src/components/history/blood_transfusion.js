@@ -15,7 +15,7 @@ export default class TransfusionComponent extends React.Component {
 
   onRecoveryItemChange = (id, value) => {
     this.props.updateAnyObject(id, value,
-      ["past_medical_history", "blood_transfusions"], this.props.index - 1);
+      ["appointment", "past_medical_history", "blood_transfusions"], this.props.index - 1);
   }
 
   onItemChange = (event) => {
@@ -45,26 +45,26 @@ export default class TransfusionComponent extends React.Component {
             <label htmlFor={`transfusionvolume${this.props.index}`}>How many pints (500ml) of blood?</label>
             <input type="number" name={`pints`}
               id={`transfusionvolume${this.props.index}`}
-              value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].pints}
+              value={this.context.appointment.past_medical_history[blood_transfusions][this.props.index - 1].pints}
               onChange={this.onItemChange}></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`transfusiondonor${this.props.index}`}>Who donated blood?</label>
             <input type="text" name={`donor`}
               id={`transfusiondonor${this.props.index}`}
-              value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].donor}
+              value={this.context.appointment.past_medical_history[blood_transfusions][this.props.index - 1].donor}
               onChange={this.onItemChange}></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`transfusionfacility${this.props.index}`}>Health Facility</label>
             <input type="text" name={`facility`}
               id={`transfusionfacility${this.props.index}`}
-              value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].facility}
+              value={this.context.appointment.past_medical_history[blood_transfusions][this.props.index - 1].facility}
               placeholder="e.g UCH" onChange={this.onItemChange}></input>
           </div>
           <SingleSelectOutputComponent id={`reaction`}
             item={this.state.reaction} items={this.state.reactions}
-            value={this.context.past_medical_history[blood_transfusions][this.props.index - 1].reaction}
+            value={this.context.appointment.past_medical_history[blood_transfusions][this.props.index - 1].reaction}
             index={this.props.index} onItemChange={this.onRecoveryItemChange} />
         </div>
       </div>

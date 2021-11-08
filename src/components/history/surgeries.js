@@ -18,7 +18,7 @@ export default class SurgeryComponent extends React.Component {
 
   onRecoveryItemChange = (id, value) => {
     this.props.updateAnyObject(id, value,
-      ["past_medical_history", "surgeries"], this.props.index - 1);
+      ["appointment", "past_medical_history", "surgeries"], this.props.index - 1);
   }
 
   onItemChange = (event) => {
@@ -43,7 +43,7 @@ export default class SurgeryComponent extends React.Component {
             <label htmlFor={`surgerydiagnosis${this.props.index}`}>What was the diagnosis?</label>
             <input type="text" name={`diagnosis`}
               id={`surgerydiagnosis${this.props.index}`}
-              value={this.context.past_medical_history[surgeries][this.props.index - 1].diagnosis}
+              value={this.context.appointment.past_medical_history[surgeries][this.props.index - 1].diagnosis}
               onChange={this.onItemChange}
               placeholder="e.g appendicitis"></input>
           </div>
@@ -51,27 +51,27 @@ export default class SurgeryComponent extends React.Component {
             <label htmlFor={`surgeryduration${this.props.index}`}>Length of hospital stay (in days)</label>
             <input type="number" name={`duration`}
               id={`surgeryduration${this.props.index}`}
-              value={this.context.past_medical_history[surgeries][this.props.index - 1].duration}
+              value={this.context.appointment.past_medical_history[surgeries][this.props.index - 1].duration}
               onChange={this.onItemChange} placeholder="e.g 2"></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`surgeryhospital${this.props.index}`}>Health Facility</label>
             <input type="text" name={`facility`}
               id={`surgeryhospital${this.props.index}`}
-              value={this.context.past_medical_history[surgeries][this.props.index - 1].facility}
+              value={this.context.appointment.past_medical_history[surgeries][this.props.index - 1].facility}
               onChange={this.onItemChange} placeholder="e.g UCH"></input>
           </div>
           <div className="emr-clerking-tab-data-item">
             <label htmlFor={`surgerytreatment${this.props.index}`}>Treatment received</label>
             <input type="text" name={`treatment`}
               id={`surgerytreatment${this.props.index}`}
-              value={this.context.past_medical_history[surgeries][this.props.index - 1].treatment}
+              value={this.context.appointment.past_medical_history[surgeries][this.props.index - 1].treatment}
               onChange={this.onItemChange}
               placeholder="e.g appendectomy"></input>
           </div>
           <SingleSelectOutputComponent id={'recovery'} name={`Recovery after treatment`}
             items={this.state.surgeryReactions} onItemChange={this.onRecoveryItemChange}
-            value={this.context.past_medical_history[surgeries][this.props.index - 1].recovery} />
+            value={this.context.appointment.past_medical_history[surgeries][this.props.index - 1].recovery} />
         </div>
       </div>
     );
