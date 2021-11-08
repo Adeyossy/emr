@@ -13,6 +13,7 @@ export const biodata = {
   tribe: "",
   informant: "",
   education: "",
+  years_of_education: "",
   handedness: "",
   hospital: "",
   id: "",

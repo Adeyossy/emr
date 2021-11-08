@@ -96,6 +96,9 @@ export default class BiodataComponent extends React.Component {
             items={["No Formal Education", "Primary", "Secondary", "Tertiary"]}
             value={this.props.patient.biodata.education}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
+          <LabelAndInputComponent id="years_of_education" title="Years of Education"
+            value={this.props.patient.biodata.years_of_education}
+            type="number" onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Handedness"} id={"handedness"}
             items={["Left", "Right", "Both"]}
             value={this.props.patient.biodata.handedness}
