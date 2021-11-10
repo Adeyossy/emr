@@ -96,22 +96,22 @@ export class EMRComponent extends React.Component {
 
     const data1Parsed = JSON.parse(JSON.stringify(data2));
     // console.log('parsed JSON file => ', data1Parsed);
-    // let data = data1Parsed.rows.map(item => item.doc);
+    let data = data1Parsed.rows.map(item => item.doc);
     //if there are any updates to the data structure
-    // data = this.upgradeDataStructure(data);
-    
+    data = this.upgradeDataStructure(data);
+
     if (dataFromDocs.length > 0) {
       dataFromDocs = this.upgradeDataStructure(dataFromDocs);
-      // if (data.find(item => item._id === "1636025887772"));
+      // if (dataFromDocs.find(item => item._id === "1636025887772"));
       // else
-      //   dataFromDocs.splice(dataFromDocs.length, 0, ...data);
-      // data = this.upgradeDataStructure(dataFromDocs);
-    }
-
-    console.log("data1.json parsed => ", data);
+        // dataFromDocs.splice(dataFromDocs.length, 0, ...data);
+      }
+      
+      // console.log("data1.json parsed => ", data);
+      // console.log("new dataFromDocs => ", dataFromDocs);
 
     this.setState({
-      patients: data,
+      patients: dataFromDocs,
       authComplete: true
     });
   }
@@ -132,7 +132,7 @@ export class EMRComponent extends React.Component {
               if (apntmnt.hasOwnProperty(modelKey)) {
                 if (apntmnt[modelKey]) {
                   if (typeof currentAppointmentModel[modelKey] === 'object') {
-                    currentAppointmentModel[modelKey].notes = apntmnt;
+                    currentAppointmentModel[modelKey].notes = apntmnt[modelKey].notes;
                   }
                 } else {
                   apntmnt[modelKey] = currentAppointmentModel[modelKey];

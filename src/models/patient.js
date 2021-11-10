@@ -168,9 +168,13 @@ export function parseOldPatient() {
         apntmnt[key] = firstApntmnt[key];
       }
 
-      if (apntmnt['forms'] === 'undefined') {
+      if (apntmnt['forms'] === undefined) {
         apntmnt[key] = {};
         apntmnt[key].epilepsy = getFreshEpilepsyForm();
+      }
+
+      if (apntmnt['notes'] === undefined){
+        apntmnt['notes'] = "";
       }
     });
 
