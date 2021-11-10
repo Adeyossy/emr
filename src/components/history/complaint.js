@@ -10,17 +10,17 @@ export default class ComplaintComponent extends React.Component {
 
   onItemChange = (index, id, value) => {
     // this.props.updateComplaints(event.target.name)
-    this.props.updateAnyObject(id, value, ["presenting_complaints", "complaints"], index);
+    this.props.updateAnyObject(id, value, ["appointment", "presenting_complaints", "complaints"], index);
   }
 
   onInformantItemChange = (id, value) => {
-    this.props.updateAnyObject(id, value, ["biodata"], null);
+    this.props.updateAnyObject(id, value, ["appointment", "biodata"], null);
   }
 
   updateInts = (event) => {
     const value = event.target.value;
     // console.log("value in PMHComponent => ", value);
-    this.props.updateItemsInArray(["presenting_complaints", "complaints"],
+    this.props.updateItemsInArray(["appointment", "presenting_complaints", "complaints"],
       Object.assign({}, complaint), Number(value));
   }
 
@@ -69,7 +69,7 @@ export default class ComplaintComponent extends React.Component {
             items={["Patient", "Parents", "Father", "Mother", "Brother", "Sister"]}
             value={this.context.appointment.biodata.informant} onItemChange={this.onInformantItemChange} />
           <NotesComponent id={"notes"} name={"Complaints Notes"}
-            fields={["presenting_complaints"]}
+            fields={["presenting_complaints"]} height="10"
             value={this.context.appointment.presenting_complaints.notes}
             onItemChange={this.props.updateAnyObject} />
         </div>

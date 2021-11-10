@@ -8,7 +8,7 @@ export default class ChestExamComponent extends React.Component{
 
   render(){
     return(
-      <NotesOnlyComponent fields={["appointment", "chest"]}
+      <NotesOnlyComponent fields={["chest"]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={"Chest"} />
     );
   }

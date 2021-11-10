@@ -15,7 +15,7 @@ export default class AxisIIIComponent extends React.Component {
         <h4 className="emr-card-headers">Electro-clinical Syndrome</h4>
         <div className="emr-clerking-tab-data-items">
         <NotesComponent id={"ecs_syndromes"} name={"Possible Electro-clinical Syndromes"}
-         fields={["appointment", "forms", "epilepsy", "axisIII"]}
+         fields={["forms", "epilepsy", "axisIII"]}
             value={this.context.appointment.forms.epilepsy.axisIII.ecs_syndromes}
             onItemChange={this.props.updateAnyObject} />
         </div>

@@ -94,8 +94,8 @@ input:hover, input:focus-visible{
   box-shadow: var(--emr-low-shadow);
 }
 
-.emr-clerking-tab-data-item ~ .emr-clerking-tab-data-item:last-child{
-  margin-bottom: 16px;
+.emr-clerking-tab-data-item:last-child{
+  margin-bottom: 8px;
 }
 
 .emr-clerking-biodata-names > input{

@@ -48,8 +48,15 @@ export class AppComponent extends React.Component {
       navIndex: 0,
       contextItems: ["Dashboard", "Patients", "Investigations"],
       tabIndex: [0, 0, 0, 0, 0, 0, 0],
-      tabState: tabState
+      tabState: tabState,
+      showOverview: false
     }
+  }
+
+  setOverview = () => {
+    this.setState({
+      showOverview: !this.state.showOverview
+    });
   }
 
   updateNavState = (index) => {
@@ -152,13 +159,13 @@ export class AppComponent extends React.Component {
     //Tabbed components under Other Forms
     // this.assessmentComponents = [  ];
     const assessmentComponents = this.componentItems[5].map((item) =>
-      <NotesOnlyComponent fields={["appointment", item.toLowerCase()]}
+      <NotesOnlyComponent fields={[item.toLowerCase()]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={item}
         value={item.toLowerCase()} />);
 
     //Tabbed components under Other Forms
     const treatmentComponents = this.componentItems[6].map((item) =>
-      <NotesOnlyComponent fields={["appointment", item.toLowerCase()]}
+      <NotesOnlyComponent fields={[item.toLowerCase()]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={item}
         value={item.toLowerCase()} />);
 
@@ -189,10 +196,12 @@ export class AppComponent extends React.Component {
                   updateItemsInArray={this.props.updateItemsInArray}
                   switchToAppointment={this.props.switchToAppointment}
                   createNewAppointment={this.props.createNewAppointment}
-                  showDialogOnClick={this.props.showDialogOnClick}>
+                  showDialogOnClick={this.props.showDialogOnClick}
+                  showOverview={this.state.showOverview}
+                  setOverview={this.setOverview} deleteAppointment={this.props.deleteAppointment}>
                 </LeftSideBarComponent>
                 {
-                  !this.props.patient.appointment && this.props.patient.appointments.length > 1 ?
+                  this.state.showOverview ?
                     <OverviewComponent /> :
                     <Selectable
                       index={this.state.navIndex} updateAnyObject={this.props.updateAnyObject}

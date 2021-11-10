@@ -1,9 +1,10 @@
 import React from 'react';
 import './emr.css';
 import { data1 } from './data1';
+import { data2 } from './neuro.js';
 import AuthComponent from './components/auth';
 import { AppComponent } from './components/app.js';
-import { getAppointment, getFreshPatient, getOldAppointment, parseOldPatient, patient } from './models/patient';
+import { getAppointment, getAppointmentWithDefaultValues, getFreshPatient, getOldAppointment, newEmrPatient, parseOldPatient, patient } from './models/patient';
 import { authStateObserver, signOut, signUserOut } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
@@ -93,12 +94,18 @@ export class EMRComponent extends React.Component {
     // console.log(docs);
     let dataFromDocs = docs.map(item => item.doc);
 
-    let data = [];
+    const data1Parsed = JSON.parse(JSON.stringify(data2));
+    // console.log('parsed JSON file => ', data1Parsed);
+    // let data = data1Parsed.rows.map(item => item.doc);
     //if there are any updates to the data structure
-    if (dataFromDocs.length > 0){
-      const data1Parsed = JSON.parse(JSON.stringify(data1));
-      console.log('parsed JSON file => ', data1Parsed);
-      data = this.upgradeDataStructure(data1Parsed.rows.map(item => item.doc));
+    // data = this.upgradeDataStructure(data);
+    
+    if (dataFromDocs.length > 0) {
+      dataFromDocs = this.upgradeDataStructure(dataFromDocs);
+      // if (data.find(item => item._id === "1636025887772"));
+      // else
+      //   dataFromDocs.splice(dataFromDocs.length, 0, ...data);
+      // data = this.upgradeDataStructure(dataFromDocs);
     }
 
     console.log("data1.json parsed => ", data);
@@ -114,47 +121,48 @@ export class EMRComponent extends React.Component {
     const currentAppointmentModelKeys = Object.keys(currentAppointmentModel);
 
     const upgradedDataFromDocs = dataFromDocs.slice().map((item, index) => {
-      let dbAppointmentKeys = [];
-      //The next line is to prevent any unintended changes
-      item = JSON.parse(JSON.stringify(item));
-      const apntmntItems = item.appointments.map(apntmnt => {
-        if (typeof apntmnt === 'object') {
-          dbAppointmentKeys = Object.keys(apntmnt);
-          currentAppointmentModelKeys.forEach((modelKey) => {
-            // const itemExists = dbAppointmentKeys.find(key => key === modelKey);
-            if (apntmnt.hasOwnProperty(modelKey)) {
-              if (apntmnt[modelKey]) {
-                if (typeof currentAppointmentModel[modelKey] === 'object') {
-                  currentAppointmentModel[modelKey].notes = apntmnt;
+      if (item.hasOwnProperty('biodata')) {
+        let dbAppointmentKeys = [];
+        //The next line is to prevent any unintended changes
+        item = JSON.parse(JSON.stringify(item));
+        item.appointments = item.appointments.map(apntmnt => {
+          if (typeof apntmnt === 'object') {
+            dbAppointmentKeys = Object.keys(apntmnt);
+            currentAppointmentModelKeys.forEach((modelKey) => {
+              if (apntmnt.hasOwnProperty(modelKey)) {
+                if (apntmnt[modelKey]) {
+                  if (typeof currentAppointmentModel[modelKey] === 'object') {
+                    currentAppointmentModel[modelKey].notes = apntmnt;
+                  }
+                } else {
+                  apntmnt[modelKey] = currentAppointmentModel[modelKey];
                 }
-              } else {
-                apntmnt[modelKey] = currentAppointmentModel[modelKey]
               }
-            }
-          });
-        }
+            });
+          }
 
-        // item.appointment = apntmnt;
-        return apntmnt;
-      });
+          item.appointment = apntmnt;
+          return apntmnt;
+        });
 
-      // const isApt = apntmntItems.find(apt => apt.date_seen === item.last_seen);
-      // item.appointment = isApt ? isApt : getAppointment();
+        // const isApt = apntmntItems.find(apt => apt.date_seen === item.last_seen);
+        // item.appointment = isApt ? isApt : getAppointment();
 
-      console.log("Old patient data => ", item);
-      return parseOldPatient.call(item);
-      // console.log("Corrected appointment data structure => ", item.appointment);
+        // console.log("Old patient data => ", item);
+        return parseOldPatient.call(item);
+      }
+
+      return item;
     });
 
     return upgradedDataFromDocs;
-    // console.log("db object structure => ", Object.entries(dataFromDocs[0].appointment));
-    // console.log("App updated object structure => ", Object.entries(currentAppointmentModel));
-    // if()
   }
 
   onCreateIconClicked = () => {
-    const newPatient = Object.assign({}, getFreshPatient());
+    // const newPatient = parseOldPatient.call(JSON.parse(JSON.stringify(getFreshPatient())));
+    const newPatient = newEmrPatient();
     this.state.patients.push(newPatient);
+    console.log("new patient => ", newPatient);
     this.setState({
       patient: newPatient,
       emrContext: "Patients",
@@ -313,7 +321,9 @@ export class EMRComponent extends React.Component {
   }
 
   createNewAppointment = () => {
-    const appointment = getAppointment();
+    const lastAppointment = this.state.patient.appointments
+      .sort((a, b) => b.date_seen - a.date_seen)[0];
+    const appointment = getAppointmentWithDefaultValues.call(lastAppointment);
     this.state.patient.last_seen = appointment.date_seen;
     this.state.patient.appointments.unshift(appointment);
     this.switchToAppointment(appointment);
@@ -327,6 +337,19 @@ export class EMRComponent extends React.Component {
     });
 
     updateDoc(this.state.patient);
+  }
+
+  deleteAppointment = (date_seen) => {
+    console.log("deleteAppointment called => ", date_seen);
+    if (this.state.patient.appointments.length > 1) {
+      const patient = this.state.patient;
+      patient.appointments = patient.appointments
+        .filter(item => item.date_seen !== date_seen).sort((a, b) => b.date_seen - a.date_seen);
+      patient.appointment = patient.appointments[0];
+      this.setState({
+        patient: patient
+      });
+    } else { }
   }
 
   showDialog = (title, message, action) => {
@@ -371,7 +394,8 @@ export class EMRComponent extends React.Component {
             onUserSignOut={this.onUserSignOut} showDialogOnClick={this.showDialog}
             showDialog={this.state.showDialog} dialogMessage={this.state.dialogMessage}
             dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction}
-            dialogTitle={this.state.dialogTitle} user={this.state.user}>
+            dialogTitle={this.state.dialogTitle} user={this.state.user}
+            deleteAppointment={this.deleteAppointment}>
             {
               this.state.patient !== null ?
                 null :

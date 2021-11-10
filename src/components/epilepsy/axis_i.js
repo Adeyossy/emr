@@ -234,7 +234,7 @@ export default class AxisIComponent extends React.Component {
             id={"incomplete_seizure_manifestation"} items={["Yes", "No"]}
             value={this.context.appointment.forms.epilepsy.axisI.incomplete_seizure_manifestation}
             onItemChange={this.onItemChange} />
-          <NotesComponent id={"notes"} fields={["appointment", "forms", "epilepsy", "axisI"]}
+          <NotesComponent id={"notes"} fields={["forms", "epilepsy", "axisI"]}
             value={this.context.appointment.forms.epilepsy.axisI.notes}
             onItemChange={this.props.updateAnyObject} />
         </div>

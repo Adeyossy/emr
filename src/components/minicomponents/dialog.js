@@ -13,12 +13,12 @@ export default class DialogComponent extends React.Component {
           <div className="offset-lg-4 col-lg-4 offset-md-2 offset-md-8">
             <div className="emr-dialog">
               <div className="emr-dialog-title">
-                <h2 className="emr-headers emr-dialog-title-text">
-                  {this.props.dialogTitle ? this.props.dialogTitle.toUpperCase() : "UNTITLED"}
-                </h2>
+                <h6 className="emr-dialog-title-text">
+                  {this.props.dialogTitle ? this.props.dialogTitle : "UNTITLED"}
+                </h6>
               </div>
               <div className="emr-dialog-details">
-                <p className="emr-dialog-details-text">
+                <p className="emr-dialog-details-text text-wrap">
                   {this.props.dialogMessage ? this.props.dialogMessage :
                     "Oops! No details to show. Kindly cancel this dialog window"}
                 </p>

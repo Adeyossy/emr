@@ -124,27 +124,27 @@ export default class PMHComponent extends React.Component {
               <Comorbidities key={index.toString()} comorbidity={item.comorbidity}
                 value={item} updateAnyObject={this.props.updateAnyObject} index={index} />)
           }
+          <details className="emr-clerking-tab-data-item">
+            <summary>Blood Group and Rhesus</summary>
+            <div className="emr-clerking-tab-data-items">
+              <SingleSelectOutputComponent name={"Blood Group"} id={"blood_group"}
+                items={["O", "A", "B", "AB", "Unknown"]}
+                value={this.context.appointment.past_medical_history.blood_group}
+                onItemChange={this.onItemChange} />
+              <SingleSelectOutputComponent name={"Rhesus"} id={"rhesus"}
+                items={["Positive", "Negative", "Indeterminate", "Unknown"]}
+                value={this.context.appointment.past_medical_history.rhesus}
+                onItemChange={this.onItemChange} />
+              <SingleSelectOutputComponent name={"Genotype"} id={"genotype"}
+                items={["AA", "AS", "AC", "SC", "SS"]}
+                value={this.context.appointment.past_medical_history.genotype}
+                onItemChange={this.onItemChange} />
+            </div>
+          </details>
+          <NotesComponent id="notes" value={this.context.appointment.past_medical_history.notes}
+            fields={["past_medical_history"]}
+            onItemChange={this.props.updateAnyObject} />
         </div>
-        <details className="emr-clerking-tab-data-item">
-          <summary>Blood Group and Rhesus</summary>
-          <div className="emr-clerking-tab-data-items">
-            <SingleSelectOutputComponent name={"Blood Group"} id={"blood_group"}
-              items={["O", "A", "B", "AB", "Unknown"]}
-              value={this.context.appointment.past_medical_history.blood_group}
-              onItemChange={this.onItemChange} />
-            <SingleSelectOutputComponent name={"Rhesus"} id={"rhesus"}
-              items={["Positive", "Negative", "Indeterminate", "Unknown"]}
-              value={this.context.appointment.past_medical_history.rhesus}
-              onItemChange={this.onItemChange} />
-            <SingleSelectOutputComponent name={"Genotype"} id={"genotype"}
-              items={["AA", "AS", "AC", "SC", "SS"]}
-              value={this.context.appointment.past_medical_history.genotype}
-              onItemChange={this.onItemChange} />
-          </div>
-        </details>
-        <NotesComponent id="notes" value={this.context.appointment.past_medical_history.notes}
-          fields={["past_medical_history"]}
-          onItemChange={this.props.updateAnyObject} />
       </div>
     );
   }

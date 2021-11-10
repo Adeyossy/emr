@@ -85,7 +85,7 @@ export default class DrugsAllergiesComponent extends React.Component {
                         items={["Once Daily", "Twice Daily", "Three times daily",
                           "Four times daily"]}
                         value={this.context.appointment.drugs[index].usage}
-                        onItemChange={this.onItemChangeKeyed.bind(this, index, ["drugs"])} />
+                        onItemChange={this.onItemChangeKeyed.bind(this, index, ["appointment", "drugs"])} />
                     </div>
                   </div>
                 </div>
@@ -131,7 +131,7 @@ export default class DrugsAllergiesComponent extends React.Component {
             }
           </div>
           <NotesComponent id="drugs_and_allergies_notes"
-            value={this.context.appointment.drugs_and_allergies_notes} fields={["appointment"]}
+            value={this.context.appointment.drugs_and_allergies_notes} fields={[]}
             onItemChange={this.props.updateAnyObject} />
         </div>
       </div>

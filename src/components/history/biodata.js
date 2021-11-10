@@ -14,7 +14,7 @@ export default class BiodataComponent extends React.Component {
 
   onItemChange = (id, value) => {
     if (id !== "first_seen") {
-      this.props.updateAnyObject(id, value, ["biodata"]);
+      this.props.updateAnyObject(id, value, ["appointment", "biodata"]);
     } else {
       const enteredDate = new Date(value);
       // console.log("entered date => ", enteredDate);
@@ -77,7 +77,7 @@ export default class BiodataComponent extends React.Component {
             value={this.props.patient.appointment.biodata.maritalstatus}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <NotesComponent id="address" name="Address" value={this.props.patient.appointment.biodata.address}
-            onItemChange={this.onItemChange} />
+            onItemChange={this.props.updateAnyObject} fields={["biodata"]} />
           <LabelAndInputComponent id="state" title="State"
             value={this.props.patient.appointment.biodata.state}
             type="text" onItemChange={this.onItemChange} />

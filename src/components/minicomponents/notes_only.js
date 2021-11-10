@@ -7,7 +7,7 @@ export default class NotesOnlyComponent extends React.Component {
   onThisItemChange = (event) => {
     // console.log("notes only where => ", event.target.name, this.props.fields);
     this.props.updateAnyObject(event.target.name, event.target.value,
-      this.props.fields, null);
+      ["appointment", ...this.props.fields], null);
   }
 
   componentDidUpdate() {

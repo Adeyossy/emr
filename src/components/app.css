@@ -157,6 +157,7 @@ td{
 
 .container-fluid.emr-dialog-backdrop.show{
   display: block;
+  animation: 200ms ease-in 0ms 1 fadeIn;
 }
 
 .container-fluid.emr-dialog-backdrop{
@@ -169,9 +170,15 @@ td{
 
 .emr-dialog{
   margin-top: 33.33vh;
-  background-color: var(--emr-background-colour);
   border-radius: var(--emr-round-corners);
   box-shadow: var(--emr-default-shadow);
+  background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/abstract_connections_banner_design_2203.png?alt=media&token=dc90182d-c0ee-49b6-b317-6c240309bd9e');
+  /* background-color: white; */
+  background-color: var(--emr-accent-light-colour);
+  background-size: cover;
+  /* background-position: 50% 50%; */
+  background-blend-mode: luminosity;
+  animation: 200ms ease-in 0ms 1 slideUp;
 }
 
 .emr-dialog > *{
@@ -182,7 +189,7 @@ td{
   width: 100%;
   padding: 32px var(--emr-default-padding);
   color: var(--emr-darker-grey-colour);
-  font-size: 9.5pt;
+  font-size: 10pt;
   font-weight: bold;
   /* display: inline-block;
   text-align: center; */
@@ -199,7 +206,7 @@ button.emr-dialog-cancel-button{
 }
 
 button.emr-dialog-cancel-button:hover{
-  background-color: var(--emr-accent-light-colour);
+  color: white;
   border-color: transparent;
 }
 
@@ -207,12 +214,16 @@ button.emr-dialog-cancel-button, button.emr-dialog-ok-button {
   transition: background-color 500ms ease-in;
 }
 
-button.emr-dialog-ok-button:hover{
+button.emr-dialog-ok-button:hover, button.emr-dialog-cancel-button:hover{
   background-color: var(--emr-primary-colour);
 }
 
 .emr-dialog-title-text{
   color: var(--emr-secondary-colour);
+  font-weight: 700;
+  font-size: 8pt;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 @keyframes fadeIn{

@@ -55,6 +55,27 @@
   background-color: var(--emr-primary-colour);
 }
 
+.emr-icon-bg.timeline-delete{
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.emr-icon-bg.timeline{
+  position: relative;
+  animation: 1000ms ease-in 0ms 1 fadeIn;
+}
+
+.emr-icon-bg.timeline:hover{
+  cursor: pointer;
+}
+
+.emr-icon-bg.timeline.selected:not(:last-child):hover .emr-icon-bg.timeline-delete{
+  display: block;
+}
+
 .emr-patients-timeline-visits{
   width: 100%;
   height: 85%;
@@ -314,9 +335,10 @@ p.emr-right-sidebar-item-text{
 }
 
 .emr-quick-info-card.primary-diagnosis{
-  background: var(--emr-accent-light-colour);
+  background: var(--emr-light-colour);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  border-right: 2px solid var(--emr-accent-colour);
 }
 
 .emr-quick-info-card.secondary-diagnosis{
@@ -324,6 +346,7 @@ p.emr-right-sidebar-item-text{
   background: var(--emr-secondary-colour);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  border-left: 2px solid var(--emr-accent-colour);
 }
 
 .emr-quick-info-card.emr-right-sidebar-item{

@@ -1,6 +1,7 @@
 import { getCurrentUser } from "../modules/auth";
+import { appointmentModel } from "./appointment";
 import { biodata } from "./biodata";
-import { presenting_complaint } from "./complaint";
+import { presenting_complaint, complaint } from "./complaint";
 import { getFreshEpilepsyForm } from "./epilepsy";
 
 const system = { system: "", symptoms: [""] };
@@ -55,46 +56,7 @@ export const patientModel = {
   last_notes: ""
 }
 
-export const appointmentModel = {
-  biodata: {},
-  presenting_complaints: Object.assign({}, presenting_complaint),
-  review_of_systems: {},
-  past_medical_history: {},
-  drugs: [],
-  allergies: [],
-  drugs_and_allergies_notes: "",
-  family_history: [],
-  alcohol: {},
-  cigarette: {},
-  fshx_notes: "",
-  summary: "",
-  general: { onexamination: [], notes: "" },
-  neuro: {
-    highermentalfunctions: "", cranialnerves: "", motor_sides: [], motor_limbs: [],
-    motor_inspection: [], motor_tone: "", motor_power: "", motor_reflexes: "", ankle_clonus: "",
-    babinski: "", sensorysides: [], sensorylimbs: [], sensoryfinetouch: "", sensorycoarsetouch: "",
-    sensorytemperature: "", sensoryvibration: "", sensoryproprioception: "", sensorypressure: "",
-    gaitandcoordination: "", notes: ""
-  },
-  cvs: { notes: "" }, chest: { notes: "" }, abdomen: { notes: "" }, others: { notes: "" },
-  imaging: { notes: "" }, electrical: { notes: "" }, haematology: { notes: "" },
-  labs: { notes: "" }, microbiology: { notes: "" }, procedures: { notes: "" },
-  pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: "" },
-  assessment: {
-    notes: ""
-  },
-  plan: {
-    notes: ""
-  },
-  date_seen: "",
-  next_visit: "",
-  monitoring: {
-    markers: [],
-    notes: ""
-  }, forms: {},
-  notes: ""
-}
-
+//this is the old patient model kept for legacy reasons: for any old code that may need conversion
 export const patient = {
   _id: "",
   next_appointment: 0,
@@ -219,17 +181,21 @@ export function parseOldPatient() {
   });
 
   // newPatient.appointments.push(firstApntmnt);
-  console.log("New patient => ", newPatient);
+  console.log("New appointment model => ", newPatient.appointments);
   return newPatient;
 }
 
-export function emrPatient() {
+export function newEmrPatient() {
+  const newPatient = JSON.parse(JSON.stringify(patientModel));
   const idApntmntTime = Date.now();
-  this._id = idApntmntTime.toString();
-  this.first_seen = idApntmntTime;
-  this.last_seen = idApntmntTime;
-  this.appointments = [];
+  newPatient._id = idApntmntTime.toString();
+  newPatient.first_seen = idApntmntTime;
+  newPatient.last_seen = idApntmntTime;
   const newApntmnt = getAppointment();
+  newPatient.appointment = newApntmnt;
+  newPatient.appointments = [ newApntmnt ];
+
+  return newPatient;
   // newApntmnt
 }
 
@@ -242,9 +208,49 @@ export function getOldAppointment() {
 export function getAppointment() {
   const newAppointment = JSON.parse(JSON.stringify(appointmentModel));
   newAppointment.date_seen = Date.now();
+
+  newAppointment.biodata = JSON.parse(JSON.stringify(biodata));
+  newAppointment.presenting_complaints = JSON.parse(JSON.stringify(presenting_complaint));
+  newAppointment.review_of_systems = {
+    cardiorespiratory: [],
+    gastrointestinal: [],
+    genitourinary: [],
+    endocrine: [],
+    notes: ""
+  };
+
+  newAppointment.past_medical_history = {
+    hospitalizations: [], //array of hospitalization(s)
+    surgeries: [],
+    blood_transfusions: [],
+    comorbidities: [],
+    blood_group: "",
+    rhesus: "",
+    genotype: "",
+    notes: ""
+  };
+
+  newAppointment.alcohol = JSON.parse(JSON.stringify(alcohol));
+  newAppointment.cigarette = JSON.parse(JSON.stringify(cigarette));
+  newAppointment.forms.epilepsy = getFreshEpilepsyForm();
+
+  return newAppointment;
+}
+
+export function getAppointmentWithDefaultValues() {
+  const newAppointment = getAppointment();
+  const previousAppointment = JSON.parse(JSON.stringify(this));
+  newAppointment.biodata = previousAppointment.biodata;
+  newAppointment.biodata.informant = "";
+  // newAppointment.presenting_complaints = previousAppointment.presenting_complaints;
+  newAppointment.review_of_systems = previousAppointment.review_of_systems;
+  newAppointment.past_medical_history = previousAppointment.past_medical_history;
+  newAppointment.alcohol = previousAppointment.alcohol;
+  newAppointment.cigarette = previousAppointment.cigarette;
+  newAppointment.forms.epilepsy = previousAppointment.forms.epilepsy;
+
   return newAppointment;
 }
 
 export function createPatientFromDB(patientFromDB) {
-  // patientFromDB
 }

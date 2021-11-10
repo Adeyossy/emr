@@ -24,6 +24,7 @@ export default class DashboardComponent extends React.Component {
                   <div className="emr-patient-list">
                     {/* <!-- Anything with classname as -list-item will be in a for-loop --> */}
                     {this.props.recents.map((item, index) =>
+                      item ? 
                       <div className="emr-patient-list-item" key={index.toString()}
                         onClick={this.props.viewPatient.bind(this, item._id)}>
                         <div className="emr-icon-bg emr-icon-bg-dark">
@@ -40,7 +41,7 @@ export default class DashboardComponent extends React.Component {
                             <p className="emr-patient-diagnosis">{item.primary_diagnosis}</p>
                           </div>
                         </div>
-                      </div>
+                      </div> : null
                     )}
                   </div>
                   <button className="emr-button emr-card-button">ALL PATIENTS</button>

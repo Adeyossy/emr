@@ -15,11 +15,11 @@ export default class AxisIIComponent extends React.Component {
         <h4 className="emr-card-headers">Seizure Classification (with brain location)</h4>
         <div className="emr-clerking-tab-data-items">
           <NotesComponent id={"classification"} name={"Classification"}
-            fields={["appointment", "forms", "epilepsy", "axisII"]}
+            fields={["forms", "epilepsy", "axisII"]}
             value={this.context.appointment.forms.epilepsy.axisII.classification}
             onItemChange={this.props.updateAnyObject} />
           <NotesComponent id={"brain_locations"} name={"Possible Brain Locations"}
-           fields={["appointment", "forms", "epilepsy", "axisII"]}
+           fields={["forms", "epilepsy", "axisII"]}
             value={this.context.appointment.forms.epilepsy.axisII.brain_locations}
             onItemChange={this.props.updateAnyObject} />
         </div>

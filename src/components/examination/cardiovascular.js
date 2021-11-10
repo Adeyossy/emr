@@ -8,7 +8,7 @@ export default class CVSExamComponent extends React.Component{
 
   render(){
     return(
-      <NotesOnlyComponent fields={["appointment", "cvs"]}
+      <NotesOnlyComponent fields={["cvs"]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={"CVS"} />
     );
   }
