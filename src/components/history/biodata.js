@@ -13,13 +13,13 @@ export default class BiodataComponent extends React.Component {
   }
 
   onItemChange = (id, value) => {
-    if (id !== "first_seen") {
+    if (id !== "date_seen") {
       this.props.updateAnyObject(id, value, ["appointment", "biodata"]);
     } else {
       const enteredDate = new Date(value);
-      // console.log("entered date => ", enteredDate);
+      console.log("entered date => ", enteredDate.toLocaleString('en-NG'));
       // console.log("entered time in milliseconds => ", enteredDate.getTime());
-      this.props.updateAnyObject(id, enteredDate.getTime(), []);
+      this.props.updateAnyObject(id, enteredDate.getTime(), ["appointment"]);
     }
   }
 
@@ -107,8 +107,8 @@ export default class BiodataComponent extends React.Component {
           <LabelAndInputComponent id="email_address" title="Email Address"
             value={this.props.patient.appointment.biodata.email_address}
             type="email" onItemChange={this.onItemChange} />
-          <LabelAndInputComponent id="first_seen" title="Date of First Encounter"
-            value={new Date(this.props.patient.first_seen).toISOString().substring(0, 16)}
+          <LabelAndInputComponent id="date_seen" title="Date of First Encounter"
+            value={new Date(this.props.patient.appointment.date_seen).toISOString().substring(0, 16)}
             type="datetime-local" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="next_of_kin" title="Next of Kin Name"
             value={this.props.patient.appointment.biodata.next_of_kin} type="text"
