@@ -28,7 +28,7 @@ export default class PatientTableComponent extends React.Component {
                       </div>
                     </td>
                     <td>{item.appointment.biodata.firstname || item.appointment.biodata.lastname ?
-                      item.appointment.biodata.firstname + " " + item.appointment.biodata.lastname : "--"}</td>
+                      item.appointment.biodata.lastname + " " + item.appointment.biodata.firstname : "--"}</td>
                     <td>{item.appointment.biodata.ageinyears ? `${item.appointment.biodata.ageinyears} 
                     yrs` : "--"}</td>
                     <td className="d-none d-lg-table-cell">{item.appointment.biodata.id}</td>

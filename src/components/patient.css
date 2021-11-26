@@ -382,7 +382,8 @@ p.emr-quick-info-card-title{
 }
 
 .emr-quick-info-card-details{
-  font-size: 8pt;
+  font-size: 9pt;
+  font-weight: bold;
 }
 
 @keyframes slideInFromTheLeft{

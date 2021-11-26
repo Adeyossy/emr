@@ -179,12 +179,14 @@ export class EMRComponent extends React.Component {
     // console.log("id => ", id);
     const undeletedPatients = this.state.patients.filter(item => item._id !== id);
     if (this.state.patient._id === id) {
+      const foundPatientLastName = this.state.patients.find(item => item._id === id).appointment.biodata.lastname;
+      const deleteString = foundPatientLastName ? foundPatientLastName : "Patient";
       // console.log("true");
       this.setState({
         patient: null,
         patients: undeletedPatients,
         showNotification: true,
-        info: `${this.state.patients.find(item => item._id === id).biodata.lastname.toUpperCase()} deleted`
+        info: `${deleteString} deleted`
       });
     } else {
       this.setState({

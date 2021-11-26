@@ -33,7 +33,7 @@ export default class LeftSideBarComponent extends React.Component {
                       </div>
                       <div className="emr-patient-description">
                         <p className="emr-patient-name">{item.appointment.biodata.firstname || item.appointment.biodata.lastname ?
-                          item.appointment.biodata.firstname + " " + item.appointment.biodata.lastname : "New patient"}</p>
+                          item.appointment.biodata.lastname + " " + item.appointment.biodata.firstname : "New patient"}</p>
                         <div className="emr-patient-biodata">
                           <p className="emr-patient-gender">{item.appointment.biodata.gender.charAt(0)}</p>
                           <p className="emr-separator">|</p>
