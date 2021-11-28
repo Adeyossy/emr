@@ -52,15 +52,15 @@ export default class BiodataComponent extends React.Component {
             && this.props.patient.appointment.biodata.lastname ? "filled" : ""}`}>
             <label htmlFor="firstname">Name</label>
             <div className="emr-clerking-biodata-names">
-              <input type="text" name="firstname" id="firstname" placeholder="First name"
-                value={this.props.patient.appointment.biodata.firstname} onChange={this.updateField}
-                className={this.props.patient.appointment.biodata.firstname ? "filled" : ""} required></input>
-              <input type="text" name="middlename" id="middlename" placeholder="Middle name"
-                value={this.props.patient.appointment.biodata.middlename} onChange={this.updateField}
-                className={this.props.patient.appointment.biodata.middlename ? "filled" : ""} required></input>
               <input type="text" name="lastname" id="lastname" placeholder="Surname"
                 value={this.props.patient.appointment.biodata.lastname} onChange={this.updateField}
                 className={this.props.patient.appointment.biodata.lastname ? "filled" : ""} required></input>
+              <input type="text" name="middlename" id="middlename" placeholder="Middle name"
+                value={this.props.patient.appointment.biodata.middlename} onChange={this.updateField}
+                className={this.props.patient.appointment.biodata.middlename ? "filled" : ""} required></input>
+              <input type="text" name="firstname" id="firstname" placeholder="First name"
+                value={this.props.patient.appointment.biodata.firstname} onChange={this.updateField}
+                className={this.props.patient.appointment.biodata.firstname ? "filled" : ""} required></input>
             </div>
           </div>
           <LabelAndInputComponent id="ageinyears" title="Age (in years)"
