@@ -226,6 +226,11 @@ button.emr-dialog-ok-button:hover, button.emr-dialog-cancel-button:hover{
   text-transform: uppercase;
 }
 
+.emr-patient-summary p {
+  font-size: 10.5pt;
+  color: rgba(0, 0, 0, 0.7);
+}
+
 @keyframes fadeIn{
   from{
     opacity: 0.5;
