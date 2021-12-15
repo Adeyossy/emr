@@ -26,6 +26,7 @@ import { PatientContext } from "../models/patient_context";
 import OverviewComponent from "./overview";
 import TabComponent from "./tabs";
 import DialogComponent from "./minicomponents/dialog";
+
 export class AppComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -50,6 +51,43 @@ export class AppComponent extends React.Component {
       tabIndex: [0, 0, 0, 0, 0, 0, 0],
       tabState: tabState,
       showOverview: false
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', (e) => {
+      if (this.props.patient) {
+        let index = this.state.tabIndex[this.state.navIndex]; //last value
+        if (e.key == "ArrowRight") {
+          console.log("Right arrow pressed");
+          index += 1; //new value
+          this.onHotkeysPressed(index);
+          // handleAnimations(++currentNumber, "animateInClass");
+        }
+
+        if (e.key == "ArrowLeft") {
+          console.log("Left arrow pressed");
+          index -= 1;
+          this.onHotkeysPressed(index);
+          // handleAnimations(--currentNumber, "animateOutClass");
+        }
+      }
+    });
+  }
+
+  onHotkeysPressed = (newValue) => {
+    if (newValue < this.state.tabState[this.state.navIndex].length) {
+      if (newValue >= 0) {
+        this.updateTabState(newValue);
+      } else {
+        if (this.state.navIndex > 0) {
+          this.updateNavState(this.state.navIndex - 1);
+        }
+      }
+    } else {
+      if (this.state.navIndex < this.state.tabState.length - 1) {
+        this.updateNavState(this.state.navIndex + 1);
+      }
     }
   }
 

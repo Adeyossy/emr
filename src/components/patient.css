@@ -260,7 +260,7 @@ p.emr-biodata-summary-age{
   height: 92vh;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 0px 8px 0 16px; 
   margin-top: 56px; /* the 56px represents the height of the navbar */
   overflow: auto;
@@ -269,15 +269,15 @@ p.emr-biodata-summary-age{
 }
 
 .emr-right-sidebar .container-fluid{
-  height: auto;
+  height: 25%;
 }
 
 .emr-right-sidebar-item{
-  height: 28vh;
+  height: 100%;
 }
 
 .emr-right-sidebar-item.notes{
-  height: 72%;
+  height: 85%;
   /* flex-grow: 2; */
 }
 
