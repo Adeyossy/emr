@@ -26,6 +26,7 @@ import { PatientContext } from "../models/patient_context";
 import OverviewComponent from "./overview";
 import TabComponent from "./tabs";
 import DialogComponent from "./minicomponents/dialog";
+import GCSComponent from "./forms/neuro_gcs";
 
 export class AppComponent extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export class AppComponent extends React.Component {
     this.componentItems = [
       ["Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx"],
       ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"],
-      [],
+      ["GCS"],
       ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
       ["Imaging", "Electrical", "Haematology", "Labs", "Microbiology", "Procedures"],
       ["Assessment", "Plan", "Monitoring"],
@@ -171,7 +172,10 @@ export class AppComponent extends React.Component {
       updateItemsInArray={this.props.updateItemsInArray} />];
 
     //Tabbed components under Other Forms
-    const otherFormsComponents = [];
+    const otherFormsComponents = [
+      <GCSComponent updateAnyObject={this.props.updateAnyObject}
+        updateItemsInArray={this.props.updateItemsInArray} />
+    ];
 
     //Tabbed components under Examination
     const examComponents = [
