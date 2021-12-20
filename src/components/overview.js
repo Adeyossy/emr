@@ -213,7 +213,7 @@ export default class OverviewComponent extends React.Component {
                             <div className="emr-patient-summary-category">
                               <div className="emr-selectable-items-group">
                                 <p className="emr-patient-summary-item text-wrap">
-                                  {this.context.appointment.family_history.length > 0 ? `Positive family history(s) include ${this.context.appointment.family_history.join(", ")}` : "No family history of disease"}. {this.context.appointment.alcohol.alcoholbottlesperweek ? `${this.context.appointment.alcohol.alcoholbottlesperweek} bottle(s) of ${this.context.appointment.alcohol.alcoholbottletype.join(", ")} is/are consumed per week` : "No history of alcohol consumption"}. The patient smokes {Number(this.context.appointment.cigarette.cigarettesticksperday) * Number(this.context.appointment.cigarette.cigarettesmokingduration) / 20} pack-year.
+                                  {this.context.appointment.family_history.length > 0 ? `Positive family history(s) include ${this.context.appointment.family_history.join(", ")}` : "No family history of disease"}. {this.context.appointment.alcohol.alcoholbottlesperweek ? `${this.context.appointment.alcohol.alcoholbottlesperweek} bottle(s) of ${this.context.appointment.alcohol.alcoholtype ? this.context.appointment.alcohol.alcoholtype.join(", ") : 'alcohol'} is/are consumed per week` : "No history of alcohol consumption"}. The patient smokes {Number(this.context.appointment.cigarette.cigarettesticksperday) * Number(this.context.appointment.cigarette.cigarettesmokingduration) / 20} pack-year.
                                 </p>
                               </div>
                             </div>
