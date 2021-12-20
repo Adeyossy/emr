@@ -4,7 +4,7 @@ import { data1 } from './data1';
 import { data2 } from './neuro.js';
 import AuthComponent from './components/auth';
 import { AppComponent } from './components/app.js';
-import { getAppointment, getAppointmentWithDefaultValues, getFreshPatient, getOldAppointment, newEmrPatient, parseOldPatient, patient } from './models/patient';
+import { getAppointment, getAppointmentWithDefaultValues, getFreshPatient, getOldAppointment, newEmrPatient, parseFromDatabase, parseOldPatient, patient } from './models/patient';
 import { authStateObserver, signOut, signUserOut } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
@@ -98,7 +98,7 @@ export class EMRComponent extends React.Component {
     // console.log('parsed JSON file => ', data1Parsed);
     let data = data1Parsed.rows.map(item => item.doc);
     //if there are any updates to the data structure
-    data = this.upgradeDataStructure(data);
+    // data = this.upgradeDataStructure(data);
 
     if (dataFromDocs.length > 0) {
       dataFromDocs = this.upgradeDataStructure(dataFromDocs);
@@ -120,8 +120,10 @@ export class EMRComponent extends React.Component {
     const currentAppointmentModel = getAppointment();
     const currentAppointmentModelKeys = Object.keys(currentAppointmentModel);
 
-    const upgradedDataFromDocs = dataFromDocs.slice().map((item, index) => {
-      if (item.hasOwnProperty('biodata')) {
+    const upgradedDataFromDocs = dataFromDocs.map((item, index) => {
+      console.log("item => ", item);
+      console.log("item.biodata => ", item.biodata);
+      if (item.biodata) {
         let dbAppointmentKeys = [];
         //The next line is to prevent any unintended changes
         item = JSON.parse(JSON.stringify(item));
@@ -152,7 +154,8 @@ export class EMRComponent extends React.Component {
         return parseOldPatient.call(item);
       }
 
-      return item;
+      const newData = new parseFromDatabase(item);
+      return newData;
     });
 
     return upgradedDataFromDocs;

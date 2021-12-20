@@ -161,9 +161,9 @@ export function parseOldPatient() {
     const apntmnt = JSON.parse(JSON.stringify(appointmentModel));
     Object.keys(apntmnt).map(key => {
       if (item.hasOwnProperty(key)) {
-        if(key === "notes" || key === "date_seen") apntmnt[key] = item[key];
+        if (key === "notes" || key === "date_seen") apntmnt[key] = item[key];
         else apntmnt[key] = firstApntmnt[key];
-        if(!apntmnt[key]) apntmnt[key] = firstApntmnt[key]
+        if (!apntmnt[key]) apntmnt[key] = firstApntmnt[key]
       } else {
         apntmnt[key] = firstApntmnt[key];
       }
@@ -173,7 +173,7 @@ export function parseOldPatient() {
         apntmnt[key].epilepsy = getFreshEpilepsyForm();
       }
 
-      if (apntmnt['notes'] === undefined){
+      if (apntmnt['notes'] === undefined) {
         apntmnt['notes'] = "";
       }
     });
@@ -197,10 +197,71 @@ export function newEmrPatient() {
   newPatient.last_seen = idApntmntTime;
   const newApntmnt = getAppointment();
   newPatient.appointment = newApntmnt;
-  newPatient.appointments = [ newApntmnt ];
+  newPatient.appointments = [newApntmnt];
 
   return newPatient;
   // newApntmnt
+}
+
+// This function parse
+export function parseApntmntDB(apntmnt) {
+  this.date_seen = apntmnt.date_seen;
+  this.biodata = JSON.parse(JSON.stringify(apntmnt.biodata));
+  this.presenting_complaints = JSON.parse(JSON.stringify(apntmnt.presenting_complaints));
+  this.review_of_systems = JSON.parse(JSON.stringify(apntmnt.review_of_systems));
+  this.past_medical_history = JSON.parse(JSON.stringify(apntmnt.past_medical_history));
+  this.alcohol = JSON.parse(JSON.stringify(apntmnt.alcohol));
+  this.cigarette = JSON.parse(JSON.stringify(apntmnt.cigarette));
+  this.forms = JSON.parse(JSON.stringify(apntmnt.forms));
+  this.drugs = apntmnt.drugs.slice();
+  this.allergies = JSON.parse(JSON.stringify(apntmnt.allergies));
+  this.drugs_and_allergies_notes = apntmnt.drugs_and_allergies_notes;
+  this.family_history = apntmnt.family_history.slice();
+  this.general = JSON.parse(JSON.stringify(apntmnt.general));
+  this.neuro = JSON.parse(JSON.stringify(apntmnt.neuro));
+  this.cvs = JSON.parse(JSON.stringify(apntmnt.cvs));
+  this.chest = JSON.parse(JSON.stringify(apntmnt.chest));
+  this.abdomen = JSON.parse(JSON.stringify(apntmnt.abdomen));
+  this.others = JSON.parse(JSON.stringify(apntmnt.others));
+  this.imaging = JSON.parse(JSON.stringify(apntmnt.imaging));
+  this.electrical = JSON.parse(JSON.stringify(apntmnt.electrical));
+  this.haematology = JSON.parse(JSON.stringify(apntmnt.haematology));
+  this.labs = JSON.parse(JSON.stringify(apntmnt.labs));
+  this.microbiology = JSON.parse(JSON.stringify(apntmnt.microbiology));
+  this.procedures = JSON.parse(JSON.stringify(apntmnt.procedures));
+  this.pharmacological = JSON.parse(JSON.stringify(apntmnt.pharmacological));
+  this.nonpharmacological = JSON.parse(JSON.stringify(apntmnt.nonpharmacological));
+  this.other = JSON.parse(JSON.stringify(apntmnt.other));
+  this.assessment = JSON.parse(JSON.stringify(apntmnt.assessment));
+  this.plan = JSON.parse(JSON.stringify(apntmnt.plan));
+  this.monitoring = JSON.parse(JSON.stringify(apntmnt.monitoring));
+  this.next_visit = apntmnt.next_visit;
+  this.notes = apntmnt.notes;
+  // Object.keys(apntmnt).forEach(field => {
+  //   if (typeof apntmnt[field] === 'object') {
+  //     if (Array.isArray(apntmnt[field])) {
+  //       this[field] = apntmnt[field].slice();
+  //       // console.log(field, " => ", this);
+  //     } else {
+  //       this[field] = JSON.parse(JSON.stringify(apntmnt[field]));
+  //     }
+  //   } else {
+  //     this[field] = apntmnt[field];
+  //   }
+  // }, this);
+}
+
+export function parseFromDatabase(dbPatient) {
+  this._id = dbPatient._id;
+  this.next_appointment = dbPatient.next_appointment;
+  this.last_seen = dbPatient.last_seen;
+  this.first_seen = dbPatient.first_seen;
+  this.appointment = new parseApntmntDB(JSON.parse(JSON.stringify(dbPatient.appointment)));
+  console.log("appointment => ", this);
+  this.appointments = dbPatient.appointments.map(apntmnt => new parseApntmntDB(JSON.parse(JSON.stringify(apntmnt))));
+  this.primary_diagnosis = dbPatient.primary_diagnosis;
+  this.secondary_diagnosis = dbPatient.secondary_diagnosis;
+  this.last_notes = dbPatient.last_notes;
 }
 
 export function getOldAppointment() {
