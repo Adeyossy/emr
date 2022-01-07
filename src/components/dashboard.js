@@ -8,7 +8,7 @@ export default class DashboardComponent extends React.Component {
         <div className="container-fluid emr-dashboard-container">
           <div className="row">
             {/* <!-- Start of the first column of the app --> */}
-            <div className="col-xl-3 col-lg-4 col-md-10 mx-auto emr-column">
+            <div className="d-none d-lg-block col-xl-3 col-lg-4 col-md-10 mx-auto emr-column emr-sidebar emr-sidebar-l">
               <div className="emr-dashboard-welcome emr-first">
                 <h1 className="emr-large-text emr-headers">Welcome</h1>
                 <div className="emr-user">
@@ -32,7 +32,7 @@ export default class DashboardComponent extends React.Component {
                           <i className="bi bi-person-fill emr-center-icon"></i>
                         </div>
                         <div className="emr-patient-description">
-                          <p className="emr-patient-name">{item.appointment.biodata.firstname + " " + item.appointment.biodata.lastname}</p>
+                          <p className="emr-patient-name">{item.appointment.biodata.lastname + " " + item.appointment.biodata.firstname}</p>
                           <div className="emr-patient-biodata">
                             <p className="emr-patient-gender">{item.appointment.biodata.gender.charAt(0).toUpperCase()}</p>
                             <p className="emr-separator">|</p>
@@ -57,7 +57,7 @@ export default class DashboardComponent extends React.Component {
             </div>
             {/* <!-- End of the first column of the app --> */}
             {/* <!-- Start of the second column of the app --> */}
-            <div className="col-lg-8 col-xl-6 emr-column">
+            <div className="offset-lg-4 offset-xl-3 col-lg-8 col-xl-6 emr-column">
               <div className="container-fluid emr-first">
                 <div className="row">
                   <div className="col-md-6">
@@ -85,7 +85,7 @@ export default class DashboardComponent extends React.Component {
               </div>
               {this.props.children}
             </div>
-            <div className="col-xl-3 col-lg-8 col-md-10 mx-auto emr-column">
+            <div className="d-none d-xl-block col-xl-3 col-lg-3 col-md-10 mx-auto emr-column emr-sidebar emr-sidebar-r">
               {/* <div className="emr-first"></div> */}
               <div className="emr-calendar-schedule">
                 <h6 className="emr-headers">My Schedule</h6>

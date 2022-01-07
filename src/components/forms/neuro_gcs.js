@@ -1,7 +1,6 @@
 import React from "react";
 import { PatientContext } from "../../models/patient_context";
 import FormComponent from "./form";
-import FormGroupComponent from "./form_group";
 
 export default class GCSComponent extends React.Component {
 
@@ -20,25 +19,26 @@ export default class GCSComponent extends React.Component {
       "Abnormal Extension, decerebrate posture (2)", "No motor response (1)"];
 
     const eyeOpeningItems = [
-      [eyeOpening.join(", "), this.context.appointment.forms.gcs.eyeopening, 1, 4]
+      [eyeOpening, "eyeopening", 1, 4]
     ];
 
     const verbalItems = [
-      [verbalResponse.join(", "), this.context.appointment.forms.gcs.verbalresponse, 1, 5]
+      [verbalResponse, "verbalresponse", 1, 5]
     ];
 
     const motorItems = [
-      [motorResponse.join(", "), this.context.appointment.forms.gcs.motorresponse, 1, 6]
+      [motorResponse, "motorresponse", 1, 6]
     ];
 
-    const gcsItems = [
+    const items = [
       ["Eye Opening Response", eyeOpeningItems],
       ["Verbal Response", verbalItems],
       ["Motor Response", motorItems]
     ];
 
     return (
-      <FormComponent name="Glasgow Coma Scale" form={gcsItems} />
+      <FormComponent name="Glasgow Coma Scale" form={items} formTag="gcs"
+        updateAnyObject={this.props.updateAnyObject} />
     )
   }
 }

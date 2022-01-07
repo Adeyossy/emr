@@ -297,6 +297,7 @@ export function getAppointment() {
 
   newAppointment.alcohol = JSON.parse(JSON.stringify(alcohol));
   newAppointment.cigarette = JSON.parse(JSON.stringify(cigarette));
+  newAppointment.forms = {};
   newAppointment.forms.epilepsy = getFreshEpilepsyForm();
 
   return newAppointment;
@@ -312,7 +313,9 @@ export function getAppointmentWithDefaultValues() {
   newAppointment.past_medical_history = previousAppointment.past_medical_history;
   newAppointment.alcohol = previousAppointment.alcohol;
   newAppointment.cigarette = previousAppointment.cigarette;
-  newAppointment.forms.epilepsy = previousAppointment.forms.epilepsy;
+  newAppointment.forms = JSON.parse(JSON.stringify(previousAppointment.forms));
+  console.log("previous apntmnt forms => ", previousAppointment.forms);
+  console.log("new apntmnt forms => ", newAppointment.forms);
 
   return newAppointment;
 }

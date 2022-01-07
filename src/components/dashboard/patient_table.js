@@ -19,7 +19,7 @@ export default class PatientTableComponent extends React.Component {
           <tbody>
             {
               this.props.authComplete ?
-                this.props.patients.sort((a, b) => b - a).slice(0, 10).map((item, index) =>
+                this.props.patients.sort((a, b) => b - a).map((item, index) =>
                   <tr key={index.toString()} onClick={this.props.onItemClicked.bind(this, item._id)}>
                     <td className="d-none d-lg-table-cell">
                       <div className="emr-icon-bg emr-icon-bg-dark">

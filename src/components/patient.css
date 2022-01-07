@@ -6,6 +6,10 @@
   left: 0;
 }
 
+.emr-dashboard-container .emr-sidebar-r{
+  top: auto;
+}
+
 .emr-sidebar-r{
   top: 0;
   right: 0;

@@ -10,7 +10,7 @@ export default class DialogComponent extends React.Component {
     return (
       <div className={`container-fluid emr-dialog-backdrop ${this.props.showDialog ? "show" : ""}`}>
         <div className="row g-0">
-          <div className="offset-lg-4 col-lg-4 offset-md-2 offset-md-8">
+          <div className="offset-lg-4 col-lg-4 offset-md-2 col-md-8">
             <div className="emr-dialog">
               <div className="emr-dialog-title">
                 <h6 className="emr-dialog-title-text">

@@ -1,9 +1,29 @@
 .emr-app-main{
   min-height: 101vh;
+  position: relative;
 }
 
 .emr-app-main, .emr-clerking-tab-data{
   animation: 200ms ease-in 0ms 1 fadeIn;
+}
+
+.emr-app-main .emr-icon-bg{
+  position: fixed;
+  bottom: 16px; right: 16px;
+  width: 48px;
+  height: 48px;
+  box-shadow: var(--emr-low-shadow);
+  /* border: 1px solid var(--emr-secondary-colour); */
+  transition: box-shadow 300ms ease-in, bottom 300ms ease-in;
+}
+
+.emr-app-main .emr-icon-bg:hover{
+  box-shadow: var(--emr-high-shadow);
+  bottom: 50px;
+}
+
+.emr-app-main .emr-icon-bg:active{
+  box-shadow: var(--emr-active-shadow);
 }
 
 table{
@@ -172,17 +192,51 @@ td{
   margin-top: 33.33vh;
   border-radius: var(--emr-round-corners);
   box-shadow: var(--emr-default-shadow);
-  background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/abstract_connections_banner_design_2203.png?alt=media&token=dc90182d-c0ee-49b6-b317-6c240309bd9e');
-  /* background-color: white; */
-  background-color: var(--emr-accent-light-colour);
+  /* background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/abstract_connections_banner_design_2203.png?alt=media&token=dc90182d-c0ee-49b6-b317-6c240309bd9e'); */
+  background-color: white;
+  /* background-color: var(--emr-accent-light-colour); */
   background-size: cover;
   /* background-position: 50% 50%; */
   background-blend-mode: luminosity;
   animation: 200ms ease-in 0ms 1 slideUp;
 }
 
+.emr-dialog.emr-select-dialog{
+  position: relative;
+  height: 90vh;
+  top: 0; right: 0; bottom: 0; left: 0;
+  margin: 5% auto;
+  overflow: auto;
+}
+
+.emr-select-dialog > .emr-icon-bg{
+  position: absolute;
+  top: 8px; right: 8px;
+}
+
 .emr-dialog > *{
   padding: var(--emr-default-padding);
+}
+
+.emr-dialog .row{
+  height: auto;
+}
+
+p.emr-form-item-description{
+  font-size: 11pt;
+}
+
+li.emr-form-item-description{
+  font-size: 10pt;
+  font-weight: bold;
+  color: var(--emr-darker-grey-colour);
+}
+
+.emr-form-item-score > input{
+  min-height: 64px;
+  font-size: 15pt;
+  font-weight: bold;
+  text-align: center;
 }
 
 .emr-dialog-details{
@@ -194,8 +248,8 @@ td{
   /* display: inline-block;
   text-align: center; */
   background-color: white;
-  border-top: 2px solid var(--emr-lighter-grey-colour);
-  border-bottom: 2px solid var(--emr-lighter-grey-colour);
+  border-top: 1px solid var(--emr-lighter-grey-colour);
+  border-bottom: 1px solid var(--emr-lighter-grey-colour);
 }
 
 button.emr-dialog-cancel-button{
@@ -250,5 +304,17 @@ button.emr-dialog-ok-button:hover, button.emr-dialog-cancel-button:hover{
 
   to{
     transform: translate(100%);
+  }
+}
+
+@media only screen and (min-width: 992px){
+  .emr-app-main .emr-icon-bg{
+    bottom: 24px; right: 24px;
+  }
+}
+
+@media only screen and (min-width: 1224px){
+  .emr-app-main .emr-icon-bg{
+    bottom: 24px; right: 25vw;
   }
 }

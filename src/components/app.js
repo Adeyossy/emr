@@ -25,8 +25,14 @@ import NotesOnlyComponent from "./minicomponents/notes_only";
 import { PatientContext } from "../models/patient_context";
 import OverviewComponent from "./overview";
 import TabComponent from "./tabs";
-import DialogComponent from "./minicomponents/dialog";
 import GCSComponent from "./forms/neuro_gcs";
+import BackDropComponent from "./minicomponents/backdrop";
+import ActionDialogComponent from "./minicomponents/action_dialog";
+import SelectDialogComponent from "./minicomponents/select_dialog";
+import MMSEComponent from "./forms/neuro_mmse";
+import FormComponent from "./forms/form";
+import { formsLookUp } from "../models/forms";
+import FormSingleComponent from "./forms/form_single";
 
 export class AppComponent extends React.Component {
   constructor(props) {
@@ -35,14 +41,14 @@ export class AppComponent extends React.Component {
     this.componentItems = [
       ["Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx"],
       ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"],
-      ["GCS"],
+      [],
       ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
       ["Imaging", "Electrical", "Haematology", "Labs", "Microbiology", "Procedures"],
       ["Assessment", "Plan", "Monitoring"],
       ["Pharmacological", "Nonpharmacological", "Other"]
     ];
 
-    const tabState = this.componentItems.map(item => item.slice().fill("selected", 0, 1)
+    this.tabState = this.componentItems.map(item => item.slice().fill("selected", 0, 1)
       .fill("", 1, item.length));
 
     this.state = {
@@ -50,8 +56,8 @@ export class AppComponent extends React.Component {
       navIndex: 0,
       contextItems: ["Dashboard", "Patients", "Investigations"],
       tabIndex: [0, 0, 0, 0, 0, 0, 0],
-      tabState: tabState,
-      showOverview: false
+      showOverview: false,
+      booleanState: false
     }
   }
 
@@ -76,8 +82,19 @@ export class AppComponent extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // if (!prevProps.patient && this.props.patient) {
+    //   this.addFormFields();
+    // }
+
+    // if (prevProps.patient && this.props.patient
+    //   && prevProps.patient._id !== this.props.patient._id) {
+    //   this.addFormFields();
+    // }
+  }
+
   onHotkeysPressed = (newValue) => {
-    if (newValue < this.state.tabState[this.state.navIndex].length) {
+    if (newValue < this.tabState[this.state.navIndex].length) {
       if (newValue >= 0) {
         this.updateTabState(newValue);
       } else {
@@ -86,7 +103,7 @@ export class AppComponent extends React.Component {
         }
       }
     } else {
-      if (this.state.navIndex < this.state.tabState.length - 1) {
+      if (this.state.navIndex < this.tabState.length - 1) {
         this.updateNavState(this.state.navIndex + 1);
       }
     }
@@ -118,32 +135,111 @@ export class AppComponent extends React.Component {
   }
 
   updateTabState = (index) => {
-    let tabState = this.state.tabState.slice();
-    let stateFromItems = tabState[this.state.navIndex];
+    let stateFromItems = this.tabState[this.state.navIndex];
     stateFromItems = stateFromItems.fill("");
     stateFromItems[index] = "selected";
-    tabState[this.state.navIndex] = stateFromItems;
+    this.tabState[this.state.navIndex] = stateFromItems;
 
     let tabIndex = this.state.tabIndex.slice();
     tabIndex[this.state.navIndex] = index;
 
     this.setState({
-      tabState: tabState,
       tabIndex: tabIndex
     });
   }
 
-  render() {
-    // const componentItems = [
-    //   ["Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx"],
-    //   ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"],
-    //   [],
-    //   ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
-    //   ["Imaging", "Electrical", "Haematology", "Labs", "Microbiology", "Procedures"],
-    //   ["Assessment", "Plan", "Monitoring"],
-    //   ["Pharmacological", "Nonpharmacological", "Other"]
-    // ];
+  showFormSelectionDialog = (booleanState) => {
+    this.props.showDialogOnClick("Forms", "Choose from the list of available forms",
+      this.props.addForm);
 
+    this.setState({
+      booleanState: true
+    });
+  }
+
+  otherFormsUpdate = () => {
+    const keys = Object.keys(this.props.patient.appointment.forms)
+      .filter(item => item !== 'epilepsy');
+
+    const components = keys.map(key => {
+      if (formsLookUp[key].type === "sum") {
+        return <FormComponent name={formsLookUp[key].title} form={formsLookUp[key].items}
+          formTag={key} updateAnyObject={this.props.updateAnyObject} 
+            deleteForm={this.props.deleteForm}
+          />
+      } else {
+        if (formsLookUp[key].type === "single") {
+          return <FormSingleComponent name={formsLookUp[key].title} form={formsLookUp[key].items}
+            formTag={key} updateAnyObject={this.props.updateAnyObject} 
+              deleteForm={this.props.deleteForm}
+            />
+        }
+      }
+    }
+    );
+
+    const tabs = keys.map(key => key.toUpperCase());
+
+    return [tabs, components];
+  }
+
+  updateFormState = (whereToSelect) => {
+    this.state.tabState[2] = this.state.componentItems[2].slice().fill("");
+    // this.state.tabState[2][tabToSelect] = "selected";
+    // this.state.tabIndex[2] = tabToSelect;
+
+    this.setState({
+      otherFormsComponents: this.state.otherFormsComponents,
+      componentItems: this.state.componentItems,
+      tabIndex: this.state.tabIndex
+    });
+  }
+
+  addFormFields = (whereToSelect) => {
+    const tabToSelect = whereToSelect ? whereToSelect : 0;
+    this.cleanUpFormFields();
+    const forms = this.props.patient.appointment.forms;
+    console.log("Forms => ", forms);
+    if (forms.hasOwnProperty('gcs')) {
+      this.state.otherFormsComponents.push(
+        <GCSComponent updateAnyObject={this.props.updateAnyObject}
+          patient={this.props.patient} />
+      );
+
+      this.state.componentItems[2].push("GCS");
+    }
+
+    if (forms.hasOwnProperty('mmse')) {
+      this.state.otherFormsComponents.push(
+        <MMSEComponent updateAnyObject={this.props.updateAnyObject}
+          patient={this.props.patient} />
+      );
+
+      this.state.componentItems[2].push("MMSE");
+    }
+
+    this.state.tabState[2] = this.state.componentItems[2].slice().fill("");
+    this.state.tabState[2][tabToSelect] = "selected";
+    this.state.tabIndex[2] = tabToSelect;
+
+    this.setState({
+      otherFormsComponents: this.state.otherFormsComponents,
+      componentItems: this.state.componentItems,
+      tabIndex: this.state.tabIndex
+    });
+  }
+
+  processFormSelection = (formTag) => {
+    this.props.dialogAction(formTag);
+  }
+
+  onFormSelectionDismissed = () => {
+    this.setState({
+      booleanState: false
+    });
+  }
+
+  render() {
     const historyComponents = [
       <BiodataComponent patient={this.props.patient}
         updateAnyObject={this.props.updateAnyObject} />,
@@ -172,10 +268,9 @@ export class AppComponent extends React.Component {
       updateItemsInArray={this.props.updateItemsInArray} />];
 
     //Tabbed components under Other Forms
-    const otherFormsComponents = [
-      <GCSComponent updateAnyObject={this.props.updateAnyObject}
-        updateItemsInArray={this.props.updateItemsInArray} />
-    ];
+    const otherForms = this.props.patient ? this.otherFormsUpdate() : [[], []];
+    this.componentItems[2] = otherForms[0];
+    const otherFormsComponents = otherForms[1];
 
     //Tabbed components under Examination
     const examComponents = [
@@ -215,11 +310,23 @@ export class AppComponent extends React.Component {
       examComponents, investigationsComponents, assessmentComponents,
       treatmentComponents];
 
+    this.tabState = this.componentItems.map(item => item.slice().fill(""));
+
     return (
       <>
-        <DialogComponent showDialog={this.props.showDialog} dismissDialog={this.props.dismissDialog}
-          dialogMessage={this.props.dialogMessage} dialogAction={this.props.dialogAction}
-          dialogTitle={this.props.dialogTitle} />
+        <BackDropComponent showDialog={this.props.showDialog}>
+          {
+            this.props.showDialog && this.state.booleanState
+              ?
+              <SelectDialogComponent dismissDialog={this.props.dismissDialog}
+                dialogMessage={this.props.dialogMessage} dialogAction={this.processFormSelection}
+                dialogTitle={this.props.dialogTitle} />
+              :
+              <ActionDialogComponent dismissDialog={this.props.dismissDialog}
+                dialogMessage={this.props.dialogMessage} dialogAction={this.props.dialogAction}
+                dialogTitle={this.props.dialogTitle} />
+          }
+        </BackDropComponent>
         <nav>
           <NavComponent navAppBarState={this.state.navState} changeState={this.updateNavState}
             dashboard={this.props.dashboard} patientView={this.props.patientView}
@@ -249,14 +356,14 @@ export class AppComponent extends React.Component {
                       index={this.state.navIndex} updateAnyObject={this.props.updateAnyObject}
                       updateItemsInArray={this.props.updateItemsInArray} >
                       <TabComponent items={this.componentItems[this.state.navIndex]}
-                        tabState={this.state.tabState[this.state.navIndex]}>
+                        tabState={this.tabState[this.state.navIndex]}>
                         {/* {console.log("inner", this.state.tabState)} */}
                         {
                           this.componentItems[this.state.navIndex].map((item, index) =>
                             <div className="col emr-history-tab" key={index.toString() + item}
                               onClick={this.updateTabState.bind(this, index)}>
                               <div className={`emr-history-tab-item 
-                              ${this.state.tabState[this.state.navIndex][index]}`}>
+                              ${this.state.tabIndex[this.state.navIndex] === index ? 'selected' : ''}`}>
                                 <p className="emr-history-tab-text">{item}</p>
                               </div>
                             </div>
@@ -265,6 +372,15 @@ export class AppComponent extends React.Component {
                       </TabComponent>
                       {componentContents[this.state.navIndex].length > 0 ?
                         componentContents[this.state.navIndex][this.state.tabIndex[this.state.navIndex]] : null}
+                      {
+                        this.state.navIndex === 2 ?
+                          <div className="emr-icon-bg emr-icon-bg-light"
+                            onClick={this.showFormSelectionDialog}>
+                            <i className="bi bi-plus-lg emr-icons emr-center-icon"></i>
+                            <i className="emr-icon-tooltip">Add Form</i>
+                          </div> :
+                          null
+                      }
                     </Selectable>
                 }
               </MainComponent>

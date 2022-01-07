@@ -331,6 +331,19 @@ p.emr-patient-diagnosis{
   box-shadow: 8px 8px 16px 4px rgba(0, 0, 0, 0.2);
 }
 
+.emr-clickable{
+  transition: background-color 300ms ease-in, box-shadow 300ms ease-in;
+}
+
+.emr-clickable:hover{
+  background-color: var(--emr-accent-colour) !important;
+  box-shadow: var(--emr-high-shadow);
+}
+
+.emr-clickable:active{
+  box-shadow: var(--emr-active-shadow);
+}
+
 @keyframes dropInAndFadeIn{
   from{
     transform: translateY(-10%);

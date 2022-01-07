@@ -3,7 +3,7 @@ import './history.css';
 
 export default class Selectable extends React.Component {
   constructor(props) {
-    super(props);    
+    super(props);
 
     this.state = {
       tabIndex: [0, 0, 0, 0, 0, 0, 0],
