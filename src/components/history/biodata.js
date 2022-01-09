@@ -48,6 +48,9 @@ export default class BiodataComponent extends React.Component {
       <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Identifying Information</h4>
         <div className="emr-clerking-tab-data-items">
+          <LabelAndInputComponent id="date_seen" title="Date of Encounter"
+            value={new Date(this.props.patient.appointment.date_seen).toISOString().substring(0, 16)}
+            type="datetime-local" onItemChange={this.onItemChange} />
           <div className={`emr-clerking-tab-data-item ${this.props.patient.appointment.biodata.firstname
             && this.props.patient.appointment.biodata.lastname ? "filled" : ""}`}>
             <label htmlFor="firstname">Name</label>
@@ -55,12 +58,12 @@ export default class BiodataComponent extends React.Component {
               <input type="text" name="lastname" id="lastname" placeholder="Surname"
                 value={this.props.patient.appointment.biodata.lastname} onChange={this.updateField}
                 className={this.props.patient.appointment.biodata.lastname ? "filled" : ""} required></input>
-              <input type="text" name="middlename" id="middlename" placeholder="Middle name"
-                value={this.props.patient.appointment.biodata.middlename} onChange={this.updateField}
-                className={this.props.patient.appointment.biodata.middlename ? "filled" : ""} required></input>
               <input type="text" name="firstname" id="firstname" placeholder="First name"
                 value={this.props.patient.appointment.biodata.firstname} onChange={this.updateField}
                 className={this.props.patient.appointment.biodata.firstname ? "filled" : ""} required></input>
+              <input type="text" name="middlename" id="middlename" placeholder="Middle name"
+                value={this.props.patient.appointment.biodata.middlename} onChange={this.updateField}
+                className={this.props.patient.appointment.biodata.middlename ? "filled" : ""} required></input>
             </div>
           </div>
           <LabelAndInputComponent id="ageinyears" title="Age (in years)"
@@ -107,9 +110,6 @@ export default class BiodataComponent extends React.Component {
           <LabelAndInputComponent id="email_address" title="Email Address"
             value={this.props.patient.appointment.biodata.email_address}
             type="email" onItemChange={this.onItemChange} />
-          <LabelAndInputComponent id="date_seen" title="Date of First Encounter"
-            value={new Date(this.props.patient.appointment.date_seen).toISOString().substring(0, 16)}
-            type="datetime-local" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="next_of_kin" title="Next of Kin Name"
             value={this.props.patient.appointment.biodata.next_of_kin} type="text"
             onItemChange={this.onItemChange} />
