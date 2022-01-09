@@ -20,6 +20,7 @@ export class EMRComponent extends React.Component {
     this.state = {
       user: null,
       patients: [],
+      filteredPatients: [],
       patient: null,
       emrContext: "Dashboard",
       isSignedIn: false,
@@ -39,7 +40,7 @@ export class EMRComponent extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log("unmount called");
+    // console.log("unmount called");
     // closeDB(signUserOut());
   }
 
@@ -95,9 +96,9 @@ export class EMRComponent extends React.Component {
     // console.log(docs);
     let dataFromDocs = docs.map(item => item.doc);
 
-    const data1Parsed = JSON.parse(JSON.stringify(data2));
+    // const data1Parsed = JSON.parse(JSON.stringify(data2));
     // console.log('parsed JSON file => ', data1Parsed);
-    let data = data1Parsed.rows.map(item => item.doc);
+    // let data = data1Parsed.rows.map(item => item.doc);
     //if there are any updates to the data structure
     // data = this.upgradeDataStructure(data);
 
@@ -113,6 +114,7 @@ export class EMRComponent extends React.Component {
 
     this.setState({
       patients: dataFromDocs,
+      filteredPatients: dataFromDocs,
       authComplete: true
     });
   }
@@ -122,8 +124,8 @@ export class EMRComponent extends React.Component {
     const currentAppointmentModelKeys = Object.keys(currentAppointmentModel);
 
     const upgradedDataFromDocs = dataFromDocs.map((item, index) => {
-      console.log("item => ", item);
-      console.log("item.biodata => ", item.biodata);
+      // console.log("item => ", item);
+      // console.log("item.biodata => ", item.biodata);
       if (item.biodata) {
         let dbAppointmentKeys = [];
         //The next line is to prevent any unintended changes
@@ -203,7 +205,7 @@ export class EMRComponent extends React.Component {
   }
 
   onPatientTableClicked = (id) => {
-    console.log("Patient appointments => ", this.state.patients.find((value) => id === value._id));
+    // console.log("Patient appointments => ", this.state.patients.find((value) => id === value._id));
     this.setState({
       patient: this.state.patients.find((value) => id === value._id),
       emrContext: "Patients"
@@ -295,7 +297,7 @@ export class EMRComponent extends React.Component {
       pmhArrayItem = pmhArray;
     pmhArrayItem[name] = value;
 
-    console.log(name, " => ", this.state.patient.appointment.forms);
+    // console.log(name, " => ", this.state.patient.appointment.forms);
 
     this.setState({
       patient: thisPatient
@@ -341,7 +343,7 @@ export class EMRComponent extends React.Component {
 
   switchToAppointment = (appointment) => {
     this.state.patient.appointment = appointment;
-    console.log("switched appointment forms => ", this.state.patient.appointment.forms);
+    // console.log("switched appointment forms => ", this.state.patient.appointment.forms);
     this.setState({
       patient: this.state.patient
     });
@@ -350,7 +352,7 @@ export class EMRComponent extends React.Component {
   }
 
   deleteAppointment = (date_seen) => {
-    console.log("deleteAppointment called => ", date_seen);
+    // console.log("deleteAppointment called => ", date_seen);
     if (this.state.patient.appointments.length > 1) {
       const patient = this.state.patient;
       patient.appointments = patient.appointments
@@ -418,52 +420,90 @@ export class EMRComponent extends React.Component {
     if (prevState.user === null && this.state.user) { }
   }
 
-  sortPatientsRaw = (sortString) => {
-    sortString = String(sortString);
-    const filteredPatients = []
+  filterPatients = (sortString) => {
+    sortString = String(sortString).toLowerCase();
+
     if (sortString.includes("=")) {
       const splitSortString = sortString.split("=", 2);
       const field = splitSortString[0].trim();
       const value = splitSortString[1].trim();
 
       if (field === 'name') {
-        this.state.patients = this.state.patients.filter(patient =>
-          patient.appointment.biodata.lastname.includes(value) ||
-          patient.appointment.biodata.middlename.includes(value) ||
-          patient.appointment.biodata.firstname.includes(value)
+        this.state.filteredPatients = this.state.patients.filter(patient =>
+          patient.appointment.biodata.lastname.toLowerCase().includes(value) ||
+          patient.appointment.biodata.middlename.toLowerCase().includes(value) ||
+          patient.appointment.biodata.firstname.toLowerCase().includes(value)
         )
       }
 
       if (field === '#') {
-        this.state.patients = this.state.patients.filter(patient =>
+        this.state.filteredPatients = this.state.patients.filter(patient =>
           String(patient.appointment.biodata.id).includes(value))
       }
 
+      if (field === 'n') {
+        this.state.filteredPatients = this.state.patients.filter(patient =>
+          patient.appointments.length >= Number(value)).sort((a, b) => 
+          a.appointments.length - b.appointments.length);
+      }
+
       if (field === 'd' || field.includes('diagnosis')) {
-        this.state.patients = this.state.patient.filter(patient =>
-          String(patient.appointment.primary_diagnosis).includes(value) ||
-          String(patient.appointment.secondary_diagnosis).includes(value)
+        this.state.filteredPatients = this.state.patients.filter(patient =>
+          String(patient.primary_diagnosis).toLowerCase().includes(value) ||
+          String(patient.secondary_diagnosis).toLowerCase().includes(value)
         )
       }
 
       if (field === 'dd' || field.includes('differential')) {
-        this.state.patients = this.state.patient.filter(patient =>
-          String(patient.appointment.secondary_diagnosis).includes(value)
+        this.state.filteredPatients = this.state.patients.filter(patient =>
+          String(patient.secondary_diagnosis).toLowerCase().includes(value)
         )
       }
-
     } else {
     }
 
     this.setState({
-      patients: this.state.patients
+      filteredPatients: this.state.filteredPatients
     });
   }
 
-  sortPatients = (field, filter) => {
+  sortPatients = (sortBy) => {
+    let sortedPatient = this.state.filteredPatients;
+
+    if (sortBy === "name") {
+      sortedPatient = this.state.filteredPatients
+        .sort((a, b) => {
+          if (a.appointment.biodata.lastname.toLowerCase()
+            < b.appointment.biodata.lastname.toLowerCase())
+            return -1;
+        });
+    }
+
+    if (sortBy === "age") {
+      sortedPatient = this.state.filteredPatients
+        .sort((a, b) => a.appointment.biodata.ageinyears - b.appointment.biodata.ageinyears);
+    }
+
+    if (sortBy === "id") {
+      sortedPatient = this.state.filteredPatients
+        .sort((a, b) => a.appointment.biodata.id - b.appointment.biodata.id);
+    }
+
+    if (sortBy === "d") {
+      sortedPatient = this.state.filteredPatients
+        .sort((a, b) => a.primary_diagnosis.toLowerCase() <
+          b.primary_diagnosis.toLowerCase() ? -1 : 0);
+    }
+
+    if (sortBy === "d") {
+      sortedPatient = this.state.filteredPatients
+        .sort((a, b) => a.secondary_diagnosis.toLowerCase()
+          < b.secondary_diagnosis.toLowerCase() ? -1 : 0);
+    }
+
     this.setState({
-      patients: this.state.patients.filter(patient => patient.appointment.biodata)
-    })
+      filteredPatients: sortedPatient
+    });
   }
 
   render() {
@@ -477,7 +517,7 @@ export class EMRComponent extends React.Component {
           <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
             dashboard={this.switchBackToDashboard} patient={this.state.patient}
             patients={this.state.patients} changePatient={this.onPatientChange}
-            deletePatient={this.deletePatient}
+            deletePatient={this.deletePatient} filteredPatients={this.state.filteredPatients}
             updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
             updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
             updateItemsInArray={this.updateItemsInArray}
@@ -488,7 +528,7 @@ export class EMRComponent extends React.Component {
             dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction}
             dialogTitle={this.state.dialogTitle} user={this.state.user}
             deleteAppointment={this.deleteAppointment} addForm={this.addForm}
-            deleteForm={this.deleteForm}>
+            deleteForm={this.deleteForm} filterPatients={this.filterPatients}>
             {
               this.state.patient !== null ?
                 null :
@@ -497,9 +537,10 @@ export class EMRComponent extends React.Component {
                     .sort((a, b) => b._id - a._id).slice(0, 3)}
                   createNewPatient={this.onCreateIconClicked}
                   viewPatient={this.onPatientTableClicked} user={this.state.user}>
-                  <PatientTableComponent patients={this.state.patients} onItemClicked={this.onPatientTableClicked}
+                  <PatientTableComponent patients={this.state.filteredPatients}
+                    onItemClicked={this.onPatientTableClicked}
                     authComplete={this.state.authComplete}
-                  />
+                    sortPatients={this.sortPatients} />
                 </DashboardComponent>
             }
           </AppComponent>

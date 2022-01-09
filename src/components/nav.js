@@ -37,6 +37,10 @@ export default class NavComponent extends React.Component {
     closeDB(signUserOut.bind(this, this.props.onUserSignOut));
   }
 
+  onSearchInput = (event) => {
+    this.props.filterPatients(event.target.value);
+  }
+
   render() {
     const appBarItems = this.appbar.map((item, index) =>
       <div className={`emr-icon-bg ${this.props.navIndex === index ? "selected" : ""}`}
@@ -85,7 +89,8 @@ export default class NavComponent extends React.Component {
               <div className="emr-icon-bg">
                 <i className="bi bi-search emr-icons emr-center-icon"></i>
               </div>
-              <input type="text" name="search" id="search" placeholder="Search"></input>
+              <input type="text" name="search" id="search" placeholder="Search"
+              onChange={this.onSearchInput}></input>
             </div>
           </div>
           <div className="col-lg-1 d-none d-lg-block">

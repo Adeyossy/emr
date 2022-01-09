@@ -22,8 +22,8 @@ export default class LeftSideBarComponent extends React.Component {
                       <div className="emr-patient-delete">
                         <div className="emr-icon-bg emr-icon-bg-dark"
                           onClick={this.props.showDialogOnClick.bind(this, "Delete Patient",
-                            `${item.appointment.biodata.firstname ?
-                              item.appointment.biodata.firstname.toUpperCase() : "This patient"} will be deleted`,
+                            `${item.appointment.biodata.lastname ?
+                              item.appointment.biodata.lastname.toUpperCase() : "This patient"} will be deleted`,
                             this.props.deletePatient.bind(this, item._id))}>
                           <i className="bi bi-trash-fill emr-center-icon"></i>
                         </div>

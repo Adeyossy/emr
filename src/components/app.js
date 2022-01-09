@@ -33,6 +33,7 @@ import MMSEComponent from "./forms/neuro_mmse";
 import FormComponent from "./forms/form";
 import { formsLookUp } from "../models/forms";
 import FormSingleComponent from "./forms/form_single";
+import InvestigationComponent from "./investigation/investigation";
 
 export class AppComponent extends React.Component {
   constructor(props) {
@@ -164,15 +165,15 @@ export class AppComponent extends React.Component {
     const components = keys.map(key => {
       if (formsLookUp[key].type === "sum") {
         return <FormComponent name={formsLookUp[key].title} form={formsLookUp[key].items}
-          formTag={key} updateAnyObject={this.props.updateAnyObject} 
-            deleteForm={this.props.deleteForm}
-          />
+          formTag={key} updateAnyObject={this.props.updateAnyObject}
+          deleteForm={this.props.deleteForm}
+        />
       } else {
         if (formsLookUp[key].type === "single") {
           return <FormSingleComponent name={formsLookUp[key].title} form={formsLookUp[key].items}
-            formTag={key} updateAnyObject={this.props.updateAnyObject} 
-              deleteForm={this.props.deleteForm}
-            />
+            formTag={key} updateAnyObject={this.props.updateAnyObject}
+            deleteForm={this.props.deleteForm}
+          />
         }
       }
     }
@@ -234,6 +235,7 @@ export class AppComponent extends React.Component {
   }
 
   onFormSelectionDismissed = () => {
+    this.props.dismissDialog();
     this.setState({
       booleanState: false
     });
@@ -290,8 +292,10 @@ export class AppComponent extends React.Component {
     //Tabbed components under Other Forms
     // this.investigationsComponents = [ <NotesOnlyComponent notesHeader={"Imaging"} /> ];
     const investigationsComponents = this.componentItems[4].map((item) =>
-      <NotesOnlyComponent fields={[item.toLowerCase()]}
-        updateAnyObject={this.props.updateAnyObject} notesHeader={item} />);
+      <InvestigationComponent>
+        <NotesOnlyComponent fields={[item.toLowerCase()]}
+          updateAnyObject={this.props.updateAnyObject} notesHeader={item} />
+      </InvestigationComponent>);
 
     //Tabbed components under Other Forms
     // this.assessmentComponents = [  ];
@@ -318,7 +322,7 @@ export class AppComponent extends React.Component {
           {
             this.props.showDialog && this.state.booleanState
               ?
-              <SelectDialogComponent dismissDialog={this.props.dismissDialog}
+              <SelectDialogComponent dismissDialog={this.onFormSelectionDismissed}
                 dialogMessage={this.props.dialogMessage} dialogAction={this.processFormSelection}
                 dialogTitle={this.props.dialogTitle} />
               :
@@ -332,7 +336,8 @@ export class AppComponent extends React.Component {
             dashboard={this.props.dashboard} patientView={this.props.patientView}
             currentView={this.props.currentView} navIndex={this.state.navIndex}
             patient={this.props.patient} createNewPatient={this.props.createNewPatient}
-            onUserSignOut={this.props.onUserSignOut} user={this.props.user} />
+            onUserSignOut={this.props.onUserSignOut} user={this.props.user}
+            filterPatients={this.props.filterPatients} />
         </nav>
         {
           this.props.children ? this.props.children :
@@ -340,7 +345,7 @@ export class AppComponent extends React.Component {
               <MainComponent navIndex={this.state.navIndex} dashboard={this.props.dashboard}
                 updateAnyObject={this.props.updateAnyObject}>
                 <LeftSideBarComponent patient={this.props.patient}
-                  patients={this.props.patients} changePatient={this.props.changePatient}
+                  patients={this.props.filteredPatients} changePatient={this.props.changePatient}
                   deletePatient={this.props.deletePatient}
                   updateItemsInArray={this.props.updateItemsInArray}
                   switchToAppointment={this.props.switchToAppointment}

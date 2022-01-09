@@ -1,5 +1,5 @@
 import PouchDB from 'pouchdb';
-import { authStateObserver, getCurrentUser } from './auth';
+import { getCurrentUser } from './auth';
 
 let dbName = "";
 
@@ -18,19 +18,19 @@ const iam = {
   "username": "apikey-v2-1tnjrz93x68an3wfjtzpts17cull47mf9380zxkl3j2w"
 }
 
-function changeDbName(user) {
-  if (user !== null) {
-    if (user.email === "johndoe@mail.com") {
-      dbName = "patients";
-    }
+// function changeDbName(user) {
+//   if (user !== null) {
+//     if (user.email === "johndoe@mail.com") {
+//       dbName = "patients";
+//     }
 
-    if (user.email === "janedoe@mail.com") {
-      dbName = "patients2";
-    }
+//     if (user.email === "janedoe@mail.com") {
+//       dbName = "patients2";
+//     }
 
-    return dbName;
-  }
-}
+//     return dbName;
+//   }
+// }
 
 // authStateObserver(changeDbName);
 
@@ -50,11 +50,11 @@ export function createDB(user) {
   console.log("dbName => ", dbName);
 }
 
-function fetchFromRemoteOp(callback, user) {
-  console.log("fetchOp user => ", user);
-  // const newDB = changeDbName(user);
-  // patientsDB = new PouchDB(newDB);
-}
+// function fetchFromRemoteOp(callback, user) {
+//   console.log("fetchOp user => ", user);
+//   // const newDB = changeDbName(user);
+//   // patientsDB = new PouchDB(newDB);
+// }
 
 export function fetchFromRemote(callback) {
   // console.log("dbName => ", dbName);

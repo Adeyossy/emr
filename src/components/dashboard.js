@@ -2,13 +2,27 @@ import React from "react";
 import "./dashboard.css";
 
 export default class DashboardComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      allPatientsShown: false
+    }
+  }
+
+  toggleAllPatients = (allPatientsShown) => {
+    this.setState({
+      allPatientsShown: allPatientsShown
+    });
+  }
+
   render() {
     return (
       <main>
         <div className="container-fluid emr-dashboard-container">
           <div className="row">
             {/* <!-- Start of the first column of the app --> */}
-            <div className="d-none d-lg-block col-xl-3 col-lg-4 col-md-10 mx-auto emr-column emr-sidebar emr-sidebar-l">
+            <div className={`d-none ${this.state.allPatientsShown ? '' : 'd-lg-block'} col-xl-3 col-lg-4 col-md-10 mx-auto emr-column emr-sidebar emr-sidebar-l`}>
               <div className="emr-dashboard-welcome emr-first">
                 <h1 className="emr-large-text emr-headers">Welcome</h1>
                 <div className="emr-user">
@@ -24,27 +38,28 @@ export default class DashboardComponent extends React.Component {
                   <div className="emr-patient-list">
                     {/* <!-- Anything with classname as -list-item will be in a for-loop --> */}
                     {this.props.recents.map((item, index) =>
-                      item ? 
-                      <div className="emr-patient-list-item" key={index.toString()}
-                        onClick={this.props.viewPatient.bind(this, item._id)}>
-                        <div className="emr-icon-bg emr-icon-bg-dark">
-                          {/* <!-- Insert age-appropriate icon here --> */}
-                          <i className="bi bi-person-fill emr-center-icon"></i>
-                        </div>
-                        <div className="emr-patient-description">
-                          <p className="emr-patient-name">{item.appointment.biodata.lastname + " " + item.appointment.biodata.firstname}</p>
-                          <div className="emr-patient-biodata">
-                            <p className="emr-patient-gender">{item.appointment.biodata.gender.charAt(0).toUpperCase()}</p>
-                            <p className="emr-separator">|</p>
-                            <p className="emr-patient-age">{item.appointment.biodata.ageinyears} yrs</p>
-                            <p className="emr-separator">|</p>
-                            <p className="emr-patient-diagnosis">{item.primary_diagnosis}</p>
+                      item ?
+                        <div className="emr-patient-list-item" key={index.toString()}
+                          onClick={this.props.viewPatient.bind(this, item._id)}>
+                          <div className="emr-icon-bg emr-icon-bg-dark">
+                            {/* <!-- Insert age-appropriate icon here --> */}
+                            <i className="bi bi-person-fill emr-center-icon"></i>
                           </div>
-                        </div>
-                      </div> : null
+                          <div className="emr-patient-description">
+                            <p className="emr-patient-name">{item.appointment.biodata.lastname + " " + item.appointment.biodata.firstname}</p>
+                            <div className="emr-patient-biodata">
+                              <p className="emr-patient-gender">{item.appointment.biodata.gender.charAt(0).toUpperCase()}</p>
+                              <p className="emr-separator">|</p>
+                              <p className="emr-patient-age">{item.appointment.biodata.ageinyears} yrs</p>
+                              <p className="emr-separator">|</p>
+                              <p className="emr-patient-diagnosis">{item.primary_diagnosis}</p>
+                            </div>
+                          </div>
+                        </div> : null
                     )}
                   </div>
-                  <button className="emr-button emr-card-button">ALL PATIENTS</button>
+                  <button className="emr-button emr-card-button"
+                    onClick={this.toggleAllPatients.bind(this, true)}>ALL PATIENTS</button>
                 </div>
               </div>
               <div className="emr-stats emr-card d-none d-lg-block">
@@ -57,8 +72,14 @@ export default class DashboardComponent extends React.Component {
             </div>
             {/* <!-- End of the first column of the app --> */}
             {/* <!-- Start of the second column of the app --> */}
-            <div className="offset-lg-4 offset-xl-3 col-lg-8 col-xl-6 emr-column">
-              <div className="container-fluid emr-first">
+            <div className={`${this.state.allPatientsShown ? 'offset-lg-1 col-lg-10 offset-xl-2 col-xl-8'
+              : 'offset-lg-4 offset-xl-3 col-lg-8 col-xl-6'} emr-column`}>
+              <div className={`${this.state.allPatientsShown ? '' : 'd-none '}emr-icon-bg emr-icon-bg-light emr-clickable`}
+                onClick={this.toggleAllPatients.bind(this, false)}>
+                <i className="bi bi-x-lg emr-icons emr-center-icon"></i>
+                <i className="emr-icon-tooltip">Close</i>
+              </div>
+              <div className={`${this.state.allPatientsShown ? 'd-none ' : ''}container-fluid emr-first`}>
                 <div className="row">
                   <div className="col-md-6">
                     <div className="emr-quick-button emr-new-patient emr-quick-button-light-bg"
@@ -85,7 +106,7 @@ export default class DashboardComponent extends React.Component {
               </div>
               {this.props.children}
             </div>
-            <div className="d-none d-xl-block col-xl-3 col-lg-3 col-md-10 mx-auto emr-column emr-sidebar emr-sidebar-r">
+            <div className={`d-none ${this.state.allPatientsShown ? '' : 'd-xl-block'} col-xl-3 col-lg-3 col-md-10 mx-auto emr-column emr-sidebar emr-sidebar-r`}>
               {/* <div className="emr-first"></div> */}
               <div className="emr-calendar-schedule">
                 <h6 className="emr-headers">My Schedule</h6>

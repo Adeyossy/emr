@@ -28,7 +28,9 @@ const analytics = getAnalytics(app);
 export const authStateObserver = (callback) => {
   onAuthStateChanged(getAuth(), (user => {
     callback(user);
-  }));
+  }), error => {
+    console.log("error on sign in => ", error);
+  });
 }
 
 export const signUserIn = (email, password, onUserSignIn) => {

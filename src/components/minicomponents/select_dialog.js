@@ -14,7 +14,7 @@ export default class SelectDialogComponent extends React.Component {
     return (
       <div className="offset-lg-2 col-lg-8 offset-md-1 col-md-10">
         <div className="emr-dialog emr-select-dialog">
-          <div className="emr-icon-bg emr-icon-bg-light emr-clicable"
+          <div className="emr-icon-bg emr-icon-bg-light emr-clickable"
             onClick={this.props.dismissDialog}>
             <i className="bi bi-x-lg emr-icons emr-center-icon"></i>
             <i className="emr-icon-tooltip">Close</i>

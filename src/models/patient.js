@@ -1,10 +1,9 @@
-import { getCurrentUser } from "../modules/auth";
 import { appointmentModel } from "./appointment";
 import { biodata } from "./biodata";
-import { presenting_complaint, complaint } from "./complaint";
+import { presenting_complaint } from "./complaint";
 import { getFreshEpilepsyForm } from "./epilepsy";
 
-const system = { system: "", symptoms: [""] };
+// const system = { system: "", symptoms: [""] };
 
 export const appointment = {
   notes: "", assessment: { notes: "" },
@@ -185,7 +184,7 @@ export function parseOldPatient() {
   });
 
   // newPatient.appointments.push(firstApntmnt);
-  console.log("New appointment model => ", newPatient.appointments);
+  // console.log("New appointment model => ", newPatient.appointments);
   return newPatient;
 }
 
@@ -257,7 +256,7 @@ export function parseFromDatabase(dbPatient) {
   this.last_seen = dbPatient.last_seen;
   this.first_seen = dbPatient.first_seen;
   this.appointment = new parseApntmntDB(JSON.parse(JSON.stringify(dbPatient.appointment)));
-  console.log("appointment => ", this);
+  // console.log("appointment => ", this);
   this.appointments = dbPatient.appointments.map(apntmnt => new parseApntmntDB(JSON.parse(JSON.stringify(apntmnt))));
   this.primary_diagnosis = dbPatient.primary_diagnosis;
   this.secondary_diagnosis = dbPatient.secondary_diagnosis;
@@ -314,8 +313,8 @@ export function getAppointmentWithDefaultValues() {
   newAppointment.alcohol = previousAppointment.alcohol;
   newAppointment.cigarette = previousAppointment.cigarette;
   newAppointment.forms = JSON.parse(JSON.stringify(previousAppointment.forms));
-  console.log("previous apntmnt forms => ", previousAppointment.forms);
-  console.log("new apntmnt forms => ", newAppointment.forms);
+  // console.log("previous apntmnt forms => ", previousAppointment.forms);
+  // console.log("new apntmnt forms => ", newAppointment.forms);
 
   return newAppointment;
 }

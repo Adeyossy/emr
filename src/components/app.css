@@ -114,6 +114,10 @@ td{
   font-weight: 600;
 }
 
+th{
+  cursor: pointer;
+}
+
 .emr-headers{
   padding-left: 8px;
 }

@@ -9,11 +9,16 @@ export default class PatientTableComponent extends React.Component {
           <thead>
             <tr>
               <th scope="col" className="d-none d-lg-table-cell">ICON</th>
-              <th scope="col">NAME</th>
-              <th scope="col">AGE</th>
-              <th scope="col" className="d-none d-lg-table-cell">HOSPITAL NUMBER</th>
-              <th scope="col">1<sup>o</sup> DIAGNOSIS</th>
-              <th scope="col" className="d-none d-lg-table-cell">2<sup>o</sup> DIAGNOSIS</th>
+              <th scope="col" onClick={this.props.sortPatients
+                .bind(Object.create(null), "name")}>NAME</th>
+              <th scope="col" onClick={this.props.sortPatients
+                .bind(Object.create(null), "age")}>AGE</th>
+              <th scope="col" className="d-none d-lg-table-cell" onClick={this.props.sortPatients
+                .bind(Object.create(null), "id")}>HOSPITAL NUMBER</th>
+              <th scope="col" onClick={this.props.sortPatients
+                .bind(Object.create(null), "d")}>1<sup>o</sup> DIAGNOSIS</th>
+              <th scope="col" className="d-none d-lg-table-cell" onClick={this.props.sortPatients
+                .bind(Object.create(null), "dd")}>2<sup>o</sup> DIAGNOSIS</th>
             </tr>
           </thead>
           <tbody>
