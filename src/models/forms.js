@@ -4,6 +4,7 @@ import { fastItems } from "./fast"
 import { fisherItems } from "./fisher"
 import { gcsItems } from "./gcs"
 import { ichItems } from "./ich"
+import { ideaItems } from "./idea"
 import { mmseItems } from "./mmse"
 import { mocaItems } from "./moca"
 import { mrsItems } from "./mrs"
@@ -127,6 +128,15 @@ const ascoModel = {
   other: ""
 }
 
+const ideaModel = {
+  describe: "",
+  animals: "",
+  leader: "",
+  dayofweek: "",
+  recall: "",
+  matchstick: ""
+}
+
 export const formsLookUp = {
   aspects: {
     title: "ASPECTS Scale",
@@ -210,6 +220,12 @@ export const formsLookUp = {
     title: "A-S-C-O Phenotypic Classification for Stroke",
     items: ascoItems,
     model: ascoModel,
+    type: "sum"
+  },
+  idea: {
+    title: "IDEA Cognitive Screen",
+    items: ideaItems,
+    model: ideaModel,
     type: "sum"
   }
 }
