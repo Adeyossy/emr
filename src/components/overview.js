@@ -69,8 +69,8 @@ export default class OverviewComponent extends React.Component {
                     </div>
                     {
                       this.context.appointment.past_medical_history.comorbidities
-                        .filter(item => item.comorbidity && item.duration).slice(0, 2).map((item) =>
-                          <>
+                        .filter(item => item.comorbidity && item.duration).slice(0, 2).map((item, index) =>
+                          <React.Fragment key={index.toString()}>
                             <div className="emr-quick-info-divider"></div>
                             <div className="emr-quick-info-top-item emr-quick-comorbidity-2">
                               <p className="emr-quick-info-value">{item.duration} yr{item.duration > 1 ? "s" : ""}</p>
@@ -82,7 +82,7 @@ export default class OverviewComponent extends React.Component {
                                   : ""
                               }</h6>
                             </div>
-                          </>
+                          </React.Fragment>
                         )
                     }
                     {/* <div className="emr-quick-info-divider"></div>
@@ -163,8 +163,13 @@ export default class OverviewComponent extends React.Component {
                             <h4 className="emr-card-headers">Presenting Complaint</h4>
                             <div className="emr-patient-summary-category">
                               <ul>
-                                {this.context.appointment.presenting_complaints.complaints.map(complaint =>
-                                  <li><p className="emr-patient-summary-item text-wrap">{complaint.complaint} ({complaint.duration})</p></li>)}
+                                {this.context.appointment.presenting_complaints.complaints.map((complaint, index) =>
+                                  <li key={index.toString()}>
+                                    <p className="emr-patient-summary-item text-wrap">
+                                      {complaint.complaint} ({complaint.duration})
+                                    </p>
+                                  </li>
+                                )}
                               </ul>
                               <p className="emr-patient-summary-item text-wrap">{this.context.appointment.presenting_complaints.notes}</p>
                             </div>

@@ -47,7 +47,7 @@ export function createDB(user) {
   }
 
   patientsDB = new PouchDB(dbName);
-  console.log("dbName => ", dbName);
+  // console.log("dbName => ", dbName);
 }
 
 // function fetchFromRemoteOp(callback, user) {

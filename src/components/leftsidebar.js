@@ -40,7 +40,7 @@ export default class LeftSideBarComponent extends React.Component {
                           <p className="emr-patient-age">{`${item.appointment.biodata.ageinyears} yrs`}</p>
                           <p className="emr-separator">|</p>
                           <p className="emr-patient-diagnosis">
-                            {item.primary_diagnosis ? item.primary_diagnosis : "pending"}</p>
+                            {item.primary_diagnosis ? item.primary_diagnosis.substring(0, 7) : "pending"}</p>
                         </div>
                       </div>
                     </div>

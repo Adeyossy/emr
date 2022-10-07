@@ -1,0 +1,39 @@
+Adeyossy (33):
+      Initialize project using Create React App
+      First build: History and Epilepsy Questionnaire
+      Selection components refactored and other additions
+      Compositing the app
+      Wiring up the emr app
+      Connecting the dots
+      Several updates: deleting, JSONing objects, white background
+      Fixed null issue and the consultation notes error
+      PouchDB, Cloudant, Authentication and improvements
+      Modal, resolved indexeddb error
+      Changed db to neuro
+      Fixed selection issue for strings
+      Fixed comorbidities issue
+      Small improvements
+      Appointment upgraded
+      Imported JSON and made it compatible
+      Appointment positively working well
+      Fixed appointment notes issue
+      Fixed encounter date
+      Fixed the deletion bug and reordered the names
+      Switched biodata order of names
+      Remodelling data: part 1
+      Added a quick summary to the app
+      Assigned left and right as hotkeys
+      Initial forms progress
+      Merge branch 'hotkeys' into modelling
+      Fixed the crash when checking summary: It was due to alcoholtype key being misrepresented as alcoholbottletype
+      Merge branch 'modelling' into forms
+      Merge branch 'appointment' into forms
+      Added forms and worked on filter function
+      Search and sort added with ability to view all patients
+      Date to the top of biodata, middlename last
+      Added IDEA Cognitive Screen to EMR
+
+Mustapha Adeyosola (2):
+      Merge pull request #3 from Adeyossy/summary
+      Merge pull request #5 from Adeyossy/hotkeys
+

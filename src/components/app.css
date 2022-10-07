@@ -7,7 +7,7 @@
   animation: 200ms ease-in 0ms 1 fadeIn;
 }
 
-.emr-app-main .emr-icon-bg{
+.emr-app-main > .emr-icon-bg{
   position: fixed;
   bottom: 16px; right: 16px;
   width: 48px;
@@ -17,7 +17,7 @@
   transition: box-shadow 300ms ease-in, bottom 300ms ease-in;
 }
 
-.emr-app-main .emr-icon-bg:hover{
+.emr-app-main > .emr-icon-bg:hover{
   box-shadow: var(--emr-high-shadow);
   bottom: 50px;
 }
@@ -289,6 +289,12 @@ button.emr-dialog-ok-button:hover, button.emr-dialog-cancel-button:hover{
   color: rgba(0, 0, 0, 0.7);
 }
 
+.emr-upload-progress{
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: transform 250ms ease-in;
+}
+
 @keyframes fadeIn{
   from{
     opacity: 0.5;
@@ -312,13 +318,13 @@ button.emr-dialog-ok-button:hover, button.emr-dialog-cancel-button:hover{
 }
 
 @media only screen and (min-width: 992px){
-  .emr-app-main .emr-icon-bg{
+  .emr-app-main > .emr-icon-bg{
     bottom: 24px; right: 24px;
   }
 }
 
 @media only screen and (min-width: 1224px){
-  .emr-app-main .emr-icon-bg{
+  .emr-app-main > .emr-icon-bg{
     bottom: 24px; right: 25vw;
   }
 }

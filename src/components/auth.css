@@ -43,11 +43,48 @@ main{
 
 .emr-auth-card{
   width: 100%;
+  min-height: 40%;
   padding: 24px 28px 0px 28px;
   position: relative;
   /* background: linear-gradient(to bottom right, white, var(--emr-primary-light-colour)); */
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid var(--emr-primary-light-colour);
+}
+
+.emr-auth-check{
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  margin: auto;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.emr-auth-loading{
+  width: 64px;
+  height: 64px;
+  position: relative;
+  margin: auto;
+  background-color: black;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.emr-auth-loading-spinner{
+  width: 50%;
+  height: 50%;
+  background-color: var(--emr-accent-colour);
+  transform-origin: right bottom;
+  animation: 1s ease-in infinite loading;
+}
+
+.emr-auth-loading-cover{
+  position: absolute;
+  width: 88%;
+  height: 88%;
+  margin: auto;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: white;
+  border-radius: 50%;
 }
 
 .emr-auth-card-details{
@@ -99,6 +136,16 @@ main{
   to{
     background-color: var(--emr-primary-colour);
     opacity: 1;
+  }
+}
+
+@keyframes loading{
+  from{
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 

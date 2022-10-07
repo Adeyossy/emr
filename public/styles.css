@@ -237,6 +237,7 @@ p.emr-patient-name{
   display: inline-block;
   line-height: normal;
   font-size: 7pt;
+  overflow: hidden;
 }
 
 .emr-patient-biodata > p {

@@ -11,6 +11,8 @@ import {
   signOut, updateProfile
 } from "firebase/auth";
 
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
+
 const firebaseConfig = {
   apiKey: "AIzaSyDyAoQjoB-HgfBahyvWp2EOuExh4iZfp9o",
   authDomain: "emrapp-6b53d.firebaseapp.com",
@@ -81,4 +83,41 @@ export const getCurrentUser = (callback) => {
   }));
 
   unsubscribeAuth();
+}
+
+export const uploadToStorage = (modality, metadata, showNotification, 
+  callback, updateCallback) => {
+  const storage = getStorage();
+  const invUploadRef = ref(storage, modality.concat(['/', metadata.name]));
+  const uploadTask = uploadBytesResumable(invUploadRef, metadata.file);
+  const unsubscribe = uploadTask.on('state_changed', snapshot => {
+    console.log("Upload Started");
+    showNotification("Upload Started");
+    console.log("Upload snapshot => ", snapshot);
+    const progress = (snapshot.bytesTransferred / snapshot.totalBytes)
+    updateCallback(progress);
+  }, err => {
+    console.log("Upload error => ", err);
+    showNotification("An error occurred");
+  }, () => {
+    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+      console.log("Download URL => ", downloadURL);
+      showNotification("Upload Complete");
+      callback(downloadURL);
+      unsubscribe();
+    });
+  });
+}
+
+export const deleteFromStorage = (path, callback) => {
+  const deleteRef = ref(getStorage(), path);
+  deleteObject(deleteRef).then(() => {
+    console.log("Successfully Deleted");
+    callback();
+  }).catch((error) => {
+    console.log("An error occurred while uploading");
+    console.log("error => ", error);
+    console.log("error code => ", error.code);
+    console.log("error message => ", error.message);
+  });
 }

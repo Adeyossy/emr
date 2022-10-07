@@ -292,7 +292,10 @@ export class AppComponent extends React.Component {
     //Tabbed components under Other Forms
     // this.investigationsComponents = [ <NotesOnlyComponent notesHeader={"Imaging"} /> ];
     const investigationsComponents = this.componentItems[4].map((item) =>
-      <InvestigationComponent>
+      <InvestigationComponent modality={item.toLowerCase()}
+        createUploadItem={this.props.createUploadItem}
+        updateAnyObject={this.props.updateAnyObject}
+        beginUpload={this.props.beginUpload} deleteUpload={this.props.deleteUpload}>
         <NotesOnlyComponent fields={[item.toLowerCase()]}
           updateAnyObject={this.props.updateAnyObject} notesHeader={item} />
       </InvestigationComponent>);
@@ -345,7 +348,7 @@ export class AppComponent extends React.Component {
               <MainComponent navIndex={this.state.navIndex} dashboard={this.props.dashboard}
                 updateAnyObject={this.props.updateAnyObject}>
                 <LeftSideBarComponent patient={this.props.patient}
-                  patients={this.props.filteredPatients} changePatient={this.props.changePatient}
+                  patients={this.props.patients} changePatient={this.props.changePatient}
                   deletePatient={this.props.deletePatient}
                   updateItemsInArray={this.props.updateItemsInArray}
                   switchToAppointment={this.props.switchToAppointment}

@@ -1,16 +1,14 @@
 import React from 'react';
 import './emr.css';
-import { data1 } from './data1';
-import { data2 } from './neuro.js';
 import AuthComponent from './components/auth';
 import { AppComponent } from './components/app.js';
-import { getAppointment, getAppointmentWithDefaultValues, getFreshPatient, getOldAppointment, newEmrPatient, parseFromDatabase, parseOldPatient, patient } from './models/patient';
-import { authStateObserver, signOut, signUserOut } from './modules/auth';
+import { getAppointment, getAppointmentWithDefaultValues, newEmrPatient, parseFromDatabase, parseOldPatient } from './models/patient';
+import { authStateObserver, deleteFromStorage, signOut, signUserOut, uploadToStorage } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
 import { closeDB, createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
-import { aspectsModel, formsLookUp, gcsModel, mmseModel, nihssModel } from './models/forms';
+import { formsLookUp } from './models/forms';
 
 export const PatientContext = React.createContext(null);
 
@@ -18,9 +16,9 @@ export class EMRComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      user: undefined,
       patients: [],
-      filteredPatients: [],
+      filter: p => true,
       patient: null,
       emrContext: "Dashboard",
       isSignedIn: false,
@@ -30,43 +28,53 @@ export class EMRComponent extends React.Component {
       dialogMessage: "",
       dialogTitle: "",
       dialogAction: this.dismissDialog.bind(this),
-      authComplete: false
+      authComplete: true
     }
   }
 
   componentDidMount() {
-    authStateObserver(this.authStateChanged);
+    // console.log("firebase user => ", this.state.user);
+    // authStateObserver(this.authStateChanged);
     // getOfflineDocs(this.docsFromOfflineDB);
   }
 
   componentWillUnmount() {
-    // console.log("unmount called");
+    console.log("unmount called");
     // closeDB(signUserOut());
+    // delete this.state.patient.appointment.imaging.uploads
   }
 
   authStateChanged = (user) => {
+    // console.log("firebase user => ", user);
     if (user) {
-      // console.log("firebase user => ", user);
       createDB(user);
       if (user.displayName) {
-        // console.log("displayname => ", user.displayName);
+        console.log("displayname => ", user.displayName);
         // this.continueToApp();
       }
 
-      this.setState({
-        user: user
-      });
-
       // createDB(user);
     }
+
+    this.setState({
+      user: user
+    });
   }
 
   continueToApp = () => {
+    console.log("Continue to app");
     this.setState({
       isSignedIn: true,
       showNotification: true,
       info: "Welcome"
     });
+
+    setTimeout(() => {
+      this.setState({
+        showNotification: true,
+        info: "Fetching your files"
+      });
+    }, 500);
 
     fetchFromRemote(this.docsFromOfflineDB);
     // getOfflineDocs(this.docsFromOfflineDB);
@@ -177,7 +185,7 @@ export class EMRComponent extends React.Component {
     });
 
     //TODO: create on database as well
-    createNewDoc(newPatient, null);
+    // createNewDoc(newPatient, null);
   }
 
   deletePatient = (id) => {
@@ -201,7 +209,7 @@ export class EMRComponent extends React.Component {
     }
 
     //TODO: delete from database as well
-    deleteDoc(id);
+    // deleteDoc(id);
   }
 
   onPatientTableClicked = (id) => {
@@ -235,7 +243,7 @@ export class EMRComponent extends React.Component {
       patient: thisPatient
     });
 
-    updateDoc(thisPatient);
+    // updateDoc(thisPatient);
   }
 
   updateComplaints = (name, value) => {
@@ -247,7 +255,7 @@ export class EMRComponent extends React.Component {
     });
     // console.log("complaint notes => ", value);
 
-    updateDoc(thisPatient);
+    // updateDoc(thisPatient);
   }
 
   getWhereToModify = (fields, found) => {
@@ -290,6 +298,7 @@ export class EMRComponent extends React.Component {
     // const pmh = thisPatient.past_medical_history; //access the past medical history of the patient
     const pmhArray = this.getWhereSwitched(fields);
     //get either hospitalization, surgery, blood transfusion and comorbidities
+    // console.log("pmhArray => ", pmhArray);
     let pmhArrayItem = undefined;
     if (Array.isArray(pmhArray))
       pmhArrayItem = pmhArray[index];
@@ -303,7 +312,7 @@ export class EMRComponent extends React.Component {
       patient: thisPatient
     });
 
-    updateDoc(thisPatient);
+    // updateDoc(thisPatient);
   }
 
   //add or remove entire items (i.e an hospitalization history) in the past medical history array
@@ -329,7 +338,7 @@ export class EMRComponent extends React.Component {
       patient: thisPatient
     });
 
-    updateDoc(thisPatient);
+    // updateDoc(thisPatient);
   }
 
   createNewAppointment = () => {
@@ -348,7 +357,7 @@ export class EMRComponent extends React.Component {
       patient: this.state.patient
     });
 
-    updateDoc(this.state.patient);
+    // updateDoc(this.state.patient);
   }
 
   deleteAppointment = (date_seen) => {
@@ -363,7 +372,7 @@ export class EMRComponent extends React.Component {
       });
     } else { }
 
-    updateDoc(this.state.patient);
+    // updateDoc(this.state.patient);
   }
 
   showDialog = (title, message, action) => {
@@ -398,7 +407,7 @@ export class EMRComponent extends React.Component {
       });
     }
 
-    updateDoc(this.state.patient);
+    // updateDoc(this.state.patient);
   }
 
   deleteForm = (formTag) => {
@@ -412,16 +421,18 @@ export class EMRComponent extends React.Component {
       info: `${formTag.toUpperCase()} form deleted`
     });
 
-    updateDoc(this.state.patient);
+    // updateDoc(this.state.patient);
   }
 
   componentDidUpdate(prevProps, prevState) {
     // console.log("patient => ", this.state.patient);
+    // console.log("In componentDidUpdate");
     if (prevState.user === null && this.state.user) { }
   }
 
   filterPatients = (sortString) => {
     sortString = String(sortString).toLowerCase();
+    let filter = this.state.filter
 
     if (sortString.includes("=")) {
       const splitSortString = sortString.split("=", 2);
@@ -429,132 +440,168 @@ export class EMRComponent extends React.Component {
       const value = splitSortString[1].trim();
 
       if (field === 'name') {
-        this.state.filteredPatients = this.state.patients.filter(patient =>
+        filter = patient => 
           patient.appointment.biodata.lastname.toLowerCase().includes(value) ||
           patient.appointment.biodata.middlename.toLowerCase().includes(value) ||
           patient.appointment.biodata.firstname.toLowerCase().includes(value)
-        )
       }
 
       if (field === '#') {
-        this.state.filteredPatients = this.state.patients.filter(patient =>
-          String(patient.appointment.biodata.id).includes(value))
+        filter = patient =>
+          String(patient.appointment.biodata.id).includes(value)
       }
 
       if (field === 'n') {
-        this.state.filteredPatients = this.state.patients.filter(patient =>
-          patient.appointments.length >= Number(value)).sort((a, b) => 
-          a.appointments.length - b.appointments.length);
+        filter = patient =>
+          (patient.appointments.length >= Number(value)).sort((a, b) =>
+            a.appointments.length - b.appointments.length);
       }
 
       if (field === 'd' || field.includes('diagnosis')) {
-        this.state.filteredPatients = this.state.patients.filter(patient =>
+        filter = patient =>
           String(patient.primary_diagnosis).toLowerCase().includes(value) ||
           String(patient.secondary_diagnosis).toLowerCase().includes(value)
-        )
       }
 
       if (field === 'dd' || field.includes('differential')) {
-        this.state.filteredPatients = this.state.patients.filter(patient =>
+        filter = patient =>
           String(patient.secondary_diagnosis).toLowerCase().includes(value)
-        )
       }
     } else {
     }
 
     this.setState({
-      filteredPatients: this.state.filteredPatients
+      filter: filter
     });
   }
 
   sortPatients = (sortBy) => {
-    let sortedPatient = this.state.filteredPatients;
+    let sorter = (a, b) => 0
 
     if (sortBy === "name") {
-      sortedPatient = this.state.filteredPatients
-        .sort((a, b) => {
+      sorter = (a, b) => {
           if (a.appointment.biodata.lastname.toLowerCase()
             < b.appointment.biodata.lastname.toLowerCase())
             return -1;
-        });
+        };
     }
 
     if (sortBy === "age") {
-      sortedPatient = this.state.filteredPatients
-        .sort((a, b) => a.appointment.biodata.ageinyears - b.appointment.biodata.ageinyears);
+      sorter = (a, b) => 
+        a.appointment.biodata.ageinyears - b.appointment.biodata.ageinyears;
     }
 
     if (sortBy === "id") {
-      sortedPatient = this.state.filteredPatients
-        .sort((a, b) => a.appointment.biodata.id - b.appointment.biodata.id);
+      sorter = (a, b) => a.appointment.biodata.id - b.appointment.biodata.id;
     }
 
     if (sortBy === "d") {
-      sortedPatient = this.state.filteredPatients
-        .sort((a, b) => a.primary_diagnosis.toLowerCase() <
-          b.primary_diagnosis.toLowerCase() ? -1 : 0);
+      sorter = (a, b) => a.primary_diagnosis.toLowerCase() <
+          b.primary_diagnosis.toLowerCase() ? -1 : 0;
     }
 
     if (sortBy === "d") {
-      sortedPatient = this.state.filteredPatients
-        .sort((a, b) => a.secondary_diagnosis.toLowerCase()
-          < b.secondary_diagnosis.toLowerCase() ? -1 : 0);
+      sorter = (a, b) => a.secondary_diagnosis.toLowerCase()
+          < b.secondary_diagnosis.toLowerCase() ? -1 : 0;
     }
 
     this.setState({
-      filteredPatients: sortedPatient
+      patients: this.state.patients.sort(sorter)
     });
   }
 
-  render() {
-    //:1 => if there is a user i.e. logged in, display the app
-    if (this.state.isSignedIn) {
-      //:2 => if there is a selected patient, display the details
-      return (
-        <>
-          <NotificationComponent showNotification={this.state.showNotification}
-            info={this.state.info} dismissNotification={this.dismissNotification} />
-          <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
-            dashboard={this.switchBackToDashboard} patient={this.state.patient}
-            patients={this.state.patients} changePatient={this.onPatientChange}
-            deletePatient={this.deletePatient} filteredPatients={this.state.filteredPatients}
-            updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
-            updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
-            updateItemsInArray={this.updateItemsInArray}
-            switchToAppointment={this.switchToAppointment}
-            createNewAppointment={this.createNewAppointment}
-            onUserSignOut={this.onUserSignOut} showDialogOnClick={this.showDialog}
-            showDialog={this.state.showDialog} dialogMessage={this.state.dialogMessage}
-            dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction}
-            dialogTitle={this.state.dialogTitle} user={this.state.user}
-            deleteAppointment={this.deleteAppointment} addForm={this.addForm}
-            deleteForm={this.deleteForm} filterPatients={this.filterPatients}>
-            {
-              this.state.patient !== null ?
-                null :
-                <DashboardComponent
-                  recents={this.state.patients.filter(patient => patient.appointments.length === 1)
-                    .sort((a, b) => b._id - a._id).slice(0, 3)}
-                  createNewPatient={this.onCreateIconClicked}
-                  viewPatient={this.onPatientTableClicked} user={this.state.user}>
-                  <PatientTableComponent patients={this.state.filteredPatients}
-                    onItemClicked={this.onPatientTableClicked}
-                    authComplete={this.state.authComplete}
-                    sortPatients={this.sortPatients} />
-                </DashboardComponent>
-            }
-          </AppComponent>
-        </>
-      )
-    } else {
-      return (
-        <>
-          <NotificationComponent />
-          <AuthComponent signIn={this.signUserIn} continueToApp={this.continueToApp}
-            user={this.state.user}
-          />
-        </>
-      )
+  createUploadItem = (modality, uploadItem) => {
+    const currentPatient = this.state.patient;
+    const invModality = currentPatient.appointment[modality];
+    if (!invModality.hasOwnProperty('uploads') || !Array.isArray(invModality.uploads)) {
+      invModality.uploads = [];
     }
+
+    invModality.uploads.push(uploadItem);
+
+    this.setState({
+      patient: currentPatient
+    });
+
+    // updateDoc(this.state.patient);
+  }
+
+  beginUpload = (modality, uploadID, updateCallback) => {
+    const itemForUpload = this.state.patient.appointment[modality].uploads
+      .find(uploadItem => uploadItem.id === uploadID);
+    uploadToStorage(modality, itemForUpload, (info) => {
+      this.setState({
+        showNotification: true,
+        info: info
+      });
+    }, this.afterUpload.bind(this, modality, itemForUpload.id), updateCallback);
+  }
+
+  afterUpload = (modality, uploadID, downloadURL) => {
+    const itemForUpload = this.state.patient.appointment[modality].uploads
+      .find(uploadItem => uploadItem.id === uploadID);
+    itemForUpload.downloadURL = downloadURL;
+
+    this.setState({
+      patient: this.state.patient
+    });
+
+    // updateDoc(this.state.patient);
+  }
+
+  deleteUpload = (modality, uploadID) => {
+    const thisPatient = this.state.patient;
+    let uploads = thisPatient.appointment[modality].uploads;
+    this.state.patient.appointment[modality].uploads =
+      uploads.filter((upload) => upload.id !== uploadID);
+
+    this.setState({
+      patient: thisPatient,
+      showNotification: true,
+      info: "Successfully Deleted"
+    });
+
+    // updateDoc(this.state.patient);
+  }
+
+  render() {
+    return (
+      <>
+        <NotificationComponent showNotification={this.state.showNotification}
+          info={this.state.info} dismissNotification={this.dismissNotification} />
+        <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
+          dashboard={this.switchBackToDashboard} patient={this.state.patient}
+          patients={this.state.patients.filter(this.state.filter)}
+          deletePatient={this.deletePatient} changePatient={this.onPatientChange}
+          updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
+          updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
+          updateItemsInArray={this.updateItemsInArray}
+          switchToAppointment={this.switchToAppointment}
+          createNewAppointment={this.createNewAppointment}
+          onUserSignOut={this.onUserSignOut} showDialogOnClick={this.showDialog}
+          showDialog={this.state.showDialog} dialogMessage={this.state.dialogMessage}
+          dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction}
+          dialogTitle={this.state.dialogTitle} user={this.state.user}
+          deleteAppointment={this.deleteAppointment} addForm={this.addForm}
+          deleteForm={this.deleteForm} filterPatients={this.filterPatients}
+          createUploadItem={this.createUploadItem} beginUpload={this.beginUpload}
+          deleteUpload={this.deleteUpload}>
+          {
+            this.state.patient !== null ?
+              null :
+              <DashboardComponent
+                recents={this.state.patients.filter(patient => patient.appointments.length === 1)
+                  .sort((a, b) => b._id - a._id).slice(0, 3)}
+                createNewPatient={this.onCreateIconClicked}
+                viewPatient={this.onPatientTableClicked} user={this.state.user}>
+                <PatientTableComponent patients={this.state.patients.filter(this.state.filter)}
+                  onItemClicked={this.onPatientTableClicked}
+                  authComplete={this.state.authComplete}
+                  sortPatients={this.sortPatients} />
+              </DashboardComponent>
+          }
+        </AppComponent>
+      </>
+    )
   }
 }
