@@ -8,9 +8,9 @@ export default class LeftSideBarComponent extends React.Component {
     // console.log("patient's first seen => ", this.props.patient._id);
     const ordinalNumbers = ["st", "nd", "rd", "th"]
     return (
-      <div className="container-fluid">
+      <div className="container-fluid emr-leftbar">
         <div className="row g-0">
-          <div className="d-none d-lg-block col-xl-3 col-lg-4 emr-sidebar emr-sidebar-l">
+          <div className={`${this.props.isDrawerOpen?"d-block col-md-6":"d-none"} d-lg-block col-xl-3 col-lg-4 emr-sidebar emr-sidebar-l`}>
             <div className="emr-left-sidebar">
               <div className="emr-patients-sidebar">
                 {

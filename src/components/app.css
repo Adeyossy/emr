@@ -153,7 +153,7 @@ th{
   margin-right: 24px;
   margin-bottom: 12px;
   color: var(--emr-darker-grey-colour);
-  border: 2px solid var(--emr-primary-light-colour);
+  border: 3px solid var(--emr-primary-light-colour);
   border-radius: 32px;
 }
 
@@ -247,8 +247,7 @@ li.emr-form-item-description{
   width: 100%;
   padding: 32px var(--emr-default-padding);
   color: var(--emr-darker-grey-colour);
-  font-size: 10pt;
-  font-weight: bold;
+  font-size: 16px;
   /* display: inline-block;
   text-align: center; */
   background-color: white;
@@ -279,13 +278,13 @@ button.emr-dialog-ok-button:hover, button.emr-dialog-cancel-button:hover{
 .emr-dialog-title-text{
   color: var(--emr-secondary-colour);
   font-weight: 700;
-  font-size: 8pt;
+  font-size: 14pt;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
 
 .emr-patient-summary p {
-  font-size: 10.5pt;
+  font-size: 16px;
   color: rgba(0, 0, 0, 0.7);
 }
 

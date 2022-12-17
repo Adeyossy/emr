@@ -53,7 +53,25 @@ export default class NavComponent extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row align-items-center">
-          <div className="col-5 col-md-2 col-lg-2">
+          {/* <div className="col-1">
+            {
+              this.props.patient ? <div className="emr-new-patient">
+                <div className="emr-icon-bg emr-icon-bg-dark" onClick={this.props.createNewPatient}>
+                  <i className="bi bi-list emr-icons emr-center-icon"></i>
+                  <i className="emr-icon-tooltip">Sidebar</i>
+                </div>
+              </div> : null
+            }
+          </div> */}
+          <div className="col-6 col-md-3 col-lg-2 d-inline-block">
+            {
+              this.props.patient ? <div className="emr-new-patient d-inline-block">
+                <div className="emr-icon-bg emr-icon-bg-dark" onClick={this.props.changeDrawerState}>
+                  <i className={`bi ${this.props.isDrawerOpen ? 'bi-arrow-left' : 'bi-list'} emr-icons emr-center-icon`}></i>
+                  <i className="emr-icon-tooltip">Sidebar</i>
+                </div>
+              </div> : null
+            }
             <div className="emr-nav-dropdown">
               <div className="emr-current-view">
                 <h6 className="emr-headers d-inline">{this.props.currentView}</h6>
@@ -90,7 +108,7 @@ export default class NavComponent extends React.Component {
                 <i className="bi bi-search emr-icons emr-center-icon"></i>
               </div>
               <input type="text" name="search" id="search" placeholder="Search"
-              onChange={this.onSearchInput}></input>
+                onChange={this.onSearchInput}></input>
             </div>
           </div>
           <div className="col-lg-1 d-none d-lg-block">

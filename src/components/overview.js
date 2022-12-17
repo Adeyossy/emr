@@ -158,7 +158,7 @@ export default class OverviewComponent extends React.Component {
                             <p className="emr-patient-summary-item text-wrap"><strong>Religion:</strong> {this.context.appointment.biodata.religion}</p>
                             <p className="emr-patient-summary-item text-wrap"><strong>Tribe:</strong> {this.context.appointment.biodata.tribe}</p> */}
                           </div>
-                          <br /><br />
+                          <br />
                           <div className="emr-patient-summary">
                             <h4 className="emr-card-headers">Presenting Complaint</h4>
                             <div className="emr-patient-summary-category">
@@ -174,7 +174,7 @@ export default class OverviewComponent extends React.Component {
                               <p className="emr-patient-summary-item text-wrap">{this.context.appointment.presenting_complaints.notes}</p>
                             </div>
                           </div>
-                          <br /><br />
+                          <br />
                           <div className="emr-patient-summary">
                             <h4 className="emr-card-headers">Review of Systems</h4>
                             <div className="emr-patient-summary-category">
@@ -186,13 +186,13 @@ export default class OverviewComponent extends React.Component {
                               <p className="emr-patient-summary-item text-wrap">{this.context.appointment.review_of_systems.notes}</p>
                             </div>
                           </div>
-                          <br /><br />
+                          <br />
                           <div className="emr-patient-summary">
                             <h4 className="emr-card-headers">Past Medical History</h4>
                             <div className="emr-patient-summary-category">
                               <div className="emr-selectable-items-group">
                                 <p className="emr-patient-summary-item text-wrap">
-                                  The patient has had {this.context.appointment.past_medical_history.hospitalizations.length} hospitalization(s), {this.context.appointment.past_medical_history.surgeries.length} surgeries, {this.context.appointment.past_medical_history.blood_transfusions.length}. The patient has {this.context.appointment.past_medical_history.comorbidities > 0 ? this.context.appointment.past_medical_history.comorbidities.join(", ") : "no comorbidites"}. Blood group is {this.context.appointment.past_medical_history.blood_group.toUpperCase()} {this.context.appointment.past_medical_history.rhesus.toLowerCase()}. The genotype is {this.context.appointment.past_medical_history.genotype}.
+                                  The patient has had {this.context.appointment.past_medical_history.hospitalizations.length} hospitalization(s), {this.context.appointment.past_medical_history.surgeries.length} surgeries, {this.context.appointment.past_medical_history.blood_transfusions.length} blood transfusion. The patient has {this.context.appointment.past_medical_history.comorbidities > 0 ? this.context.appointment.past_medical_history.comorbidities.join(", ") : "no comorbidites"}. Blood group is {this.context.appointment.past_medical_history.blood_group.toUpperCase()} {this.context.appointment.past_medical_history.rhesus.toLowerCase()}. The genotype is {this.context.appointment.past_medical_history.genotype ? this.context.appointment.past_medical_history.genotype : 'unknown'}.
                                 </p>
                                 <br />
                                 <p className="emr-patient-summary-item text-wrap">
@@ -201,7 +201,6 @@ export default class OverviewComponent extends React.Component {
                               </div>
                             </div>
                           </div>
-                          <br /><br />
                           <div className="emr-patient-summary">
                             <h4 className="emr-card-headers">Drugs and Allergies</h4>
                             <div className="emr-patient-summary-category">
@@ -212,7 +211,7 @@ export default class OverviewComponent extends React.Component {
                               </div>
                             </div>
                           </div>
-                          <br /><br />
+                          <br />
                           <div className="emr-patient-summary">
                             <h4 className="emr-card-headers">Family History</h4>
                             <div className="emr-patient-summary-category">

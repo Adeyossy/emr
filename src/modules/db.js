@@ -64,35 +64,34 @@ export function fetchFromRemote(callback) {
 
   if (patientsDB !== null) {
     patientsDB.replicate.from(iam.url.concat("/").concat(dbName)).on("complete", (info) => {
-      console.log("on complete => ", info);
+      // console.log("on complete => ", info);
       getOfflineDocs(callback);
       patientsDB.sync(iam.url.concat("/").concat(dbName), { live: true, retry: true })
         .on("change", (info) => {
-          console.log("on change => ", info);
+          // console.log("on change => ", info);
         }).on("paused", (err) => {
-          console.log("on paused => ", err);
+          // console.log("on paused => ", err);
         }).on("error", (err) => {
-          console.log("on error => ", err);
+          // console.log("on error => ", err);
         });
     }).on("active", () => {
-      console.log("on active");
+      // console.log("on active");
     }).on("change", (info) => {
-      console.log("on change => ", info);
+      // console.log("on change => ", info);
     }).on("paused", (err) => {
-      console.log("on paused => ", err);
+      // console.log("on paused => ", err);
     }).on("error", (err) => {
-      console.log("on error => ", err);
+      // console.log("on error => ", err);
       getOfflineDocs(callback);
     }).on("denied", (err) => {
-      console.log("on denied => ", err);
+      // console.log("on denied => ", err);
     });
   }
 }
 
 export function getOfflineDocs(callback) {
   patientsDB.allDocs({ include_docs: true, descending: true }, (error, doc) => {
-    console.log("doc => ", doc);
-    console.log("doc.rows => ", doc.rows);
+    
     if (error) {
       console.log("error => ", error);
     }
@@ -108,10 +107,7 @@ export function createNewDoc(patient, callback) {
   }
 
   patientsDB.put(patient, (error, doc) => {
-    if (!error)
-      console.log("doc to be put or already put =>", doc);
-
-    console.log("error on put =>", error);
+    if(error) console.log("error on put =>", error);
   });
 }
 
@@ -123,14 +119,15 @@ export function updateDoc(patient) {
 
   patientsDB.get(patient._id).then(doc => {
     patient._rev = doc._rev;
-    return patientsDB.put(patient)
+    // console.log('document saved');
+    return patientsDB.put(patient);
   }).catch(error => {
-    console.log("an error occurred => ", error);
+    // console.log("an error occurred => ", error);
   });
 }
 
 export function deleteDoc(id) {
-  console.log("dbName => ", dbName);
+  // console.log("dbName => ", dbName);
   if (patientsDB === null) {
     getCurrentUser(createDB);
   }
@@ -141,12 +138,12 @@ export function deleteDoc(id) {
 }
 
 export function closeDB(callback) {
-  console.log("dbName => ", dbName);
+  // console.log("dbName => ", dbName);
   if (patientsDB === null) {
     getCurrentUser(createDB);
   }
   patientsDB.close().then(() => {
-    console.log("db is closed");
+    // console.log("db is closed");
     callback();
   }).catch((error) => {
     console.log("error closing database => ", error);

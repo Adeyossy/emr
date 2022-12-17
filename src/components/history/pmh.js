@@ -76,7 +76,8 @@ export default class PMHComponent extends React.Component {
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="numberofhospitalizations">Number of Previous Hospitalizations</label>
             <input type="number" name="numberofhospitalizations" id="numberofhospitalizations"
-              placeholder="e.g 2" className="mb-4"
+              placeholder="e.g 2" className={`mb-4 
+              ${this.context.appointment.past_medical_history.hospitalizations.length ? 'filled' : ''}`}
               value={this.context.appointment.past_medical_history.hospitalizations.length}
               onChange={this.updateInts} required></input>
             {/* <!-- Next list level --> */}

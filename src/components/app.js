@@ -34,13 +34,14 @@ import FormComponent from "./forms/form";
 import { formsLookUp } from "../models/forms";
 import FormSingleComponent from "./forms/form_single";
 import InvestigationComponent from "./investigation/investigation";
+import BottomNavComponent from "./bottom_nav";
 
 export class AppComponent extends React.Component {
   constructor(props) {
     super(props);
 
     this.componentItems = [
-      ["Biodata", "Complaint", "RoS", "PMH", "Drugs | Allergies", "FSHx"],
+      ["Biodata", "Complaint", "RoS", "PMH", "Drug | Allergy", "FSHx"],
       ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"],
       [],
       ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
@@ -58,26 +59,33 @@ export class AppComponent extends React.Component {
       contextItems: ["Dashboard", "Patients", "Investigations"],
       tabIndex: [0, 0, 0, 0, 0, 0, 0],
       showOverview: false,
-      booleanState: false
+      booleanState: false,
+      isDrawerOpen: false
     }
   }
 
   componentDidMount() {
-    window.addEventListener('keydown', (e) => {
-      if (this.props.patient) {
-        let index = this.state.tabIndex[this.state.navIndex]; //last value
-        if (e.key == "ArrowRight") {
-          console.log("Right arrow pressed");
-          index += 1; //new value
-          this.onHotkeysPressed(index);
-          // handleAnimations(++currentNumber, "animateInClass");
-        }
 
-        if (e.key == "ArrowLeft") {
-          console.log("Left arrow pressed");
-          index -= 1;
-          this.onHotkeysPressed(index);
-          // handleAnimations(--currentNumber, "animateOutClass");
+    window.addEventListener('keydown', (e) => {
+      const focusedElement = document.activeElement.tagName.toLowerCase();
+      console.log('focused element => ', focusedElement);
+      
+      if (focusedElement === 'input' || focusedElement === 'textarea') {
+      } else {
+        if (this.props.patient) {
+          let index = this.state.tabIndex[this.state.navIndex]; //last value
+          if (e.key === "ArrowRight") {
+            index += 1; //new value
+            this.onHotkeysPressed(index);
+            // handleAnimations(++currentNumber, "animateInClass");
+          }
+
+          if (e.key === "ArrowLeft") {
+            console.log("Left arrow pressed");
+            index -= 1;
+            this.onHotkeysPressed(index);
+            // handleAnimations(--currentNumber, "animateOutClass");
+          }
         }
       }
     });
@@ -124,6 +132,19 @@ export class AppComponent extends React.Component {
       navState: navState,
       navIndex: index
     });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }
+
+  changeDrawerState = () => {
+    this.setState(
+      {
+        isDrawerOpen: !this.state.isDrawerOpen
+      }
+    )
   }
 
   deselectAnyActiveToolbar = () => {
@@ -168,14 +189,12 @@ export class AppComponent extends React.Component {
           formTag={key} updateAnyObject={this.props.updateAnyObject}
           deleteForm={this.props.deleteForm}
         />
-      } else {
-        if (formsLookUp[key].type === "single") {
-          return <FormSingleComponent name={formsLookUp[key].title} form={formsLookUp[key].items}
-            formTag={key} updateAnyObject={this.props.updateAnyObject}
-            deleteForm={this.props.deleteForm}
-          />
-        }
       }
+      // if (formsLookUp[key].type === "single") {
+      return <FormSingleComponent name={formsLookUp[key].title} form={formsLookUp[key].items}
+        formTag={key} updateAnyObject={this.props.updateAnyObject}
+        deleteForm={this.props.deleteForm}
+      />
     }
     );
 
@@ -186,8 +205,6 @@ export class AppComponent extends React.Component {
 
   updateFormState = (whereToSelect) => {
     this.state.tabState[2] = this.state.componentItems[2].slice().fill("");
-    // this.state.tabState[2][tabToSelect] = "selected";
-    // this.state.tabIndex[2] = tabToSelect;
 
     this.setState({
       otherFormsComponents: this.state.otherFormsComponents,
@@ -219,14 +236,19 @@ export class AppComponent extends React.Component {
       this.state.componentItems[2].push("MMSE");
     }
 
-    this.state.tabState[2] = this.state.componentItems[2].slice().fill("");
-    this.state.tabState[2][tabToSelect] = "selected";
-    this.state.tabIndex[2] = tabToSelect;
+    const localTabState = this.state.tabState;
+    localTabState[2] = this.state.componentItems[2].slice().fill("");
+    localTabState[2][tabToSelect] = "selected";
+
+    // Get the tab index of the app and reselect as appropriate
+    const localTabIndex = this.state.tabIndex
+    localTabIndex[2] = tabToSelect;
 
     this.setState({
+      tabState: localTabState,
       otherFormsComponents: this.state.otherFormsComponents,
       componentItems: this.state.componentItems,
-      tabIndex: this.state.tabIndex
+      tabIndex: localTabIndex
     });
   }
 
@@ -295,7 +317,8 @@ export class AppComponent extends React.Component {
       <InvestigationComponent modality={item.toLowerCase()}
         createUploadItem={this.props.createUploadItem}
         updateAnyObject={this.props.updateAnyObject}
-        beginUpload={this.props.beginUpload} deleteUpload={this.props.deleteUpload}>
+        beginUpload={this.props.beginUpload} deleteUpload={this.props.deleteUpload}
+        showDialog={this.props.showDialogOnClick}>
         <NotesOnlyComponent fields={[item.toLowerCase()]}
           updateAnyObject={this.props.updateAnyObject} notesHeader={item} />
       </InvestigationComponent>);
@@ -340,29 +363,39 @@ export class AppComponent extends React.Component {
             currentView={this.props.currentView} navIndex={this.state.navIndex}
             patient={this.props.patient} createNewPatient={this.props.createNewPatient}
             onUserSignOut={this.props.onUserSignOut} user={this.props.user}
-            filterPatients={this.props.filterPatients} />
+            filterPatients={this.props.filterPatients} isDrawerOpen={this.state.isDrawerOpen}
+            changeDrawerState={this.changeDrawerState}
+          />
         </nav>
+        {this.props.patient && this.props.patient.appointment ?
+          <BottomNavComponent changeState={this.updateNavState}
+            navIndex={this.state.navIndex} /> : null
+        }
         {
           this.props.children ? this.props.children :
             <PatientContext.Provider value={this.props.patient}>
               <MainComponent navIndex={this.state.navIndex} dashboard={this.props.dashboard}
-                updateAnyObject={this.props.updateAnyObject}>
-                <LeftSideBarComponent patient={this.props.patient}
-                  patients={this.props.patients} changePatient={this.props.changePatient}
-                  deletePatient={this.props.deletePatient}
-                  updateItemsInArray={this.props.updateItemsInArray}
-                  switchToAppointment={this.props.switchToAppointment}
-                  createNewAppointment={this.props.createNewAppointment}
-                  showDialogOnClick={this.props.showDialogOnClick}
-                  showOverview={this.state.showOverview}
-                  setOverview={this.setOverview} deleteAppointment={this.props.deleteAppointment}>
-                </LeftSideBarComponent>
+                updateAnyObject={this.props.updateAnyObject}
+                isDrawerOpen={this.state.isDrawerOpen}>
+                {this.state.isDrawerOpen ?
+                  <LeftSideBarComponent patient={this.props.patient}
+                    patients={this.props.patients} changePatient={this.props.changePatient}
+                    deletePatient={this.props.deletePatient}
+                    updateItemsInArray={this.props.updateItemsInArray}
+                    switchToAppointment={this.props.switchToAppointment}
+                    createNewAppointment={this.props.createNewAppointment}
+                    showDialogOnClick={this.props.showDialogOnClick}
+                    showOverview={this.state.showOverview}
+                    setOverview={this.setOverview} deleteAppointment={this.props.deleteAppointment}
+                    isDrawerOpen={this.state.isDrawerOpen}>
+                  </LeftSideBarComponent> : null}
                 {
                   this.state.showOverview ?
                     <OverviewComponent /> :
                     <Selectable
                       index={this.state.navIndex} updateAnyObject={this.props.updateAnyObject}
-                      updateItemsInArray={this.props.updateItemsInArray} >
+                      updateItemsInArray={this.props.updateItemsInArray}
+                      isDrawerOpen={this.state.isDrawerOpen}>
                       <TabComponent items={this.componentItems[this.state.navIndex]}
                         tabState={this.tabState[this.state.navIndex]}>
                         {/* {console.log("inner", this.state.tabState)} */}

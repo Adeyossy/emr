@@ -6,7 +6,7 @@ import { getAppointment, getAppointmentWithDefaultValues, newEmrPatient, parseFr
 import { authStateObserver, deleteFromStorage, signOut, signUserOut, uploadToStorage } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
-import { closeDB, createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, updateDoc } from './modules/db';
+import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
 import { formsLookUp } from './models/forms';
 
@@ -28,32 +28,49 @@ export class EMRComponent extends React.Component {
       dialogMessage: "",
       dialogTitle: "",
       dialogAction: this.dismissDialog.bind(this),
-      authComplete: true
+      authComplete: false,
+      hasDataChanged: false
     }
+
+    this.intervalDuration = 5000
   }
 
   componentDidMount() {
-    // console.log("firebase user => ", this.state.user);
-    // authStateObserver(this.authStateChanged);
+    authStateObserver(this.authStateChanged);
+
+    this.setSavingInterval()
+    setInterval(this.updateInterval, 15000)
     // getOfflineDocs(this.docsFromOfflineDB);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.user === null && this.state.user) { }
+
+    this.intervalDuration = 500;
+  }
+
   componentWillUnmount() {
-    console.log("unmount called");
-    // closeDB(signUserOut());
-    // delete this.state.patient.appointment.imaging.uploads
+  }
+
+  saveChanges = () => {
+    if (this.state.patient) {
+      updateDoc(this.state.patient);
+    }
+  }
+
+  setSavingInterval = () => {
+    this.savingInterval = setInterval(this.saveChanges, this.intervalDuration);
+  }
+
+  updateInterval = () => {
+    this.intervalDuration += 5000
+    clearInterval(this.savingInterval)
+    this.setSavingInterval()
   }
 
   authStateChanged = (user) => {
-    // console.log("firebase user => ", user);
     if (user) {
       createDB(user);
-      if (user.displayName) {
-        console.log("displayname => ", user.displayName);
-        // this.continueToApp();
-      }
-
-      // createDB(user);
     }
 
     this.setState({
@@ -62,7 +79,6 @@ export class EMRComponent extends React.Component {
   }
 
   continueToApp = () => {
-    console.log("Continue to app");
     this.setState({
       isSignedIn: true,
       showNotification: true,
@@ -101,7 +117,7 @@ export class EMRComponent extends React.Component {
 
   docsFromOfflineDB = (docs) => {
     //We're expecting an array of object with 'doc' as the needed key for the value
-    // console.log(docs);
+    
     let dataFromDocs = docs.map(item => item.doc);
 
     // const data1Parsed = JSON.parse(JSON.stringify(data2));
@@ -176,7 +192,6 @@ export class EMRComponent extends React.Component {
     // const newPatient = parseOldPatient.call(JSON.parse(JSON.stringify(getFreshPatient())));
     const newPatient = newEmrPatient();
     this.state.patients.push(newPatient);
-    console.log("new patient => ", newPatient);
     this.setState({
       patient: newPatient,
       emrContext: "Patients",
@@ -185,7 +200,7 @@ export class EMRComponent extends React.Component {
     });
 
     //TODO: create on database as well
-    // createNewDoc(newPatient, null);
+    createNewDoc(newPatient, null);
   }
 
   deletePatient = (id) => {
@@ -209,7 +224,7 @@ export class EMRComponent extends React.Component {
     }
 
     //TODO: delete from database as well
-    // deleteDoc(id);
+    deleteDoc(id);
   }
 
   onPatientTableClicked = (id) => {
@@ -357,6 +372,11 @@ export class EMRComponent extends React.Component {
       patient: this.state.patient
     });
 
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: 'smooth'
+    // });
+
     // updateDoc(this.state.patient);
   }
 
@@ -367,6 +387,7 @@ export class EMRComponent extends React.Component {
       patient.appointments = patient.appointments
         .filter(item => item.date_seen !== date_seen).sort((a, b) => b.date_seen - a.date_seen);
       patient.appointment = patient.appointments[0];
+      patient.last_seen = patient.appointment[0].date_seen
       this.setState({
         patient: patient
       });
@@ -393,7 +414,6 @@ export class EMRComponent extends React.Component {
   }
 
   addForm = (formTag) => {
-    // console.log("addForm method called => ", formTag);
     if (!this.state.patient.appointment.forms.hasOwnProperty(formTag)) {
       if (formsLookUp.hasOwnProperty(formTag)) {
         this.state.patient.appointment.forms[formTag] =
@@ -424,12 +444,6 @@ export class EMRComponent extends React.Component {
     // updateDoc(this.state.patient);
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log("patient => ", this.state.patient);
-    // console.log("In componentDidUpdate");
-    if (prevState.user === null && this.state.user) { }
-  }
-
   filterPatients = (sortString) => {
     sortString = String(sortString).toLowerCase();
     let filter = this.state.filter
@@ -453,8 +467,7 @@ export class EMRComponent extends React.Component {
 
       if (field === 'n') {
         filter = patient =>
-          (patient.appointments.length >= Number(value)).sort((a, b) =>
-            a.appointments.length - b.appointments.length);
+          patient.appointments.length >= Number(value);
       }
 
       if (field === 'd' || field.includes('diagnosis')) {
@@ -565,43 +578,54 @@ export class EMRComponent extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        <NotificationComponent showNotification={this.state.showNotification}
-          info={this.state.info} dismissNotification={this.dismissNotification} />
-        <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
-          dashboard={this.switchBackToDashboard} patient={this.state.patient}
-          patients={this.state.patients.filter(this.state.filter)}
-          deletePatient={this.deletePatient} changePatient={this.onPatientChange}
-          updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
-          updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
-          updateItemsInArray={this.updateItemsInArray}
-          switchToAppointment={this.switchToAppointment}
-          createNewAppointment={this.createNewAppointment}
-          onUserSignOut={this.onUserSignOut} showDialogOnClick={this.showDialog}
-          showDialog={this.state.showDialog} dialogMessage={this.state.dialogMessage}
-          dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction}
-          dialogTitle={this.state.dialogTitle} user={this.state.user}
-          deleteAppointment={this.deleteAppointment} addForm={this.addForm}
-          deleteForm={this.deleteForm} filterPatients={this.filterPatients}
-          createUploadItem={this.createUploadItem} beginUpload={this.beginUpload}
-          deleteUpload={this.deleteUpload}>
-          {
-            this.state.patient !== null ?
-              null :
-              <DashboardComponent
-                recents={this.state.patients.filter(patient => patient.appointments.length === 1)
-                  .sort((a, b) => b._id - a._id).slice(0, 3)}
-                createNewPatient={this.onCreateIconClicked}
-                viewPatient={this.onPatientTableClicked} user={this.state.user}>
-                <PatientTableComponent patients={this.state.patients.filter(this.state.filter)}
-                  onItemClicked={this.onPatientTableClicked}
-                  authComplete={this.state.authComplete}
-                  sortPatients={this.sortPatients} />
-              </DashboardComponent>
-          }
-        </AppComponent>
-      </>
-    )
+    if (this.state.isSignedIn) {
+      return (
+        <>
+          <NotificationComponent showNotification={this.state.showNotification}
+            info={this.state.info} dismissNotification={this.dismissNotification} />
+          <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
+            dashboard={this.switchBackToDashboard} patient={this.state.patient}
+            patients={this.state.patients.filter(this.state.filter)}
+            deletePatient={this.deletePatient} changePatient={this.onPatientChange}
+            updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
+            updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
+            updateItemsInArray={this.updateItemsInArray}
+            switchToAppointment={this.switchToAppointment}
+            createNewAppointment={this.createNewAppointment}
+            onUserSignOut={this.onUserSignOut} showDialogOnClick={this.showDialog}
+            showDialog={this.state.showDialog} dialogMessage={this.state.dialogMessage}
+            dismissDialog={this.dismissDialog} dialogAction={this.state.dialogAction}
+            dialogTitle={this.state.dialogTitle} user={this.state.user}
+            deleteAppointment={this.deleteAppointment} addForm={this.addForm}
+            deleteForm={this.deleteForm} filterPatients={this.filterPatients}
+            createUploadItem={this.createUploadItem} beginUpload={this.beginUpload}
+            deleteUpload={this.deleteUpload}>
+            {
+              this.state.patient !== null ?
+                null :
+                <DashboardComponent
+                  recents={this.state.patients.filter(patient => patient.appointments.length === 1)
+                    .sort((a, b) => b._id - a._id).slice(0, 3)}
+                  createNewPatient={this.onCreateIconClicked}
+                  viewPatient={this.onPatientTableClicked} user={this.state.user}>
+                  <PatientTableComponent patients={this.state.patients.filter(this.state.filter)}
+                    onItemClicked={this.onPatientTableClicked}
+                    authComplete={this.state.authComplete}
+                    sortPatients={this.sortPatients} />
+                </DashboardComponent>
+            }
+          </AppComponent>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <NotificationComponent />
+          <AuthComponent signIn={this.signUserIn} continueToApp={this.continueToApp}
+            user={this.state.user}
+          />
+        </>
+      )
+    }
   }
 }

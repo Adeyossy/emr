@@ -69,6 +69,7 @@ nav{
   border: 2px solid var(--emr-darker-grey-colour);
   /* color: var(--emr-darker-grey-colour); */
   background-color: var(--emr-darker-grey-colour);
+  vertical-align: middle;
 }
 
 .emr-new-patient .emr-icon-bg:hover{
@@ -194,6 +195,15 @@ nav{
   overflow: hidden;
   white-space: nowrap;
   overflow-wrap: break-word;
+}
+
+.emr-bottom-nav{
+  position: fixed;
+  bottom: 0;
+  height: 64px;
+  background-color: var(--emr-background-colour);
+  z-index: 3;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.0625);
 }
 
 @keyframes dropdown {

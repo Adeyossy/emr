@@ -75,7 +75,6 @@ export default class InvestigationComponent extends React.Component {
 
     return (
       <div className="emr-investigation">
-        {this.props.children}
         {
           investigation.hasOwnProperty("uploads") && investigation.uploads.length > 0 ?
             investigation.uploads.filter(upload => !upload.downloadURL)
@@ -97,7 +96,8 @@ export default class InvestigationComponent extends React.Component {
                       <>
                         <h4 className="emr-card-headers">Preview</h4>
                         <div className="emr-clerking-tab-data-items">
-                          <div className="emr-clerking-tab-data-item" key={index.toString()}>
+                          <div className="emr-clerking-tab-data-item investigation-preview" key={index.toString()} 
+                          style={{ background: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.7)), url(${item.url}) center/cover`}}>
                             <div className="container-fluid">
                               <div className="row">
                                 <div className="col-lg-6">
@@ -142,7 +142,8 @@ export default class InvestigationComponent extends React.Component {
               <h4 className="emr-card-headers">Uploads</h4>
               <div className="emr-clerking-tab-data-items">
                 {investigation.uploads.filter(upload => upload.downloadURL).map((item, index) =>
-                  <div className="emr-clerking-tab-data-item filled" key={item.id.toString()}>
+                  <div className="emr-clerking-tab-data-item filled" key={item.id.toString()}
+                  style={{ background: `linear-gradient(to right, rgba(255,255,255,0.84), rgba(255,255,255,1)), url(${item.downloadURL}) center/cover`}}>
                     <div className="container-fluid">
                       <div className="row">
                         <div className="col-lg-12">
@@ -170,8 +171,10 @@ export default class InvestigationComponent extends React.Component {
                         </div>
                         <div className="col-3 col-lg-1 m-0 p-0">
                           <button className="emr-button emr-clickable"
-                            onClick={deleteFromStorage.bind(this, this.props.modality.concat(['/', item.name]),
-                              this.props.deleteUpload.bind(this, this.props.modality, item.id))}>
+                            onClick={this.props.showDialog.bind(this, "Delete Investigation", 
+                            "This investigation will be deleted",
+                            deleteFromStorage.bind(this, this.props.modality.concat(['/', item.name]),
+                              this.props.deleteUpload.bind(this, this.props.modality, item.id)))}>
                             <i className="bi bi-trash-fill"></i>
                           </button>
                         </div>
@@ -191,6 +194,7 @@ export default class InvestigationComponent extends React.Component {
             :
             null
         } */}
+        {this.props.children}
         <label className="emr-selectable-item text-center w-100"
           htmlFor="emr-upload">+ Select File</label>
         <input name="emr-upload" id="emr-upload" type={'file'} accept=".png, .jpg, .jpeg"

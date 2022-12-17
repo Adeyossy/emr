@@ -59,7 +59,8 @@ export default class Selectable extends React.Component {
     return (
       <div className="container-fluid">
         <div className="row g-0">
-          <div className="offset-xl-3 offset-lg-4 col-xl-6 col-lg-8 emr-app-main">
+          <div className={`${this.props.isDrawerOpen ? 'offset-xl-3 offset-lg-4 col-xl-6' : 
+          ''} col-lg-8 emr-app-main`}>
             {this.props.children}
           </div>
         </div>
