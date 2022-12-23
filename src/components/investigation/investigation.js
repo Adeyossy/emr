@@ -85,7 +85,7 @@ export default class InvestigationComponent extends React.Component {
                     this.state.uploads.hasOwnProperty(item.id.toString()) ?
                       <>
                         <h4 className="emr-card-headers">Uploading...(
-                          {100 * Number(this.state.uploads[item.id])}%)</h4>
+                          {100 * Math.round(Number(this.state.uploads[item.id]))}%)</h4>
                         <div className="emr-clerking-tab-data-items">
                           <div className="emr-clerking-tab-data-item">
                             <div className="bg-primary p-2 w-100 emr-upload-progress"

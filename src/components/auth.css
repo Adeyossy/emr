@@ -7,15 +7,16 @@ body{
   height: 100vh;
   display: flex;
   flex-flow: column nowrap;
-  background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/abstract_connections_banner_design_2203.png?alt=media&token=dc90182d-c0ee-49b6-b317-6c240309bd9e');
-  background-color: var(--emr-accent-light-colour);
+  background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/disk-records.jpg?alt=media&token=a07cd3be-cde3-450e-9382-f4e9c2266d60');
+  background-color: var(--emr-light-colour);
   background-size: cover;
   background-position: 50% 50%;
   background-blend-mode: luminosity;
 }
 
 .emr nav{
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  background-color: var(--emr-light-colour);
   height: 48px;
 }
 
@@ -125,6 +126,17 @@ main{
 
 .emr-username-input-group{
   margin: 32px 0;
+}
+
+.emr-different-user{
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold
+}
+
+.emr-different-user:hover{
+  color: var(--emr-secondary-colour);
+  text-decoration: underline;
 }
 
 @keyframes blink{

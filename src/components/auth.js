@@ -1,5 +1,6 @@
 import React from 'react';
-import { signUserIn, updateUserProfile } from '../modules/auth';
+import { signUserIn, updateUserProfile, signUserOut } from '../modules/auth';
+import { closeDB } from "../modules/db";
 import './auth.css';
 
 export default class AuthComponent extends React.Component {
@@ -54,6 +55,10 @@ export default class AuthComponent extends React.Component {
     this.setState({
       authState: true
     });
+  }
+
+  onSignOut = () => {
+    closeDB(signUserOut.bind(this, this.props.onUserSignOut));
   }
 
   continue = () => {
@@ -136,6 +141,8 @@ export default class AuthComponent extends React.Component {
                             Continue to App
                             <i className="emr-accent-icon bi bi-caret-right-fill"></i>
                           </button>
+                          <a><p className='text-center mb-4 emr-different-user'
+                          onClick={this.onSignOut}>Not {this.state.displayname}? Sign in as a different user</p></a>
                         </div>
                     }
                   </div>

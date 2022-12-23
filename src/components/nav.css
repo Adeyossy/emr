@@ -206,6 +206,17 @@ nav{
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.0625);
 }
 
+.emr-bottom-nav-row::-webkit-scrollbar{
+  display: none;
+}
+
+.emr-bottom-nav-row{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
 @keyframes dropdown {
   0%{
     height: 0;

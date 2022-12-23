@@ -63,7 +63,7 @@ export default class NavComponent extends React.Component {
               </div> : null
             }
           </div> */}
-          <div className="col-6 col-md-3 col-lg-2 d-inline-block">
+          <div className="col-5 col-md-3 col-lg-2 d-inline-block">
             {
               this.props.patient ? <div className="emr-new-patient d-inline-block">
                 <div className="emr-icon-bg emr-icon-bg-dark" onClick={this.props.changeDrawerState}>
@@ -87,7 +87,7 @@ export default class NavComponent extends React.Component {
               </div>
             </div>
           </div>
-          <div className="col-1">
+          <div className="col-1 offset-2 offset-md-0">
             {
               this.props.patient ? <div className="emr-new-patient">
                 <div className="emr-icon-bg emr-icon-bg-dark" onClick={this.props.createNewPatient}>
@@ -111,7 +111,7 @@ export default class NavComponent extends React.Component {
                 onChange={this.onSearchInput}></input>
             </div>
           </div>
-          <div className="col-lg-1 d-none d-lg-block">
+          <div className="col-3 offset-1 offset-md-0 col-lg-1 d-lg-block">
             <div className="emr-app-center emr-app-auth-and-overflow">
               <div className="emr-app-auth-group emr-app-center">
                 <div className="emr-icon-bg emr-icon-bg-light">
