@@ -89,7 +89,7 @@ export default class AuthComponent extends React.Component {
                       !this.props.user ? this.props.user === null ?
                         <div className="emr-auth-card emr-rounded-edges emr-default-shadow">
                           {/* <div className="emr-auth-card-details"></div> */}
-                          <h6 className="emr-headers emr-auth-header">LOGIN</h6>
+                          <h6 className="emr-headers emr-auth-header">Login</h6>
                           <div className="emr-username-input-group">
                             <div className="emr-username emr-input-label">
                               <i className="emr-icons emr-username-icon bi bi-person-fill"></i>
@@ -126,7 +126,7 @@ export default class AuthComponent extends React.Component {
                         </div> :
                         <div className="emr-auth-card emr-rounded-edges emr-default-shadow">
                           {/* <div className="emr-auth-card-details"></div> */}
-                          <h6 className="emr-headers emr-auth-header">WELCOME</h6>
+                          <h6 className="emr-headers emr-auth-header">Welcome</h6>
                           <div className="emr-username-input-group">
                             <div className="emr-username emr-input-label">
                               <i className="emr-icons emr-username-icon bi bi-person-fill"></i>

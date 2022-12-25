@@ -36,6 +36,7 @@ nav{
   /* margin: 8px 0px; */
   transition: background-color 200ms ease-out;
   cursor: default;
+  font-weight: bold;
 }
 
 .emr-other-view:nth-child(even){
@@ -63,6 +64,10 @@ nav{
   top: 24px; left: 0;
   margin: auto;
   z-index: 2;
+}
+
+.emr-app-auth-and-overflow:hover .emr-other-views{
+  top: 32px; right: 0; left: auto
 }
 
 .emr-new-patient .emr-icon-bg{
