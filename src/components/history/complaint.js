@@ -10,17 +10,17 @@ export default class ComplaintComponent extends React.Component {
 
   onItemChange = (index, id, value) => {
     // this.props.updateComplaints(event.target.name)
-    this.props.updateAnyObject(id, value, ["presenting_complaints", "complaints"], index);
+    this.props.updateAnyObject(id, value, ["appointment", "presenting_complaints", "complaints"], index);
   }
 
   onInformantItemChange = (id, value) => {
-    this.props.updateAnyObject(id, value, ["biodata"], null);
+    this.props.updateAnyObject(id, value, ["appointment", "biodata"], null);
   }
 
   updateInts = (event) => {
     const value = event.target.value;
     // console.log("value in PMHComponent => ", value);
-    this.props.updateItemsInArray(["presenting_complaints", "complaints"],
+    this.props.updateItemsInArray(["appointment", "presenting_complaints", "complaints"],
       Object.assign({}, complaint), Number(value));
   }
 
@@ -33,12 +33,12 @@ export default class ComplaintComponent extends React.Component {
             <label htmlFor="numberofcomplaints">Number of Complaints</label>
             <input type="number" name="numberofcomplaints" id="numberofcomplaints"
               placeholder="e.g 2" className="mb-4"
-              value={this.context.presenting_complaints.complaints.length}
+              value={this.context.appointment.presenting_complaints.complaints.length}
               onChange={this.updateInts} required></input>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               {
-                this.context.presenting_complaints.complaints.map((item, i) =>
+                this.context.appointment.presenting_complaints.complaints.map((item, i) =>
                   <div className={`emr-clerking-tab-data-item 
                   ${item.complaint && item.duration ? "filled" : ""}`}
                   key={i.toString()}>
@@ -67,10 +67,10 @@ export default class ComplaintComponent extends React.Component {
           </div>
           <SingleSelectOutputComponent name={"Informant"} id={"informant"}
             items={["Patient", "Parents", "Father", "Mother", "Brother", "Sister"]}
-            value={this.context.biodata.informant} onItemChange={this.onInformantItemChange} />
+            value={this.context.appointment.biodata.informant} onItemChange={this.onInformantItemChange} />
           <NotesComponent id={"notes"} name={"Complaints Notes"}
-            fields={["presenting_complaints"]}
-            value={this.context.presenting_complaints.notes}
+            fields={["presenting_complaints"]} height="10"
+            value={this.context.appointment.presenting_complaints.notes}
             onItemChange={this.props.updateAnyObject} />
         </div>
       </div>

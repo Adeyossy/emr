@@ -13,19 +13,19 @@ export default class BiodataComponent extends React.Component {
   }
 
   onItemChange = (id, value) => {
-    if (id !== "first_seen") {
-      this.props.updateAnyObject(id, value, ["biodata"]);
+    if (id !== "date_seen") {
+      this.props.updateAnyObject(id, value, ["appointment", "biodata"]);
     } else {
       const enteredDate = new Date(value);
-      // console.log("entered date => ", enteredDate);
+      console.log("entered date => ", enteredDate.toLocaleString('en-NG'));
       // console.log("entered time in milliseconds => ", enteredDate.getTime());
-      this.props.updateAnyObject(id, enteredDate.getTime(), []);
+      this.props.updateAnyObject(id, enteredDate.getTime(), ["appointment"]);
     }
   }
 
   updateField = (event) => {
-    // console.log("biodata => ", this.props.patient.biodata);
-    // this.props.patient.biodata[event.target.name] = event.target.value;
+    // console.log("biodata => ", this.props.patient.appointment.biodata);
+    // this.props.patient.appointment.biodata[event.target.name] = event.target.value;
     this.onItemChange(event.target.name, event.target.value.trim());
   }
 
@@ -48,73 +48,73 @@ export default class BiodataComponent extends React.Component {
       <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Identifying Information</h4>
         <div className="emr-clerking-tab-data-items">
-          <div className={`emr-clerking-tab-data-item ${this.props.patient.biodata.firstname
-            && this.props.patient.biodata.lastname ? "filled" : ""}`}>
+          <LabelAndInputComponent id="date_seen" title="Date of Encounter"
+            value={new Date(this.props.patient.appointment.date_seen).toISOString().substring(0, 16)}
+            type="datetime-local" onItemChange={this.onItemChange} />
+          <div className={`emr-clerking-tab-data-item ${this.props.patient.appointment.biodata.firstname
+            && this.props.patient.appointment.biodata.lastname ? "filled" : ""}`}>
             <label htmlFor="firstname">Name</label>
             <div className="emr-clerking-biodata-names">
-              <input type="text" name="firstname" id="firstname" placeholder="First name"
-                value={this.props.patient.biodata.firstname} onChange={this.updateField}
-                className={this.props.patient.biodata.firstname ? "filled" : ""} required></input>
-              <input type="text" name="middlename" id="middlename" placeholder="Middle name"
-                value={this.props.patient.biodata.middlename} onChange={this.updateField}
-                className={this.props.patient.biodata.middlename ? "filled" : ""} required></input>
               <input type="text" name="lastname" id="lastname" placeholder="Surname"
-                value={this.props.patient.biodata.lastname} onChange={this.updateField}
-                className={this.props.patient.biodata.lastname ? "filled" : ""} required></input>
+                value={this.props.patient.appointment.biodata.lastname} onChange={this.updateField}
+                className={this.props.patient.appointment.biodata.lastname ? "filled" : ""} required></input>
+              <input type="text" name="firstname" id="firstname" placeholder="First name"
+                value={this.props.patient.appointment.biodata.firstname} onChange={this.updateField}
+                className={this.props.patient.appointment.biodata.firstname ? "filled" : ""} required></input>
+              <input type="text" name="middlename" id="middlename" placeholder="Middle name"
+                value={this.props.patient.appointment.biodata.middlename} onChange={this.updateField}
+                className={this.props.patient.appointment.biodata.middlename ? "filled" : ""} required></input>
             </div>
           </div>
           <LabelAndInputComponent id="ageinyears" title="Age (in years)"
-            value={this.props.patient.biodata.ageinyears}
+            value={this.props.patient.appointment.biodata.ageinyears}
             type="text" onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Gender"} id={"gender"} items={["Male", "Female"]}
-            value={this.props.patient.biodata.gender}
+            value={this.props.patient.appointment.biodata.gender}
             onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="occupation" title="Occupation"
-            value={this.props.patient.biodata.occupation}
+            value={this.props.patient.appointment.biodata.occupation}
             type="text" onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Marital Status"} id={"maritalstatus"}
             items={["Single", "Married", "Separated", "Divorced", "Widowed"]}
-            value={this.props.patient.biodata.maritalstatus}
+            value={this.props.patient.appointment.biodata.maritalstatus}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
-          <NotesComponent id="address" name="Address" value={this.props.patient.biodata.address}
-            onItemChange={this.onItemChange} />
+          <NotesComponent id="address" name="Address" value={this.props.patient.appointment.biodata.address}
+            onItemChange={this.props.updateAnyObject} fields={["biodata"]} />
           <LabelAndInputComponent id="state" title="State"
-            value={this.props.patient.biodata.state}
+            value={this.props.patient.appointment.biodata.state}
             type="text" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="city" title="City"
-            value={this.props.patient.biodata.city}
+            value={this.props.patient.appointment.biodata.city}
             type="text" onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Religion"} id={"religion"}
             items={["Christianity", "Islam", "Traditional"]}
-            value={this.props.patient.biodata.religion}
+            value={this.props.patient.appointment.biodata.religion}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <SingleSelectOutputComponent name={"Tribe"} id={"tribe"}
             items={["Yoruba", "Igbo", "Hausa", "Fulani", "Ibiobio", "Kanuri"]}
-            value={this.props.patient.biodata.tribe}
+            value={this.props.patient.appointment.biodata.tribe}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <LabelAndInputComponent id="hospital" title="Hospital"
-            value={this.props.patient.biodata.hospital}
+            value={this.props.patient.appointment.biodata.hospital}
             type="text" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="id" title="Identification Number"
-            value={this.props.patient.biodata.id}
+            value={this.props.patient.appointment.biodata.id}
             type="text" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="phone_number" title="Phone Number"
-            value={this.props.patient.biodata.phone_number}
+            value={this.props.patient.appointment.biodata.phone_number}
             type="tel" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="phone_number_1" title="Alternate Phone Number"
-            value={this.props.patient.biodata.phone_number_1}
+            value={this.props.patient.appointment.biodata.phone_number_1}
             type="tel" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="email_address" title="Email Address"
-            value={this.props.patient.biodata.email_address}
+            value={this.props.patient.appointment.biodata.email_address}
             type="email" onItemChange={this.onItemChange} />
-          <LabelAndInputComponent id="first_seen" title="Date of First Encounter"
-            value={new Date(this.props.patient.first_seen).toISOString().substring(0, 16)}
-            type="datetime-local" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="next_of_kin" title="Next of Kin Name"
-            value={this.props.patient.biodata.next_of_kin} type="text"
+            value={this.props.patient.appointment.biodata.next_of_kin} type="text"
             onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name="Relationship to next of kin"
-            id="next_of_kin_relationship" value={this.props.patient.biodata.next_of_kin_relationship}
+            id="next_of_kin_relationship" value={this.props.patient.appointment.biodata.next_of_kin_relationship}
             onItemChange={this.onItemChange} items={["Father", "Mother", "Brother",
               "Sister", "Child", "Cousin", "Spouse"]} />
         </div>

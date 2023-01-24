@@ -7,7 +7,7 @@ export default class NotesOnlyComponent extends React.Component {
   onThisItemChange = (event) => {
     // console.log("notes only where => ", event.target.name, this.props.fields);
     this.props.updateAnyObject(event.target.name, event.target.value,
-      this.props.fields, null);
+      ["appointment", ...this.props.fields], null);
   }
 
   componentDidUpdate() {
@@ -25,8 +25,8 @@ export default class NotesOnlyComponent extends React.Component {
             <textarea name={`notes`}
               id={`${this.props.notesHeader.split(" ").join("")}notes`} cols="30"
               rows="10" placeholder="write here..." onChange={this.onThisItemChange}
-              value={this.props.value ? this.context[this.props.fields[0]][this.props.fields[1]].notes :
-                this.context[this.props.notesHeader.split(" ").join("_").toLowerCase()].notes}></textarea>
+              value={this.props.value ? this.context.appointment[this.props.value].notes :
+                this.context.appointment[this.props.notesHeader.split(" ").join("_").toLowerCase()].notes}></textarea>
           </div>
         </div>
       </div>

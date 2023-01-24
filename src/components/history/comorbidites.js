@@ -4,7 +4,7 @@ import SingleSelectOutputComponent from "../minicomponents/single_select_output"
 
 export default class Comorbidities extends React.Component {
   onItemChange = (id, value) => {
-    this.props.updateAnyObject(id, value, ["past_medical_history", "comorbidities"], 
+    this.props.updateAnyObject(id, value, ["appointment", "past_medical_history", "comorbidities"], 
       this.props.index);
   }
 

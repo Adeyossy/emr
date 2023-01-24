@@ -13,10 +13,13 @@ export default class RightSideBarComponent extends React.Component {
   }
 
   render() {
+    const apntmnt_notes = !this.context.appointment ?
+    this.context.last_notes : this.context.appointment.notes;
+
     return (
       <div className="container-fluid">
         <div className="row g-0">
-          <div className="offset-lg-9 col-lg-3 emr-sidebar emr-sidebar-r">
+          <div className={`d-none ${this.props.isDrawerOpen ? 'offset-xl-9 col-xl-3 d-xl-block' : 'offset-lg-8 col-lg-4 d-lg-block'} emr-sidebar emr-sidebar-r`}>
             <div className="emr-right-sidebar emr-column">
               <div className="container-fluid">
                 <div className="row g-0">
@@ -42,9 +45,8 @@ export default class RightSideBarComponent extends React.Component {
                 <h6 className="emr-card-headers emr-right-sidebar-item-header">Notes</h6>
                 <div className="emr-right-sidebar-item-content">
                   <textarea name="notes" id="consultation"
-                    className="emr-right-sidebar-item-textbox"
-                    value={!this.context.appointment ?
-                      this.context.last_notes : this.context.appointment.notes}
+                    className={"emr-right-sidebar-item-textbox" + `${apntmnt_notes ? ' filled' : ''}`}
+                    value={apntmnt_notes}
                     onChange={this.onItemChange}>
                   </textarea>
                 </div>

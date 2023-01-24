@@ -12,7 +12,7 @@
   --emr-failure-colour: #FF6969;
   --emr-grey-colour: #808080;
   --emr-darker-grey-colour: #404040;
-  --emr-lighter-grey-colour: #F2F2F2;
+  --emr-lighter-grey-colour: #f8f8f8;
   --emr-light-gradient: linear-gradient(to bottom right, var(--emr-light-colour), var(--emr-primary-colour));
   --emr-dark-gradient: linear-gradient(to bottom right, var(--emr-primary-colour), var(--emr-secondary-colour));
   --emr-success-gradient: linear-gradient(to bottom right, var(--emr-light-colour), var(--emr-success-colour));
@@ -37,6 +37,7 @@ nav{
 
 main{
   width: 100%;
+  margin-bottom: 64px;
 }
 
 #root{
@@ -48,7 +49,7 @@ h1, h2, h3, h4, h5, h6, p, label, input, textarea, button, table, div{
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6, p, label, .emr-text-wrap{
+h1, h2, h3, h4, h5, h6, p, .emr-text-wrap{
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -95,9 +96,8 @@ label{
 input{
   width: 100%;
   padding: 8px 16px;
-  border: 1px solid var(--emr-primary-colour);
+  border: 2px solid var(--emr-primary-colour);
   border-radius: 16px;
-  font-size: 11pt;
 }
 
 textarea{
@@ -106,7 +106,10 @@ textarea{
   /* box-shadow: inset 0 0 1px 1px var(--emr-secondary-colour); */
   border-radius: var(--emr-round-corners);
   border: 2px solid var(--emr-primary-light-colour);
-  font-size: 10pt;
+}
+
+input, textarea, label{
+  font-size: 16px;
 }
 
 input:focus-visible, textarea:focus-visible{
@@ -118,6 +121,7 @@ input:focus-visible, textarea:focus-visible{
 
 input.filled, textarea.filled{
   border-color: var(--emr-primary-colour);
+  background-color: var(--emr-light-colour);
 }
 
 div:focus-visible{
@@ -154,7 +158,7 @@ hr{
 .emr-card-headers{
   color: var(--emr-secondary-colour);
   margin: 8px 0;
-  font-size: 11pt;
+  font-size: 18px;
   font-weight: bold;
 }
 
@@ -164,7 +168,7 @@ hr{
 
 .emr-patient-list-item{
   position: relative;
-  height: 56px;
+  height: 64px;
   padding: 8px;
   margin: 8px 0;
   display: flex;
@@ -172,10 +176,10 @@ hr{
   justify-content: space-between;
   align-items: center;
   /* border: 1px solid var(--emr-lighter-grey-colour); */
-  border: 1px solid transparent;
+  border: 1px solid var(--emr-lighter-grey-colour);
   border-radius: var(--emr-round-corners);
   transition: background-color 200ms ease-in, box-shadow 200ms ease-in;
-  animation: 200ms ease-in 0s 1 dropInAndFadeIn;
+  animation: 200ms ease-in 150ms 1 dropInAndFadeIn;
 }
 
 div.emr-patient-list-item:hover:not(div.emr-patient-list-item.clicked){
@@ -237,6 +241,7 @@ p.emr-patient-name{
   display: inline-block;
   line-height: normal;
   font-size: 7pt;
+  overflow: hidden;
 }
 
 .emr-patient-biodata > p {
@@ -329,6 +334,19 @@ p.emr-patient-diagnosis{
   top: 64px; right: 32px;
   padding: 16px;
   box-shadow: 8px 8px 16px 4px rgba(0, 0, 0, 0.2);
+}
+
+.emr-clickable{
+  transition: background-color 300ms ease-in, box-shadow 300ms ease-in;
+}
+
+.emr-clickable:hover{
+  background-color: var(--emr-accent-colour) !important;
+  box-shadow: var(--emr-high-shadow);
+}
+
+.emr-clickable:active{
+  box-shadow: var(--emr-active-shadow);
 }
 
 @keyframes dropInAndFadeIn{

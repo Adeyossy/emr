@@ -6,6 +6,10 @@
   left: 0;
 }
 
+.emr-dashboard-container .emr-sidebar-r{
+  top: auto;
+}
+
 .emr-sidebar-r{
   top: 0;
   right: 0;
@@ -16,6 +20,13 @@
   flex-flow: row nowrap;
   width: 100%;
   height: 91vh;
+  background-color: var(--emr-background-colour);
+  animation: 250ms ease-in slideInFromTheLeft
+}
+
+.container-fluid.emr-leftbar{
+  z-index: 2;
+  position: relative;
 }
 
 .emr-left-sidebar > div:nth-child(1){
@@ -55,6 +66,29 @@
   background-color: var(--emr-primary-colour);
 }
 
+.emr-icon-bg.timeline-delete{
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.emr-icon-bg.timeline{
+  width: 48px;
+  height: 48px;
+  position: relative;
+  animation: 1000ms ease-in 0ms 1 fadeIn;
+}
+
+.emr-icon-bg.timeline:hover{
+  cursor: pointer;
+}
+
+.emr-icon-bg.timeline.selected:not(:last-child):hover .emr-icon-bg.timeline-delete{
+  display: block;
+}
+
 .emr-patients-timeline-visits{
   width: 100%;
   height: 85%;
@@ -62,17 +96,17 @@
   /* display: flex;
   flex-flow: column nowrap;
   align-items: center; */
-  font-size: 8pt;
+  font-size: 13px;
   overflow: hidden;
 }
 
 .emr-patients-timeline-visits i{
-  line-height: 1.5;
+  line-height: 1;
 }
 
 .emr-timeline-visits-divider{
-  width: 1px;
-  height: 24px;
+  width: 2px;
+  height: 30px;
   margin: auto;
   background-color: var(--emr-accent-colour);
 }
@@ -239,24 +273,25 @@ p.emr-biodata-summary-age{
   height: 92vh;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 0px 8px 0 16px; 
   margin-top: 56px; /* the 56px represents the height of the navbar */
   overflow: auto;
+  animation: 250ms ease-in slideInFromTheRight
   /* background-color: rgba(255, 255, 255, 1); */
   /* box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.05); */
 }
 
 .emr-right-sidebar .container-fluid{
-  height: auto;
+  height: 25%;
 }
 
 .emr-right-sidebar-item{
-  height: 28vh;
+  height: 100%;
 }
 
 .emr-right-sidebar-item.notes{
-  height: 72%;
+  height: 85%;
   /* flex-grow: 2; */
 }
 
@@ -309,12 +344,15 @@ p.emr-right-sidebar-item-text{
   font-weight: 700;
   background: transparent;
   vertical-align: middle;
+  text-align: center;
+  resize: none;
 }
 
 .emr-quick-info-card.primary-diagnosis{
-  background: white;
+  background: var(--emr-light-colour);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  border-right: 2px solid var(--emr-accent-colour);
 }
 
 .emr-quick-info-card.secondary-diagnosis{
@@ -322,6 +360,7 @@ p.emr-right-sidebar-item-text{
   background: var(--emr-secondary-colour);
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  border-left: 2px solid var(--emr-accent-colour);
 }
 
 .emr-quick-info-card.emr-right-sidebar-item{
@@ -357,7 +396,8 @@ p.emr-quick-info-card-title{
 }
 
 .emr-quick-info-card-details{
-  font-size: 8pt;
+  font-size: 9pt;
+  font-weight: bold;
 }
 
 @keyframes slideInFromTheLeft{
@@ -370,8 +410,15 @@ p.emr-quick-info-card-title{
   }
 }
 
-@media only screen and (min-width: 1024px){
-  .emr-sidebar-l{
-    /* display: initial; */
+@keyframes slideInFromTheRight{
+  from{
+    transform: translateX(20%);
   }
+
+  to{
+    transform: translate(0%);
+  }
+}
+
+@media only screen and (min-width: 1024px){
 }

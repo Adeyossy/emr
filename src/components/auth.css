@@ -7,15 +7,18 @@ body{
   height: 100vh;
   display: flex;
   flex-flow: column nowrap;
-  background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/abstract_connections_banner_design_2203.png?alt=media&token=dc90182d-c0ee-49b6-b317-6c240309bd9e');
-  background-color: var(--emr-accent-light-colour);
+  background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/disk-records.jpg?alt=media&token=a07cd3be-cde3-450e-9382-f4e9c2266d60');
+  background-color: var(--emr-light-colour);
   background-size: cover;
   background-position: 50% 50%;
   background-blend-mode: luminosity;
+  animation: 20s ease-in infinite alternate forwards slo-mo;
 }
 
 .emr nav{
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  background-color: var(--emr-lighter-grey-colour);
+  opacity: 0.6;
   height: 48px;
 }
 
@@ -43,11 +46,49 @@ main{
 
 .emr-auth-card{
   width: 100%;
+  min-height: 40%;
   padding: 24px 28px 0px 28px;
   position: relative;
   /* background: linear-gradient(to bottom right, white, var(--emr-primary-light-colour)); */
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  background-color: var(--emr-lighter-grey-colour);
   border: 1px solid var(--emr-primary-light-colour);
+}
+
+.emr-auth-check{
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  margin: auto;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.emr-auth-loading{
+  width: 64px;
+  height: 64px;
+  position: relative;
+  margin: auto;
+  background-color: black;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.emr-auth-loading-spinner{
+  width: 50%;
+  height: 50%;
+  background-color: var(--emr-accent-colour);
+  transform-origin: right bottom;
+  animation: 1s ease-in infinite loading;
+}
+
+.emr-auth-loading-cover{
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: white;
+  border-radius: 50%;
 }
 
 .emr-auth-card-details{
@@ -65,7 +106,7 @@ main{
 
 .emr-auth-header{
   margin-top: 16px;
-  font-size: 11pt;
+  font-size: 18px;
   color: var(--emr-secondary-colour);
   text-align: center;
 }
@@ -90,6 +131,17 @@ main{
   margin: 32px 0;
 }
 
+.emr-different-user{
+  cursor: pointer;
+  font-size: 12px;
+  transition: text-decoration 300ms ease-in, color 300ms ease-in;
+}
+
+.emr-different-user:hover{
+  color: var(--emr-secondary-colour);
+  text-decoration: underline;
+}
+
 @keyframes blink{
   from{
     background-color: var(--emr-secondary-colour);
@@ -99,6 +151,28 @@ main{
   to{
     background-color: var(--emr-primary-colour);
     opacity: 1;
+  }
+}
+
+@keyframes slo-mo{
+  from {
+    background-size: auto 100%;
+    background-position: 50% 50%;
+  }
+
+  to {
+    background-size: auto 100%;
+    background-position: 60% 60%;
+  }
+}
+
+@keyframes loading{
+  from{
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
   }
 }
 

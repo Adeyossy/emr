@@ -1,9 +1,29 @@
 .emr-app-main{
   min-height: 101vh;
+  position: relative;
 }
 
 .emr-app-main, .emr-clerking-tab-data{
   animation: 200ms ease-in 0ms 1 fadeIn;
+}
+
+.emr-app-main > .emr-icon-bg{
+  position: fixed;
+  bottom: 16px; right: 16px;
+  width: 48px;
+  height: 48px;
+  box-shadow: var(--emr-low-shadow);
+  /* border: 1px solid var(--emr-secondary-colour); */
+  transition: box-shadow 300ms ease-in, bottom 300ms ease-in;
+}
+
+.emr-app-main > .emr-icon-bg:hover{
+  box-shadow: var(--emr-high-shadow);
+  bottom: 50px;
+}
+
+.emr-app-main .emr-icon-bg:active{
+  box-shadow: var(--emr-active-shadow);
 }
 
 table{
@@ -94,6 +114,10 @@ td{
   font-weight: 600;
 }
 
+th{
+  cursor: pointer;
+}
+
 .emr-headers{
   padding-left: 8px;
 }
@@ -129,7 +153,7 @@ td{
   margin-right: 24px;
   margin-bottom: 12px;
   color: var(--emr-darker-grey-colour);
-  border: 2px solid var(--emr-primary-light-colour);
+  border: 3px solid var(--emr-primary-light-colour);
   border-radius: 32px;
 }
 
@@ -157,6 +181,7 @@ td{
 
 .container-fluid.emr-dialog-backdrop.show{
   display: block;
+  animation: 200ms ease-in 0ms 1 fadeIn;
 }
 
 .container-fluid.emr-dialog-backdrop{
@@ -169,26 +194,65 @@ td{
 
 .emr-dialog{
   margin-top: 33.33vh;
-  background-color: var(--emr-background-colour);
   border-radius: var(--emr-round-corners);
   box-shadow: var(--emr-default-shadow);
+  /* background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/abstract_connections_banner_design_2203.png?alt=media&token=dc90182d-c0ee-49b6-b317-6c240309bd9e'); */
+  background-color: white;
+  /* background-color: var(--emr-accent-light-colour); */
+  background-size: cover;
+  /* background-position: 50% 50%; */
+  background-blend-mode: luminosity;
+  animation: 200ms ease-in 0ms 1 slideUp;
+}
+
+.emr-dialog.emr-select-dialog{
+  position: relative;
+  height: 90vh;
+  top: 0; right: 0; bottom: 0; left: 0;
+  margin: 5% auto;
+  overflow: auto;
+}
+
+.emr-select-dialog > .emr-icon-bg{
+  position: absolute;
+  top: 8px; right: 8px;
 }
 
 .emr-dialog > *{
   padding: var(--emr-default-padding);
 }
 
+.emr-dialog .row{
+  height: auto;
+}
+
+p.emr-form-item-description{
+  font-size: 11pt;
+}
+
+li.emr-form-item-description{
+  font-size: 10pt;
+  font-weight: bold;
+  color: var(--emr-darker-grey-colour);
+}
+
+.emr-form-item-score > input{
+  min-height: 64px;
+  font-size: 15pt;
+  font-weight: bold;
+  text-align: center;
+}
+
 .emr-dialog-details{
   width: 100%;
   padding: 32px var(--emr-default-padding);
   color: var(--emr-darker-grey-colour);
-  font-size: 9.5pt;
-  font-weight: bold;
+  font-size: 16px;
   /* display: inline-block;
   text-align: center; */
   background-color: white;
-  border-top: 2px solid var(--emr-lighter-grey-colour);
-  border-bottom: 2px solid var(--emr-lighter-grey-colour);
+  border-top: 1px solid var(--emr-lighter-grey-colour);
+  border-bottom: 1px solid var(--emr-lighter-grey-colour);
 }
 
 button.emr-dialog-cancel-button{
@@ -199,7 +263,7 @@ button.emr-dialog-cancel-button{
 }
 
 button.emr-dialog-cancel-button:hover{
-  background-color: var(--emr-accent-light-colour);
+  color: white;
   border-color: transparent;
 }
 
@@ -207,12 +271,27 @@ button.emr-dialog-cancel-button, button.emr-dialog-ok-button {
   transition: background-color 500ms ease-in;
 }
 
-button.emr-dialog-ok-button:hover{
+button.emr-dialog-ok-button:hover, button.emr-dialog-cancel-button:hover{
   background-color: var(--emr-primary-colour);
 }
 
 .emr-dialog-title-text{
   color: var(--emr-secondary-colour);
+  font-weight: 700;
+  font-size: 14pt;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.emr-patient-summary p {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.emr-upload-progress{
+  transform: scaleX(0);
+  transform-origin: 0 0;
+  transition: transform 250ms ease-in;
 }
 
 @keyframes fadeIn{
@@ -234,5 +313,17 @@ button.emr-dialog-ok-button:hover{
 
   to{
     transform: translate(100%);
+  }
+}
+
+@media only screen and (min-width: 992px){
+  .emr-app-main > .emr-icon-bg{
+    bottom: 24px; right: 24px;
+  }
+}
+
+@media only screen and (min-width: 1224px){
+  .emr-app-main > .emr-icon-bg{
+    bottom: 24px; right: 25vw;
   }
 }
