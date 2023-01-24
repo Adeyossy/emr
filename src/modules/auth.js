@@ -78,7 +78,7 @@ export const updateUserProfile = (displayName, callback) => {
 
 export const getCurrentUser = (callback) => {
   const auth = getAuth();
-  var unsubscribeAuth = onAuthStateChanged(auth, (user => {
+  const unsubscribeAuth = onAuthStateChanged(auth, (user => {
     callback(user);
   }));
 
@@ -86,9 +86,12 @@ export const getCurrentUser = (callback) => {
 }
 
 export const uploadToStorage = (modality, metadata, showNotification, 
-  callback, updateCallback) => {
+  callback, updateCallback, user) => {
   const storage = getStorage();
-  const invUploadRef = ref(storage, modality.concat(['/', metadata.name]));
+  // console.log('arguments => ', uploadToStorage.arguments.length);
+  console.log('user => ', user)
+  console.log('modality => ', modality)
+  const invUploadRef = ref(storage, user.uid.concat('/', modality, '/', metadata.name));
   const uploadTask = uploadBytesResumable(invUploadRef, metadata.file);
   const unsubscribe = uploadTask.on('state_changed', snapshot => {
     console.log("Upload Started");
@@ -109,8 +112,8 @@ export const uploadToStorage = (modality, metadata, showNotification,
   });
 }
 
-export const deleteFromStorage = (path, callback) => {
-  const deleteRef = ref(getStorage(), path);
+export const deleteFromStorage = (path, callback, user) => {
+  const deleteRef = ref(getStorage(), user.uid.concat('/', path));
   deleteObject(deleteRef).then(() => {
     console.log("Successfully Deleted");
     callback();

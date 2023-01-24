@@ -156,12 +156,12 @@ main{
 
 @keyframes slo-mo{
   from {
-    background-size: 100% auto;
+    background-size: auto 100%;
     background-position: 50% 50%;
   }
 
   to {
-    background-size: 110% auto;
+    background-size: auto 100%;
     background-position: 60% 60%;
   }
 }
