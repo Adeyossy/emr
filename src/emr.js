@@ -3,7 +3,7 @@ import './emr.css';
 import AuthComponent from './components/auth';
 import { AppComponent } from './components/app.js';
 import { getAppointment, getAppointmentWithDefaultValues, newEmrPatient, parseFromDatabase, parseOldPatient } from './models/patient';
-import { authStateObserver, deleteFromStorage, signOut, signUserOut, uploadToStorage } from './modules/auth';
+import { authStateObserver, deleteFromStorage, getCurrentUser, signOut, signUserOut, uploadToStorage } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
 import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, updateDoc } from './modules/db';
@@ -36,6 +36,7 @@ export class EMRComponent extends React.Component {
   }
 
   componentDidMount() {
+    // "I am in main branch"
     authStateObserver(this.authStateChanged);
 
     this.setSavingInterval()
@@ -542,12 +543,12 @@ export class EMRComponent extends React.Component {
   beginUpload = (modality, uploadID, updateCallback) => {
     const itemForUpload = this.state.patient.appointment[modality].uploads
       .find(uploadItem => uploadItem.id === uploadID);
-    uploadToStorage(modality, itemForUpload, (info) => {
+    getCurrentUser(uploadToStorage.bind(Object.create(null), modality, itemForUpload, (info) => {
       this.setState({
         showNotification: true,
         info: info
       });
-    }, this.afterUpload.bind(this, modality, itemForUpload.id), updateCallback);
+    }, this.afterUpload.bind(this, modality, itemForUpload.id), updateCallback));
   }
 
   afterUpload = (modality, uploadID, downloadURL) => {

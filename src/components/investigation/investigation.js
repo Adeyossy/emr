@@ -1,6 +1,6 @@
 import React from "react";
 import { PatientContext } from "../../models/patient_context";
-import { deleteFromStorage } from "../../modules/auth";
+import { deleteFromStorage, getCurrentUser } from "../../modules/auth";
 
 export default class InvestigationComponent extends React.Component {
   constructor(props) {
@@ -96,8 +96,8 @@ export default class InvestigationComponent extends React.Component {
                       <>
                         <h4 className="emr-card-headers">Preview</h4>
                         <div className="emr-clerking-tab-data-items">
-                          <div className="emr-clerking-tab-data-item investigation-preview" key={index.toString()} 
-                          style={{ background: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.7)), url(${item.url}) center/cover`}}>
+                          <div className="emr-clerking-tab-data-item investigation-preview" key={index.toString()}
+                            style={{ background: `linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.7)), url(${item.url}) center/cover` }}>
                             <div className="container-fluid">
                               <div className="row">
                                 <div className="col-lg-6">
@@ -143,7 +143,7 @@ export default class InvestigationComponent extends React.Component {
               <div className="emr-clerking-tab-data-items">
                 {investigation.uploads.filter(upload => upload.downloadURL).map((item, index) =>
                   <div className="emr-clerking-tab-data-item filled" key={item.id.toString()}
-                  style={{ background: `linear-gradient(to right, rgba(255,255,255,0.84), rgba(255,255,255,1)), url(${item.downloadURL}) center/cover`}}>
+                    style={{ background: `linear-gradient(to right, rgba(255,255,255,0.84), rgba(255,255,255,1)), url(${item.downloadURL}) center/cover` }}>
                     <div className="container-fluid">
                       <div className="row">
                         <div className="col-lg-12">
@@ -171,10 +171,11 @@ export default class InvestigationComponent extends React.Component {
                         </div>
                         <div className="col-3 col-lg-1 m-0 p-0">
                           <button className="emr-button emr-clickable"
-                            onClick={this.props.showDialog.bind(this, "Delete Investigation", 
-                            "This investigation will be deleted",
-                            deleteFromStorage.bind(this, this.props.modality.concat(['/', item.name]),
-                              this.props.deleteUpload.bind(this, this.props.modality, item.id)))}>
+                            onClick={this.props.showDialog.bind(this, "Delete Investigation",
+                              "This investigation will be deleted",
+                              getCurrentUser.bind(Object.create(null),
+                                deleteFromStorage.bind(this, this.props.modality.concat('/', item.name),
+                                  this.props.deleteUpload.bind(this, this.props.modality, item.id))))}>
                             <i className="bi bi-trash-fill"></i>
                           </button>
                         </div>
