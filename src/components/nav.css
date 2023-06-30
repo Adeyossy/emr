@@ -1,0 +1,235 @@
+nav{
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.0625);
+}
+
+.emr-nav-dropdown{
+  display: inline-block;
+  position: relative;
+  cursor: default;
+  vertical-align: middle;
+}
+
+.emr-current-view{
+  display: inline-block;
+  font-size: 10pt;
+  vertical-align: middle;
+  color: var(--emr-secondary-colour);
+}
+
+.emr-dropdown-icon{
+  padding: 0 8px;
+}
+
+.emr-other-views{
+  display: none;
+  background-color: var(--emr-background-colour);
+  border-radius: var(--emr-round-corners);
+  box-shadow: 4px 4px 16px 0 rgba(0, 0, 0, 0.1);
+  animation: ease-in 250ms dropdown;
+}
+
+.emr-other-view{
+  font-size: 10.5pt;
+  padding: 16px 16px;
+  /* margin: 8px 0px; */
+  transition: background-color 200ms ease-out;
+  cursor: default;
+  font-weight: bold;
+}
+
+.emr-other-view:nth-child(even){
+  background-color: white;
+  border-radius: var(--emr-round-corners);
+  /* padding: 16px 16px; */
+}
+
+.emr-other-view:first-child:hover, .emr-other-view:last-child:hover{
+  border-radius: var(--emr-round-corners);
+}
+
+.emr-other-view:hover{
+  background-color: var(--emr-light-colour);
+}
+
+.emr-other-view:active{
+  background-color: var(--emr-primary-light-colour);
+}
+
+.emr-nav-dropdown:hover .emr-other-views, .emr-app-auth-and-overflow:hover .emr-other-views{
+  display: inline-block;
+  position: absolute;
+  width: 160px;
+  top: 24px; left: 0;
+  margin: auto;
+  z-index: 2;
+}
+
+.emr-app-auth-and-overflow:hover .emr-other-views{
+  top: 32px; right: 0; left: auto
+}
+
+.emr-new-patient .emr-icon-bg{
+  border: 2px solid var(--emr-darker-grey-colour);
+  /* color: var(--emr-darker-grey-colour); */
+  background-color: var(--emr-darker-grey-colour);
+  vertical-align: middle;
+}
+
+.emr-new-patient .emr-icon-bg:hover{
+  border: 2px solid var(--emr-accent-colour);
+  color: var(--emr-accent-colour);
+  box-shadow: var(--emr-high-shadow);
+  background-color: var(--emr-secondary-colour);
+}
+
+.emr-new-patient .emr-icon-bg:active{
+  box-shadow: none;
+}
+
+.emr-app-center{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.emr-app-search{
+  /* width: 50%; */
+  padding-left: 4px;
+  border-radius: var(--emr-round-corners);
+  background-color: white;
+}
+
+.emr-app-search input{
+  width: 70%;
+  display: inline;
+  border: none;
+  flex-grow: 2;
+  padding-left: 8px;
+}
+
+.emr-app-auth-and-overflow{
+  position: relative;
+  justify-content: flex-end;
+  width: auto;
+}
+
+.emr-app-auth-group{
+  width: 100%;
+  padding: 0 8px;
+  color: var(--emr-secondary-colour);
+  justify-content: center;
+}
+
+.emr-app-auth-group > h6.emr-headers{
+  font-size: 9pt;
+}
+
+.emr-app-auth-group:hover{
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: var(--emr-round-corners);
+  box-shadow: var(--emr-default-shadow);
+  transition: background-color 300ms ease-in;
+}
+
+.emr-app-toolbar{
+  color: var(--emr-darker-grey-colour);
+}
+
+.emr-app-toolbar > .emr-icon-bg{
+  margin: 0 24px;
+  position: relative;
+}
+
+.emr-app-toolbar .emr-icon-bg{
+  width: 40px;
+  height: 40px;
+  transition: background-color 200ms ease-in, color 200ms ease-in, box-shadow 200ms ease-in;
+  border: 1px solid transparent;
+}
+
+.emr-app-toolbar i.emr-icons{
+  width: max-content;
+  height: max-content;
+  /* color: var(--emr-darker-grey-colour); */
+}
+
+.emr-app-toolbar .emr-icon-bg:hover{
+  color: var(--emr-accent-light-colour);
+  background-color: var(--emr-secondary-colour);
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--emr-secondary-colour);
+}
+
+.emr-app-toolbar .emr-icon-bg:active, .emr-app-toolbar .emr-icon-bg.selected{
+  color: var(--emr-accent-colour);
+  background-color: var(--emr-secondary-colour);
+  border: 2px solid var(--emr-accent-colour);
+}
+
+.emr-app-toolbar .emr-icon-bg.selected{
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.emr-icon-tooltip{
+  width: max-content;
+  height: max-content;
+  padding: 4px 8px;
+  display: none;
+  position: absolute;
+  top: 64px; right: 0; bottom: 0; left: -16px;
+  margin: auto;
+  font-size: 8pt;
+  font-weight: bold;
+  font-style: normal;
+  color: var(--emr-secondary-colour);
+  border: 1px solid var(--emr-light-colour);
+  border-radius: 4px;
+  box-shadow: var(--emr-default-shadow);
+  background-color: white;
+  z-index: 4;
+}
+
+.emr-icon-bg:hover .emr-icon-tooltip{
+  display: inline-block;
+}
+
+.emr-app-user{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow-wrap: break-word;
+}
+
+.emr-bottom-nav{
+  position: fixed;
+  bottom: 0;
+  height: 64px;
+  background-color: var(--emr-background-colour);
+  z-index: 3;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.0625);
+}
+
+.emr-bottom-nav-row::-webkit-scrollbar{
+  display: none;
+}
+
+.emr-bottom-nav-row{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+@keyframes dropdown {
+  0%{
+    height: 0;
+    opacity: 0;
+  }
+
+  100%{
+    height: max-content;
+    opacity: 1;
+  }
+}

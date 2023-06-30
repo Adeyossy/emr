@@ -1,0 +1,426 @@
+.emr-sidebar{
+  position: fixed;
+}
+
+.emr-sidebar-l{
+  left: 0;
+}
+
+.emr-dashboard-container .emr-sidebar-r{
+  top: auto;
+}
+
+.emr-sidebar-r{
+  top: 0;
+  right: 0;
+}
+
+.emr-left-sidebar{
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: 91vh;
+  background-color: var(--emr-background-colour);
+  animation: 250ms ease-in slideInFromTheLeft
+}
+
+.container-fluid.emr-leftbar{
+  z-index: 2;
+  position: relative;
+}
+
+.emr-left-sidebar > div:nth-child(1){
+  flex-grow: 2;
+  width: 78%;
+  padding: 0 4px;
+  overflow: auto;
+}
+
+.emr-left-sidebar > div:nth-child(2) {
+  width: 22%;
+  padding: 4px;
+}
+/* 
+.emr-patients-sidebar{
+  animation: 300ms ease-in 0s 1 slideInFromTheLeft;
+} */
+
+.emr-patients-sidebar > .emr-patient-list-item{
+  background-color: white;
+}
+
+.emr-patients-timeline-bar{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 24px 8px;
+  background-color: var(--emr-secondary-colour);
+  border-radius: var(--emr-round-corners);
+}
+
+.emr-patients-timeline-bar .emr-icon-bg-dark.selected{
+  background-color: var(--emr-light-colour);
+}
+
+.emr-patients-timeline-bar .emr-icon-bg-dark:hover:not(.selected){
+  background-color: var(--emr-primary-colour);
+}
+
+.emr-icon-bg.timeline-delete{
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.emr-icon-bg.timeline{
+  width: 48px;
+  height: 48px;
+  position: relative;
+  animation: 1000ms ease-in 0ms 1 fadeIn;
+}
+
+.emr-icon-bg.timeline:hover{
+  cursor: pointer;
+}
+
+.emr-icon-bg.timeline.selected:not(:last-child):hover .emr-icon-bg.timeline-delete{
+  display: block;
+}
+
+.emr-patients-timeline-visits{
+  width: 100%;
+  height: 85%;
+  padding: 8px 0px;
+  /* display: flex;
+  flex-flow: column nowrap;
+  align-items: center; */
+  font-size: 13px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* scro */
+}
+
+.emr-patients-timeline-visits i{
+  line-height: 1;
+}
+
+.emr-timeline-visits-divider{
+  width: 2px;
+  height: 30px;
+  margin: auto;
+  background-color: var(--emr-accent-colour);
+}
+
+div.emr-biodata-summary-card{
+  background-color: var(--emr-secondary-colour);
+  border: 3px solid white;
+  color: white;
+  font-size: 7pt;
+  box-shadow: var(--emr-high-shadow);
+}
+
+.emr-biodata-summary-top{
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  padding-right: 16px;
+}
+
+.emr-icon-bg-light.emr-summary-icon-bg{
+  width: 48px;
+  height: 48px;
+}
+
+.emr-icon-bg-light.emr-summary-icon-bg .emr-summary-icon{
+  width: 32px;
+  height: 32px;
+  font-size: 32px;
+}
+
+.emr-biodata-summary-name{
+  margin-left: 8px;
+}
+
+p.emr-biodata-summary-first-name, p.emr-biodata-summary-last-name{
+  font-size: 10.5pt;
+  font-weight: bold;
+  line-height: 1.3;
+}
+
+.emr-summary-divider{
+  width: 1px;
+  height: 56px;
+  background-color: var(--emr-accent-colour);
+}
+
+.emr-biodata-summary-bottom{
+  padding: 0 16px;
+  font-size: 8pt;
+  margin: 8px 0;
+}
+
+div.emr-biodata-bottom-item{
+  padding: 4px 16px;
+}
+
+p.emr-biodata-bottom-text{
+  display: inline-block;
+  margin-left: 16px;
+  font-weight: 200;
+  opacity: 0.9;
+}
+
+div.emr-biodata-summary-other{
+  padding-right: 16px;
+  align-self: center;
+}
+
+p.emr-biodata-summary-gender{
+  font-size: 9.5pt;
+}
+
+p.emr-biodata-summary-age{
+  font-size: 11pt;
+  font-weight: bold;
+}
+
+.emr-quick-info{
+  width: 100%;
+  padding-right: 16px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.emr-quick-info-top-item{
+  width: 32%;
+}
+
+.emr-quick-info-top-item > *, .emr-quick-info-bottom-item > *{
+  width: 100%;
+  text-align: center;
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+.emr-quick-info-category{
+  color: var(--emr-secondary-colour);
+}
+
+.emr-quick-info-divider{
+  width: 1px;
+  height: 48px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.emr-horizontal-divider{
+  width: 100%;
+  padding: 0 64px;
+  margin: 32px 0;
+}
+
+.emr-quick-info-bottom-item{
+  width: 40%;
+  font-size: 8pt;
+  line-height: 1.3;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.emr-quick-info-drug-duration{
+  font-size: 7pt
+}
+
+.emr-quick-info-drug-dosage{
+  font-size: 8pt;
+}
+
+.emr-quick-info-drug-name{
+  font-size: 9.5pt;
+}
+
+.emr-plus-button{
+  vertical-align: middle;
+}
+
+.emr-chart{
+  padding: 8px 16px;
+}
+
+.emr-chart-header{
+  font-size: 9pt;
+}
+
+.emr-section-header{
+  margin-top: 24px;
+}
+
+.emr-chart-header + .emr-coming-soon{
+  height: 192px;
+  padding: 16px;
+  border-radius: 0;
+  border-left: 1px solid var(--emr-grey-colour);
+  border-bottom: 1px solid var(--emr-grey-colour);
+  background: linear-gradient(to bottom, white 12.5%, var(--emr-light-colour) 12.5% 25%, 
+    white 25% 37.5%, var(--emr-light-colour) 37.5% 50%, white 50% 62.5%, 
+      var(--emr-light-colour) 62.5% 75%, white 75% 87.5%, var(--emr-light-colour) 87.5% 100%);
+}
+
+.emr-right-sidebar{
+  height: 92vh;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  padding: 0px 8px 0 16px; 
+  margin-top: 56px; /* the 56px represents the height of the navbar */
+  overflow: auto;
+  animation: 250ms ease-in slideInFromTheRight
+  /* background-color: rgba(255, 255, 255, 1); */
+  /* box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.05); */
+}
+
+.emr-right-sidebar .container-fluid{
+  height: 25%;
+}
+
+.emr-right-sidebar-item{
+  height: 100%;
+}
+
+.emr-right-sidebar-item.notes{
+  height: 85%;
+  /* flex-grow: 2; */
+}
+
+.emr-right-sidebar-item-content{
+  height: 90%;
+}
+
+textarea.emr-right-sidebar-item-textbox{
+  height: 100%;
+  padding: 24px;
+}
+
+p.emr-right-sidebar-item-text{
+  padding-left: 16px;
+  font-weight: bold;
+  font-size: 9pt;
+}
+
+.emr-right-sidebar-item-notes{
+  min-height: 192px;
+  padding: 16px;
+  font-size: 9pt;
+  box-shadow: inset 0 0 2px 1px var(--emr-secondary-colour);
+  color: var(--emr-darker-grey-colour);
+  background-color: white;
+  border-radius: var(--emr-round-corners);
+}
+
+.emr-quick-info-card{
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  margin: 32px 16px 16px 16px;
+  background: linear-gradient(to bottom right, white, var(--emr-light-colour));
+  /* background-color: var(--emr-light-colour); */
+  border-radius: var(--emr-round-corners);
+  box-shadow: 1px 1px 8px 1px rgba(0, 0, 0, 0.1);
+}
+
+.emr-quick-info-card.diagnosis{
+  padding: 8px;
+}
+
+.emr-quick-info-card.diagnosis textarea{
+  border: none;
+  box-shadow: none;
+  font-size: 8.5pt;
+  font-weight: 700;
+  background: transparent;
+  vertical-align: middle;
+  text-align: center;
+  resize: none;
+}
+
+.emr-quick-info-card.primary-diagnosis{
+  background: var(--emr-light-colour);
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 2px solid var(--emr-accent-colour);
+}
+
+.emr-quick-info-card.secondary-diagnosis{
+  color: white;
+  background: var(--emr-secondary-colour);
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left: 2px solid var(--emr-accent-colour);
+}
+
+.emr-quick-info-card.emr-right-sidebar-item{
+  margin: 16px 0 0 0;
+}
+
+.emr-quick-info-card-2{
+  background: linear-gradient(to bottom right, white, var(--emr-accent-light-colour));
+  /* background-color: var(--emr-accent-light-colour); */
+}
+
+.emr-quick-info-card-3{
+  background: linear-gradient(to bottom right, white, var(--emr-accent-light-colour-2));
+  /* background-color: var(--emr-accent-light-colour-2); */
+}
+
+.emr-quick-info-card > p {
+  width: 100%;
+  text-align: center;
+  color: var(--emr-darker-grey-colour);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  overflow-wrap: break-word;
+}
+
+p.emr-quick-info-card-title{
+  color: var(--emr-secondary-colour);
+  font-size: 7pt;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 16px;
+}
+
+.emr-quick-info-card-details{
+  font-size: 9pt;
+  font-weight: bold;
+}
+
+@keyframes slideInFromTheLeft{
+  from{
+    transform: translateX(-20%);
+  }
+
+  to{
+    transform: translate(0%);
+  }
+}
+
+@keyframes slideInFromTheRight{
+  from{
+    transform: translateX(20%);
+  }
+
+  to{
+    transform: translate(0%);
+  }
+}
+
+@media only screen and (min-width: 1024px){
+}

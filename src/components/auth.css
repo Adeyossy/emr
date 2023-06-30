@@ -1,0 +1,183 @@
+body{
+  overflow: auto;
+}
+
+.emr{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+  background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/disk-records.jpg?alt=media&token=a07cd3be-cde3-450e-9382-f4e9c2266d60');
+  background-color: var(--emr-light-colour);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-blend-mode: luminosity;
+  animation: 20s ease-in infinite alternate forwards slo-mo;
+}
+
+.emr nav{
+  /* background-color: rgba(255, 255, 255, 0.8); */
+  background-color: var(--emr-lighter-grey-colour);
+  opacity: 0.6;
+  height: 48px;
+}
+
+main{
+  flex-grow: 9;
+  height: 100%;
+}
+
+.container-fluid{
+  height: inherit;
+}
+
+.row{
+  height: inherit;
+}
+
+.emr-auth-column{
+  height: 100%;
+  padding-right: 0px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.emr-auth-card{
+  width: 100%;
+  min-height: 40%;
+  padding: 24px 28px 0px 28px;
+  position: relative;
+  /* background: linear-gradient(to bottom right, white, var(--emr-primary-light-colour)); */
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  background-color: var(--emr-lighter-grey-colour);
+  border: 1px solid var(--emr-primary-light-colour);
+}
+
+.emr-auth-check{
+  position: absolute;
+  width: 50%;
+  height: 30%;
+  margin: auto;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+.emr-auth-loading{
+  width: 64px;
+  height: 64px;
+  position: relative;
+  margin: auto;
+  background-color: black;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.emr-auth-loading-spinner{
+  width: 50%;
+  height: 50%;
+  background-color: var(--emr-accent-colour);
+  transform-origin: right bottom;
+  animation: 1s ease-in infinite loading;
+}
+
+.emr-auth-loading-cover{
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  margin: auto;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.emr-auth-card-details{
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0; right: 0; bottom: 0; left: 0;
+  margin: auto;
+  background-color: white;
+  opacity: 0.5;
+  filter: blur(4px);
+  z-index: 0;
+}
+
+.emr-auth-header{
+  margin-top: 16px;
+  font-size: 18px;
+  color: var(--emr-secondary-colour);
+  text-align: center;
+}
+
+.emr-auth-button{
+  padding: 16px 8px;
+  margin: 48px 0px 16px 0px;
+  vertical-align: middle;
+  border-radius: 24px;
+}
+
+.emr-auth-button:hover{
+  background-color: var(--emr-primary-colour);
+}
+
+.emr-auth-button.triggered{
+  opacity: 1;
+  animation: 2000ms ease-in infinite alternate blink;
+}
+
+.emr-username-input-group{
+  margin: 32px 0;
+}
+
+.emr-different-user{
+  cursor: pointer;
+  font-size: 12px;
+  transition: text-decoration 300ms ease-in, color 300ms ease-in;
+}
+
+.emr-different-user:hover{
+  color: var(--emr-secondary-colour);
+  text-decoration: underline;
+}
+
+@keyframes blink{
+  from{
+    background-color: var(--emr-secondary-colour);
+    opacity: 0.5;
+  }
+
+  to{
+    background-color: var(--emr-primary-colour);
+    opacity: 1;
+  }
+}
+
+@keyframes slo-mo{
+  from {
+    background-size: auto 100%;
+    background-position: 50% 50%;
+  }
+
+  to {
+    background-size: auto 100%;
+    background-position: 60% 60%;
+  }
+}
+
+@keyframes loading{
+  from{
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media only screen and (min-width: 992px){
+  .emr-auth-column{
+    padding-right: 24px;
+  }
+}

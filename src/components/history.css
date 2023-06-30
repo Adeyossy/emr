@@ -1,0 +1,127 @@
+.emr-history-tab-item{
+  padding: 16px;
+  margin: 8px 4px;
+  color: black;
+  background-color: white;
+  border-radius: var(--emr-round-corners);
+  border: 2px solid var(--emr-lighter-grey-colour);
+  transition: color 300ms ease-in, background-color 300ms ease-in;
+}
+
+.emr-history-tab-item:hover{
+  color: var(--emr-grey-colour);
+  background-color: var(--emr-accent-light-colour);
+}
+
+.emr-history-tab-item:active, .emr-history-tab-item.selected{
+  color: var(--emr-accent-colour);
+  background-color: var(--emr-secondary-colour);
+  border-color: var(--emr-accent-colour);
+  box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.0625);
+}
+
+.emr-history-tab-text{
+  height: 100%;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 13px;
+  /* text-transform: uppercase; */
+  color: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.emr-clerking-tab-data{
+  /* min-height: 78vh; */
+  padding: 32px 0px 4px 0px;
+  background-color: transparent;
+  /* border-radius: var(--emr-round-corners); */
+}
+
+label, summary, .emr-clerking-tab-data-item h4{
+  color: inherit;
+  font-size: 12.8pt;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+input{
+  border-width: 2px;
+  border-color: var(--emr-primary-light-colour);
+}
+
+input:hover, input:focus-visible{
+  border-color: var(--emr-light-colour);
+  background-color: var(--emr-lighter-grey-colour);
+}
+
+.emr-clerking-tab-data-items{
+  width: 100%;
+}
+
+.emr-clerking-tab-data-item.level-2{
+  /* color: white; */
+  background-color: var(--emr-lighter-grey-colour);
+}
+
+/* .emr-clerking-tab-data-item.filled::after{
+  box-shadow: var(--emr-high-shadow);
+  mix-blend-mode: multiply;
+  content: "";
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+} */
+
+.emr-clerking-tab-data-item{
+  width: 100%;
+  padding: 5%;
+  margin-bottom: 48px;
+  color: var(--emr-darker-grey-colour);
+  background-color: white;
+  /* background-position: 0% 0%; */
+  background-size: 0% 0%;
+  border: 3px solid var(--emr-lighter-grey-colour);
+  border-radius: var(--emr-round-corners);
+  box-shadow: var(--emr-low-shadow);
+}
+
+.emr-clerking-tab-data-item.filled{
+  border-color: var(--emr-primary-colour);
+  /* background-color: var(--emr-background-colour); */
+  box-shadow: var(--emr-high-shadow);
+  /* background: linear-gradient(180deg, white 50%, var(--emr-light-colour)); */
+  transition: all 250ms ease-in;
+}
+
+.emr-patient-summary > h4.emr-card-headers{
+  margin: 2px 0;
+}
+
+.emr-clerking-tab-data-item.investigation-preview{
+  /* background-color: var(--emr-lighter-grey-colour); */
+  background-blend-mode: screen;
+}
+
+.emr-clerking-tab-data-item:last-child{
+  margin-bottom: 8px;
+}
+
+.emr-clerking-biodata-names > input{
+  width: 32.6%;
+}
+
+.emr-collapsible-summary{
+  font-weight: normal;
+  color: var(--emr-secondary-colour);
+  margin-left: 4px;
+}
+
+@media only screen and (min-width: 1024px){
+  .emr-clerking-tab-data{
+    /* min-height: 78vh; */
+    padding: 32px;
+    background-color: white;
+    border-radius: var(--emr-round-corners);
+  }
+}

@@ -1,70 +1,24 @@
-# Getting Started with Create React App
+# Electronic Medical Record Web Application
+_created on September 19, 2021 08:46 PM_
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Patient Overview](https://github.com/Adeyossy/emr/blob/main/Dashboard-3.jpg)
 
-## Available Scripts
+## Overview
+This is an electronic medical record web app. An electronic medical record system is an integrated application that allows activity of a healthcare facility to be carried out and recorded in a digital format afforded by technology. It encompasses digitizing the records of a patient, tracking payments, synchronizing investigations and management across individuals in a team and different specialties.
 
-In the project directory, you can run:
+This EMR is designed to be simple, intuitive (not letting the user waste time on figuring out how to use the app) and aethetically pleasing to the eye. It attempts to prove that increasing complexity in functionality does not have to lead to a complicated user interface.
 
-### `npm start`
+## Technical Overview
+This is a web application based on React, PouchDB and Cloudant. It uses Bootstrap and Bootstrap fonts. It is offline first and syncs when there is internet connection.
+This project **does not** use Redux or Flux but maximizes the use of Context API and composition. I read an article by Kent C. Dodds that opened my eye to the power of composition and context API - _project complexity would tell you when there is an actual need for state management applications_.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Goal of the EMR
+- To be able to generate medical records just by listening to the conversation between the doctor and the patient.
+- To be usable across several devices, be it smartphones, tablets or PCs.
+- To be offline first and not get in the way of usage without internet connection
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Design
+I designed the user interface of the application using Adobe Illustrator. I am aware of Adobe XD and Figma as the main UI/UX prototyping applications but decided to go with Adobe Illustrator because of familiarity with the application. Below is an overview page of a patient designed in the application:
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Patient Overview](/Patient-Overview.jpg)
