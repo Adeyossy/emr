@@ -97,7 +97,7 @@
   flex-flow: column nowrap;
   align-items: center; */
   font-size: 13px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   /* scro */
 }
