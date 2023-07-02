@@ -44,7 +44,6 @@ export class EMRComponent extends React.Component {
     if (prevState.user === null && this.state.user) { }
 
     if ((Date.now() - this.timeNow) > 5000) {
-      console.log('component updated for saving');
       setTimeout(this.saveChanges.bind(this), 5000);
       // this.saveChanges();
       this.timeNow = Date.now();
@@ -58,12 +57,11 @@ export class EMRComponent extends React.Component {
   saveChanges = () => {
     if (this.state.patient) {
       updateDoc(this.state.patient);
-      console.log('saved');
     }
   }
 
   createBackup = () => {
-    // create backup every 60000ms
+    // create backup when the user clicks it.
     // Maintain 1 backup
     backup(this.state.patients, this.state.user)
       .then((uploadResult => {
