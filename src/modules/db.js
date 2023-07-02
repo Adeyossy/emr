@@ -106,8 +106,18 @@ export function createNewDoc(patient, callback) {
     getCurrentUser(createDB);
   }
 
+  // console.log('document creation in progress');
   patientsDB.put(patient, (error, doc) => {
     if(error) console.log("error on put =>", error);
+    console.log(doc);
+  });
+}
+
+export function updateOne(patient) {
+  return patientsDB.get(patient._id)
+  .then(doc => {
+    patient._rev = doc._rev;
+    return patientsDB.put(patient);
   });
 }
 
@@ -117,13 +127,34 @@ export function updateDoc(patient) {
     getCurrentUser(createDB);
   }
 
-  patientsDB.get(patient._id).then(doc => {
-    patient._rev = doc._rev;
-    // console.log('document saved');
-    return patientsDB.put(patient);
-  }).catch(error => {
+  updateOne(patient).then(res => {
+    if (!res.ok) console.log('res => ', res);
+  })
+  .catch(error => {
     console.log("an error occurred => ", error);
   });
+}
+
+export function restoreCloudBackup(patients) {
+  if (patientsDB === null) {
+    getCurrentUser(createDB);
+  }
+
+  return Promise.allSettled(patients.map(patient => updateOne(patient)));
+  // return patientsDB.bulkDocs(patients);
+}
+
+export function restoreFromScratch(patients) {
+  if (patientsDB === null) {
+    getCurrentUser(createDB);
+
+    patientsDB.destroy().then(res => {
+      if (res.ok) {
+        getCurrentUser(createDB);
+        return patientsDB.bulkDocs(patients);
+      }
+    })
+  }
 }
 
 export function deleteDoc(id) {

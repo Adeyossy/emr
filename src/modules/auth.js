@@ -11,7 +11,7 @@ import {
   signOut, updateProfile
 } from "firebase/auth";
 
-import { deleteObject, getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
+import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyDyAoQjoB-HgfBahyvWp2EOuExh4iZfp9o",
@@ -110,6 +110,19 @@ export const uploadToStorage = (modality, metadata, showNotification,
       unsubscribe();
     });
   });
+}
+
+export const backup = (patients, user) => {
+  const storage = getStorage();
+  const backupRef = ref(storage, user.uid.concat('/', 'backup', '/', 
+    'backup.json'));
+  return uploadBytes(backupRef, new Blob([JSON.stringify(patients)], {
+    type: 'application/json'
+  }));
+}
+
+export const downloadBackup = (user) => {
+  return getDownloadURL(ref(getStorage(), user.uid.concat('/backup/backup.json')));
 }
 
 export const deleteFromStorage = (path, callback, user) => {

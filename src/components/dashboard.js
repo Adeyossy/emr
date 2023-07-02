@@ -1,5 +1,6 @@
 import React from "react";
 import "./dashboard.css";
+import { downloadBackup } from "../modules/auth";
 
 export default class DashboardComponent extends React.Component {
   constructor(props) {
@@ -13,6 +14,17 @@ export default class DashboardComponent extends React.Component {
   toggleAllPatients = (allPatientsShown) => {
     this.setState({
       allPatientsShown: allPatientsShown
+    });
+  }
+
+  getBackupURL() {
+    downloadBackup(this.props.user).then((downloadURL) => {
+      const blobURL = URL.createObjectURL();
+      this.setState({
+        downloadURL: downloadURL
+      });
+    }).catch(err => {
+      console.log('error => ', err);
     });
   }
 
@@ -64,10 +76,24 @@ export default class DashboardComponent extends React.Component {
               </div>
               <div className="emr-stats emr-card d-none d-lg-block">
                 {/* <!-- stats on diagnoses go here --> */}
-                <h6 className="emr-headers emr-card-headers">STATS: Diagnoses</h6>
-                <div className="emr-coming-soon">
+                {/* <h6 className="emr-headers emr-card-headers">Backups</h6> */}
+                <button className="emr-button bg-primary mb-1"
+                  onClick={this.props.createBackup}>
+                  <i className="bi bi-cloud-fill"></i>
+                  <span> Create Cloud Backup</span>
+                </button>
+                <br></br>
+                <a className={this.props.patients.length ? '' : 'd-none'}
+                  href={URL.createObjectURL(new Blob([JSON.stringify(this.props.patients)], 
+                  {type: 'application/json'}))} download={'backup.json'}>
+                  <button className="emr-button">
+                    <i className="bi bi-file-arrow-down-fill"></i>
+                    <span> Download My Data</span>
+                  </button>
+                </a>
+                {/* <div className="emr-coming-soon">
                   <p className="emr-coming-soon-text">coming soon</p>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* <!-- End of the first column of the app --> */}

@@ -120,7 +120,9 @@ export default class NavComponent extends React.Component {
                 {/* <h6 className="emr-headers emr-app-user d-inline w-50">DR. {this.props.user ? this.props.user.displayName : ""}</h6> */}
               </div>
               <div className="emr-other-views show">
-                <p className="emr-other-view" onClick={this.onSignOut}>Your Profile</p>
+                <p className="emr-other-view">Your Profile</p>
+                <p className="emr-other-view" onClick={this.props.createBackup}>Create Backup</p>
+                <p className="emr-other-view" onClick={this.props.restoreBackup}>Restore Backup</p>
                 <p className="emr-other-view" onClick={this.onSignOut}>Logout</p>
               </div>
             </div>

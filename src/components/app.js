@@ -363,7 +363,8 @@ export class AppComponent extends React.Component {
             patient={this.props.patient} createNewPatient={this.props.createNewPatient}
             onUserSignOut={this.props.onUserSignOut} user={this.props.user}
             filterPatients={this.props.filterPatients} isDrawerOpen={this.state.isDrawerOpen}
-            changeDrawerState={this.changeDrawerState}
+            changeDrawerState={this.changeDrawerState} createBackup={this.props.createBackup}
+            restoreBackup={this.props.restoreBackup}
           />
         </nav>
         {this.props.patient && this.props.patient.appointment ?

@@ -195,7 +195,7 @@ export function newEmrPatient() {
   newPatient.first_seen = idApntmntTime;
   newPatient.last_seen = idApntmntTime;
   const newApntmnt = getAppointment(idApntmntTime);
-  newPatient.appointment = newApntmnt;
+  // newPatient.appointment = newApntmnt;
   newPatient.appointments = [newApntmnt];
 
   return newPatient;
@@ -252,6 +252,7 @@ export function parseApntmntDB(apntmnt) {
 
 export function parseFromDatabase(dbPatient) {
   this._id = dbPatient._id;
+  // this._rev = dbPatient._rev;
   this.next_appointment = dbPatient.next_appointment;
   this.last_seen = dbPatient.last_seen;
   this.first_seen = dbPatient.first_seen;

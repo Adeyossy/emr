@@ -3,10 +3,10 @@ import './emr.css';
 import AuthComponent from './components/auth';
 import { AppComponent } from './components/app.js';
 import { getAppointment, getAppointmentWithDefaultValues, newEmrPatient, parseFromDatabase, parseOldPatient } from './models/patient';
-import { authStateObserver, getCurrentUser, uploadToStorage } from './modules/auth';
+import { authStateObserver, backup, downloadBackup, getCurrentUser, uploadToStorage } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
-import { createDB, createNewDoc, deleteDoc, fetchFromRemote, updateDoc } from './modules/db';
+import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, restoreBackup, restoreCloudBackup, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
 import { formsLookUp } from './models/forms';
 
@@ -29,25 +29,27 @@ export class EMRComponent extends React.Component {
       dialogTitle: "",
       dialogAction: this.dismissDialog.bind(this),
       authComplete: false,
-      hasDataChanged: false
+      hasDataChanged: false,
+      downloadURL: ''
     }
 
-    this.intervalDuration = 5000
+    this.timeNow = Date.now();
   }
 
   componentDidMount() {
-    // "I am in main branch"
     authStateObserver(this.authStateChanged);
-
-    this.setSavingInterval()
-    setInterval(this.updateInterval, 15000)
-    // getOfflineDocs(this.docsFromOfflineDB);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.user === null && this.state.user) { }
 
-    this.intervalDuration = 500;
+    if ((Date.now() - this.timeNow) > 5000) {
+      console.log('component updated for saving');
+      setTimeout(this.saveChanges.bind(this), 5000);
+      // this.saveChanges();
+      this.timeNow = Date.now();
+    }
+    // this.intervalDuration = 500;
   }
 
   componentWillUnmount() {
@@ -56,17 +58,84 @@ export class EMRComponent extends React.Component {
   saveChanges = () => {
     if (this.state.patient) {
       updateDoc(this.state.patient);
+      console.log('saved');
     }
   }
 
-  setSavingInterval = () => {
-    this.savingInterval = setInterval(this.saveChanges, this.intervalDuration);
+  createBackup = () => {
+    // create backup every 60000ms
+    // Maintain 1 backup
+    backup(this.state.patients, this.state.user)
+      .then((uploadResult => {
+        this.setState({
+          showNotification: true,
+          info: "Backup Created Successfully"
+        });
+      }))
+      .catch((err) => {
+        console.log(err);
+        this.setState({
+          showNotification: true,
+          info: "Error creating backup"
+        });
+      });
   }
 
-  updateInterval = () => {
-    this.intervalDuration += 5000
-    clearInterval(this.savingInterval)
-    this.setSavingInterval()
+  restoreBackup = () => {
+    this.switchBackToDashboard();
+    this.setState({
+      authComplete: false
+    });
+    let docs = [];
+    downloadBackup(this.state.user)
+      .then(url => fetch(url))
+      .then(response => response.json())
+      .then(patients => {
+        docs = patients;
+        this.setState({
+          patients: this.upgradeDataStructure(patients),
+          authComplete: true,
+          showNotification: true,
+          info: 'Backup Restored'
+        });
+        return restoreCloudBackup(patients)
+      })
+      .then(responses => {
+        console.log(responses);
+        responses
+          .filter(response => response.status === 'rejected')
+          .filter(rejected => rejected.reason.message === 'missing')
+          .forEach((item) => {
+            console.log(item);
+            console.log(docs);
+            const deletedDoc = docs.find(doc => doc._id === item.reason.docId);
+            if (deletedDoc) {
+              deletedDoc._id = Date.now().toString();
+              const patients = this.state.patients;
+              patients.push(...this.upgradeDataStructure([deletedDoc]));
+              this.setState({
+                showNotification: true,
+                info: 'Restored Deleted Files',
+                patients: patients
+              });
+              createNewDoc(deletedDoc);
+              // docs.filter(doc => doc._id === item.reason.docId)
+              //   .forEach(doc => {
+              //   });
+            }
+            // createNewDoc(item);
+          });
+
+
+        // this.switchBackToDashboard();
+        // getOfflineDocs(this.docsFromOfflineDB);
+      }).catch(err => {
+        console.log(err);
+        this.setState({
+          showNotification: true,
+          info: 'Error Restoring Backup'
+        });
+      });
   }
 
   authStateChanged = (user) => {
@@ -118,7 +187,7 @@ export class EMRComponent extends React.Component {
 
   docsFromOfflineDB = (docs) => {
     //We're expecting an array of object with 'doc' as the needed key for the value
-    
+
     let dataFromDocs = docs.map(item => item.doc);
 
     // const data1Parsed = JSON.parse(JSON.stringify(data2));
@@ -140,7 +209,9 @@ export class EMRComponent extends React.Component {
     this.setState({
       patients: dataFromDocs,
       filteredPatients: dataFromDocs,
-      authComplete: true
+      authComplete: true,
+      downloadURL: URL.createObjectURL(new Blob([JSON.stringify(dataFromDocs)],
+        { type: 'application/json' }))
     });
   }
 
@@ -192,6 +263,7 @@ export class EMRComponent extends React.Component {
   onCreateIconClicked = () => {
     // const newPatient = parseOldPatient.call(JSON.parse(JSON.stringify(getFreshPatient())));
     const newPatient = newEmrPatient();
+    newPatient.appointment = newPatient.appointments[0];
     this.state.patients.push(newPatient);
     this.setState({
       patient: newPatient,
@@ -230,17 +302,24 @@ export class EMRComponent extends React.Component {
 
   onPatientTableClicked = (id) => {
     // console.log("Patient appointments => ", this.state.patients.find((value) => id === value._id));
+    const patient = this.state.patients.find((value) => id === value._id);
+    patient.appointment = patient.appointments.find(apntmnt => 
+      apntmnt.date_seen === patient.appointment.date_seen);
+    
     this.setState({
-      patient: this.state.patients.find((value) => id === value._id),
+      patient: patient,
       emrContext: "Patients"
     });
   }
 
   onPatientChange = (patient) => {
+    patient.appointment = patient.appointments.find(apntmnt => 
+      apntmnt.date_seen === patient.appointment.date_seen);
     this.setState({
       patient: patient,
       showNotification: true,
-      info: `Switched ${patient.appointment.biodata.firstname ? "to ".concat(patient.appointment.biodata.firstname.toUpperCase()) : "patient"}`
+      info: `Switched ${patient.appointment.biodata.firstname ? 
+        "to ".concat(patient.appointment.biodata.firstname.toUpperCase()) : "patient"}`
     });
   }
 
@@ -331,6 +410,14 @@ export class EMRComponent extends React.Component {
     // updateDoc(thisPatient);
   }
 
+  // A method to update an appointment directly in its array
+  // Temporarily, I am working with making sure the temporary appointment field
+  // references something in the array.
+  updateAppointment = (dateSeen, name, value, fields, index) => {
+    const patient = this.state.patient;
+    const apntmnt = patient.appointments.find(apntmnt => apntmnt.date_seen === dateSeen);
+  }
+
   //add or remove entire items (i.e an hospitalization history) in the past medical history array
   updateItemsInArray = (fields, pmhObject, value) => {
     const thisPatient = this.state.patient;
@@ -369,7 +456,7 @@ export class EMRComponent extends React.Component {
     }
     const last_seen = Date.now();
     const appointment = getAppointmentWithDefaultValues.call(lastAppointment, last_seen);
-    new Promise((resolve, reject) => 
+    new Promise((resolve, reject) =>
       resolve(getAppointmentWithDefaultValues.call(lastAppointment, last_seen)))
       .then(newApntmnt => {
         console.log('promise resolved');
@@ -379,22 +466,24 @@ export class EMRComponent extends React.Component {
         this.setState({
           patient: patient
         });
-        this.switchToAppointment(appointment);
+        this.switchToAppointment(last_seen);
       })
       .catch(err => {
         console.log(err);
         this.showDialog('App Error',
-        'Something went on while creating the new appointment');
+          'Something went on while creating the new appointment');
       })
-    
+
 
   }
 
-  switchToAppointment = (appointment) => {
-    this.state.patient.appointment = appointment;
+  switchToAppointment = (date_seen) => {
+    const patient = this.state.patient;
+    patient.appointment = patient.appointments.find(apntmnt => 
+      apntmnt.date_seen === date_seen);
     // console.log("switched appointment forms => ", this.state.patient.appointment.forms);
     this.setState({
-      patient: this.state.patient
+      patient: patient
     });
 
     // window.scrollTo({
@@ -479,7 +568,7 @@ export class EMRComponent extends React.Component {
       const value = splitSortString[1].trim();
 
       if (field === 'name') {
-        filter = patient => 
+        filter = patient =>
           patient.appointment.biodata.lastname.toLowerCase().includes(value) ||
           patient.appointment.biodata.middlename.toLowerCase().includes(value) ||
           patient.appointment.biodata.firstname.toLowerCase().includes(value)
@@ -518,14 +607,14 @@ export class EMRComponent extends React.Component {
 
     if (sortBy === "name") {
       sorter = (a, b) => {
-          if (a.appointment.biodata.lastname.toLowerCase()
-            < b.appointment.biodata.lastname.toLowerCase())
-            return -1;
-        };
+        if (a.appointment.biodata.lastname.toLowerCase()
+          < b.appointment.biodata.lastname.toLowerCase())
+          return -1;
+      };
     }
 
     if (sortBy === "age") {
-      sorter = (a, b) => 
+      sorter = (a, b) =>
         a.appointment.biodata.ageinyears - b.appointment.biodata.ageinyears;
     }
 
@@ -535,12 +624,12 @@ export class EMRComponent extends React.Component {
 
     if (sortBy === "d") {
       sorter = (a, b) => a.primary_diagnosis.toLowerCase() <
-          b.primary_diagnosis.toLowerCase() ? -1 : 0;
+        b.primary_diagnosis.toLowerCase() ? -1 : 0;
     }
 
     if (sortBy === "d") {
       sorter = (a, b) => a.secondary_diagnosis.toLowerCase()
-          < b.secondary_diagnosis.toLowerCase() ? -1 : 0;
+        < b.secondary_diagnosis.toLowerCase() ? -1 : 0;
     }
 
     this.setState({
@@ -624,18 +713,19 @@ export class EMRComponent extends React.Component {
             deleteAppointment={this.deleteAppointment} addForm={this.addForm}
             deleteForm={this.deleteForm} filterPatients={this.filterPatients}
             createUploadItem={this.createUploadItem} beginUpload={this.beginUpload}
-            deleteUpload={this.deleteUpload}>
+            deleteUpload={this.deleteUpload} createBackup={this.createBackup}
+            restoreBackup={this.restoreBackup}>
             {
               this.state.patient !== null ?
                 null :
                 <DashboardComponent
                   recents={this.state.patients.filter(patient => patient.appointments.length === 1)
-                    .sort((a, b) => b._id - a._id).slice(0, 3)}
-                  createNewPatient={this.onCreateIconClicked}
+                    .sort((a, b) => b._id - a._id).slice(0, 3)} downloadURL={this.state.downloadURL}
+                  createNewPatient={this.onCreateIconClicked} patients={this.state.patients}
                   viewPatient={this.onPatientTableClicked} user={this.state.user}>
                   <PatientTableComponent patients={this.state.patients.filter(this.state.filter)}
                     onItemClicked={this.onPatientTableClicked}
-                    authComplete={this.state.authComplete}
+                    authComplete={this.state.authComplete} createBackup={this.createBackup}
                     sortPatients={this.sortPatients} />
                 </DashboardComponent>
             }

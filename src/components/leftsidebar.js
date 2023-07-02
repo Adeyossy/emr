@@ -5,7 +5,6 @@ export default class LeftSideBarComponent extends React.Component {
   static contextType = PatientContext;
 
   deletePatient = (item, event) => {
-    console.log(event);
     event.stopPropagation();
     this.props.showDialogOnClick("Delete Patient",
       `${item.appointment.biodata.lastname ?
@@ -74,7 +73,7 @@ export default class LeftSideBarComponent extends React.Component {
                                 this.context.appointment.date_seen ? "selected" : ""}`}
                               key={index.toString()} onClick={this.context.appointment.date_seen
                                 !== item.date_seen ? this.props.switchToAppointment
-                                  .bind(this, item) : null}>
+                                  .bind(this, item.date_seen) : null}>
                               <i className={`emr-center-icon emr-timeline-bar-icons`}>
                                 #{array.length - index}</i>
                               <div className="emr-icon-bg emr-icon-bg-dark timeline-delete"
