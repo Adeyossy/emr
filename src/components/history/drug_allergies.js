@@ -17,14 +17,10 @@ export default class DrugsAllergiesComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChangeKeyed = (index, fields, id, value) => {
-    console.log("index => ", index);
-    console.log("id => ", id);
-    console.log("value => ", value);
     this.props.updateAnyObject(id, value, fields, index);
   }
 
   onItemChange = (name, index, fields, event) => {
-    console.log("arguments => ", name);
     this.onItemChangeKeyed(index, fields, name, event.target.value);
   }
 

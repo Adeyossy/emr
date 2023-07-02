@@ -24,7 +24,7 @@ export default class DashboardComponent extends React.Component {
         downloadURL: downloadURL
       });
     }).catch(err => {
-      console.log('error => ', err);
+// console.log('error => ', err);
     });
   }
 

@@ -26,8 +26,8 @@ export default class SurgeryComponent extends React.Component {
   }
 
   displaySelectedInInputBox = (index) => {
-    console.log("index of selected => ", index)
-    console.log("Value => ", this.surgeryReactions[index])
+// console.log("index of selected => ", index)
+// console.log("Value => ", this.surgeryReactions[index])
     this.setState({
       surgeryReaction: this.surgeryReactions[index]
     });

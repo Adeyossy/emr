@@ -54,14 +54,14 @@ export default class MultiSelectOutputComponent extends React.Component {
     const itemAtIndex = this.props.items[index];
 
     let currentSelections = this.props.value ? this.props.value.split(", ") : [];
-    console.log("currentselections => ", currentSelections);
-    console.log("value of currentselections => ", this.props.value);
+// console.log("currentselections => ", currentSelections);
+// console.log("value of currentselections => ", this.props.value);
 
     const isAlreadySelected = currentSelections.find((value) => value === itemAtIndex);
     if(isAlreadySelected) {
-      console.log("Already Selected");
+// console.log("Already Selected");
       currentSelections = currentSelections.filter(value => value !== itemAtIndex);
-    console.log("currentselections => ", currentSelections);
+// console.log("currentselections => ", currentSelections);
     } else {
       currentSelections.push(itemAtIndex);
     }
@@ -74,7 +74,7 @@ export default class MultiSelectOutputComponent extends React.Component {
     //   item: event.target.value
     // });
 
-    console.log("event triggered in multi_select_output => ", event.target.value);
+// console.log("event triggered in multi_select_output => ", event.target.value);
 
     //If user decides to type, check if the typed content is/are among the selectable items
     //I want to select the corresponding clickable items

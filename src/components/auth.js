@@ -39,7 +39,6 @@ export default class AuthComponent extends React.Component {
 
   onUserSignIn = (user) => {
     if (user) {
-      console.log("sign in successful");
       if (user.displayName) {
         this.setState({
           displayname: user.displayName
@@ -48,7 +47,7 @@ export default class AuthComponent extends React.Component {
         // this.props.continueToApp();
       }
     } else {
-      console.log("not signed in");
+// console.log("not signed in");
     }
 
     //autState indicates if authentication has returned a response irrespective of outcome

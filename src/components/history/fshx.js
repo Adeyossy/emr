@@ -21,13 +21,10 @@ export default class FSHxComponent extends React.Component {
   }
 
   onAlcoholItemChange = (id, value) => {
-    console.log("id => ", id);
     this.props.updateItemsInArray(["appointment", "alcohol", id], value.split(", "), null);
   }
 
   onObjectItemChange = (id, value) => {
-    console.log("this.onObjectItemChange");
-    console.log("values => ", Object.values(this.context.appointment.alcohol));
     if (id.includes("alcohol")) {
       this.props.updateAnyObject(id, value, ["appointment", "alcohol"], null);
     }

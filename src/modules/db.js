@@ -93,7 +93,7 @@ export function getOfflineDocs(callback) {
   patientsDB.allDocs({ include_docs: true, descending: true }, (error, doc) => {
     
     if (error) {
-      console.log("error => ", error);
+// console.log("error => ", error);
     }
 
     callback(doc.rows);
@@ -109,7 +109,7 @@ export function createNewDoc(patient, callback) {
   // console.log('document creation in progress');
   patientsDB.put(patient, (error, doc) => {
     if(error) console.log("error on put =>", error);
-    console.log(doc);
+// console.log(doc);
   });
 }
 
@@ -131,7 +131,7 @@ export function updateDoc(patient) {
     if (!res.ok) console.log('res => ', res);
   })
   .catch(error => {
-    console.log("an error occurred => ", error);
+// console.log("an error occurred => ", error);
   });
 }
 
@@ -177,6 +177,6 @@ export function closeDB(callback) {
     // console.log("db is closed");
     callback();
   }).catch((error) => {
-    console.log("error closing database => ", error);
+// console.log("error closing database => ", error);
   });
 }

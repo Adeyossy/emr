@@ -17,7 +17,7 @@ export default class BiodataComponent extends React.Component {
       this.props.updateAnyObject(id, value, ["appointment", "biodata"]);
     } else {
       const enteredDate = new Date(value);
-      console.log("entered date => ", enteredDate.toLocaleString('en-NG'));
+// console.log("entered date => ", enteredDate.toLocaleString('en-NG'));
       // console.log("entered time in milliseconds => ", enteredDate.getTime());
       this.props.updateAnyObject(id, enteredDate.getTime(), ["appointment"]);
     }

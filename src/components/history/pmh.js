@@ -40,7 +40,6 @@ export default class PMHComponent extends React.Component {
           return comorbidityObject;
         }
       });
-      console.log("In pmh onItemChange => ", comorbidityArray);
 
       this.props.updateItemsInArray(["appointment", "past_medical_history", "comorbidities"],
         comorbidityArray, 'comorbidity');

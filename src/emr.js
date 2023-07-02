@@ -71,7 +71,7 @@ export class EMRComponent extends React.Component {
         });
       }))
       .catch((err) => {
-        console.log(err);
+// console.log(err);
         this.setState({
           showNotification: true,
           info: "Error creating backup"
@@ -99,13 +99,11 @@ export class EMRComponent extends React.Component {
         return restoreCloudBackup(patients)
       })
       .then(responses => {
-        console.log(responses);
+        // console.log(responses);
         responses
           .filter(response => response.status === 'rejected')
           .filter(rejected => rejected.reason.message === 'missing')
           .forEach((item) => {
-            console.log(item);
-            console.log(docs);
             const deletedDoc = docs.find(doc => doc._id === item.reason.docId);
             if (deletedDoc) {
               deletedDoc._id = Date.now().toString();
@@ -128,7 +126,7 @@ export class EMRComponent extends React.Component {
         // this.switchBackToDashboard();
         // getOfflineDocs(this.docsFromOfflineDB);
       }).catch(err => {
-        console.log(err);
+// console.log(err);
         this.setState({
           showNotification: true,
           info: 'Error Restoring Backup'
@@ -457,8 +455,6 @@ export class EMRComponent extends React.Component {
     new Promise((resolve, reject) =>
       resolve(getAppointmentWithDefaultValues.call(lastAppointment, last_seen)))
       .then(newApntmnt => {
-        console.log('promise resolved');
-        console.log(newApntmnt);
         patient.last_seen = last_seen;
         patient.appointments.unshift(newApntmnt);
         this.setState({
@@ -467,7 +463,7 @@ export class EMRComponent extends React.Component {
         this.switchToAppointment(last_seen);
       })
       .catch(err => {
-        console.log(err);
+// console.log(err);
         this.showDialog('App Error',
           'Something went on while creating the new appointment');
       })

@@ -31,7 +31,7 @@ export const authStateObserver = (callback) => {
   onAuthStateChanged(getAuth(), (user => {
     callback(user);
   }), error => {
-    console.log("error on sign in => ", error);
+// console.log("error on sign in => ", error);
   });
 }
 
@@ -40,7 +40,7 @@ export const signUserIn = (email, password, onUserSignIn) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
-      console.log("user => ", userCredential.user);
+// console.log("user => ", userCredential.user);
       onUserSignIn(userCredential.user);
       // ...
     })
@@ -53,10 +53,10 @@ export const signUserIn = (email, password, onUserSignIn) => {
 
 export const signUserOut = (callback) => {
   signOut(getAuth()).then(() => {
-    console.log("signed out");
+// console.log("signed out");
     callback();
   }).catch(() => {
-    console.log("error occurred on signing out");
+// console.log("error occurred on signing out");
   });
 }
 
@@ -67,12 +67,12 @@ export const updateUserProfile = (displayName, callback) => {
   }).then(() => {
     // Profile updated!
     // ...
-    console.log("profile successfully updated");
+// console.log("profile successfully updated");
     callback();
   }).catch((error) => {
     // An error occurred
     // ...
-    console.log("error on profile update => ", error);
+// console.log("error on profile update => ", error);
   });
 }
 
@@ -89,22 +89,22 @@ export const uploadToStorage = (modality, metadata, showNotification,
   callback, updateCallback, user) => {
   const storage = getStorage();
   // console.log('arguments => ', uploadToStorage.arguments.length);
-  console.log('user => ', user)
-  console.log('modality => ', modality)
+// console.log('user => ', user)
+// console.log('modality => ', modality)
   const invUploadRef = ref(storage, user.uid.concat('/', modality, '/', metadata.name));
   const uploadTask = uploadBytesResumable(invUploadRef, metadata.file);
   const unsubscribe = uploadTask.on('state_changed', snapshot => {
-    console.log("Upload Started");
+// console.log("Upload Started");
     showNotification("Upload Started");
-    console.log("Upload snapshot => ", snapshot);
+// console.log("Upload snapshot => ", snapshot);
     const progress = (snapshot.bytesTransferred / snapshot.totalBytes)
     updateCallback(progress);
   }, err => {
-    console.log("Upload error => ", err);
+// console.log("Upload error => ", err);
     showNotification("An error occurred");
   }, () => {
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      console.log("Download URL => ", downloadURL);
+// console.log("Download URL => ", downloadURL);
       showNotification("Upload Complete");
       callback(downloadURL);
       unsubscribe();
@@ -128,12 +128,12 @@ export const downloadBackup = (user) => {
 export const deleteFromStorage = (path, callback, user) => {
   const deleteRef = ref(getStorage(), user.uid.concat('/', path));
   deleteObject(deleteRef).then(() => {
-    console.log("Successfully Deleted");
+// console.log("Successfully Deleted");
     callback();
   }).catch((error) => {
-    console.log("An error occurred while uploading");
-    console.log("error => ", error);
-    console.log("error code => ", error.code);
-    console.log("error message => ", error.message);
+// console.log("An error occurred while uploading");
+// console.log("error => ", error);
+// console.log("error code => ", error.code);
+// console.log("error message => ", error.message);
   });
 }

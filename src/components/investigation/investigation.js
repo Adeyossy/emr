@@ -67,7 +67,7 @@ export default class InvestigationComponent extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log("investigations will unmount");
+// console.log("investigations will unmount");
   }
 
   render() {

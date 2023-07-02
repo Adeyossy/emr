@@ -80,7 +80,6 @@ export class AppComponent extends React.Component {
           }
 
           if (e.key === "ArrowLeft") {
-            console.log("Left arrow pressed");
             index -= 1;
             this.onHotkeysPressed(index);
             // handleAnimations(--currentNumber, "animateOutClass");
@@ -216,7 +215,6 @@ export class AppComponent extends React.Component {
     const tabToSelect = whereToSelect ? whereToSelect : 0;
     this.cleanUpFormFields();
     const forms = this.props.patient.appointment.forms;
-    console.log("Forms => ", forms);
     if (forms.hasOwnProperty('gcs')) {
       this.state.otherFormsComponents.push(
         <GCSComponent updateAnyObject={this.props.updateAnyObject}
