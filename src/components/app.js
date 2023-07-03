@@ -42,7 +42,6 @@ export class AppComponent extends React.Component {
 
     this.componentItems = [
       ["Biodata", "Complaint", "RoS", "PMH", "Drug | Allergy", "FSHx"],
-      ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"],
       [],
       ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
       ["Imaging", "Electrical", "Haematology", "Labs", "Microbiology", "Procedures"],
@@ -54,39 +53,19 @@ export class AppComponent extends React.Component {
       .fill("", 1, item.length));
 
     this.state = {
-      navState: ["", "", "", "", "", "", ""], //history, Epilepsy form, other forms, examination, investigations, assessment, treatment
+      navState: ["", "", "", "", "", ""], //history, Epilepsy form, other forms, examination, investigations, assessment, treatment
       navIndex: 0,
       contextItems: ["Dashboard", "Patients", "Investigations"],
-      tabIndex: [0, 0, 0, 0, 0, 0, 0],
+      tabIndex: [0, 0, 0, 0, 0, 0],
       showOverview: false,
       booleanState: false,
       isDrawerOpen: false
     }
+
   }
-
+  
   componentDidMount() {
-
-    window.addEventListener('keydown', (e) => {
-      const focusedElement = document.activeElement.tagName.toLowerCase();
-      
-      if (focusedElement === 'input' || focusedElement === 'textarea') {
-      } else {
-        if (this.props.patient) {
-          let index = this.state.tabIndex[this.state.navIndex]; //last value
-          if (e.key === "ArrowRight") {
-            index += 1; //new value
-            this.onHotkeysPressed(index);
-            // handleAnimations(++currentNumber, "animateInClass");
-          }
-
-          if (e.key === "ArrowLeft") {
-            index -= 1;
-            this.onHotkeysPressed(index);
-            // handleAnimations(--currentNumber, "animateOutClass");
-          }
-        }
-      }
-    });
+    window.addEventListener('keydown', this.listener);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -98,6 +77,33 @@ export class AppComponent extends React.Component {
     //   && prevProps.patient._id !== this.props.patient._id) {
     //   this.addFormFields();
     // }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.listener);
+    // window.removeEventListener("keydown", this.listener.bind(this));
+  }
+
+  listener = (e) => {
+    const focusedElement = document.activeElement.tagName.toLowerCase();
+    
+    if (focusedElement === 'input' || focusedElement === 'textarea') {
+    } else {
+      if (this.props.patient) {
+        let index = this.state.tabIndex[this.state.navIndex]; //last value
+        if (e.key === "ArrowRight") {
+          index += 1; //new value
+          this.onHotkeysPressed(index);
+          // handleAnimations(++currentNumber, "animateInClass");
+        }
+        
+        if (e.key === "ArrowLeft") {
+          index -= 1;
+          this.onHotkeysPressed(index);
+          // handleAnimations(--currentNumber, "animateOutClass");
+        }
+      }
+    }
   }
 
   onHotkeysPressed = (newValue) => {
@@ -202,7 +208,7 @@ export class AppComponent extends React.Component {
   }
 
   updateFormState = (whereToSelect) => {
-    this.state.tabState[2] = this.state.componentItems[2].slice().fill("");
+    this.state.tabState[1] = this.state.componentItems[1].slice().fill("");
 
     this.setState({
       otherFormsComponents: this.state.otherFormsComponents,
@@ -221,7 +227,7 @@ export class AppComponent extends React.Component {
           patient={this.props.patient} />
       );
 
-      this.state.componentItems[2].push("GCS");
+      this.state.componentItems[1].push("GCS");
     }
 
     if (forms.hasOwnProperty('mmse')) {
@@ -230,16 +236,16 @@ export class AppComponent extends React.Component {
           patient={this.props.patient} />
       );
 
-      this.state.componentItems[2].push("MMSE");
+      this.state.componentItems[1].push("MMSE");
     }
 
     const localTabState = this.state.tabState;
-    localTabState[2] = this.state.componentItems[2].slice().fill("");
-    localTabState[2][tabToSelect] = "selected";
+    localTabState[1] = this.state.componentItems[1].slice().fill("");
+    localTabState[1][tabToSelect] = "selected";
 
     // Get the tab index of the app and reselect as appropriate
     const localTabIndex = this.state.tabIndex
-    localTabIndex[2] = tabToSelect;
+    localTabIndex[1] = tabToSelect;
 
     this.setState({
       tabState: localTabState,
@@ -290,7 +296,7 @@ export class AppComponent extends React.Component {
 
     //Tabbed components under Other Forms
     const otherForms = this.props.patient ? this.otherFormsUpdate() : [[], []];
-    this.componentItems[2] = otherForms[0];
+    this.componentItems[1] = otherForms[0];
     const otherFormsComponents = otherForms[1];
 
     //Tabbed components under Examination
@@ -310,7 +316,7 @@ export class AppComponent extends React.Component {
 
     //Tabbed components under Other Forms
     // this.investigationsComponents = [ <NotesOnlyComponent notesHeader={"Imaging"} /> ];
-    const investigationsComponents = this.componentItems[4].map((item) =>
+    const investigationsComponents = this.componentItems[3].map((item) =>
       <InvestigationComponent modality={item.toLowerCase()}
         createUploadItem={this.props.createUploadItem}
         updateAnyObject={this.props.updateAnyObject}
@@ -322,18 +328,18 @@ export class AppComponent extends React.Component {
 
     //Tabbed components under Other Forms
     // this.assessmentComponents = [  ];
-    const assessmentComponents = this.componentItems[5].map((item) =>
+    const assessmentComponents = this.componentItems[4].map((item) =>
       <NotesOnlyComponent fields={[item.toLowerCase()]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={item}
         value={item.toLowerCase()} />);
 
     //Tabbed components under Other Forms
-    const treatmentComponents = this.componentItems[6].map((item) =>
+    const treatmentComponents = this.componentItems[5].map((item) =>
       <NotesOnlyComponent fields={[item.toLowerCase()]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={item}
         value={item.toLowerCase()} />);
 
-    const componentContents = [historyComponents, epilepsyComponents, otherFormsComponents,
+    const componentContents = [historyComponents, otherFormsComponents,
       examComponents, investigationsComponents, assessmentComponents,
       treatmentComponents];
 

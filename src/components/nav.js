@@ -8,12 +8,11 @@ export default class NavComponent extends React.Component {
     super(props);
     this.appbar = [
       ["History", "bi-file-earmark-medical-fill"],
-      ["Epilepsy Questionnaire", "bi-question-circle-fill"],
-      ["Other Forms", "bi-code-square"],
-      ["Examination", "bi-wrench"],
-      ["Investigation", "bi-card-image"],
+      ["Forms", "bi-card-list"],
+      ["Examination", "bi-clipboard2-pulse-fill"],
+      ["Investigation", "bi-heart-pulse-fill"],
       ["Assessment", "bi-lightbulb-fill"],
-      ["Treatment", "bi-check-circle-fill"]
+      ["Treatment", "bi-capsule-pill"]
     ];
 
     this.state = {
