@@ -418,7 +418,7 @@ export class AppComponent extends React.Component {
                       {componentContents[this.state.navIndex].length > 0 ?
                         componentContents[this.state.navIndex][this.state.tabIndex[this.state.navIndex]] : null}
                       {
-                        this.state.navIndex === 2 ?
+                        this.state.navIndex === 1 ?
                           <div className="emr-icon-bg emr-icon-bg-light"
                             onClick={this.showFormSelectionDialog}>
                             <i className="bi bi-plus-lg emr-icons emr-center-icon"></i>
