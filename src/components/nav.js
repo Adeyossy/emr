@@ -2,18 +2,11 @@ import React from "react";
 import { signUserOut } from "../modules/auth";
 import { closeDB } from "../modules/db";
 import "./nav.css";
+import { navTabs } from "../models/nav";
 
 export default class NavComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.appbar = [
-      ["History", "bi-file-earmark-medical-fill"],
-      ["Forms", "bi-card-list"],
-      ["Examination", "bi-clipboard2-pulse-fill"],
-      ["Investigation", "bi-heart-pulse-fill"],
-      ["Assessment", "bi-lightbulb-fill"],
-      ["Treatment", "bi-capsule-pill"]
-    ];
 
     this.state = {
       item: "Dashboard",
@@ -41,7 +34,7 @@ export default class NavComponent extends React.Component {
   }
 
   render() {
-    const appBarItems = this.appbar.map((item, index) =>
+    const appBarItems = navTabs.map((item, index) =>
       <div className={`emr-icon-bg ${this.props.navIndex === index ? "selected" : ""}`}
         key={index} onClick={this.props.changeState.bind(this, index)}>
         <i className={`bi ${item[1]} emr-icons emr-center-icon`}></i>
