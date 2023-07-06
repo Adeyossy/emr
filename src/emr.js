@@ -260,7 +260,6 @@ export class EMRComponent extends React.Component {
       }
 
       const newData = new parseFromDatabase(item);
-      console.log(newData);
       return newData;
     });
 

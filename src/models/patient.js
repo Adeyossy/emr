@@ -254,7 +254,6 @@ export function parseApntmntDB(apntmnt) {
 }
 
 export function parseFromDatabase(dbPatient) {
-  console.log('dbPatient => ', dbPatient);
   this._id = dbPatient._id;
   // this._rev = dbPatient._rev;
   this.next_appointment = dbPatient.next_appointment;
