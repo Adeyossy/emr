@@ -38,10 +38,10 @@ export default class InvestigationComponent extends React.Component {
   }
 
   onUploadItemChange = (id, event) => {
-    let index = this.context.appointment[this.props.modality].uploads
+    let index = this.context[this.context.last_viewed][this.props.modality].uploads
       .findIndex(upload => upload.id === id);
     this.props.updateAnyObject(event.target.name, event.target.value,
-      ['appointment', this.props.modality, 'uploads'], index);
+      [this.context.last_viewed, this.props.modality, 'uploads'], index);
   }
 
   uploadResult = (uploadID) => {
@@ -71,7 +71,7 @@ export default class InvestigationComponent extends React.Component {
   }
 
   render() {
-    const investigation = this.context.appointment[this.props.modality];
+    const investigation = this.context[this.context.last_viewed][this.props.modality];
 
     return (
       <div className="emr-investigation">

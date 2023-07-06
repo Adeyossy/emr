@@ -18,11 +18,11 @@ export default class NeuroExamComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-    this.props.updateAnyObject(id, value, ["appointment", "neuro"], null);
+    this.props.updateAnyObject(id, value, [this.context.last_viewed, "neuro"], null);
   }
 
   onMultiItemChange = (id, value) => {
-    this.props.updateItemsInArray(["appointment", "neuro", id], value.split(", "), null);
+    this.props.updateItemsInArray([this.context.last_viewed, "neuro", id], value.split(", "), null);
   }
 
   render() {
@@ -31,10 +31,10 @@ export default class NeuroExamComponent extends React.Component {
         <h4 className="emr-card-headers">Neurological Examination</h4>
         <div className="emr-clerking-tab-data-items">
           <NotesComponent name="Higher Mental Functions" id="highermentalfunctions"
-            value={this.context.appointment.neuro.highermentalfunctions}
+            value={this.context[this.context.last_viewed].neuro.highermentalfunctions}
             onItemChange={this.props.updateAnyObject} fields={["neuro"]} />
           <NotesComponent name="Cranial Nerves" id="cranialnerves"
-            value={this.context.appointment.neuro.cranialnerves}
+            value={this.context[this.context.last_viewed].neuro.cranialnerves}
             onItemChange={this.props.updateAnyObject} fields={["neuro"]} />
           {/* <details className="emr-clerking-tab-data-item">
             <summary>Cranial Nerves</summary>
@@ -43,17 +43,17 @@ export default class NeuroExamComponent extends React.Component {
               placeholder="write here..."></textarea>
           </details> */}
           <details className="emr-clerking-tab-data-item"
-            open={this.context.appointment.neuro.motor_sides.join(", ")}>
+            open={this.context[this.context.last_viewed].neuro.motor_sides.join(", ")}>
             <summary>Motor examination</summary>
             <div className="emr-clerking-tab-data-items">
               <MultiSelectOutputComponent name={"Laterality"} id={"motor_sides"}
-                items={this.sides} value={this.context.appointment.neuro.motor_sides.join(", ")}
+                items={this.sides} value={this.context[this.context.last_viewed].neuro.motor_sides.join(", ")}
                 onItemChange={this.onMultiItemChange} />
               <MultiSelectOutputComponent name={"Limbs"} id={"motor_limbs"}
-                items={this.limbs} value={this.context.appointment.neuro.motor_limbs.join(", ")}
+                items={this.limbs} value={this.context[this.context.last_viewed].neuro.motor_limbs.join(", ")}
                 onItemChange={this.onMultiItemChange} />
               <MultiSelectOutputComponent name={"Inspection"} id={"motor_inspection"}
-                items={this.inspectionItems} value={this.context.appointment.neuro.motor_inspection.join(", ")}
+                items={this.inspectionItems} value={this.context[this.context.last_viewed].neuro.motor_inspection.join(", ")}
                 onItemChange={this.onMultiItemChange} />
             </div>
             <div className="emr-clerking-tab-data-items">
@@ -70,63 +70,63 @@ export default class NeuroExamComponent extends React.Component {
                 <textarea name="motorreflexes" id="motor_reflexes" cols="30" rows="5" placeholder="write here..."></textarea>
               </div> */}
               <SingleSelectOutputComponent name={"Tone"} id={"motor_tone"}
-                value={this.context.appointment.neuro.motor_tone}
+                value={this.context[this.context.last_viewed].neuro.motor_tone}
                 items={["Hypotonia", "Normal", "Hypertonia"]} onItemChange={this.onItemChange} />
               <SingleSelectOutputComponent name={"Power"} id={"motor_power"}
-                value={this.context.appointment.neuro.motor_power}
+                value={this.context[this.context.last_viewed].neuro.motor_power}
                 items={["0", "1", "2", "3", "4", "5"]} onItemChange={this.onItemChange} />
               <SingleSelectOutputComponent name={"Reflexes"} id={"motor_reflexes"}
-                value={this.context.appointment.neuro.motor_reflexes}
+                value={this.context[this.context.last_viewed].neuro.motor_reflexes}
                 items={["Reduced", "Normal", "Increased", "Brisk"]}
                 onItemChange={this.onItemChange} />
               <SingleSelectOutputComponent name={"Ankle Clonus"} id={"ankle_clonus"}
-                value={this.context.appointment.neuro.ankle_clonus}
+                value={this.context[this.context.last_viewed].neuro.ankle_clonus}
                 items={this.ankleClonus} onItemChange={this.onItemChange} />
               <SingleSelectOutputComponent name={"Babinski"} id={"babinski"}
-                value={this.context.appointment.neuro.babinski}
+                value={this.context[this.context.last_viewed].neuro.babinski}
                 items={this.babinski} onItemChange={this.onItemChange} />
             </div>
           </details>
           <details className="emr-clerking-tab-data-item"
-            open={this.context.appointment.neuro.sensorysides.join(", ")}>
+            open={this.context[this.context.last_viewed].neuro.sensorysides.join(", ")}>
             <summary>Sensory examination</summary>
             <MultiSelectOutputComponent name={"Laterality"} id={"sensorysides"}
-              value={this.context.appointment.neuro.sensorysides.join(", ")}
+              value={this.context[this.context.last_viewed].neuro.sensorysides.join(", ")}
               items={this.sides} onItemChange={this.onMultiItemChange} />
             <MultiSelectOutputComponent name={"Limbs"} id={"sensorylimbs"}
-              value={this.context.appointment.neuro.sensorylimbs.join(", ")}
+              value={this.context[this.context.last_viewed].neuro.sensorylimbs.join(", ")}
               items={this.limbs} onItemChange={this.onMultiItemChange} />
             <div className="emr-clerking-tab-data-items">
               <NotesComponent name="Fine touch" id="sensoryfinetouch" fields={["neuro"]}
-                value={this.context.appointment.neuro.sensoryfinetouch}
+                value={this.context[this.context.last_viewed].neuro.sensoryfinetouch}
                 onItemChange={this.props.updateAnyObject} />
               <NotesComponent name="Coarse touch" id="sensorycoarsetouch" fields={["neuro"]}
-                value={this.context.appointment.neuro.sensorycoarsetouch}
+                value={this.context[this.context.last_viewed].neuro.sensorycoarsetouch}
                 onItemChange={this.props.updateAnyObject} />
               <NotesComponent name="Temperature" id="sensorytemperature" fields={["neuro"]}
-                value={this.context.appointment.neuro.sensorytemperature}
+                value={this.context[this.context.last_viewed].neuro.sensorytemperature}
                 onItemChange={this.props.updateAnyObject} />
               <NotesComponent name="Vibration" id="sensoryvibration" fields={["neuro"]}
-                value={this.context.appointment.neuro.sensoryvibration}
+                value={this.context[this.context.last_viewed].neuro.sensoryvibration}
                 onItemChange={this.props.updateAnyObject} />
               <NotesComponent name="Proprioception" id="sensoryproprioception" fields={["neuro"]}
-                value={this.context.appointment.neuro.sensoryproprioception}
+                value={this.context[this.context.last_viewed].neuro.sensoryproprioception}
                 onItemChange={this.props.updateAnyObject} />
               <NotesComponent name="Pressure" id="sensorypressure" fields={["neuro"]}
-                value={this.context.appointment.neuro.sensorypressure}
+                value={this.context[this.context.last_viewed].neuro.sensorypressure}
                 onItemChange={this.props.updateAnyObject} />
             </div>
           </details>
           <details className="emr-clerking-tab-data-item"
-            open={this.context.appointment.neuro.gaitandcoordination}>
+            open={this.context[this.context.last_viewed].neuro.gaitandcoordination}>
             <summary>Gait and Coordination</summary>
             <div className="emr-clerking-tab-data-items">
               <NotesComponent id={"gaitandcoordination"} fields={["neuro"]}
-                value={this.context.appointment.neuro.gaitandcoordination} onItemChange={this.props.updateAnyObject} />
+                value={this.context[this.context.last_viewed].neuro.gaitandcoordination} onItemChange={this.props.updateAnyObject} />
             </div>
           </details>
           <NotesComponent id={"notes"} fields={["neuro"]}
-            value={this.context.appointment.neuro.notes} onItemChange={this.props.updateAnyObject} />
+            value={this.context[this.context.last_viewed].neuro.notes} onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     );

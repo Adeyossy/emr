@@ -71,7 +71,7 @@ export class EMRComponent extends React.Component {
         });
       }))
       .catch((err) => {
-// console.log(err);
+        // console.log(err);
         this.setState({
           showNotification: true,
           info: "Error creating backup"
@@ -126,7 +126,7 @@ export class EMRComponent extends React.Component {
         // this.switchBackToDashboard();
         // getOfflineDocs(this.docsFromOfflineDB);
       }).catch(err => {
-// console.log(err);
+        // console.log(err);
         this.setState({
           showNotification: true,
           info: 'Error Restoring Backup'
@@ -238,6 +238,16 @@ export class EMRComponent extends React.Component {
             });
           }
 
+          if (Object.hasOwn(item, 'appointment')) {
+            console.log('appointment exists');
+            if(item.appointment.date_seen === apntmnt.date_seen) {
+              console.log('appointment assigned');
+              apntmnt = item.appointment;
+            }
+          }
+
+          item[apntmnt.date_seen.toString()] = apntmnt;
+
           item.appointment = apntmnt;
           return apntmnt;
         });
@@ -250,6 +260,7 @@ export class EMRComponent extends React.Component {
       }
 
       const newData = new parseFromDatabase(item);
+      console.log(newData);
       return newData;
     });
 
@@ -259,7 +270,7 @@ export class EMRComponent extends React.Component {
   onCreateIconClicked = () => {
     // const newPatient = parseOldPatient.call(JSON.parse(JSON.stringify(getFreshPatient())));
     const newPatient = newEmrPatient();
-    newPatient.appointment = newPatient.appointments[0];
+    // newPatient.appointment = newPatient.appointments[0];
     this.state.patients.push(newPatient);
     this.setState({
       patient: newPatient,
@@ -277,7 +288,9 @@ export class EMRComponent extends React.Component {
     // console.log("id => ", id);
     const undeletedPatients = this.state.patients.filter(item => item._id !== id);
     if (this.state.patient._id === id) {
-      const foundPatientLastName = this.state.patients.find(item => item._id === id).appointment.biodata.lastname;
+      const foundPatient = this.state.patients
+      .find(item => item._id === id);
+      const foundPatientLastName = foundPatient[foundPatient.last_viewed].biodata.lastname;
       const deleteString = foundPatientLastName ? foundPatientLastName : "Patient";
       // console.log("true");
       this.setState({
@@ -299,9 +312,9 @@ export class EMRComponent extends React.Component {
   onPatientTableClicked = (id) => {
     // console.log("Patient appointments => ", this.state.patients.find((value) => id === value._id));
     const patient = this.state.patients.find((value) => id === value._id);
-    patient.appointment = patient.appointments.find(apntmnt => 
-      apntmnt.date_seen === patient.appointment.date_seen);
-    
+    // patient.appointment = patient.appointments.find(apntmnt =>
+    //   apntmnt.date_seen === patient.appointment.date_seen);
+
     this.setState({
       patient: patient,
       emrContext: "Patients"
@@ -309,13 +322,13 @@ export class EMRComponent extends React.Component {
   }
 
   onPatientChange = (patient) => {
-    patient.appointment = patient.appointments.find(apntmnt => 
-      apntmnt.date_seen === patient.appointment.date_seen);
+    // const lastAppointment = patient.appointments.find(apntmnt =>
+    //   apntmnt.date_seen === patient.appointment.date_seen);
     this.setState({
       patient: patient,
       showNotification: true,
-      info: `Switched ${patient.appointment.biodata.firstname ? 
-        "to ".concat(patient.appointment.biodata.firstname.toUpperCase()) : "patient"}`
+      info: `Switched ${patient[patient.last_viewed].biodata.firstname ?
+        "to ".concat(patient[patient.last_viewed].biodata.firstname.toUpperCase()) : "patient"}`
     });
   }
 
@@ -378,6 +391,9 @@ export class EMRComponent extends React.Component {
       case 5:
         return this.state.patient[fields[0]][fields[1]][fields[2]][fields[3]][fields[4]]
 
+      case 6:
+        return this.state.patient[fields[0]][fields[1]][fields[2]][fields[3]][fields[4]][fields[5]]
+
       default:
         break;
     }
@@ -404,14 +420,6 @@ export class EMRComponent extends React.Component {
     });
 
     // updateDoc(thisPatient);
-  }
-
-  // A method to update an appointment directly in its array
-  // Temporarily, I am working with making sure the temporary appointment field
-  // references something in the array.
-  updateAppointment = (dateSeen, name, value, fields, index) => {
-    const patient = this.state.patient;
-    const apntmnt = patient.appointments.find(apntmnt => apntmnt.date_seen === dateSeen);
   }
 
   //add or remove entire items (i.e an hospitalization history) in the past medical history array
@@ -442,40 +450,31 @@ export class EMRComponent extends React.Component {
 
   createNewAppointment = () => {
     const patient = this.state.patient;
-    if (patient.appointments.length > 1) {
-      patient.appointments.sort((a, b) => b.date_seen - a.date_seen);
-    }
-    let lastAppointment = patient.appointments[0];
-    if (!lastAppointment.biodata.firstname) {
-      // check if the field exists before sending
-      lastAppointment = patient.appointment;
-    }
+    // if (patient.appointments.length > 1) {
+    //   patient.appointments.sort((a, b) => b.date_seen - a.date_seen);
+    // }
+    patient.appointment_keys.sort((a, b) => b - a);
+    const lastAppointment = patient[patient.appointment_keys[0]];
     const last_seen = Date.now();
     const appointment = getAppointmentWithDefaultValues.call(lastAppointment, last_seen);
-    new Promise((resolve, reject) =>
-      resolve(getAppointmentWithDefaultValues.call(lastAppointment, last_seen)))
-      .then(newApntmnt => {
-        patient.last_seen = last_seen;
-        patient.appointments.unshift(newApntmnt);
-        this.setState({
-          patient: patient
-        });
-        this.switchToAppointment(last_seen);
-      })
-      .catch(err => {
-// console.log(err);
-        this.showDialog('App Error',
-          'Something went on while creating the new appointment');
-      })
-
-
+    patient.last_seen = last_seen;
+    patient.last_viewed = last_seen.toString();
+    patient[last_seen.toString()] = appointment;
+    patient.appointment_keys.push(last_seen.toString());
+    // patient.appointments.unshift(appointment);
+    this.setState({
+      patient: patient
+    });
+    this.switchToAppointment(last_seen);
   }
 
   switchToAppointment = (date_seen) => {
     const patient = this.state.patient;
-    patient.appointment = patient.appointments.find(apntmnt => 
-      apntmnt.date_seen === date_seen);
+    // patient.appointment = patient.appointments.find(apntmnt =>
+    //   apntmnt.date_seen === date_seen);
     // console.log("switched appointment forms => ", this.state.patient.appointment.forms);
+    patient.last_viewed = date_seen.toString();
+    
     this.setState({
       patient: patient
     });
@@ -490,12 +489,12 @@ export class EMRComponent extends React.Component {
 
   deleteAppointment = (date_seen) => {
     // console.log("deleteAppointment called => ", date_seen);
-    if (this.state.patient.appointments.length > 1) {
+    if (this.state.patient.appointment_keys.length > 1) {
       const patient = this.state.patient;
-      patient.appointments = patient.appointments
-        .filter(item => item.date_seen !== date_seen).sort((a, b) => b.date_seen - a.date_seen);
-      patient.appointment = patient.appointments[0];
-      patient.last_seen = patient.appointments[0].date_seen
+      patient.appointment_keys = patient.appointment_keys
+        .filter(key => String(key) !== date_seen.toString()).sort((a, b) => b - a);
+      patient.last_viewed = patient.appointment_keys[0];
+      patient.last_seen = parseInt(patient.appointment_keys[0]);
       this.setState({
         patient: patient
       });
@@ -522,9 +521,9 @@ export class EMRComponent extends React.Component {
   }
 
   addForm = (formTag) => {
-    if (!this.state.patient.appointment.forms.hasOwnProperty(formTag)) {
+    if (!this.state.patient[this.state.patient.last_viewed].forms.hasOwnProperty(formTag)) {
       if (formsLookUp.hasOwnProperty(formTag)) {
-        this.state.patient.appointment.forms[formTag] =
+        this.state.patient[this.state.patient.last_viewed].forms[formTag] =
           JSON.parse(JSON.stringify(formsLookUp[formTag].model));
       }
 
@@ -539,8 +538,8 @@ export class EMRComponent extends React.Component {
   }
 
   deleteForm = (formTag) => {
-    if (this.state.patient.appointment.forms.hasOwnProperty(formTag)) {
-      delete this.state.patient.appointment.forms[formTag]
+    if (this.state.patient[this.state.patient.last_viewed].forms.hasOwnProperty(formTag)) {
+      delete this.state.patient[this.state.last_viewed].forms[formTag]
     }
 
     this.setState({
@@ -563,19 +562,19 @@ export class EMRComponent extends React.Component {
 
       if (field === 'name') {
         filter = patient =>
-          patient.appointment.biodata.lastname.toLowerCase().includes(value) ||
-          patient.appointment.biodata.middlename.toLowerCase().includes(value) ||
-          patient.appointment.biodata.firstname.toLowerCase().includes(value)
+          patient[patient.last_viewed].biodata.lastname.toLowerCase().includes(value) ||
+          patient[patient.last_viewed].biodata.middlename.toLowerCase().includes(value) ||
+          patient[patient.last_viewed].biodata.firstname.toLowerCase().includes(value)
       }
 
       if (field === '#') {
         filter = patient =>
-          String(patient.appointment.biodata.id).includes(value)
+          String(patient[patient.last_viewed].biodata.id).includes(value)
       }
 
       if (field === 'n') {
         filter = patient =>
-          patient.appointments.length >= Number(value);
+          patient.appointment_keys.length >= Number(value);
       }
 
       if (field === 'd' || field.includes('diagnosis')) {
@@ -601,19 +600,19 @@ export class EMRComponent extends React.Component {
 
     if (sortBy === "name") {
       sorter = (a, b) => {
-        if (a.appointment.biodata.lastname.toLowerCase()
-          < b.appointment.biodata.lastname.toLowerCase())
+        if (a[a.last_viewed].biodata.lastname.toLowerCase()
+          < b[b.last_viewed].biodata.lastname.toLowerCase())
           return -1;
       };
     }
 
     if (sortBy === "age") {
       sorter = (a, b) =>
-        a.appointment.biodata.ageinyears - b.appointment.biodata.ageinyears;
+        a[a.last_viewed].biodata.ageinyears - b[b.last_viewed].biodata.ageinyears;
     }
 
     if (sortBy === "id") {
-      sorter = (a, b) => a.appointment.biodata.id - b.appointment.biodata.id;
+      sorter = (a, b) => a[a.last_viewed].biodata.id - b[b.last_viewed].biodata.id;
     }
 
     if (sortBy === "d") {
@@ -633,7 +632,7 @@ export class EMRComponent extends React.Component {
 
   createUploadItem = (modality, uploadItem) => {
     const currentPatient = this.state.patient;
-    const invModality = currentPatient.appointment[modality];
+    const invModality = currentPatient[currentPatient.last_viewed][modality];
     if (!invModality.hasOwnProperty('uploads') || !Array.isArray(invModality.uploads)) {
       invModality.uploads = [];
     }
@@ -648,7 +647,7 @@ export class EMRComponent extends React.Component {
   }
 
   beginUpload = (modality, uploadID, updateCallback) => {
-    const itemForUpload = this.state.patient.appointment[modality].uploads
+    const itemForUpload = this.state.patient[this.state.patient.last_viewed][modality].uploads
       .find(uploadItem => uploadItem.id === uploadID);
     getCurrentUser(uploadToStorage.bind(Object.create(null), modality, itemForUpload, (info) => {
       this.setState({
@@ -659,7 +658,7 @@ export class EMRComponent extends React.Component {
   }
 
   afterUpload = (modality, uploadID, downloadURL) => {
-    const itemForUpload = this.state.patient.appointment[modality].uploads
+    const itemForUpload = this.state.patient[this.state.patient.last_viewed][modality].uploads
       .find(uploadItem => uploadItem.id === uploadID);
     itemForUpload.downloadURL = downloadURL;
 
@@ -672,8 +671,8 @@ export class EMRComponent extends React.Component {
 
   deleteUpload = (modality, uploadID) => {
     const thisPatient = this.state.patient;
-    let uploads = thisPatient.appointment[modality].uploads;
-    this.state.patient.appointment[modality].uploads =
+    let uploads = thisPatient[thisPatient.last_viewed][modality].uploads;
+    thisPatient[thisPatient.last_viewed][modality].uploads =
       uploads.filter((upload) => upload.id !== uploadID);
 
     this.setState({
@@ -713,13 +712,14 @@ export class EMRComponent extends React.Component {
               this.state.patient !== null ?
                 null :
                 <DashboardComponent
-                  recents={this.state.patients.filter(patient => patient.appointments.length === 1)
+                  recents={this.state.patients.filter(patient => patient.appointment_keys.length === 1)
                     .sort((a, b) => b._id - a._id).slice(0, 3)} downloadURL={this.state.downloadURL}
                   createNewPatient={this.onCreateIconClicked} patients={this.state.patients}
-                  viewPatient={this.onPatientTableClicked} user={this.state.user}>
+                  viewPatient={this.onPatientTableClicked} user={this.state.user}
+                  createBackup={this.createBackup}>
                   <PatientTableComponent patients={this.state.patients.filter(this.state.filter)}
                     onItemClicked={this.onPatientTableClicked}
-                    authComplete={this.state.authComplete} createBackup={this.createBackup}
+                    authComplete={this.state.authComplete}
                     sortPatients={this.sortPatients} />
                 </DashboardComponent>
             }

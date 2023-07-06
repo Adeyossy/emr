@@ -25,7 +25,7 @@ export default class FormItemComponent extends React.Component {
                 <div className="emr-form-item-score">
                   <input type="number" name={this.props.field} min={this.props.min}
                     max={this.props.max} onChange={this.props.onItemChange}
-                    value={this.context.appointment.forms[this.props.formTag][this.props.field]}>
+                    value={this.context[this.context.last_viewed].forms[this.props.formTag][this.props.field]}>
                   </input>
                 </div>
               </div> : null

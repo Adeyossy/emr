@@ -194,9 +194,12 @@ export function newEmrPatient() {
   newPatient._id = idApntmntTime.toString();
   newPatient.first_seen = idApntmntTime;
   newPatient.last_seen = idApntmntTime;
+  newPatient.last_viewed = idApntmntTime.toString();
+  newPatient.appointment_keys = [idApntmntTime];
   const newApntmnt = getAppointment(idApntmntTime);
+  newPatient[idApntmntTime.toString()] = newApntmnt;
   // newPatient.appointment = newApntmnt;
-  newPatient.appointments = [newApntmnt];
+  // newPatient.appointments = [newApntmnt];
 
   return newPatient;
   // newApntmnt
@@ -251,14 +254,54 @@ export function parseApntmntDB(apntmnt) {
 }
 
 export function parseFromDatabase(dbPatient) {
+  console.log('dbPatient => ', dbPatient);
   this._id = dbPatient._id;
   // this._rev = dbPatient._rev;
   this.next_appointment = dbPatient.next_appointment;
   this.last_seen = dbPatient.last_seen;
   this.first_seen = dbPatient.first_seen;
-  this.appointment = new parseApntmntDB(JSON.parse(JSON.stringify(dbPatient.appointment)));
+
+  // If the data still uses the deprecated 'appointment' key
+  // Change it to match the current schema
+  let appointment = {};
+  if (Object.hasOwn(dbPatient, 'appointment')) {
+    appointment = new parseApntmntDB(JSON.parse(JSON.stringify(dbPatient.appointment)));
+    this.last_viewed = appointment.date_seen;
+  } else {
+    this.last_viewed = dbPatient.last_viewed;
+  }
+
+  if (Object.hasOwn(dbPatient, 'appointment_keys')) {
+    this.appointment_keys = dbPatient.appointment_keys
+  } else {
+    if (Object.hasOwn(dbPatient, 'appointments')) {
+      this.appointment_keys = dbPatient.appointments.map(apntmnt => apntmnt.date_seen);
+    }
+  }
+
   // console.log("appointment => ", this);
-  this.appointments = dbPatient.appointments.map(apntmnt => new parseApntmntDB(JSON.parse(JSON.stringify(apntmnt))));
+
+  if (Object.hasOwn(dbPatient, 'appointments')) {
+    const appointments = dbPatient.appointments.map(apntmnt => {
+      const newApntmnt = new parseApntmntDB(JSON.parse(JSON.stringify(apntmnt)));
+
+      if (appointment.date_seen === apntmnt.date_seen) {
+        apntmnt = appointment;
+      }
+
+      this[apntmnt.date_seen.toString()] = newApntmnt;
+      return newApntmnt;
+    });
+  } else {
+    this.appointment_keys.forEach(key => {
+      if (Object.hasOwn(dbPatient, key)) {
+        this[key] = dbPatient[key];
+      } else {
+        console.log('key does not exist');
+      }
+    })
+  }
+
   this.primary_diagnosis = dbPatient.primary_diagnosis;
   this.secondary_diagnosis = dbPatient.secondary_diagnosis;
   this.last_notes = dbPatient.last_notes;

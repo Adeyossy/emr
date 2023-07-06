@@ -16,7 +16,7 @@ export default class HospitalizationComponent extends React.Component {
 
   onRecoveryItemChange = (id, value) => {
     this.props.updateAnyObject(id, value,
-      ["appointment", "past_medical_history", "hospitalizations"], this.props.index - 1);
+      [this.context.last_viewed, "past_medical_history", "hospitalizations"], this.props.index - 1);
   }
 
   onItemChange = (event) => {
@@ -31,8 +31,8 @@ export default class HospitalizationComponent extends React.Component {
 
   render() {
     const hospitalization = "hospitalizations";
-    const thisHosp = this.context.appointment.past_medical_history[hospitalization][this.props.index - 1];
-    // console.log("hospitalization => ", this.context.appointment.past_medical_history[hospitalization]);
+    const thisHosp = this.context[this.context.last_viewed].past_medical_history[hospitalization][this.props.index - 1];
+    // console.log("hospitalization => ", this.context[this.context.last_viewed].past_medical_history[hospitalization]);
 
     return (
       <div className="emr-clerking-tab-data-item level-2">

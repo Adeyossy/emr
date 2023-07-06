@@ -178,7 +178,7 @@ export class AppComponent extends React.Component {
   }
 
   otherFormsUpdate = () => {
-    const keys = Object.keys(this.props.patient.appointment.forms)
+    const keys = Object.keys(this.props.patient[this.props.patient.last_viewed].forms)
       .filter(item => item !== 'epilepsy');
 
     const components = keys.map(key => {
@@ -214,7 +214,7 @@ export class AppComponent extends React.Component {
   addFormFields = (whereToSelect) => {
     const tabToSelect = whereToSelect ? whereToSelect : 0;
     this.cleanUpFormFields();
-    const forms = this.props.patient.appointment.forms;
+    const forms = this.props.patient[this.props.patient.last_viewed].forms;
     if (forms.hasOwnProperty('gcs')) {
       this.state.otherFormsComponents.push(
         <GCSComponent updateAnyObject={this.props.updateAnyObject}
@@ -365,7 +365,7 @@ export class AppComponent extends React.Component {
             restoreBackup={this.props.restoreBackup}
           />
         </nav>
-        {this.props.patient && this.props.patient.appointment ?
+        {this.props.patient && this.props.patient[this.props.patient.last_viewed] ?
           <BottomNavComponent changeState={this.updateNavState}
             navIndex={this.state.navIndex} /> : null
         }

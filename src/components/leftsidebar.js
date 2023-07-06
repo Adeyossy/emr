@@ -7,8 +7,8 @@ export default class LeftSideBarComponent extends React.Component {
   deletePatient = (item, event) => {
     event.stopPropagation();
     this.props.showDialogOnClick("Delete Patient",
-      `${item.appointment.biodata.lastname ?
-        item.appointment.biodata.lastname.toUpperCase() : "This patient"} will be deleted`,
+      `${item[item.last_viewed].biodata.lastname ?
+        item[item.last_viewed].biodata.lastname.toUpperCase() : "This patient"} will be deleted`,
       this.props.deletePatient.bind(this, item._id));
   }
 
@@ -37,12 +37,12 @@ export default class LeftSideBarComponent extends React.Component {
                         <i className="bi bi-person-fill emr-center-icon"></i>
                       </div>
                       <div className="emr-patient-description">
-                        <p className="emr-patient-name">{item.appointment.biodata.firstname || item.appointment.biodata.lastname ?
-                          item.appointment.biodata.lastname + " " + item.appointment.biodata.firstname : "New patient"}</p>
+                        <p className="emr-patient-name">{item[item.last_viewed].biodata.firstname || item[item.last_viewed].biodata.lastname ?
+                          item[item.last_viewed].biodata.lastname + " " + item[item.last_viewed].biodata.firstname : "New patient"}</p>
                         <div className="emr-patient-biodata">
-                          <p className="emr-patient-gender">{item.appointment.biodata.gender.charAt(0)}</p>
+                          <p className="emr-patient-gender">{item[item.last_viewed].biodata.gender.charAt(0)}</p>
                           <p className="emr-separator">|</p>
-                          <p className="emr-patient-age">{`${item.appointment.biodata.ageinyears} yrs`}</p>
+                          <p className="emr-patient-age">{`${item[item.last_viewed].biodata.ageinyears} yrs`}</p>
                           <p className="emr-separator">|</p>
                           <p className="emr-patient-diagnosis">
                             {item.primary_diagnosis ? item.primary_diagnosis.substring(0, 7) : "pending"}</p>
@@ -59,21 +59,24 @@ export default class LeftSideBarComponent extends React.Component {
                   <div className={`emr-icon-bg emr-icon-bg-dark 
                             ${this.props.showOverview ? "selected" : ""}`}
                     onClick={this.props.setOverview}
-                    disabled={this.context.appointments.length === 1}>
+                    disabled={this.context.appointment_keys.length === 1}>
                     <i className="bi bi-info-circle emr-center-icon emr-timeline-bar-icons"
-                      disabled={this.context.appointments.length === 1}></i>
+                      disabled={this.context.appointment_keys.length === 1}></i>
                   </div>
                   <div className="emr-patients-timeline-visits">
                     {
-                      this.context.appointments.sort((a, b) => b.date_seen - a.date_seen)
+                      this.context.appointment_keys.sort((a, b) => b - a)
                         .map((item, index, array) =>
                           <React.Fragment key={index.toString()}>
                             <div className={`emr-icon-bg emr-icon-bg-dark timeline
-                            ${item !== null && this.context.appointment && item.date_seen ===
-                                this.context.appointment.date_seen ? "selected" : ""}`}
-                              key={index.toString()} onClick={this.context.appointment.date_seen
-                                !== item.date_seen ? this.props.switchToAppointment
-                                  .bind(this, item.date_seen) : null}>
+                            ${
+                              this.context[item] !== null && this.context[this.context.last_viewed] 
+                              && this.context[item].date_seen === this.context[this.context.last_viewed]
+                              .date_seen ? "selected" : ""}`
+                            }
+                              key={index.toString()} onClick={this.context[this.context.last_viewed].date_seen
+                                !== this.context[item].date_seen ? this.props.switchToAppointment
+                                  .bind(this, this.context[item].date_seen) : null}>
                               <i className={`emr-center-icon emr-timeline-bar-icons`}>
                                 #{array.length - index}</i>
                               <div className="emr-icon-bg emr-icon-bg-dark timeline-delete"
@@ -82,9 +85,10 @@ export default class LeftSideBarComponent extends React.Component {
                                     `The ${String(array.length - index).concat(array.length - index - 1 % 10 < 3 ?
                                       array.length - index / 10 === 1 ? ordinalNumbers[3] : ordinalNumbers[array.length - index - 1] :
                                       ordinalNumbers[3])} appointment seen on 
-                                  ${item.date_seen ? new Date(item.date_seen).toLocaleString() :
+                                  ${this.context[item].date_seen ? 
+                                    new Date(this.context[item].date_seen).toLocaleString() :
                                       "(missing date field"} will be deleted`,
-                                    this.props.deleteAppointment.bind(this, item.date_seen)) : null}>
+                                    this.props.deleteAppointment.bind(this, this.context[item].date_seen)) : null}>
                                 <i className="bi bi-trash-fill emr-center-icon timeline-delete"></i>
                               </div>
                             </div>

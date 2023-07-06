@@ -30,33 +30,33 @@ export default class OverviewComponent extends React.Component {
                         <div className="emr-biodata-summary-name ml-3 d-inline-block">
                           <p className="emr-biodata-summary-title">
                             {
-                              this.context.appointment.biodata.maritalstatus === "Single" ?
-                                this.context.appointment.biodata.gender === "Female" ? "Ms." : "Mrs." : "Mr."
+                              this.context[this.context.last_viewed].biodata.maritalstatus === "Single" ?
+                                this.context[this.context.last_viewed].biodata.gender === "Female" ? "Ms." : "Mrs." : "Mr."
                             }
                           </p>
-                          <p className="emr-biodata-summary-first-name">{this.context.appointment.biodata.firstname}</p>
-                          <p className="emr-biodata-summary-last-name">{this.context.appointment.biodata.lastname.toUpperCase()}</p>
+                          <p className="emr-biodata-summary-first-name">{this.context[this.context.last_viewed].biodata.firstname}</p>
+                          <p className="emr-biodata-summary-last-name">{this.context[this.context.last_viewed].biodata.lastname.toUpperCase()}</p>
                         </div>
                       </div>
                       <div className="emr-summary-divider"></div>
                       <div className="emr-biodata-summary-other">
-                        <p className="emr-biodata-summary-gender">{this.context.appointment.biodata.gender}</p>
-                        <p className="emr-biodata-summary-age">{this.context.appointment.biodata.ageinyears} yrs</p>
+                        <p className="emr-biodata-summary-gender">{this.context[this.context.last_viewed].biodata.gender}</p>
+                        <p className="emr-biodata-summary-age">{this.context[this.context.last_viewed].biodata.ageinyears} yrs</p>
                       </div>
                     </div>
                     <div className="emr-biodata-summary-bottom">
                       <div className="emr-biodata-bottom-item">
                         <i className="bi bi-briefcase-fill emr-accent-icon"></i>
-                        <p className="emr-biodata-bottom-text">{this.context.appointment.biodata.occupation}</p>
+                        <p className="emr-biodata-bottom-text">{this.context[this.context.last_viewed].biodata.occupation}</p>
                       </div>
                       <div className="emr-biodata-bottom-item">
                         <i className="bi bi-person-fill emr-accent-icon"></i>
-                        <p className="emr-biodata-bottom-text">{this.context.appointment.biodata.tribe.toUpperCase() + "   |   "
-                          + this.context.appointment.biodata.religion.toUpperCase()}</p>
+                        <p className="emr-biodata-bottom-text">{this.context[this.context.last_viewed].biodata.tribe.toUpperCase() + "   |   "
+                          + this.context[this.context.last_viewed].biodata.religion.toUpperCase()}</p>
                       </div>
                       <div className="emr-biodata-bottom-item">
                         <i className="bi bi-geo-alt-fill emr-accent-icon"></i>
-                        <p className="emr-biodata-bottom-text">{this.context.appointment.biodata.address}</p>
+                        <p className="emr-biodata-bottom-text">{this.context[this.context.last_viewed].biodata.address}</p>
                       </div>
                     </div>
                   </div>
@@ -64,11 +64,11 @@ export default class OverviewComponent extends React.Component {
                 <div className="col-lg-6 emr-column">
                   <div className="emr-quick-info">
                     <div className="emr-quick-info-top-item emr-quick-visits">
-                      <p className="emr-quick-info-value">{this.context.appointments.length}</p>
+                      <p className="emr-quick-info-value">{this.context.appointment_keys.length}</p>
                       <h6 className="emr-quick-info-category">VISIT(S)</h6>
                     </div>
                     {
-                      this.context.appointment.past_medical_history.comorbidities
+                      this.context[this.context.last_viewed].past_medical_history.comorbidities
                         .filter(item => item.comorbidity && item.duration).slice(0, 2).map((item, index) =>
                           <React.Fragment key={index.toString()}>
                             <div className="emr-quick-info-divider"></div>
@@ -147,23 +147,23 @@ export default class OverviewComponent extends React.Component {
                         <div className="emr-patient-summary">
                           <h4 className="emr-card-headers">Biodata</h4>
                           <div className="emr-patient-summary-category">
-                            <p className="emr-patient-summary-item text-wrap">The patient is <strong>{this.context.appointment.biodata.lastname.toUpperCase()}</strong> {this.context.appointment.biodata.firstname}, a <strong>{this.context.appointment.biodata.ageinyears}</strong> year old {this.context.appointment.biodata.gender.toLowerCase()} who works as <strong>{this.context.appointment.biodata.occupation}</strong> and lives at {this.context.appointment.biodata.address}, {this.context.appointment.biodata.city}, {this.context.appointment.biodata.state}. {this.context.appointment.biodata.gender.toLowerCase() === 'male' ? 'He' : 'She'} is <strong>{this.context.appointment.biodata.maritalstatus}</strong>, of the <strong>{this.context.appointment.biodata.tribe}</strong> tribe, and practises <strong>{this.context.appointment.biodata.religion}</strong>.</p>
+                            <p className="emr-patient-summary-item text-wrap">The patient is <strong>{this.context[this.context.last_viewed].biodata.lastname.toUpperCase()}</strong> {this.context[this.context.last_viewed].biodata.firstname}, a <strong>{this.context[this.context.last_viewed].biodata.ageinyears}</strong> year old {this.context[this.context.last_viewed].biodata.gender.toLowerCase()} who works as <strong>{this.context[this.context.last_viewed].biodata.occupation}</strong> and lives at {this.context[this.context.last_viewed].biodata.address}, {this.context[this.context.last_viewed].biodata.city}, {this.context[this.context.last_viewed].biodata.state}. {this.context[this.context.last_viewed].biodata.gender.toLowerCase() === 'male' ? 'He' : 'She'} is <strong>{this.context[this.context.last_viewed].biodata.maritalstatus}</strong>, of the <strong>{this.context[this.context.last_viewed].biodata.tribe}</strong> tribe, and practises <strong>{this.context[this.context.last_viewed].biodata.religion}</strong>.</p>
                             {/* <br/>
-                            <p className="emr-patient-summary-item text-wrap"><strong>Name:</strong> {this.context.appointment.biodata.lastname.toUpperCase()} {this.context.appointment.biodata.firstname}</p>
-                            <p className="emr-patient-summary-item text-wrap"><strong>Age:</strong> {this.context.appointment.biodata.ageinyears}</p>
-                            <p className="emr-patient-summary-item text-wrap"><strong>Sex:</strong> {this.context.appointment.biodata.gender}</p>
-                            <p className="emr-patient-summary-item text-wrap"><strong>Occupation:</strong> {this.context.appointment.biodata.occupation}</p>
-                            <p className="emr-patient-summary-item text-wrap"><strong>Marital Status:</strong> {this.context.appointment.biodata.maritalstatus}</p>
-                            <p className="emr-patient-summary-item text-wrap"><strong>Address:</strong> {this.context.appointment.biodata.address}, {this.context.appointment.biodata.city}, {this.context.appointment.biodata.state}</p>
-                            <p className="emr-patient-summary-item text-wrap"><strong>Religion:</strong> {this.context.appointment.biodata.religion}</p>
-                            <p className="emr-patient-summary-item text-wrap"><strong>Tribe:</strong> {this.context.appointment.biodata.tribe}</p> */}
+                            <p className="emr-patient-summary-item text-wrap"><strong>Name:</strong> {this.context[this.context.last_viewed].biodata.lastname.toUpperCase()} {this.context[this.context.last_viewed].biodata.firstname}</p>
+                            <p className="emr-patient-summary-item text-wrap"><strong>Age:</strong> {this.context[this.context.last_viewed].biodata.ageinyears}</p>
+                            <p className="emr-patient-summary-item text-wrap"><strong>Sex:</strong> {this.context[this.context.last_viewed].biodata.gender}</p>
+                            <p className="emr-patient-summary-item text-wrap"><strong>Occupation:</strong> {this.context[this.context.last_viewed].biodata.occupation}</p>
+                            <p className="emr-patient-summary-item text-wrap"><strong>Marital Status:</strong> {this.context[this.context.last_viewed].biodata.maritalstatus}</p>
+                            <p className="emr-patient-summary-item text-wrap"><strong>Address:</strong> {this.context[this.context.last_viewed].biodata.address}, {this.context[this.context.last_viewed].biodata.city}, {this.context[this.context.last_viewed].biodata.state}</p>
+                            <p className="emr-patient-summary-item text-wrap"><strong>Religion:</strong> {this.context[this.context.last_viewed].biodata.religion}</p>
+                            <p className="emr-patient-summary-item text-wrap"><strong>Tribe:</strong> {this.context[this.context.last_viewed].biodata.tribe}</p> */}
                           </div>
                           <br />
                           <div className="emr-patient-summary">
                             <h4 className="emr-card-headers">Presenting Complaint</h4>
                             <div className="emr-patient-summary-category">
                               <ul>
-                                {this.context.appointment.presenting_complaints.complaints.map((complaint, index) =>
+                                {this.context[this.context.last_viewed].presenting_complaints.complaints.map((complaint, index) =>
                                   <li key={index.toString()}>
                                     <p className="emr-patient-summary-item text-wrap">
                                       {complaint.complaint} ({complaint.duration})
@@ -171,7 +171,7 @@ export default class OverviewComponent extends React.Component {
                                   </li>
                                 )}
                               </ul>
-                              <p className="emr-patient-summary-item text-wrap">{this.context.appointment.presenting_complaints.notes}</p>
+                              <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].presenting_complaints.notes}</p>
                             </div>
                           </div>
                           <br />
@@ -180,10 +180,10 @@ export default class OverviewComponent extends React.Component {
                             <div className="emr-patient-summary-category">
                               <div className="emr-selectable-items-group">
                                 <p className="emr-patient-summary-item text-wrap">
-                                  {[...this.context.appointment.review_of_systems.cardiorespiratory, ...this.context.appointment.review_of_systems.gastrointestinal, ...this.context.appointment.review_of_systems.genitourinary, ...this.context.appointment.review_of_systems.endocrine].join(", ")}
+                                  {[...this.context[this.context.last_viewed].review_of_systems.cardiorespiratory, ...this.context[this.context.last_viewed].review_of_systems.gastrointestinal, ...this.context[this.context.last_viewed].review_of_systems.genitourinary, ...this.context[this.context.last_viewed].review_of_systems.endocrine].join(", ")}
                                 </p>
                               </div>
-                              <p className="emr-patient-summary-item text-wrap">{this.context.appointment.review_of_systems.notes}</p>
+                              <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].review_of_systems.notes}</p>
                             </div>
                           </div>
                           <br />
@@ -192,11 +192,11 @@ export default class OverviewComponent extends React.Component {
                             <div className="emr-patient-summary-category">
                               <div className="emr-selectable-items-group">
                                 <p className="emr-patient-summary-item text-wrap">
-                                  The patient has had {this.context.appointment.past_medical_history.hospitalizations.length} hospitalization(s), {this.context.appointment.past_medical_history.surgeries.length} surgeries, {this.context.appointment.past_medical_history.blood_transfusions.length} blood transfusion. The patient has {this.context.appointment.past_medical_history.comorbidities > 0 ? this.context.appointment.past_medical_history.comorbidities.join(", ") : "no comorbidites"}. Blood group is {this.context.appointment.past_medical_history.blood_group.toUpperCase()} {this.context.appointment.past_medical_history.rhesus.toLowerCase()}. The genotype is {this.context.appointment.past_medical_history.genotype ? this.context.appointment.past_medical_history.genotype : 'unknown'}.
+                                  The patient has had {this.context[this.context.last_viewed].past_medical_history.hospitalizations.length} hospitalization(s), {this.context[this.context.last_viewed].past_medical_history.surgeries.length} surgeries, {this.context[this.context.last_viewed].past_medical_history.blood_transfusions.length} blood transfusion. The patient has {this.context[this.context.last_viewed].past_medical_history.comorbidities > 0 ? this.context[this.context.last_viewed].past_medical_history.comorbidities.join(", ") : "no comorbidites"}. Blood group is {this.context[this.context.last_viewed].past_medical_history.blood_group.toUpperCase()} {this.context[this.context.last_viewed].past_medical_history.rhesus.toLowerCase()}. The genotype is {this.context[this.context.last_viewed].past_medical_history.genotype ? this.context[this.context.last_viewed].past_medical_history.genotype : 'unknown'}.
                                 </p>
                                 <br />
                                 <p className="emr-patient-summary-item text-wrap">
-                                  {this.context.appointment.past_medical_history.notes}
+                                  {this.context[this.context.last_viewed].past_medical_history.notes}
                                 </p>
                               </div>
                             </div>
@@ -206,7 +206,7 @@ export default class OverviewComponent extends React.Component {
                             <div className="emr-patient-summary-category">
                               <div className="emr-selectable-items-group">
                                 <p className="emr-patient-summary-item text-wrap">
-                                  The patient is on {this.context.appointment.drugs.length} drug(s){this.context.appointment.drugs.length > 0 ? `: ${this.context.appointment.drugs.map(drug => drug.name).join(", ")}` : ""}. There is/are {this.context.appointment.allergies.length} allerg(ies).
+                                  The patient is on {this.context[this.context.last_viewed].drugs.length} drug(s){this.context[this.context.last_viewed].drugs.length > 0 ? `: ${this.context[this.context.last_viewed].drugs.map(drug => drug.name).join(", ")}` : ""}. There is/are {this.context[this.context.last_viewed].allergies.length} allerg(ies).
                                 </p>
                               </div>
                             </div>
@@ -217,7 +217,7 @@ export default class OverviewComponent extends React.Component {
                             <div className="emr-patient-summary-category">
                               <div className="emr-selectable-items-group">
                                 <p className="emr-patient-summary-item text-wrap">
-                                  {this.context.appointment.family_history.length > 0 ? `Positive family history(s) include ${this.context.appointment.family_history.join(", ")}` : "No family history of disease"}. {this.context.appointment.alcohol.alcoholbottlesperweek ? `${this.context.appointment.alcohol.alcoholbottlesperweek} bottle(s) of ${this.context.appointment.alcohol.alcoholtype ? this.context.appointment.alcohol.alcoholtype.join(", ") : 'alcohol'} is/are consumed per week` : "No history of alcohol consumption"}. The patient smokes {Number(this.context.appointment.cigarette.cigarettesticksperday) * Number(this.context.appointment.cigarette.cigarettesmokingduration) / 20} pack-year.
+                                  {this.context[this.context.last_viewed].family_history.length > 0 ? `Positive family history(s) include ${this.context[this.context.last_viewed].family_history.join(", ")}` : "No family history of disease"}. {this.context[this.context.last_viewed].alcohol.alcoholbottlesperweek ? `${this.context[this.context.last_viewed].alcohol.alcoholbottlesperweek} bottle(s) of ${this.context[this.context.last_viewed].alcohol.alcoholtype ? this.context[this.context.last_viewed].alcohol.alcoholtype.join(", ") : 'alcohol'} is/are consumed per week` : "No history of alcohol consumption"}. The patient smokes {Number(this.context[this.context.last_viewed].cigarette.cigarettesticksperday) * Number(this.context[this.context.last_viewed].cigarette.cigarettesmokingduration) / 20} pack-year.
                                 </p>
                               </div>
                             </div>
@@ -229,29 +229,29 @@ export default class OverviewComponent extends React.Component {
                         <div className="emr-patient-summary">
                           <h4 className="emr-card-headers">Examinations</h4>
                           <div className="emr-patient-summary-category">
-                            <p className="emr-patient-summary-item text-wrap">On general examination, the following is/are the pertinent findings: {this.context.appointment.general.onexamination.join(", ")}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.general.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.cvs.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.chest.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.abdomen.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.others.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">On general examination, the following is/are the pertinent findings: {this.context[this.context.last_viewed].general.onexamination.join(", ")}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].general.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].cvs.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].chest.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].abdomen.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].others.notes}</p>
                             <br />
                             <p className="emr-patient-summary-item text-wrap"><strong>On neurological examination,</strong></p>
-                            <p className="emr-patient-summary-item text-wrap">Higher mental functions: {this.context.appointment.neuro.highermentalfunctions}</p>
-                            <p className="emr-patient-summary-item text-wrap">Cranial nerves: {this.context.appointment.neuro.cranialnerves}</p>
-                            <p className="emr-patient-summary-item text-wrap">Notes: {this.context.appointment.neuro.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">Higher mental functions: {this.context[this.context.last_viewed].neuro.highermentalfunctions}</p>
+                            <p className="emr-patient-summary-item text-wrap">Cranial nerves: {this.context[this.context.last_viewed].neuro.cranialnerves}</p>
+                            <p className="emr-patient-summary-item text-wrap">Notes: {this.context[this.context.last_viewed].neuro.notes}</p>
                           </div>
                         </div>
                         <br />
                         <div className="emr-patient-summary">
                           <h4 className="emr-card-headers">Investigations</h4>
                           <div className="emr-patient-summary-category">
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.imaging.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.electrical.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.haematology.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.labs.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.microbiology.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.procedures.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].imaging.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].electrical.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].haematology.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].labs.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].microbiology.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].procedures.notes}</p>
                           </div>
                         </div>
                       </div>
@@ -260,25 +260,25 @@ export default class OverviewComponent extends React.Component {
                         <div className="emr-patient-summary">
                           <h4 className="emr-card-headers">Assessment and Plan</h4>
                           <div className="emr-patient-summary-category">
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.assessment.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.plan.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.monitoring.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].assessment.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].plan.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].monitoring.notes}</p>
                           </div>
                         </div>
                         <br />
                         <div className="emr-patient-summary">
                           <h4 className="emr-card-headers">Treatment</h4>
                           <div className="emr-patient-summary-category">
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.pharmacological.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.nonpharmacological.notes}</p>
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.other.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].pharmacological.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].nonpharmacological.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].other.notes}</p>
                           </div>
                         </div>
                         <br />
                         <div className="emr-patient-summary">
                           <h4 className="emr-card-headers">Supplementary Notes</h4>
                           <div className="emr-patient-summary-category">
-                            <p className="emr-patient-summary-item text-wrap">{this.context.appointment.notes}</p>
+                            <p className="emr-patient-summary-item text-wrap">{this.context[this.context.last_viewed].notes}</p>
                           </div>
                         </div>
                       </div>

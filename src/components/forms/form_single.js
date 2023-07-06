@@ -6,11 +6,11 @@ export default class FormSingleComponent extends React.Component {
 
   onItemClicked = (value) => {
     this.props.updateAnyObject(this.props.formTag, value,
-      ["appointment", "forms", this.props.formTag], null);
+      [this.context.last_viewed, "forms", this.props.formTag], null);
   }
 
   render() {
-    const value = this.context.appointment.forms[this.props.formTag][this.props.formTag];
+    const value = this.context[this.context.last_viewed].forms[this.props.formTag][this.props.formTag];
     return (
       <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">{this.props.name}</h4>

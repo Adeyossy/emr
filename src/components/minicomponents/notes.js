@@ -1,8 +1,11 @@
 import React from "react";
+import { PatientContext } from '../../models/patient_context';
 
 export default class NotesComponent extends React.Component {
+  static contextType = PatientContext;
+
   onThisItemChange = (event) => {
-    const fields = ["appointment", ...this.props.fields]
+    const fields = [this.context.last_viewed, ...this.props.fields]
     this.props.onItemChange(event.target.name, event.target.value, fields, null);
     // console.log(event.target.name, " => ", event.target.value);
   }

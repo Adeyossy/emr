@@ -32,11 +32,11 @@ export default class PatientTableComponent extends React.Component {
                         <i className="bi bi-person-fill emr-center-icon"></i>
                       </div>
                     </td>
-                    <td>{item.appointment.biodata.firstname || item.appointment.biodata.lastname ?
-                      item.appointment.biodata.lastname + " " + item.appointment.biodata.firstname : "--"}</td>
-                    <td>{item.appointment.biodata.ageinyears ? `${item.appointment.biodata.ageinyears} 
+                    <td>{item[item.last_viewed].biodata.firstname || item[item.last_viewed].biodata.lastname ?
+                      item[item.last_viewed].biodata.lastname + " " + item[item.last_viewed].biodata.firstname : "--"}</td>
+                    <td>{item[item.last_viewed].biodata.ageinyears ? `${item[item.last_viewed].biodata.ageinyears} 
                     yrs` : "--"}</td>
-                    <td className="d-none d-lg-table-cell">{item.appointment.biodata.id}</td>
+                    <td className="d-none d-lg-table-cell">{item[item.last_viewed].biodata.id}</td>
                     <td className="emr-text-wrap">{item.primary_diagnosis}</td>
                     <td className="d-none d-lg-table-cell emr-text-wrap">{item.secondary_diagnosis}</td>
                   </tr>) :

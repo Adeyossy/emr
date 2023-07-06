@@ -5,7 +5,7 @@ export default class RightSideBarComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (event) => {
-    this.props.updateAnyObject(event.target.name, event.target.value, ["appointment"])
+    this.props.updateAnyObject(event.target.name, event.target.value, [this.context.last_viewed])
   }
 
   onDiagnosisChange = (event) => {
@@ -13,8 +13,8 @@ export default class RightSideBarComponent extends React.Component {
   }
 
   render() {
-    const apntmnt_notes = !this.context.appointment ?
-    this.context.last_notes : this.context.appointment.notes;
+    const apntmnt_notes = !this.context.last_viewed ?
+    this.context.last_notes : this.context[this.context.last_viewed].notes;
 
     return (
       <div className="container-fluid">

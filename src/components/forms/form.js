@@ -8,11 +8,11 @@ export default class FormComponent extends React.Component {
 
   onValueChange = (event) => {
     this.props.updateAnyObject(event.target.name, Number(event.target.value),
-      ["appointment", "forms", this.props.formTag], null);
+      [this.context.last_viewed, "forms", this.props.formTag], null);
   }
 
   render() {
-    const value = this.context.appointment.forms[this.props.formTag];
+    const value = this.context[this.context.last_viewed].forms[this.props.formTag];
 
     if (value) return (
       <div className="emr-clerking-tab-data m-0">

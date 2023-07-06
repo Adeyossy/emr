@@ -58,11 +58,11 @@ export default class DashboardComponent extends React.Component {
                             <i className="bi bi-person-fill emr-center-icon"></i>
                           </div>
                           <div className="emr-patient-description">
-                            <p className="emr-patient-name">{item.appointment.biodata.lastname + " " + item.appointment.biodata.firstname}</p>
+                            <p className="emr-patient-name">{item[item.last_viewed].biodata.lastname + " " + item[item.last_viewed].biodata.firstname}</p>
                             <div className="emr-patient-biodata">
-                              <p className="emr-patient-gender">{item.appointment.biodata.gender.charAt(0).toUpperCase()}</p>
+                              <p className="emr-patient-gender">{item[item.last_viewed].biodata.gender.charAt(0).toUpperCase()}</p>
                               <p className="emr-separator">|</p>
-                              <p className="emr-patient-age">{item.appointment.biodata.ageinyears} yrs</p>
+                              <p className="emr-patient-age">{item[item.last_viewed].biodata.ageinyears} yrs</p>
                               <p className="emr-separator">|</p>
                               <p className="emr-patient-diagnosis">{item.primary_diagnosis}</p>
                             </div>

@@ -13,7 +13,7 @@ export default class GeneralExamComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (id, value) => {
-      this.props.updateItemsInArray(["appointment", "general", id], value.split(", "), null);
+      this.props.updateItemsInArray([this.context.last_viewed, "general", id], value.split(", "), null);
   }
 
   render() {
@@ -22,14 +22,14 @@ export default class GeneralExamComponent extends React.Component {
         <h4 className="emr-card-headers">General Examination</h4>
         <div className="emr-clerking-tab-data-items">
           <MultiSelectOutputComponent name={"On Examination: "} id={"onexamination"}
-            value={this.context.appointment.general.onexamination.join(", ")}
+            value={this.context[this.context.last_viewed].general.onexamination.join(", ")}
             items={this.items} onItemChange={this.onItemChange} />
           {/* <div className="emr-clerking-tab-data-item">
             <label htmlFor="generalexamnotes">Notes</label>
             <textarea name="generalexamnotes" id="generalexamnotes" cols="30" rows="10" placeholder="write here..."></textarea>
           </div> */}
           <NotesComponent id={"notes"} fields={["general"]}
-            value={this.context.appointment.general.notes} onItemChange={this.props.updateAnyObject} />
+            value={this.context[this.context.last_viewed].general.notes} onItemChange={this.props.updateAnyObject} />
         </div>
       </div>
     );
