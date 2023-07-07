@@ -9,6 +9,7 @@ import PatientTableComponent from './components/dashboard/patient_table';
 import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, restoreBackup, restoreCloudBackup, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
 import { formsLookUp } from './models/forms';
+import neurojson from './neuro_6_7_23.json';
 
 export const PatientContext = React.createContext(null);
 
@@ -185,6 +186,8 @@ export class EMRComponent extends React.Component {
     //We're expecting an array of object with 'doc' as the needed key for the value
 
     let dataFromDocs = docs.map(item => item.doc);
+    // console.log(neurojson);
+    // let dataFromDocs = neurojson.rows.map(item => item.doc);
 
     // const data1Parsed = JSON.parse(JSON.stringify(data2));
     // console.log('parsed JSON file => ', data1Parsed);

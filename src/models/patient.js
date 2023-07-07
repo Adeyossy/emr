@@ -270,28 +270,22 @@ export function parseFromDatabase(dbPatient) {
     this.last_viewed = dbPatient.last_viewed;
   }
 
-  if (Object.hasOwn(dbPatient, 'appointment_keys')) {
-    this.appointment_keys = dbPatient.appointment_keys
-  } else {
-    if (Object.hasOwn(dbPatient, 'appointments')) {
-      this.appointment_keys = dbPatient.appointments.map(apntmnt => apntmnt.date_seen);
-    }
-  }
-
-  // console.log("appointment => ", this);
-
   if (Object.hasOwn(dbPatient, 'appointments')) {
     const appointments = dbPatient.appointments.map(apntmnt => {
-      const newApntmnt = new parseApntmntDB(JSON.parse(JSON.stringify(apntmnt)));
+      let newApntmnt = new parseApntmntDB(JSON.parse(JSON.stringify(apntmnt)));
 
-      if (appointment.date_seen === apntmnt.date_seen) {
-        apntmnt = appointment;
+      if (appointment.date_seen === newApntmnt.date_seen || 
+        !apntmnt.biodata.firstname || !apntmnt.biodata.lastname) {
+        newApntmnt = appointment;
       }
 
-      this[apntmnt.date_seen.toString()] = newApntmnt;
+      this[newApntmnt.date_seen.toString()] = newApntmnt;
       return newApntmnt;
     });
+
+    this.appointment_keys = appointments.map(apntmnt => apntmnt.date_seen);
   } else {
+    this.appointment_keys = dbPatient.appointment_keys;
     this.appointment_keys.forEach(key => {
       if (Object.hasOwn(dbPatient, key)) {
         this[key] = dbPatient[key];
