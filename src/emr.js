@@ -6,10 +6,9 @@ import { getAppointment, getAppointmentWithDefaultValues, newEmrPatient, parseFr
 import { authStateObserver, backup, downloadBackup, getCurrentUser, uploadToStorage } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
-import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, restoreBackup, restoreCloudBackup, updateDoc } from './modules/db';
+import { createDB, createNewDoc, deleteDoc, fetchFromRemote, restoreCloudBackup, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
 import { formsLookUp } from './models/forms';
-import neurojson from './neuro_6_7_23.json';
 
 export const PatientContext = React.createContext(null);
 
