@@ -341,19 +341,6 @@ export class AppComponent extends React.Component {
 
     return (
       <>
-        <BackDropComponent showDialog={this.props.showDialog}>
-          {
-            this.props.showDialog && this.state.booleanState
-              ?
-              <SelectDialogComponent dismissDialog={this.onFormSelectionDismissed}
-                dialogMessage={this.props.dialogMessage} dialogAction={this.processFormSelection}
-                dialogTitle={this.props.dialogTitle} />
-              :
-              <ActionDialogComponent dismissDialog={this.props.dismissDialog}
-                dialogMessage={this.props.dialogMessage} dialogAction={this.props.dialogAction}
-                dialogTitle={this.props.dialogTitle} />
-          }
-        </BackDropComponent>
         <nav>
           <NavComponent navAppBarState={this.state.navState} changeState={this.updateNavState}
             dashboard={this.props.dashboard} patientView={this.props.patientView}

@@ -242,7 +242,7 @@ export class EMRComponent extends React.Component {
 
           if (Object.hasOwn(item, 'appointment')) {
             console.log('appointment exists');
-            if(item.appointment.date_seen === apntmnt.date_seen) {
+            if (item.appointment.date_seen === apntmnt.date_seen) {
               console.log('appointment assigned');
               apntmnt = item.appointment;
             }
@@ -290,7 +290,7 @@ export class EMRComponent extends React.Component {
     const undeletedPatients = this.state.patients.filter(item => item._id !== id);
     if (this.state.patient._id === id) {
       const foundPatient = this.state.patients
-      .find(item => item._id === id);
+        .find(item => item._id === id);
       const foundPatientLastName = foundPatient[foundPatient.last_viewed].biodata.lastname;
       const deleteString = foundPatientLastName ? foundPatientLastName : "Patient";
       // console.log("true");
@@ -475,7 +475,7 @@ export class EMRComponent extends React.Component {
     //   apntmnt.date_seen === date_seen);
     // console.log("switched appointment forms => ", this.state.patient.appointment.forms);
     patient.last_viewed = date_seen.toString();
-    
+
     this.setState({
       patient: patient
     });
@@ -689,6 +689,19 @@ export class EMRComponent extends React.Component {
     if (this.state.isSignedIn) {
       return (
         <>
+          <BackDropComponent showDialog={this.props.showDialog}>
+            {
+              this.props.showDialog && this.state.booleanState
+                ?
+                <SelectDialogComponent dismissDialog={this.onFormSelectionDismissed}
+                  dialogMessage={this.props.dialogMessage} dialogAction={this.processFormSelection}
+                  dialogTitle={this.props.dialogTitle} />
+                :
+                <ActionDialogComponent dismissDialog={this.props.dismissDialog}
+                  dialogMessage={this.props.dialogMessage} dialogAction={this.props.dialogAction}
+                  dialogTitle={this.props.dialogTitle} />
+            }
+          </BackDropComponent>
           <NotificationComponent showNotification={this.state.showNotification}
             info={this.state.info} dismissNotification={this.dismissNotification} />
           <AppComponent currentView={this.state.patient ? "Patients" : "Dashboard"}
