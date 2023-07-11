@@ -96,34 +96,34 @@ export class EMRComponent extends React.Component {
       .then(response => response.json())
       .then(patients => {
         docs = patients;
-        this.setState({
-          showNotification: true,
-          info: 'Backup Restored'
-        });
         return restoreCloudBackup(patients)
       })
       .then(responses => {
         // console.log(responses);
         getOfflineDocs(this.docsFromOfflineDB)
+        this.setState({
+          showNotification: true,
+          info: 'Backup Restored'
+        });
         responses.filter(response => response.status === 'rejected')
           .filter(rejected => rejected.reason.message === 'missing')
           .forEach((item) => {
             console.log('item => ', item);
             const deletedDoc = docs.find(doc => doc._id === item.reason.docId);
             if (deletedDoc) {
-              updateDeleted
-              deletedDoc._id = Date.now().toString();
-              const patients = this.state.patients;
-              patients.push(...this.upgradeDataStructure([deletedDoc]));
-              this.setState({
-                showNotification: true,
-                info: 'Restored Deleted Files',
-                patients: patients
-              });
-              // createNewDoc(deletedDoc);
-              docs.filter(doc => doc._id === item.reason.docId)
-                .forEach(doc => {
-                });
+              // updateDeleted
+              // deletedDoc._id = Date.now().toString();
+              // const patients = this.state.patients;
+              // patients.push(...this.upgradeDataStructure([deletedDoc]));
+              // this.setState({
+              //   showNotification: true,
+              //   info: 'Restored Deleted Files',
+              //   patients: patients
+              // });
+              // // createNewDoc(deletedDoc);
+              // docs.filter(doc => doc._id === item.reason.docId)
+              //   .forEach(doc => {
+              //   });
             }
           });
 
