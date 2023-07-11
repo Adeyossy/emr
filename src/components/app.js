@@ -26,9 +26,6 @@ import { PatientContext } from "../models/patient_context";
 import OverviewComponent from "./overview";
 import TabComponent from "./tabs";
 import GCSComponent from "./forms/neuro_gcs";
-import BackDropComponent from "./minicomponents/backdrop";
-import ActionDialogComponent from "./minicomponents/action_dialog";
-import SelectDialogComponent from "./minicomponents/select_dialog";
 import MMSEComponent from "./forms/neuro_mmse";
 import FormComponent from "./forms/form";
 import { formsLookUp } from "../models/forms";
@@ -68,7 +65,7 @@ export class AppComponent extends React.Component {
 
     window.addEventListener('keydown', (e) => {
       const focusedElement = document.activeElement.tagName.toLowerCase();
-      
+
       if (focusedElement === 'input' || focusedElement === 'textarea') {
       } else {
         if (this.props.patient) {
@@ -168,13 +165,12 @@ export class AppComponent extends React.Component {
     });
   }
 
-  showFormSelectionDialog = (booleanState) => {
-    this.props.showDialogOnClick("Forms", "Choose from the list of available forms",
-      this.props.addForm);
-
-    this.setState({
-      booleanState: true
-    });
+  showFormSelectionDialog = () => {
+    this.props.showDialogOnClick({
+      title: "Forms",
+      message: "Choose from the list of available forms",
+      action: this.props.addForm
+    }, 1);
   }
 
   otherFormsUpdate = () => {
@@ -250,7 +246,7 @@ export class AppComponent extends React.Component {
   }
 
   processFormSelection = (formTag) => {
-    this.props.dialogAction(formTag);
+    this.props.dialog.action(formTag);
   }
 
   onFormSelectionDismissed = () => {
@@ -264,8 +260,7 @@ export class AppComponent extends React.Component {
     const historyComponents = [
       <BiodataComponent patient={this.props.patient}
         updateAnyObject={this.props.updateAnyObject} />,
-      <ComplaintComponent updateComplaints={this.props.updateComplaints}
-        updateAnyObject={this.props.updateAnyObject}
+      <ComplaintComponent updateAnyObject={this.props.updateAnyObject}
         updateItemsInArray={this.props.updateItemsInArray} />,
       <RoSComponent updateAnyObject={this.props.updateAnyObject}
         updateItemsInArray={this.props.updateItemsInArray} />,
@@ -290,6 +285,23 @@ export class AppComponent extends React.Component {
 
     //Tabbed components under Other Forms
     const otherForms = this.props.patient ? this.otherFormsUpdate() : [[], []];
+
+    // Add the floating action button the app
+    otherForms[0].push("+ Add New");
+    otherForms[1].push(
+      <div className="emr-clerking-tab-data m-0">
+        <p className="emr-header mb-5">Click the button below to add another form.</p>
+        {/* <div className="emr-icon-bg emr-icon-bg-light"
+          onClick={this.showFormSelectionDialog}>
+          <i className="bi bi-plus-lg emr-icons emr-center-icon"></i>
+          <i className="emr-icon-tooltip">Add Form</i>
+        </div> */}
+        <button className="w-50" onClick={this.showFormSelectionDialog}>
+          Add a New Form
+        </button>
+      </div>
+    );
+
     this.componentItems[2] = otherForms[0];
     const otherFormsComponents = otherForms[1];
 
@@ -383,7 +395,6 @@ export class AppComponent extends React.Component {
                       isDrawerOpen={this.state.isDrawerOpen}>
                       <TabComponent items={this.componentItems[this.state.navIndex]}
                         tabState={this.tabState[this.state.navIndex]}>
-                        {/* {console.log("inner", this.state.tabState)} */}
                         {
                           this.componentItems[this.state.navIndex].map((item, index) =>
                             <div className="col emr-history-tab" key={index.toString() + item}
@@ -396,17 +407,8 @@ export class AppComponent extends React.Component {
                           )
                         }
                       </TabComponent>
-                      {componentContents[this.state.navIndex].length > 0 ?
+                      {componentContents[this.state.navIndex] ?
                         componentContents[this.state.navIndex][this.state.tabIndex[this.state.navIndex]] : null}
-                      {
-                        this.state.navIndex === 2 ?
-                          <div className="emr-icon-bg emr-icon-bg-light"
-                            onClick={this.showFormSelectionDialog}>
-                            <i className="bi bi-plus-lg emr-icons emr-center-icon"></i>
-                            <i className="emr-icon-tooltip">Add Form</i>
-                          </div> :
-                          null
-                      }
                     </Selectable>
                 }
               </MainComponent>

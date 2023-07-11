@@ -6,15 +6,22 @@ import { getAppointment, getAppointmentWithDefaultValues, newEmrPatient, parseFr
 import { authStateObserver, backup, downloadBackup, getCurrentUser, uploadToStorage } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
-import { createDB, createNewDoc, deleteDoc, fetchFromRemote, restoreCloudBackup, updateDoc } from './modules/db';
+import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, restoreCloudBackup, updateDeleted, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
 import { formsLookUp } from './models/forms';
+import BackDropComponent from './components/minicomponents/backdrop';
+import ActionDialogComponent from './components/minicomponents/action_dialog';
+import SelectDialogComponent from './components/minicomponents/select_dialog';
+import NoDuplicatesComponent from './components/minicomponents/no_duplicates';
 
 export const PatientContext = React.createContext(null);
 
 export class EMRComponent extends React.Component {
   constructor(props) {
     super(props);
+
+    this.dialog = { message: "", title: "", action: this.dismissDialog.bind(this) }
+
     this.state = {
       user: undefined,
       patients: [],
@@ -25,9 +32,8 @@ export class EMRComponent extends React.Component {
       showNotification: false,
       info: "",
       showDialog: false,
-      dialogMessage: "",
-      dialogTitle: "",
-      dialogAction: this.dismissDialog.bind(this),
+      dialog: this.dialog,
+      dialogID: 0,
       authComplete: false,
       hasDataChanged: false,
       downloadURL: ''
@@ -91,8 +97,6 @@ export class EMRComponent extends React.Component {
       .then(patients => {
         docs = patients;
         this.setState({
-          patients: this.upgradeDataStructure(patients),
-          authComplete: true,
           showNotification: true,
           info: 'Backup Restored'
         });
@@ -100,12 +104,14 @@ export class EMRComponent extends React.Component {
       })
       .then(responses => {
         // console.log(responses);
-        responses
-          .filter(response => response.status === 'rejected')
+        getOfflineDocs(this.docsFromOfflineDB)
+        responses.filter(response => response.status === 'rejected')
           .filter(rejected => rejected.reason.message === 'missing')
           .forEach((item) => {
+            console.log('item => ', item);
             const deletedDoc = docs.find(doc => doc._id === item.reason.docId);
             if (deletedDoc) {
+              updateDeleted
               deletedDoc._id = Date.now().toString();
               const patients = this.state.patients;
               patients.push(...this.upgradeDataStructure([deletedDoc]));
@@ -114,12 +120,11 @@ export class EMRComponent extends React.Component {
                 info: 'Restored Deleted Files',
                 patients: patients
               });
-              createNewDoc(deletedDoc);
-              // docs.filter(doc => doc._id === item.reason.docId)
-              //   .forEach(doc => {
-              //   });
+              // createNewDoc(deletedDoc);
+              docs.filter(doc => doc._id === item.reason.docId)
+                .forEach(doc => {
+                });
             }
-            // createNewDoc(item);
           });
 
 
@@ -182,33 +187,15 @@ export class EMRComponent extends React.Component {
   }
 
   docsFromOfflineDB = (docs) => {
-    //We're expecting an array of object with 'doc' as the needed key for the value
-
-    let dataFromDocs = docs.map(item => item.doc);
-    // console.log(neurojson);
-    // let dataFromDocs = neurojson.rows.map(item => item.doc);
-
-    // const data1Parsed = JSON.parse(JSON.stringify(data2));
-    // console.log('parsed JSON file => ', data1Parsed);
-    // let data = data1Parsed.rows.map(item => item.doc);
-    //if there are any updates to the data structure
-    // data = this.upgradeDataStructure(data);
-
-    if (dataFromDocs.length > 0) {
-      dataFromDocs = this.upgradeDataStructure(dataFromDocs);
-      // if (dataFromDocs.find(item => item._id === "1636025887772"));
-      // else
-      // dataFromDocs.splice(dataFromDocs.length, 0, ...data);
+    if (docs.length > 0) {
+      docs = this.upgradeDataStructure(docs);
     }
 
-    // console.log("data1.json parsed => ", data);
-    // console.log("new dataFromDocs => ", dataFromDocs);
-
     this.setState({
-      patients: dataFromDocs,
-      filteredPatients: dataFromDocs,
+      patients: docs,
+      filteredPatients: docs,
       authComplete: true,
-      downloadURL: URL.createObjectURL(new Blob([JSON.stringify(dataFromDocs)],
+      downloadURL: URL.createObjectURL(new Blob([JSON.stringify(docs)],
         { type: 'application/json' }))
     });
   }
@@ -269,8 +256,25 @@ export class EMRComponent extends React.Component {
   }
 
   onCreateIconClicked = () => {
+    this.showDialog({
+      title: "Create New Patient",
+      message: "Fill in the name or hospital number of the patient below",
+      action: this.createNewPatient
+    }, 3);
+  }
+
+  createNewPatient = (name, id) => {
     // const newPatient = parseOldPatient.call(JSON.parse(JSON.stringify(getFreshPatient())));
     const newPatient = newEmrPatient();
+    if (name) {
+      const [lastname, firstname] = name.split(" ");
+      newPatient[newPatient.last_viewed].biodata.firstname = firstname;
+      newPatient[newPatient.last_viewed].biodata.lastname = lastname;
+    }
+
+    if (id) {
+      newPatient[newPatient.last_viewed].biodata.id = id;
+    }
     // newPatient.appointment = newPatient.appointments[0];
     this.state.patients.push(newPatient);
     this.setState({
@@ -285,15 +289,12 @@ export class EMRComponent extends React.Component {
   }
 
   deletePatient = (id) => {
-    // console.log("state patient id => ", this.state.patient._id);
-    // console.log("id => ", id);
     const undeletedPatients = this.state.patients.filter(item => item._id !== id);
     if (this.state.patient._id === id) {
       const foundPatient = this.state.patients
         .find(item => item._id === id);
       const foundPatientLastName = foundPatient[foundPatient.last_viewed].biodata.lastname;
       const deleteString = foundPatientLastName ? foundPatientLastName : "Patient";
-      // console.log("true");
       this.setState({
         patient: null,
         patients: undeletedPatients,
@@ -311,10 +312,7 @@ export class EMRComponent extends React.Component {
   }
 
   onPatientTableClicked = (id) => {
-    // console.log("Patient appointments => ", this.state.patients.find((value) => id === value._id));
     const patient = this.state.patients.find((value) => id === value._id);
-    // patient.appointment = patient.appointments.find(apntmnt =>
-    //   apntmnt.date_seen === patient.appointment.date_seen);
 
     this.setState({
       patient: patient,
@@ -323,8 +321,6 @@ export class EMRComponent extends React.Component {
   }
 
   onPatientChange = (patient) => {
-    // const lastAppointment = patient.appointments.find(apntmnt =>
-    //   apntmnt.date_seen === patient.appointment.date_seen);
     this.setState({
       patient: patient,
       showNotification: true,
@@ -504,20 +500,19 @@ export class EMRComponent extends React.Component {
     // updateDoc(this.state.patient);
   }
 
-  showDialog = (title, message, action) => {
+  showDialog = (dialog, id) => {
     this.setState({
       showDialog: true,
-      dialogMessage: message,
-      dialogTitle: title,
-      dialogAction: action
+      dialog: dialog,
+      dialogID: id
     });
   }
 
   dismissDialog = () => {
     this.setState({
       showDialog: false,
-      dialogMessage: "",
-      dialogTitle: ""
+      dialog: Object.create(this.dialog),
+      dialogID: 0
     });
   }
 
@@ -540,7 +535,7 @@ export class EMRComponent extends React.Component {
 
   deleteForm = (formTag) => {
     if (this.state.patient[this.state.patient.last_viewed].forms.hasOwnProperty(formTag)) {
-      delete this.state.patient[this.state.last_viewed].forms[formTag]
+      delete this.state.patient[this.state.patient.last_viewed].forms[formTag]
     }
 
     this.setState({
@@ -689,17 +684,26 @@ export class EMRComponent extends React.Component {
     if (this.state.isSignedIn) {
       return (
         <>
-          <BackDropComponent showDialog={this.props.showDialog}>
+          <BackDropComponent showDialog={this.state.showDialog}>
             {
-              this.props.showDialog && this.state.booleanState
+              this.state.dialogID === 1
                 ?
-                <SelectDialogComponent dismissDialog={this.onFormSelectionDismissed}
-                  dialogMessage={this.props.dialogMessage} dialogAction={this.processFormSelection}
-                  dialogTitle={this.props.dialogTitle} />
-                :
-                <ActionDialogComponent dismissDialog={this.props.dismissDialog}
-                  dialogMessage={this.props.dialogMessage} dialogAction={this.props.dialogAction}
-                  dialogTitle={this.props.dialogTitle} />
+                <SelectDialogComponent dialog={this.state.dialog}
+                  dismissDialog={this.dismissDialog} />
+                : null
+            }
+            {
+              this.state.dialogID === 2 ?
+                <ActionDialogComponent dismissDialog={this.dismissDialog}
+                  dialog={this.state.dialog} />
+                : null
+            }
+            {
+              this.state.dialogID === 3 ?
+                <NoDuplicatesComponent dismissDialog={this.dismissDialog}
+                  dialog={this.state.dialog} patients={this.state.patients}
+                  onPatientClicked={this.onPatientTableClicked} />
+                : null
             }
           </BackDropComponent>
           <NotificationComponent showNotification={this.state.showNotification}
@@ -708,7 +712,6 @@ export class EMRComponent extends React.Component {
             dashboard={this.switchBackToDashboard} patient={this.state.patient}
             patients={this.state.patients.filter(this.state.filter)}
             deletePatient={this.deletePatient} changePatient={this.onPatientChange}
-            updateObjectField={this.updateObjectField} updateComplaints={this.updateComplaints}
             updateAnyObject={this.updateAnyObject} createNewPatient={this.onCreateIconClicked}
             updateItemsInArray={this.updateItemsInArray}
             switchToAppointment={this.switchToAppointment}
@@ -721,7 +724,7 @@ export class EMRComponent extends React.Component {
             deleteForm={this.deleteForm} filterPatients={this.filterPatients}
             createUploadItem={this.createUploadItem} beginUpload={this.beginUpload}
             deleteUpload={this.deleteUpload} createBackup={this.createBackup}
-            restoreBackup={this.restoreBackup}>
+            restoreBackup={this.restoreBackup} >
             {
               this.state.patient !== null ?
                 null :

@@ -171,11 +171,12 @@ export default class InvestigationComponent extends React.Component {
                         </div>
                         <div className="col-3 col-lg-1 m-0 p-0">
                           <button className="emr-button emr-clickable"
-                            onClick={this.props.showDialog.bind(this, "Delete Investigation",
-                              "This investigation will be deleted",
-                              getCurrentUser.bind(Object.create(null),
+                            onClick={this.props.showDialog.bind(this, {
+                              title: "Delete Investigation",
+                              message: "This investigation will be deleted",
+                              action: getCurrentUser.bind(Object.create(null),
                                 deleteFromStorage.bind(this, this.props.modality.concat('/', item.name),
-                                  this.props.deleteUpload.bind(this, this.props.modality, item.id))))}>
+                                  this.props.deleteUpload.bind(this, this.props.modality, item.id)))})}>
                             <i className="bi bi-trash-fill"></i>
                           </button>
                         </div>

@@ -3,7 +3,7 @@ import { formsLookUp } from "../../models/forms";
 
 export default class SelectDialogComponent extends React.Component {
   onFormClicked = (formTag) => {
-    this.props.dialogAction(formTag);
+    this.props.dialog.action(formTag);
     this.props.dismissDialog();
   }
 
@@ -21,12 +21,12 @@ export default class SelectDialogComponent extends React.Component {
           </div>
           <div className="emr-dialog-title">
             <h6 className="emr-dialog-title-text">
-              {this.props.dialogTitle ? this.props.dialogTitle : "UNTITLED"}
+              {this.props.dialog.title ? this.props.dialog.title : "UNTITLED"}
             </h6>
           </div>
           <div className="emr-dialog-details">
             <p className="emr-dialog-details-text text-wrap">
-              {this.props.dialogMessage ? this.props.dialogMessage :
+              {this.props.dialog.message ? this.props.dialog.message :
                 "Oops! No details to show. Kindly cancel this dialog window"}
             </p>
           </div>

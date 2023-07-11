@@ -63,7 +63,8 @@ export function fetchFromRemote(callback) {
   }
 
   if (patientsDB !== null) {
-    patientsDB.replicate.from(iam.url.concat("/").concat(dbName)).on("complete", (info) => {
+    patientsDB.replicate.from(iam.url.concat("/").concat(dbName))
+    .on("complete", (info) => {
       // console.log("on complete => ", info);
       getOfflineDocs(callback);
       patientsDB.sync(iam.url.concat("/").concat(dbName), { live: true, retry: true })
@@ -93,10 +94,10 @@ export function getOfflineDocs(callback) {
   patientsDB.allDocs({ include_docs: true, descending: true }, (error, doc) => {
     
     if (error) {
-// console.log("error => ", error);
+      console.log("error => ", error);
     }
 
-    callback(doc.rows);
+    callback(doc.rows.map(item => item.doc));
   });
 }
 
@@ -119,6 +120,18 @@ export function updateOne(patient) {
     patient._rev = doc._rev;
     return patientsDB.put(patient);
   });
+}
+
+export function updateDeleted(patient) {
+  return patientsDB.get(patient._id)
+  .then(doc => {
+    if(patient._rev) {
+      doc._rev = patient._rev;
+      console.log('doc => ', doc);
+      return patientsDB.put(doc);
+    }
+    else throw new Error("Unable to restore deleted content");
+  })
 }
 
 export function updateDoc(patient) {

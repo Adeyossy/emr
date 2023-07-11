@@ -9,10 +9,11 @@
 
 .emr-app-main > .emr-icon-bg{
   position: fixed;
-  bottom: 16px; right: 16px;
+  bottom: 16px; right: 0; left: 0;
   width: 48px;
   height: 48px;
   box-shadow: var(--emr-low-shadow);
+  margin: auto;
   /* border: 1px solid var(--emr-secondary-colour); */
   transition: box-shadow 300ms ease-in, bottom 300ms ease-in;
 }
@@ -190,10 +191,10 @@ th{
   height: 100vh;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.75);
+  overflow: auto;
 }
 
 .emr-dialog{
-  margin-top: 33.33vh;
   border-radius: var(--emr-round-corners);
   box-shadow: var(--emr-default-shadow);
   /* background: url('https://firebasestorage.googleapis.com/v0/b/emrapp-6b53d.appspot.com/o/abstract_connections_banner_design_2203.png?alt=media&token=dc90182d-c0ee-49b6-b317-6c240309bd9e'); */
@@ -203,6 +204,7 @@ th{
   /* background-position: 50% 50%; */
   background-blend-mode: luminosity;
   animation: 200ms ease-in 0ms 1 slideUp;
+  max-height: 100%;
 }
 
 .emr-dialog.emr-select-dialog{
@@ -224,6 +226,16 @@ th{
 
 .emr-dialog .row{
   height: auto;
+}
+
+.emr-dialog-patients {
+  border-top-right-radius: var(--emr-round-corners);
+  border-bottom-right-radius: var(--emr-round-corners);
+}
+
+.emr-patients-no-duplicate {
+  overflow-y: auto;
+  max-height: 75vh;
 }
 
 p.emr-form-item-description{
@@ -253,6 +265,14 @@ li.emr-form-item-description{
   background-color: white;
   border-top: 1px solid var(--emr-lighter-grey-colour);
   border-bottom: 1px solid var(--emr-lighter-grey-colour);
+}
+
+.emr-dialog-input {
+  height: 100%;
+}
+
+.emr-dialog-buttons.container-fluid {
+  height: auto;
 }
 
 button.emr-dialog-cancel-button{

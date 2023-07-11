@@ -90,6 +90,10 @@ button.emr-card-button{
   margin: 0;
 }
 
+button:disabled {
+  opacity: 0.3;
+}
+
 label{
   font-size: 11pt;
 }

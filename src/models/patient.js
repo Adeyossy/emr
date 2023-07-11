@@ -48,8 +48,7 @@ export const patientModel = {
   next_appointment: 0,
   last_seen: 0,
   first_seen: 0,
-  appointment: {},
-  appointments: [],
+  last_viewed: "",
   primary_diagnosis: "",
   secondary_diagnosis: "",
   last_notes: ""
@@ -255,7 +254,7 @@ export function parseApntmntDB(apntmnt) {
 
 export function parseFromDatabase(dbPatient) {
   this._id = dbPatient._id;
-  // this._rev = dbPatient._rev;
+  this._rev = dbPatient._rev;
   this.next_appointment = dbPatient.next_appointment;
   this.last_seen = dbPatient.last_seen;
   this.first_seen = dbPatient.first_seen;
@@ -263,18 +262,20 @@ export function parseFromDatabase(dbPatient) {
   // If the data still uses the deprecated 'appointment' key
   // Change it to match the current schema
   let appointment = {};
-  if (Object.hasOwn(dbPatient, 'appointment')) {
+  if (Object.hasOwn(dbPatient, 'appointment') &&
+    Object.keys(dbPatient.appointment).length) {
     appointment = new parseApntmntDB(JSON.parse(JSON.stringify(dbPatient.appointment)));
     this.last_viewed = appointment.date_seen;
   } else {
     this.last_viewed = dbPatient.last_viewed;
   }
 
-  if (Object.hasOwn(dbPatient, 'appointments')) {
+  if (Object.hasOwn(dbPatient, 'appointments') &&
+    dbPatient.appointments.length) {
     const appointments = dbPatient.appointments.map(apntmnt => {
       let newApntmnt = new parseApntmntDB(JSON.parse(JSON.stringify(apntmnt)));
 
-      if (appointment.date_seen === newApntmnt.date_seen || 
+      if (appointment.date_seen === newApntmnt.date_seen ||
         !apntmnt.biodata.firstname || !apntmnt.biodata.lastname) {
         newApntmnt = appointment;
       }

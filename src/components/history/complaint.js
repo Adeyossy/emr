@@ -9,7 +9,6 @@ export default class ComplaintComponent extends React.Component {
   static contextType = PatientContext;
 
   onItemChange = (index, id, value) => {
-    // this.props.updateComplaints(event.target.name)
     this.props.updateAnyObject(id, value, [this.context.last_viewed, "presenting_complaints", "complaints"], index);
   }
 
