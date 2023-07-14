@@ -122,7 +122,7 @@ export function updateOne(patient) {
   });
 }
 
-export function updateDeleted(patient) {
+export function changeRevision(patient) {
   return patientsDB.get(patient._id)
   .then(doc => {
     if(patient._rev) {
@@ -153,6 +153,7 @@ export function restoreCloudBackup(patients) {
     getCurrentUser(createDB);
   }
 
+  // return Promise.allSettled(patients.map(patient => changeRevision(patient)));
   return Promise.allSettled(patients.map(patient => updateOne(patient)));
   // return patientsDB.bulkDocs(patients);
 }

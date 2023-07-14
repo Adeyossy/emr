@@ -6,7 +6,7 @@ import { getAppointment, getAppointmentWithDefaultValues, newEmrPatient, parseFr
 import { authStateObserver, backup, downloadBackup, getCurrentUser, uploadToStorage } from './modules/auth';
 import DashboardComponent from './components/dashboard';
 import PatientTableComponent from './components/dashboard/patient_table';
-import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, restoreCloudBackup, updateDeleted, updateDoc } from './modules/db';
+import { createDB, createNewDoc, deleteDoc, fetchFromRemote, getOfflineDocs, restoreCloudBackup, updateDoc } from './modules/db';
 import NotificationComponent from './components/minicomponents/notification';
 import { formsLookUp } from './models/forms';
 import BackDropComponent from './components/minicomponents/backdrop';
@@ -111,7 +111,7 @@ export class EMRComponent extends React.Component {
             console.log('item => ', item);
             const deletedDoc = docs.find(doc => doc._id === item.reason.docId);
             if (deletedDoc) {
-              // updateDeleted
+              console.log('there is a deleted doc');
               // deletedDoc._id = Date.now().toString();
               // const patients = this.state.patients;
               // patients.push(...this.upgradeDataStructure([deletedDoc]));
