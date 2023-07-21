@@ -28,9 +28,8 @@ export default class PMHComponent extends React.Component {
   onItemChange = (id, value) => {
     if (id === "comorbidities") {
       const comorbidityArray = value.split(", ").filter(item => item !== "").map((element) => {
-        console.log('before => ', this.context.last_viewed);
         const alreadyExists = this.context[this.context.last_viewed].past_medical_history.comorbidities
-          .find(comorbidity => comorbidity.comorbidy === element);
+          .find(comorbidity => comorbidity.comorbidity === element);
         if (alreadyExists) {
           return alreadyExists;
         }

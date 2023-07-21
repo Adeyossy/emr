@@ -7,9 +7,6 @@ export default class MainComponent extends React.Component {
     return (
       <main>
         {this.props.children}
-        <RightSideBarComponent updateAnyObject={this.props.updateAnyObject} 
-          isDrawerOpen={this.props.isDrawerOpen}
-        />
         {/* <div className="container-fluid">
           <div className="row g-0">
             <div className={`${this.props.isDrawerOpen? 

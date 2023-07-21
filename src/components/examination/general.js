@@ -7,7 +7,8 @@ export default class GeneralExamComponent extends React.Component {
   constructor(props) {
     super(props);
     this.items = ["Febrile", "Pale", "Icteric", "Cyanosed", "Dehydrated", "Digital Clubbing",
-      "Peripheral Lymphadenopathy", "Pedal Oedema"];
+      "Peripheral Lymphadenopathy", "Pedal Oedema", "Palmar Erythema", 
+      "Dupytren' Contracture"];
   }
 
   static contextType = PatientContext;

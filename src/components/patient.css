@@ -222,6 +222,12 @@ p.emr-biodata-summary-age{
   margin: 32px 0;
 }
 
+.emr-preview-list-item {
+  background-color: var(--emr-light-colour);
+  padding: 8px;
+  margin: 4px 2px;
+}
+
 .emr-quick-info-bottom-item{
   width: 40%;
   font-size: 8pt;

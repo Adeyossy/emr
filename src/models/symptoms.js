@@ -7,7 +7,7 @@ export const symptomsBySystem = {
     'Heartburn']
 }
 
-export const gitSymptoms = {
+export const symptoms = {
   dysphagia: {
     consistency: ['Solid', 'Liquid', 'Both']
   },
@@ -18,9 +18,9 @@ export const gitSymptoms = {
   diarrhoea: {
     how_long: "",
     how_many_times: "",
-    bloody: false,
-    mucoid: false,
-    greenish: false
+    bloody: ["Yes", "No"],
+    mucoid: ["Yes", "No"],
+    greenish: ["Yes", "No"]
   },
   constipation: {},
   vomiting: {},
@@ -34,22 +34,35 @@ export const gitSymptoms = {
   weight_loss: {},
   abdominal_pain: {
     location: ['Epigastrum', 'RUQ', 'LUQ', 'Suprapubic'],
-    related_to_meals: false,
+    related_to_meals: ["Yes", "No"],
     timing: "",
-    radiates_to_back: false,
-    better_lying: false,
-    bend_forward: false,
-    colicky: false,
-    peppery: false,
-    waxes_and_wanes: false,
+    radiates_to_back: ["Yes", "No"],
+    better_lying: ["Yes", "No"],
+    bend_forward: ["Yes", "No"],
+    colicky: ["Yes", "No"],
+    peppery: ["Yes", "No"],
+    waxes_and_wanes: ["Yes", "No"],
     relieved_by_medications: ['Antacids', 'PPIs', 'Analgesics', 'None']
   },
   abdominal_swelling: {
-    feeling_of_a_mass: false,
-    insidious: false
+    feeling_of_a_mass: ["Yes", "No"],
+    insidious: ["Yes", "No"]
   },
   dizziness: {},
   change_in_sleep_pattern: {},
   loss_of_consciousness: {},
   water_brash: {}
+}
+
+export function getForStorage(dictionary, symptomKey, section) {
+  symptomKey = symptomKey.toLowerCase();
+  const item = dictionary[symptomKey.replace(/ /g, "_")];
+  for (const key in item) {
+    if(Object.hasOwn(item, key)) {
+      this[key] = typeof item[key] === 'boolean' ? false : "";
+    }
+  }
+  
+  this[section] = symptomKey.replace(symptomKey[0], symptomKey[0].toUpperCase());
+  return this;
 }

@@ -355,6 +355,10 @@ p.emr-patient-diagnosis{
   box-shadow: var(--emr-active-shadow);
 }
 
+.emr-small-text {
+  font-size: 12px;
+}
+
 @keyframes dropInAndFadeIn{
   from{
     transform: translateY(-10%);

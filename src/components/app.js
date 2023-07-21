@@ -32,6 +32,14 @@ import { formsLookUp } from "../models/forms";
 import FormSingleComponent from "./forms/form_single";
 import InvestigationComponent from "./investigation/investigation";
 import BottomNavComponent from "./bottom_nav";
+import RightSideBarComponent from "./rightsidebar";
+import { symptoms } from "../models/symptoms";
+import { complaint } from "../models/complaint";
+import DetailsComponent from "./history/details";
+import ListComponent from "./minicomponents/list";
+import { tests } from "../models/tests";
+import { updateListDetails } from "../helpers/update_list_details";
+import PreviewComponent from "./minicomponents/preview";
 
 export class AppComponent extends React.Component {
   constructor(props) {
@@ -57,7 +65,11 @@ export class AppComponent extends React.Component {
       tabIndex: [0, 0, 0, 0, 0, 0, 0],
       showOverview: false,
       booleanState: false,
-      isDrawerOpen: false
+      isDrawerOpen: false,
+      whereIds: {
+        complaint: -1,
+        test: -1
+      }
     }
   }
 
@@ -90,11 +102,6 @@ export class AppComponent extends React.Component {
     // if (!prevProps.patient && this.props.patient) {
     //   this.addFormFields();
     // }
-
-    // if (prevProps.patient && this.props.patient
-    //   && prevProps.patient._id !== this.props.patient._id) {
-    //   this.addFormFields();
-    // }
   }
 
   onHotkeysPressed = (newValue) => {
@@ -120,6 +127,7 @@ export class AppComponent extends React.Component {
   }
 
   updateNavState = (index) => {
+    this.resetWheres();
     let navState = this.state.navState;
     navState = navState.fill("");
     navState[index] = "selected";
@@ -152,6 +160,7 @@ export class AppComponent extends React.Component {
   }
 
   updateTabState = (index) => {
+    this.resetWheres();
     let stateFromItems = this.tabState[this.state.navIndex];
     stateFromItems = stateFromItems.fill("");
     stateFromItems[index] = "selected";
@@ -256,12 +265,43 @@ export class AppComponent extends React.Component {
     });
   }
 
+  onItemChange = (where, section, id, value) => {
+    this.props.updateAnyObject(id, value, [this.props.patient.last_viewed,
+      ...where], this.state.whereIds[section])
+  }
+
+  onBooleanSymptomChange = (id, value) => {
+    this.onItemChange(id, Boolean(value))
+  }
+
+  setWhere = (id, where) => {
+    const whereIds = this.state.whereIds;
+    whereIds[where] = whereIds[where] === id ? -1 : id;
+    this.setState({
+      whereIds: whereIds
+    });
+  }
+
+  resetWheres () {
+    const whereIds = Object.values(this.state.whereIds);
+
+    if(whereIds.reduce((a, b) => a + b) > -whereIds.length) {
+      this.setState({
+        whereIds: {
+          complaint: -1,
+          test: -1
+        }
+      });
+    }
+  }
+
   render() {
     const historyComponents = [
       <BiodataComponent patient={this.props.patient}
         updateAnyObject={this.props.updateAnyObject} />,
       <ComplaintComponent updateAnyObject={this.props.updateAnyObject}
-        updateItemsInArray={this.props.updateItemsInArray} />,
+        updateItemsInArray={this.props.updateItemsInArray}
+        setWhere={this.setWhere} whereId={this.state.whereIds.complaint} />,
       <RoSComponent updateAnyObject={this.props.updateAnyObject}
         updateItemsInArray={this.props.updateItemsInArray} />,
       <PMHComponent updateAnyObject={this.props.updateAnyObject}
@@ -322,15 +362,42 @@ export class AppComponent extends React.Component {
 
     //Tabbed components under Other Forms
     // this.investigationsComponents = [ <NotesOnlyComponent notesHeader={"Imaging"} /> ];
-    const investigationsComponents = this.componentItems[4].map((item) =>
-      <InvestigationComponent modality={item.toLowerCase()}
-        createUploadItem={this.props.createUploadItem}
-        updateAnyObject={this.props.updateAnyObject}
-        beginUpload={this.props.beginUpload} deleteUpload={this.props.deleteUpload}
-        showDialog={this.props.showDialogOnClick}>
-        <NotesOnlyComponent fields={[item.toLowerCase()]}
-          updateAnyObject={this.props.updateAnyObject} notesHeader={item} />
-      </InvestigationComponent>);
+    const investigationsComponents = this.componentItems[4].map((item) => {
+      const value = this.props.patient ? this.props.patient[this.props.patient.last_viewed]
+      [item.toLowerCase()].tests : [];
+
+      const where = this.props.patient ? [this.props.patient.last_viewed,
+      item.toLowerCase(), 'tests', 'test'] : null;
+
+      return (
+        <InvestigationComponent modality={item.toLowerCase()}
+          createUploadItem={this.props.createUploadItem}
+          updateAnyObject={this.props.updateAnyObject}
+          beginUpload={this.props.beginUpload} deleteUpload={this.props.deleteUpload}
+          showDialog={this.props.showDialogOnClick}>
+          <ListComponent dictionary={tests} value={value.map(test => test.test).join(", ")}
+            name={item} onItemChange={updateListDetails.bind(Object.create(null),
+              tests, value, where, this.props.updateItemsInArray, this.setWhere)} />
+
+          <div className="container-fluid p-0">
+            <div className="row g-0 flex-row-reverse justify-content-end">
+              {
+                value.map((val, index) =>
+                  <div className="col-md-6 p-3" key={index.toString()}>
+                    <PreviewComponent item={val} index={index} name={val.test}
+                      whereId={this.state.whereIds.test} setWhere={this.setWhere}
+                      section="test" />
+                  </div>
+                )
+              }
+            </div>
+          </div>
+
+          <NotesOnlyComponent fields={[item.toLowerCase()]}
+            updateAnyObject={this.props.updateAnyObject} notesHeader={item} />
+        </InvestigationComponent>
+      )
+    });
 
     //Tabbed components under Other Forms
     // this.assessmentComponents = [  ];
@@ -350,6 +417,15 @@ export class AppComponent extends React.Component {
       treatmentComponents];
 
     this.tabState = this.componentItems.map(item => item.slice().fill(""));
+
+    const complaints = this.props.patient ? this.props.patient[this.props.patient.last_viewed]
+      .presenting_complaints.complaints : [];
+
+    const testIndex = this.componentItems.length - 3;
+    const selectedTestIndex = this.state.tabIndex[testIndex];
+    const selectedTest = this.componentItems[testIndex][selectedTestIndex].toLowerCase();
+    const itests = this.props.patient ? this.props.patient[this.props.patient.last_viewed]
+    [selectedTest].tests : null;
 
     return (
       <>
@@ -408,9 +484,41 @@ export class AppComponent extends React.Component {
                         }
                       </TabComponent>
                       {componentContents[this.state.navIndex] ?
-                        componentContents[this.state.navIndex][this.state.tabIndex[this.state.navIndex]] : null}
+                        componentContents[this.state.navIndex][this.state.tabIndex
+                        [this.state.navIndex]] : null}
                     </Selectable>
                 }
+                <RightSideBarComponent updateAnyObject={this.props.updateAnyObject}
+                  isDrawerOpen={this.state.isDrawerOpen}>
+                  {
+                    complaints.length && this.state.whereIds.complaint >= 0
+                    && complaints.length > this.state.whereIds.complaint ?
+                      <DetailsComponent onItemChange={this.onItemChange.bind(this, [
+                        "presenting_complaints", 'complaints'], 'complaint')}
+                        onBooleanSymptomChange={this.onBooleanSymptomChange.bind(this, [
+                          "presenting_complaints", 'complaints'], 'complaint')}
+                        whereId={this.state.whereIds.complaint}
+                        dictionary={Object.entries({
+                          ...complaint, ...symptoms[complaints[this.state.whereIds.complaint]
+                            .complaint.toLowerCase().replace(/ /g, "_")]
+                        } || complaints[this.state.whereIds.complaint])} 
+                        item={complaints} section={'complaint'} /> : null
+                  }
+                  {
+                    this.state.navIndex === testIndex && itests.length &&
+                      this.state.whereIds.test >= 0 ?
+                      <DetailsComponent onItemChange={this.onItemChange.bind(this, [
+                        selectedTest, 'tests'], 'test')}
+                        onBooleanSymptomChange={this.onBooleanSymptomChange.bind(this, [
+                          selectedTest, 'tests'], 'test')}
+                        whereId={this.state.whereIds.test}
+                        dictionary={Object.entries(
+                          tests[itests[this.state.whereIds.test]
+                            .test.replace(/ /g, "_")] || 
+                            itests[this.state.whereIds.test])}
+                        item={itests} section={'test'} /> : null
+                  }
+                </RightSideBarComponent>
               </MainComponent>
             </PatientContext.Provider>
         }
