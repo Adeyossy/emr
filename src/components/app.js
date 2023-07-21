@@ -373,7 +373,7 @@ export class AppComponent extends React.Component {
 
     //Tabbed components under Other Forms
     // this.investigationsComponents = [ <NotesOnlyComponent notesHeader={"Imaging"} /> ];
-    const investigationsComponents = this.componentItems[4].map((item) => {
+    const investigationsComponents = this.componentItems[3].map((item) => {
       const value = this.props.patient ? this.props.patient[this.props.patient.last_viewed]
       [item.toLowerCase()].tests : [];
 
