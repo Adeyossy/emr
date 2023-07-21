@@ -20,8 +20,8 @@ export const appointmentModel = {
     gaitandcoordination: "", notes: ""
   },
   cvs: { notes: "" }, chest: { notes: "" }, abdomen: { notes: "" }, others: { notes: "" },
-  imaging: { notes: "" }, electrical: { notes: "" }, haematology: { notes: "" },
-  labs: { notes: "" }, microbiology: { notes: "" }, procedures: { notes: "" },
+  imaging: { tests: [], notes: "" }, electrical: { tests: [], notes: "" }, haematology: { tests: [], notes: "" },
+  labs: { tests: [], notes: "" }, microbiology: { tests: [], notes: "" }, procedures: { tests: [], notes: "" },
   pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: "" },
   assessment: {
     notes: ""
