@@ -84,7 +84,7 @@ export const patient = {
     babinski: "", sensorysides: [], sensorylimbs: [], sensoryfinetouch: "", sensorycoarsetouch: "",
     sensorytemperature: "", sensoryvibration: "", sensoryproprioception: "", sensorypressure: "",
     gaitandcoordination: "", notes: ""
-  },
+  }, // this is here for legacy reasons
   cvs: { notes: "" }, chest: { notes: "" }, abdomen: { onexamination: [], notes: "" }, 
   others: { notes: "" },imaging: { tests:[], notes: "" }, electrical: { tests: [], notes: "" }, 
   haematology: { tests: [], notes: "" }, labs: { tests: [], notes: "" }, 
@@ -93,6 +93,7 @@ export const patient = {
   assessment: { notes: "" }, plan: { notes: "" }, monitoring: { notes: "" },
   primary_diagnosis: "", secondary_diagnosis: "", forms: {}, last_notes: ""
 }
+// Do not edit this patient model. It is here for legacy reasons
 
 export function getFreshPatient() {
   const appointmentTime = Date.now();
