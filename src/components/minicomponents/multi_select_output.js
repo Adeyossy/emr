@@ -1,6 +1,7 @@
 import React from 'react'
 import SingleItemSelectComponent from '../minicomponents/single_item_select';
 import MultiItemSelectComponent from './multi_item_select';
+import { compareStringsLoosely } from '../../helpers/compare_strings';
 
 export default class MultiSelectOutputComponent extends React.Component {
   constructor(props) {
@@ -50,20 +51,28 @@ export default class MultiSelectOutputComponent extends React.Component {
   } */
 
   displaySelectedInInputBox = (index) => {
-    //Get the clicked item by getting it with the index
+    // Get the clicked item by getting it with the index
     const itemAtIndex = this.props.items[index];
 
+    // If there is a value props, split it into an array
     let currentSelections = this.props.value ? this.props.value.split(", ") : [];
-// console.log("currentselections => ", currentSelections);
-// console.log("value of currentselections => ", this.props.value);
 
-    const isAlreadySelected = currentSelections.find((value) => value === itemAtIndex);
-    if(isAlreadySelected) {
-// console.log("Already Selected");
-      currentSelections = currentSelections.filter(value => value !== itemAtIndex);
-// console.log("currentselections => ", currentSelections);
+    // Search for the clicked/selected item and check if it already exists
+    const isAlreadySelected = currentSelections.find((value) =>
+      compareStringsLoosely(value, itemAtIndex));
+    if (isAlreadySelected) {
+      // If it is already selected, deselect it
+      currentSelections = currentSelections.filter(value => !value.includes(itemAtIndex));
+      // console.log("currentselections => ", currentSelections);
     } else {
-      currentSelections.push(itemAtIndex);
+      // The item is not already selected
+      // Next, check if there is an already typed word that is a substring of the item
+      const substringIndex = currentSelections.length - 1;
+      if (compareStringsLoosely(itemAtIndex, currentSelections[substringIndex])) {
+        currentSelections[substringIndex] = itemAtIndex;
+      } else {
+        currentSelections.push(itemAtIndex);
+      }
     }
     this.props.onItemChange(this.props.id, currentSelections.join(", "));
   }
@@ -74,7 +83,7 @@ export default class MultiSelectOutputComponent extends React.Component {
     //   item: event.target.value
     // });
 
-// console.log("event triggered in multi_select_output => ", event.target.value);
+    // console.log("event triggered in multi_select_output => ", event.target.value);
 
     //If user decides to type, check if the typed content is/are among the selectable items
     //I want to select the corresponding clickable items
@@ -92,21 +101,8 @@ export default class MultiSelectOutputComponent extends React.Component {
     // if (shouldBeStored) {
     //   this.props.onItemChange(this.props.id, selectableItemsInTextBox.join(", "));
     // }
-    
-    this.props.onItemChange(this.props.id, event.target.value);
-    //Is the item currently selected? The currently selected item
-    // const isItAlreadySelected = currentSelectedItems.filter((value) => event.target.value.includes(value));
-    // if (isTypedTextinItems && !isItAlreadySelected) {
-    //   currentSelectedItems.push(event.target.value);
-    //   if (event.target.name === this.props.id) {
-    //     this.setState({
-    //       item: event.target.value,
-    //       items: currentSelectedItems
-    //     });
-    //   }
 
-    //   this.props.onItemChange(this.props.id, event.target.value);
-    // }
+    this.props.onItemChange(this.props.id, event.target.value);
   }
 
   render() {

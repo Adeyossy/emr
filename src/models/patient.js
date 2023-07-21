@@ -85,9 +85,10 @@ export const patient = {
     sensorytemperature: "", sensoryvibration: "", sensoryproprioception: "", sensorypressure: "",
     gaitandcoordination: "", notes: ""
   },
-  cvs: { notes: "" }, chest: { notes: "" }, abdomen: { notes: "" }, others: { notes: "" },
-  imaging: { notes: "" }, electrical: { notes: "" }, haematology: { notes: "" },
-  labs: { notes: "" }, microbiology: { notes: "" }, procedures: { notes: "" },
+  cvs: { notes: "" }, chest: { notes: "" }, abdomen: { onexamination: [], notes: "" }, 
+  others: { notes: "" },imaging: { tests:[], notes: "" }, electrical: { tests: [], notes: "" }, 
+  haematology: { tests: [], notes: "" }, labs: { tests: [], notes: "" }, 
+  microbiology: { tests: [], notes: "" }, procedures: { tests: [], notes: "" },
   pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: "" },
   assessment: { notes: "" }, plan: { notes: "" }, monitoring: { notes: "" },
   primary_diagnosis: "", secondary_diagnosis: "", forms: {}, last_notes: ""
@@ -223,6 +224,9 @@ export function parseApntmntDB(apntmnt) {
   this.cvs = JSON.parse(JSON.stringify(apntmnt.cvs));
   this.chest = JSON.parse(JSON.stringify(apntmnt.chest));
   this.abdomen = JSON.parse(JSON.stringify(apntmnt.abdomen));
+  if (!apntmnt.abdomen.onexamination) {
+    this.abdomen.onexamination = [];
+  }
   this.others = JSON.parse(JSON.stringify(apntmnt.others));
   this.imaging = JSON.parse(JSON.stringify(apntmnt.imaging));
   this.electrical = JSON.parse(JSON.stringify(apntmnt.electrical));
@@ -230,6 +234,8 @@ export function parseApntmntDB(apntmnt) {
   this.labs = JSON.parse(JSON.stringify(apntmnt.labs));
   this.microbiology = JSON.parse(JSON.stringify(apntmnt.microbiology));
   this.procedures = JSON.parse(JSON.stringify(apntmnt.procedures));
+  ['imaging', 'electrical', 'haematology', 'labs', 'microbiology', 'procedures']
+  .forEach(each => { if (!apntmnt[each].tests) this[each].tests = [] })
   this.pharmacological = JSON.parse(JSON.stringify(apntmnt.pharmacological));
   this.nonpharmacological = JSON.parse(JSON.stringify(apntmnt.nonpharmacological));
   this.other = JSON.parse(JSON.stringify(apntmnt.other));
@@ -289,7 +295,7 @@ export function parseFromDatabase(dbPatient) {
     this.appointment_keys = dbPatient.appointment_keys;
     this.appointment_keys.forEach(key => {
       if (Object.hasOwn(dbPatient, key)) {
-        this[key] = dbPatient[key];
+        this[key] = new parseApntmntDB(dbPatient[key]);
       } else {
         console.log('key does not exist');
       }
