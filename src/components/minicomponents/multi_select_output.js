@@ -68,7 +68,8 @@ export default class MultiSelectOutputComponent extends React.Component {
       // The item is not already selected
       // Next, check if there is an already typed word that is a substring of the item
       const substringIndex = currentSelections.length - 1;
-      if (compareStringsLoosely(itemAtIndex, currentSelections[substringIndex])) {
+      if (substringIndex >= 0 && 
+        compareStringsLoosely(itemAtIndex, currentSelections[substringIndex])) {
         currentSelections[substringIndex] = itemAtIndex;
       } else {
         currentSelections.push(itemAtIndex);
