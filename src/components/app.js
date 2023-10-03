@@ -84,7 +84,8 @@ export class AppComponent extends React.Component {
 
     // if (prevProps.patient && this.props.patient
     //   && prevProps.patient._id !== this.props.patient._id) {
-    //   this.addFormFields();
+    //   // this.addFormFields();
+    //   this.resetWheres();
     // }
   }
 
@@ -435,6 +436,8 @@ export class AppComponent extends React.Component {
     const testIndex = this.componentItems.length - 3;
     const selectedTestIndex = this.state.tabIndex[testIndex];
     const selectedTest = this.componentItems[testIndex][selectedTestIndex].toLowerCase();
+
+    // these are the tests under a particular modality saved in the patient's data
     const itests = this.props.patient ? this.props.patient[this.props.patient.last_viewed]
     [selectedTest].tests : null;
 
@@ -501,6 +504,7 @@ export class AppComponent extends React.Component {
                 }
                 <RightSideBarComponent updateAnyObject={this.props.updateAnyObject}
                   isDrawerOpen={this.state.isDrawerOpen}>
+                  
                   {
                     complaints.length && this.state.whereIds.complaint >= 0
                     && complaints.length > this.state.whereIds.complaint ?
@@ -517,7 +521,8 @@ export class AppComponent extends React.Component {
                   }
                   {
                     this.state.navIndex === testIndex && itests.length &&
-                      this.state.whereIds.test >= 0 ?
+                      this.state.whereIds.test >= 0 && 
+                      itests.length > this.state.whereIds.test ?
                       <DetailsComponent onItemChange={this.onItemChange.bind(this, [
                         selectedTest, 'tests'], 'test')}
                         onBooleanSymptomChange={this.onBooleanSymptomChange.bind(this, [

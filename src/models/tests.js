@@ -40,11 +40,39 @@ export const tests = {
   },
   ugie: {
     name: 'Upper GI Endoscopy',
-    findings: ''
+    patient_name: '',
+    patient_age:  -1,
+    hospital_number: '',
+    indication: '',
+    pre_medication: '',
+    oropharynx: ['Erosions', 'Inflammation'],
+    oesophagus: ['Erosions', 'Ulcers', 'Inflammation'],
+    eGJ: '',
+    stomach_cardia: ['Erosion', 'Inflammation', 'Ulcer', 'Tumour', 'Normal'],
+    stomach_body: ['Erosion', 'Inflammation', 'Ulcer', 'Tumour'],
+    stomach_antrum: ['Erosion', 'Inflammation', 'Ulcer', 'Tumour'],
+    stomach_fundus: ['Erosion', 'Inflammation', 'Ulcer', 'Tumour'],
+    duodenogastric_reflux: ['Yes', 'No'],
+    duodenum_d1: ['Normal', 'Inflammation', 'Erosion', 'Ulcers'],
+    duodenum_d2: ['Normal', 'Inflammation', 'Erosion', 'Ulcers'],
+    ubt: ['Positive', 'Negative'],
+    diagnosis: '',
+    histology_findings: ''
   },
   colonoscopy: {
     name: 'Colonoscopy',
-    findings: ''
+    patient_name: '',
+    patient_age: '',
+    hospital_number: '',
+    indication: '',
+    caecum_findings: '',
+    ascending_colon_findings: '',
+    transverse_colon_findings: '',
+    descending_colon_findings: '',
+    sigmoid_colon_findings: '',
+    rectum_findings: '',
+    diagnosis: '',
+    histology_result: ''
   },
   abd_uss: {
     name: 'Abdominal Ultrasound',
@@ -108,6 +136,12 @@ export const tests = {
   stool_antigen: {
     name: 'Stool Antigen',
     findings: ''
+  },
+  liver_biopsy: {
+    name: 'Liver Biopsy',
+    indication: '',
+    diagnosis: '',
+    histology: ''
   }
 }
 
