@@ -1,6 +1,7 @@
 import React from "react";
 import SingleSelectOutputComponent from "../minicomponents/single_select_output";
 import LabelAndInputComponent from "../epilepsy/label_and_input";
+import MultiSelectOutputComponent from "../minicomponents/multi_select_output";
 
 export default class DetailsComponent extends React.Component {
   render() {
@@ -21,7 +22,7 @@ export default class DetailsComponent extends React.Component {
                       onItemChange={this.props.onBooleanSymptomChange} />
                     :
                     typeof value === 'object' ?
-                      <SingleSelectOutputComponent id={key} key={index.toString()}
+                      <MultiSelectOutputComponent id={key} key={index.toString()}
                         name={key.replace(key[0], key[0].toUpperCase()).split("_").join(" ")}
                         items={value} value={item[this.props.whereId][key]}
                         onItemChange={this.props.onItemChange.bind(this)} /> :
