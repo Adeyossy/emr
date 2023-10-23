@@ -680,6 +680,14 @@ export class EMRComponent extends React.Component {
     // updateDoc(this.state.patient);
   }
 
+  openDataExporter = () => {
+    this.showDialog({
+      title: "Data Exporter",
+      message: "Select the data you want to export",
+      action: this.dismissDialog.bind(this)
+    }, 4);
+  }
+
   render() {
     if (this.state.isSignedIn) {
       return (
@@ -705,6 +713,12 @@ export class EMRComponent extends React.Component {
                   onPatientClicked={this.onPatientTableClicked} />
                 : null
             }
+            {
+              this.state.dialogID === 4 ?
+                <NoDuplicatesComponent dismissDialog={this.dismissDialog}
+                  dialog={this.state.dialog} patients={this.state.patients} />
+                : null
+            }
           </BackDropComponent>
           <NotificationComponent showNotification={this.state.showNotification}
             info={this.state.info} dismissNotification={this.dismissNotification} />
@@ -724,7 +738,7 @@ export class EMRComponent extends React.Component {
             deleteForm={this.deleteForm} filterPatients={this.filterPatients}
             createUploadItem={this.createUploadItem} beginUpload={this.beginUpload}
             deleteUpload={this.deleteUpload} createBackup={this.createBackup}
-            restoreBackup={this.restoreBackup} >
+            restoreBackup={this.restoreBackup} openDataExporter={this.openDataExporter} >
             {
               this.state.patient !== null ?
                 null :

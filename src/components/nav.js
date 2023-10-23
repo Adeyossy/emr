@@ -114,7 +114,8 @@ export default class NavComponent extends React.Component {
               <div className="emr-other-views show">
                 <p className="emr-other-view">Your Profile</p>
                 <p className="emr-other-view" onClick={this.props.createBackup}>Create Backup</p>
-                <p className="emr-other-view" onClick={this.props.restoreBackup}>Restore Backup</p>
+                <p className="emr-other-view" onClick={this.props.restoreBackup} disabled>Restore Backup</p>
+                <p className="emr-other-view" onClick={this.props.openDataExporter}>Export Data</p>
                 <p className="emr-other-view" onClick={this.onSignOut}>Logout</p>
               </div>
             </div>
