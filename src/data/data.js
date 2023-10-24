@@ -3,10 +3,12 @@
 export function dataExporterHelper(patients, fields) {
   // @param patients: an array of patient object data
   // @param fields: an object with string values for each property
-  // const data = new Array(patients.length).fill({});
-  return patients.map(patient => {
+  
+  delete fields.downloadFile;
+  return patients.map((patient, index) => {
     const patientForExport = {};
-    const apntmnt = patient[patient.last_viewed];
+    const apntmnt = patient[patient.appointment_keys.sort()[0]];
+    patientForExport._id = patient._id;
     
     const fieldsKeys = Object.keys(fields);
     for (let f = 0; f < fieldsKeys.length; f++) {
@@ -25,6 +27,19 @@ export function dataExporterHelper(patients, fields) {
       }
     }
 
-    return patientForExport;
+    patientForExport.complaints = apntmnt.presenting_complaints.complaints
+    .map(complaint => complaint.complaint.concat(" x ", complaint.duration)).join();
+
+    // console.log(patient);
+
+    patientForExport.electrical = apntmnt.electrical.notes;
+    // console.log('electrical => ', apntmnt.electrical);
+    patientForExport.imaging = apntmnt.imaging.notes;
+    patientForExport.primary_diagnosis = patient.primary_diagnosis;
+    patientForExport.secondary_diagnosis = patient.secondary_diagnosis;
+
+    const values = Object.values(patientForExport).join(';');
+    if(index === 0) return Object.keys(patientForExport).join(';').concat("\r\n", values);
+    return values;
   })
 }

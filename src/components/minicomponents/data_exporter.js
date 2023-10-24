@@ -12,7 +12,8 @@ export default class DataExporter extends React.Component {
     this.state = {
       biodata: "",
       presenting_complaints: "",
-      ros: ""
+      ros: "",
+      downloadFile: null
     }
   }
 
@@ -23,9 +24,18 @@ export default class DataExporter extends React.Component {
     });
   }
 
+  onExportClicked = () => {
+    // Begin Processing here
+    const exportData = dataExporterHelper(this.props.patients, Object.assign(this.state));
+    console.log(exportData);
+    this.setState({
+      downloadFile: exportData.join("\r\n")
+    });
+  }
+
   onOKButtonClicked = () => {
     // Begin Processing here
-    console.log(dataExporterHelper(this.props.patients, this.state));
+    // console.log(dataExporterHelper(this.props.patients, this.state));
     this.props.dismissDialog();
   }
 
@@ -39,18 +49,22 @@ export default class DataExporter extends React.Component {
           <div className="emr-dialog-title">
             <h6 className="emr-dialog-title-text">Export Your Data</h6>
             <br></br>
-            <MultiSelectOutputComponent items={Object.keys(biodata)} id="biodata" name="biodata"
+            <MultiSelectOutputComponent items={Object.keys(biodata)} id="biodata" name="Biodata"
               value={this.state.biodata} onItemChange={this.onItemChange} />
+            <button className="w-auto px-5 py-3" onClick={this.onExportClicked}>Export Data</button>
           </div>
           <div className="container-fluid emr-dialog-buttons">
-            <div className="row">
+            <div className="row justify-content-end">
               <div className="col offset-lg-4 col-lg-4 offset-xl-6 col-xl-3">
                 <button className="emr-dialog-cancel-button"
                   onClick={this.props.dismissDialog}>Cancel</button>
               </div>
-              <div className="col col-lg-4 col-xl-3">
-                <button className="emr-dialog-ok-button"
-                  onClick={this.onOKButtonClicked}>OK</button>
+              <div className={this.state.downloadFile ? 'col col-lg-4 col-xl-3' : 'd-none'}>
+                <a href={URL.createObjectURL(new Blob([this.state.downloadFile],
+                    { type: 'application/json' }))} download={'data.csv'}>
+                  <button className="emr-dialog-ok-button"
+                    onClick={this.onOKButtonClicked}>Download</button>
+                </a>
               </div>
             </div>
           </div>
