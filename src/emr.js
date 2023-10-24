@@ -13,6 +13,7 @@ import BackDropComponent from './components/minicomponents/backdrop';
 import ActionDialogComponent from './components/minicomponents/action_dialog';
 import SelectDialogComponent from './components/minicomponents/select_dialog';
 import NoDuplicatesComponent from './components/minicomponents/no_duplicates';
+import DataExporter from './components/minicomponents/data_exporter';
 
 export const PatientContext = React.createContext(null);
 
@@ -715,7 +716,7 @@ export class EMRComponent extends React.Component {
             }
             {
               this.state.dialogID === 4 ?
-                <NoDuplicatesComponent dismissDialog={this.dismissDialog}
+                <DataExporter dismissDialog={this.dismissDialog}
                   dialog={this.state.dialog} patients={this.state.patients} />
                 : null
             }
