@@ -46,22 +46,23 @@ export class AppComponent extends React.Component {
     super(props);
 
     this.componentItems = [
-      ["Biodata", "Complaint", "RoS", "PMH", "Drug | Allergy", "FSHx"],
-      [],
-      ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"],
-      ["Imaging", "Electrical", "Haematology", "Labs", "Microbiology", "Procedures"],
-      ["Assessment", "Plan", "Monitoring"],
-      ["Pharmacological", "Nonpharmacological", "Other"]
+      ["Biodata", "Complaint", "RoS", "PMH", "Drug | Allergy", "FSHx"], // 0
+      ["Axis I", "Axis II", "Axis III", "Axis IV", "Axis V"], // 1
+      [], // 2
+      ["General", "Neuro", "CVS", "Chest", "Abdomen", "Other"], // 3
+      ["Imaging", "Electrical", "Haematology", "Labs", "Microbiology", "Procedures"], // 4
+      ["Assessment", "Plan", "Monitoring"], // 5
+      ["Pharmacological", "Nonpharmacological", "Other"] // 6
     ];
 
     this.tabState = this.componentItems.map(item => item.slice().fill("selected", 0, 1)
       .fill("", 1, item.length));
 
     this.state = {
-      navState: ["", "", "", "", "", ""], //history, Epilepsy form, other forms, examination, investigations, assessment, treatment
+      navState: ["", "", "", "", "", "", ""], //history, Epilepsy form, other forms, examination, investigations, assessment, treatment
       navIndex: 0,
       contextItems: ["Dashboard", "Patients", "Investigations"],
-      tabIndex: [0, 0, 0, 0, 0, 0],
+      tabIndex: [0, 0, 0, 0, 0, 0, 0],
       showOverview: false,
       booleanState: false,
       isDrawerOpen: false,
@@ -219,7 +220,7 @@ export class AppComponent extends React.Component {
   }
 
   updateFormState = (whereToSelect) => {
-    this.state.tabState[1] = this.state.componentItems[1].slice().fill("");
+    this.state.tabState[2] = this.state.componentItems[1].slice().fill("");
 
     this.setState({
       otherFormsComponents: this.state.otherFormsComponents,
@@ -354,7 +355,7 @@ export class AppComponent extends React.Component {
       </div>
     );
 
-    this.componentItems[1] = otherForms[0];
+    this.componentItems[2] = otherForms[0];
     const otherFormsComponents = otherForms[1];
 
     //Tabbed components under Examination
@@ -374,7 +375,7 @@ export class AppComponent extends React.Component {
 
     //Tabbed components under Other Forms
     // this.investigationsComponents = [ <NotesOnlyComponent notesHeader={"Imaging"} /> ];
-    const investigationsComponents = this.componentItems[3].map((item) => {
+    const investigationsComponents = this.componentItems[4].map((item) => {
       const value = this.props.patient ? this.props.patient[this.props.patient.last_viewed]
       [item.toLowerCase()].tests : [];
 
@@ -413,18 +414,18 @@ export class AppComponent extends React.Component {
 
     //Tabbed components under Other Forms
     // this.assessmentComponents = [  ];
-    const assessmentComponents = this.componentItems[4].map((item) =>
+    const assessmentComponents = this.componentItems[5].map((item) =>
       <NotesOnlyComponent fields={[item.toLowerCase()]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={item}
         value={item.toLowerCase()} />);
 
     //Tabbed components under Other Forms
-    const treatmentComponents = this.componentItems[5].map((item) =>
+    const treatmentComponents = this.componentItems[6].map((item) =>
       <NotesOnlyComponent fields={[item.toLowerCase()]}
         updateAnyObject={this.props.updateAnyObject} notesHeader={item}
         value={item.toLowerCase()} />);
 
-    const componentContents = [historyComponents, otherFormsComponents,
+    const componentContents = [historyComponents, epilepsyComponents, otherFormsComponents,
       examComponents, investigationsComponents, assessmentComponents,
       treatmentComponents];
 
