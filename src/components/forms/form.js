@@ -4,6 +4,11 @@ import FormGroupComponent from "./form_group";
 import FormItemComponent from "./form_item";
 
 export default class FormComponent extends React.Component {
+  /**
+   * This component organizes a form into:
+   * - A form group which coordinates the items in a form i.e. FormItemComponent
+   * 
+   */
   static contextType = PatientContext;
 
   onValueChange = (name, value) => {
