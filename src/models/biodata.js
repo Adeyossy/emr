@@ -9,6 +9,7 @@ export const biodata = {
   address: "",
   city: "",
   state: "",
+  country_of_origin: "",
   religion: "",
   tribe: "",
   informant: "",
@@ -18,7 +19,12 @@ export const biodata = {
   phone_number_1: "",
   email_address: "",
   next_of_kin: "",
-  next_of_kin_relationship: ""
+  next_of_kin_relationship: "",
+  phone_number_2: "",
+  date_of_birth: 0,
+  handedness: "",
+  years_of_formal_education: "",
+  lga_of_origin: ""
 }
 
 // function populateBiodata(source){
