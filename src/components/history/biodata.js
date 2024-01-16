@@ -17,7 +17,7 @@ export default class BiodataComponent extends React.Component {
       this.props.updateAnyObject(id, value, [this.props.patient.last_viewed, "biodata"]);
     } else {
       const enteredDate = new Date(value);
-// console.log("entered date => ", enteredDate.toLocaleString('en-NG'));
+      // console.log("entered date => ", enteredDate.toLocaleString('en-NG'));
       // console.log("entered time in milliseconds => ", enteredDate.getTime());
       this.props.updateAnyObject(id, enteredDate.getTime(), [this.props.patient.last_viewed]);
     }
@@ -54,6 +54,7 @@ export default class BiodataComponent extends React.Component {
     // console.log("this.props.patient => ", this.props.patient);
     const apntmnt = this.props.patient[this.props.patient.last_viewed];
     const biodata = apntmnt.biodata;
+    
     return (
       <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Identifying Information</h4>
@@ -76,6 +77,10 @@ export default class BiodataComponent extends React.Component {
                 className={biodata.middlename ? "filled" : ""} required></input>
             </div>
           </div>
+          <LabelAndInputComponent id="date_of_birth" title="Date of Birth"
+            value={biodata.hasOwnProperty('date_of_birth') ?
+              new Date(biodata.date_of_birth).toISOString().substring(0, 10) : "1970-01-01"}
+            type="date" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="ageinyears" title="Age (in years)"
             value={biodata.ageinyears}
             type="text" onItemChange={this.onItemChange} />
@@ -86,7 +91,7 @@ export default class BiodataComponent extends React.Component {
             value={biodata.occupation}
             type="text" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="years_of_formal_education" title="Years of Formal Education"
-            value={biodata.hasOwnProperty("years_of_formal_education") ? 
+            value={biodata.hasOwnProperty("years_of_formal_education") ?
               biodata.years_of_formal_education : ""}
             type="number" onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Marital Status"} id={"maritalstatus"}
@@ -96,7 +101,7 @@ export default class BiodataComponent extends React.Component {
           <NotesComponent id="address" name="Address" value={biodata.address}
             onItemChange={this.props.updateAnyObject} fields={["biodata"]} />
           <LabelAndInputComponent id="lga_of_origin" title="LGA of Origin"
-            value={ biodata.hasOwnProperty("lga_of_origin") ? biodata.lga_of_origin : "" }
+            value={biodata.hasOwnProperty("lga_of_origin") ? biodata.lga_of_origin : ""}
             type="text" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="city" title="City"
             value={biodata.city}
@@ -105,7 +110,7 @@ export default class BiodataComponent extends React.Component {
             value={biodata.state}
             type="text" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="country_of_origin" title="Country of Origin"
-            value={ biodata.hasOwnProperty("country_of_origin") ? biodata.country_of_origin : 
+            value={biodata.hasOwnProperty("country_of_origin") ? biodata.country_of_origin :
               ""}
             type="text" onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Religion"} id={"religion"}
@@ -114,7 +119,7 @@ export default class BiodataComponent extends React.Component {
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <SingleSelectOutputComponent name={"Tribe"} id={"tribe"}
             items={["Yoruba", "Igbo", "Hausa", "Fulani", "Ibiobio", "Kanuri", "Efik",
-                    "Anang", "Ijaw", "Urhobo", "Esan/Ishan", "Tiv", "Nupe"]}
+              "Anang", "Ijaw", "Urhobo", "Esan/Ishan", "Tiv", "Nupe"]}
             value={biodata.tribe}
             onItemChange={this.onItemChange} displayInBox={this.displaySelectedInInputBox} />
           <LabelAndInputComponent id="hospital" title="Hospital"
@@ -140,7 +145,7 @@ export default class BiodataComponent extends React.Component {
             onItemChange={this.onItemChange} items={["Father", "Mother", "Brother",
               "Sister", "Child", "Cousin", "Spouse"]} />
           <LabelAndInputComponent id="nok_phone_number" title="Next of Kin Phone Number"
-            value={biodata.hasOwnProperty("nok_phone_number") ? biodata.nok_phone_number : 
+            value={biodata.hasOwnProperty("nok_phone_number") ? biodata.nok_phone_number :
               ""}
             type="tel" onItemChange={this.onItemChange} />
           <SingleSelectOutputComponent name={"Handedness"} id={"handedness"}

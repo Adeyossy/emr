@@ -2,7 +2,7 @@ export const biodata = {
   firstname: "",
   middlename: "",
   lastname: "",
-  date_of_birth: "", // new entry for PD
+  date_of_birth: "", // new entry for PD: added
   ageinyears: "",
   gender: "",
   occupation: "",
