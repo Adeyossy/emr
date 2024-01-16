@@ -22,6 +22,7 @@ export const surgery = Object.assign({}, hospitalization);
 export const bloodTransfusion = { pints: 0, donor: "", facility: "", reaction: "" };
 
 export const comorbidity = {
+  age_diagnosed: "",
   comorbidity: "",
   year_diagnosed: 0,   //number
   duration: 0,    //number
@@ -333,6 +334,7 @@ export function getAppointment(date) {
     surgeries: [],
     blood_transfusions: [],
     comorbidities: [],
+    multiple_birth: "",
     blood_group: "",
     rhesus: "",
     genotype: "",
