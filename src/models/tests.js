@@ -14,6 +14,7 @@ export const tests = {
     total_protein: -1,
     direct_bilirubin: -1,
     total_bilirubin: -1,
+    bilirubin: -1,
     alp: -1
   },
   eucr: {
