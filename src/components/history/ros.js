@@ -25,7 +25,7 @@ export default class RoSComponent extends React.Component {
             onItemChange={this.onItemChange} />
           <MultiSelectOutputComponent name={"Gastrointestinal"} id={"gastrointestinal"}
             items={["Abd pain", "Abd swelling", "Anorexia", "Nausea", "Diarrhoea", "Constipation",
-              "Vomiting", "Jaundice", "Haematemesis", "Melena"]}
+              "Vomiting", "Jaundice", "Haematemesis", "Melena", "Early Satiety", "Weight Loss"]}
             value={this.context[this.context.last_viewed].review_of_systems["gastrointestinal"].join(", ")}
             onItemChange={this.onItemChange} />
           <MultiSelectOutputComponent name={"Genitourinary"} id={"genitourinary"}
