@@ -435,6 +435,8 @@ export class AppComponent extends React.Component {
 
     const testIndex = this.componentItems.length - 3;
     const selectedTestIndex = this.state.tabIndex[testIndex];
+
+    // This is the modality selected based on the current active tab under investigations
     const selectedTest = this.componentItems[testIndex][selectedTestIndex].toLowerCase();
 
     // these are the tests under a particular modality saved in the patient's data
