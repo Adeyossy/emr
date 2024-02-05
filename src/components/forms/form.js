@@ -6,8 +6,8 @@ import FormItemComponent from "./form_item";
 export default class FormComponent extends React.Component {
   static contextType = PatientContext;
 
-  onValueChange = (event) => {
-    this.props.updateAnyObject(event.target.name, Number(event.target.value),
+  onValueChange = (name, value) => {
+    this.props.updateAnyObject(name, Number(value),
       [this.context.last_viewed, "forms", this.props.formTag], null);
   }
 
