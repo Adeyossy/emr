@@ -32,6 +32,7 @@ export default class FormComponent extends React.Component {
                     <div className="emr-clerking-tab-data-item" key={(key2 + 100).toString()}>
                       <FormItemComponent desc={formitem[0]} field={formitem[1]}
                         min={formitem[2]} max={formitem[3]} formTag={this.props.formTag}
+                        label={formitem.length > 4 ? formitem[4] : "Items"}
                         onItemChange={this.onValueChange} />
                     </div>
                   )
