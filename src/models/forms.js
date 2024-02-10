@@ -142,7 +142,24 @@ const pdModel = {
   bradykinesia: -1,
   rigidity: -1,
   resttremor: -1,
-  posturaldisturbance: -1
+  posturaldisturbance: -1,
+  stoopedposture: -1,
+  decreasedarmswing: -1,
+  shufflinggait: -1,
+  micrographia: -1,
+  diminishedolfaction: -1,
+  seborrheicdermatitis: -1,
+  dreamenactment: -1,
+  posturalinstability: -1,
+  supranuclear: -1,
+  dysphagia: -1,
+  dysarthria: -1,
+  inspiratorystridor: -1,
+  anterocollis: -1,
+  cerebellar: -1,
+  myoclonus: -1,
+  dystonia: -1,
+  practiontremor: -1
 }
 
 export const formsLookUp = {
