@@ -11,6 +11,25 @@ export const appointment = {
   pharmacological: { notes: "" }, nonpharmacological: { notes: "" }, other: { notes: "" }
 }
 
+export const review_of_systems = {
+  cardiorespiratory: [],
+  gastrointestinal: [],
+  genitourinary: [],
+  endocrine: [],
+  notes: ""
+};
+
+export const past_medical_history = {
+  hospitalizations: [], //array of hospitalization(s)
+  surgeries: [],
+  blood_transfusions: [],
+  comorbidities: [],
+  blood_group: "",
+  rhesus: "",
+  genotype: "",
+  notes: ""
+};
+
 export const monitoringMarker = { field: "", value: "", unit: "" }
 
 export const hospitalization = {
