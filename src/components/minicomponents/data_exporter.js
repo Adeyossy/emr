@@ -1,9 +1,10 @@
 import React from "react";
 import MultiItemSelectComponent from "./multi_item_select";
-import { newEmrPatient } from "../../models/patient";
+import { newEmrPatient, review_of_systems } from "../../models/patient";
 import MultiSelectOutputComponent from "./multi_select_output";
 import { biodata } from "../../models/biodata";
 import { dataExporterHelper } from "../../data/data";
+import { presenting_complaint } from "../../models/complaint";
 
 export default class DataExporter extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class DataExporter extends React.Component {
     this.state = {
       biodata: "",
       presenting_complaints: "",
-      ros: "",
+      review_of_systems: "",
       downloadFile: null
     }
   }
@@ -51,6 +52,12 @@ export default class DataExporter extends React.Component {
             <br></br>
             <MultiSelectOutputComponent items={Object.keys(biodata)} id="biodata" name="Biodata"
               value={this.state.biodata} onItemChange={this.onItemChange} />
+            <MultiSelectOutputComponent items={Object.keys(presenting_complaint)}
+              id="presenting_complaints" name="Complaints" value={this.state.presenting_complaints}
+              onItemChange={this.onItemChange} />
+            <MultiSelectOutputComponent items={Object.keys(review_of_systems)}
+              id="review_of_systems" name="Review of Systems" value={this.state.review_of_systems}
+              onItemChange={this.onItemChange} />
             <button className="w-auto px-5 py-3" onClick={this.onExportClicked}>Export Data</button>
           </div>
           <div className="container-fluid emr-dialog-buttons">
@@ -61,7 +68,7 @@ export default class DataExporter extends React.Component {
               </div>
               <div className={this.state.downloadFile ? 'col col-lg-4 col-xl-3' : 'd-none'}>
                 <a href={URL.createObjectURL(new Blob([this.state.downloadFile],
-                    { type: 'application/json' }))} download={'data.csv'}>
+                  { type: 'application/json' }))} download={'data.csv'}>
                   <button className="emr-dialog-ok-button"
                     onClick={this.onOKButtonClicked}>Download</button>
                 </a>
