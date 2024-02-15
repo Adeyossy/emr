@@ -1,18 +1,31 @@
 // This file converts the doctor's data into a csv
 
+function processBasedOnType(data) {
+  if (Array.isArray(data)) {
+    return data.map(d => processBasedOnType(d)).join(" | ");
+  }
+  
+  if (typeof data === "object") {
+    return Object.keys(data).map(d => `${d}: ${processBasedOnType(data[d])}`).join(", ");
+  }
+
+  if (typeof data === "string") return data;
+}
+
 export function dataExporterHelper(patients, fields) {
   // @param patients: an array of patient object data
-  // @param fields: an object with string values for each property
+  // @param fields: an object with string values for each property e.g {biodata: 'firstname'}
   
   delete fields.downloadFile;
   return patients.map((patient, index) => {
     const patientForExport = {};
+    // We're only picking the first appointment here but we need to export all appointments
     const apntmnt = patient[patient.appointment_keys.sort()[0]];
-    patientForExport._id = patient._id;
+    patientForExport._id = patient._id; // export patient id
     
     const fieldsKeys = Object.keys(fields);
     for (let f = 0; f < fieldsKeys.length; f++) {
-      const fieldsString = fields[fieldsKeys[f]];
+      const fieldsString = fields[fieldsKeys[f]]; // 
       const field = fieldsString ? fieldsString.split(", ") : []; // field is an array of strings
       // field array contains sections chosen for export
       
@@ -23,12 +36,13 @@ export function dataExporterHelper(patients, fields) {
         // console.log("apntmnt[fieldsKeys[f]] => ", apntmnt[fieldsKeys[f]]);
         // console.log("apntmnt[field] => ", apntmnt[field]);
         // console.log("property => ", property);
-        patientForExport[property] = apntmnt[fieldsKeys[f]][property];
+        const fieldValue = apntmnt[fieldsKeys[f]][property];
+        patientForExport[property] = processBasedOnType(fieldValue);
       }
     }
 
-    patientForExport.complaints = apntmnt.presenting_complaints.complaints
-    .map(complaint => complaint.complaint.concat(" x ", complaint.duration)).join();
+    // patientForExport.complaints = apntmnt.presenting_complaints.complaints
+    // .map(complaint => complaint.complaint.concat(" x ", complaint.duration)).join();
 
     // console.log(patient);
 
@@ -40,6 +54,7 @@ export function dataExporterHelper(patients, fields) {
 
     const values = Object.values(patientForExport).join(';');
     if(index === 0) return Object.keys(patientForExport).join(';').concat("\r\n", values);
+    console.log("values => ", values);
     return values;
   })
 }
