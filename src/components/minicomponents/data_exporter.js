@@ -1,10 +1,11 @@
 import React from "react";
 import MultiItemSelectComponent from "./multi_item_select";
-import { newEmrPatient, review_of_systems } from "../../models/patient";
+import { newEmrPatient, past_medical_history, review_of_systems } from "../../models/patient";
 import MultiSelectOutputComponent from "./multi_select_output";
 import { biodata } from "../../models/biodata";
 import { dataExporterHelper } from "../../data/data";
 import { presenting_complaint } from "../../models/complaint";
+import { apntmntForm } from "../../models/appointment";
 
 export default class DataExporter extends React.Component {
   constructor(props) {
@@ -14,6 +15,8 @@ export default class DataExporter extends React.Component {
       biodata: "",
       presenting_complaints: "",
       review_of_systems: "",
+      past_medical_history: "",
+      others: "",
       downloadFile: null
     }
   }
@@ -43,6 +46,7 @@ export default class DataExporter extends React.Component {
   render() {
     const patientModel = newEmrPatient();
     const lastAppointment = patientModel[patientModel.last_viewed];
+    const date = new Date();
 
     return (
       <div className="offset-md-1 col-md-10 offset-lg-2 col-lg-8">
@@ -50,7 +54,7 @@ export default class DataExporter extends React.Component {
           <div className="emr-dialog-title">
             <h6 className="emr-dialog-title-text">Export Your Data</h6>
             <br></br>
-            <MultiSelectOutputComponent items={Object.keys(biodata)} id="biodata" name="Biodata"
+            {/* <MultiSelectOutputComponent items={Object.keys(biodata)} id="biodata" name="Biodata"
               value={this.state.biodata} onItemChange={this.onItemChange} />
             <MultiSelectOutputComponent items={Object.keys(presenting_complaint)}
               id="presenting_complaints" name="Complaints" value={this.state.presenting_complaints}
@@ -58,6 +62,21 @@ export default class DataExporter extends React.Component {
             <MultiSelectOutputComponent items={Object.keys(review_of_systems)}
               id="review_of_systems" name="Review of Systems" value={this.state.review_of_systems}
               onItemChange={this.onItemChange} />
+            <MultiSelectOutputComponent items={Object.keys(past_medical_history)}
+              id="past_medical_history" name="Past Medical History" value={this.state.past_medical_history}
+              onItemChange={this.onItemChange} /> */}
+            {
+              Object.keys(apntmntForm).map((key, index) => typeof apntmntForm[key] === "object" 
+                && !Array.isArray(apntmntForm[key]) ?
+                <MultiSelectOutputComponent key={index} items={Object.keys(apntmntForm[key])}
+                  id={key} name={key.toUpperCase().replace(/_/g, " ")} onItemChange={this.onItemChange}
+                  value={this.state.hasOwnProperty(key) ? this.state[key] : ""} /> : null
+              )
+            }
+            <MultiSelectOutputComponent items={Object.keys(apntmntForm)
+              .filter(key => typeof apntmntForm[key] === "string" || 
+                Array.isArray(apntmntForm[key]))} id="others" name="Others" 
+              value={this.state.others} onItemChange={this.onItemChange} />
             <button className="w-auto px-5 py-3" onClick={this.onExportClicked}>Export Data</button>
           </div>
           <div className="container-fluid emr-dialog-buttons">
@@ -68,7 +87,10 @@ export default class DataExporter extends React.Component {
               </div>
               <div className={this.state.downloadFile ? 'col col-lg-4 col-xl-3' : 'd-none'}>
                 <a href={URL.createObjectURL(new Blob([this.state.downloadFile],
-                  { type: 'application/json' }))} download={'data.csv'}>
+                  { type: 'application/json' }))}
+                  download={`data.${date.getHours()}.${date.getMinutes()}.${date.
+                    getSeconds()}.${date.getDate()}.${date.getMonth() + 1}.${date.
+                    getFullYear()}.csv`}>
                   <button className="emr-dialog-ok-button"
                     onClick={this.onOKButtonClicked}>Download</button>
                 </a>
