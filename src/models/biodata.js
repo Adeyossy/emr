@@ -2,13 +2,17 @@ export const biodata = {
   firstname: "",
   middlename: "",
   lastname: "",
+  date_of_birth: "", // new entry for PD: added
   ageinyears: "",
   gender: "",
   occupation: "",
   maritalstatus: "",
   address: "",
+  years_of_formal_education: "", // new entry for PD: added
+  lga_of_origin: "", // new entry for PD: added
   city: "",
   state: "",
+  country_of_origin: "", // new entry for PD: added
   religion: "",
   tribe: "",
   informant: "",
@@ -18,7 +22,9 @@ export const biodata = {
   phone_number_1: "",
   email_address: "",
   next_of_kin: "",
-  next_of_kin_relationship: ""
+  next_of_kin_relationship: "",
+  nok_phone_number: "", // new entry for PD: added
+  handedness: "", // new entry for PD: added
 }
 
 // function populateBiodata(source){

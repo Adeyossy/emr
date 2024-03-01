@@ -4,7 +4,7 @@ import SingleSelectOutputComponent from "../minicomponents/single_select_output"
 
 export default class Comorbidities extends React.Component {
   onItemChange = (id, value) => {
-    this.props.updateAnyObject(id, value, [this.props.last_viewed, 
+    this.props.updateAnyObject(id, value, [this.props.last_viewed,
       "past_medical_history", "comorbidities"], this.props.index);
   }
 
@@ -14,6 +14,9 @@ export default class Comorbidities extends React.Component {
         <label htmlFor={this.props.comorbidity.toLowerCase()}>{this.props.comorbidity}</label>
         {/* Next list level */}
         <div className="emr-clerking-tab-data-items">
+          <LabelAndInputComponent id="age_diagnosed" type="number" title={"Age at onset (in years)"}
+            value={this.props.value.hasOwnProperty("age_diagnosed") ? 
+            this.props.value.age_diagnosed : ""} onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="year_diagnosed" type="number" title={"Year of Diagnosis"}
             value={this.props.value.year_diagnosed} onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="duration" type="number"

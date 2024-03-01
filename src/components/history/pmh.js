@@ -70,6 +70,8 @@ export default class PMHComponent extends React.Component {
   }
 
   render() {
+    const pmh = this.context[this.context.last_viewed].past_medical_history;
+
     return (
       <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Past Medical History</h4>
@@ -78,14 +80,14 @@ export default class PMHComponent extends React.Component {
             <label htmlFor="numberofhospitalizations">Number of Previous Hospitalizations</label>
             <input type="number" name="numberofhospitalizations" id="numberofhospitalizations"
               placeholder="e.g 2" className={`mb-4 
-              ${this.context[this.context.last_viewed].past_medical_history.hospitalizations.length ? 'filled' : ''}`}
-              value={this.context[this.context.last_viewed].past_medical_history.hospitalizations.length}
+              ${pmh.hospitalizations.length ? 'filled' : ''}`}
+              value={pmh.hospitalizations.length}
               onChange={this.updateInts} required></input>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               {/* {hospitalizationChildren} */}
               {
-                this.context[this.context.last_viewed].past_medical_history.hospitalizations.map((item, i) =>
+                pmh.hospitalizations.map((item, i) =>
                   <HospitalizationComponent updateAnyObject={this.props.updateAnyObject}
                     key={String(i)} index={i + 1} />)
               }
@@ -94,11 +96,11 @@ export default class PMHComponent extends React.Component {
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="numberofsurgeries">Number of Previous Surgeries</label>
             <input type="number" name="numberofsurgeries" id="numberofsurgeries" className="mb-4"
-              value={this.context[this.context.last_viewed].past_medical_history.surgeries.length} onChange={this.updateInts}></input>
+              value={pmh.surgeries.length} onChange={this.updateInts}></input>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               {
-                this.context[this.context.last_viewed].past_medical_history.surgeries.map((item, i) =>
+                pmh.surgeries.map((item, i) =>
                   <SurgeryComponent updateAnyObject={this.props.updateAnyObject}
                     key={String(i)} index={i + 1} />)
               }
@@ -107,22 +109,27 @@ export default class PMHComponent extends React.Component {
           <div className="emr-clerking-tab-data-item">
             <label htmlFor="numberoftransfusions">Number of Previous Blood Transfusions</label>
             <input type="number" name="numberoftransfusions" id="numberoftransfusions" className="mb-4"
-              value={this.context[this.context.last_viewed].past_medical_history.blood_transfusions.length} onChange={this.updateInts}></input>
+              value={pmh.blood_transfusions.length} onChange={this.updateInts}></input>
             {/* <!-- Next list level --> */}
             <div className="emr-clerking-tab-data-items">
               {
-                this.context[this.context.last_viewed].past_medical_history.blood_transfusions.map((item, i) =>
+                pmh.blood_transfusions.map((item, i) =>
                   <TransfusionComponent updateAnyObject={this.props.updateAnyObject}
                     key={String(i)} index={i + 1} />)
               }
             </div>
           </div>
+          <SingleSelectOutputComponent items={["None", "Twin", "Triplet", "Multiple Birth"]}
+            name={"Is the participant a twin (or triplet/multiple birth)?"} id={"multiple_birth"}
+            value={pmh.hasOwnProperty("multiple_birth") ? pmh.multiple_birth : ""}
+            onItemChange={this.onItemChange} />
           <MultiSelectOutputComponent id={"comorbidities"} name={"Comorbidities"}
-            items={["Hypertension", "Diabetes", "Peptic Ulcer Disease", "Asthma", "Epilepsy"]}
-            value={this.context[this.context.last_viewed].past_medical_history.comorbidities.map((item) => item.comorbidity).join(", ")}
+            items={["Hypertension", "Diabetes", "Peptic Ulcer Disease", "Asthma", "Epilepsy",
+                    "Parkinson's Disease", "Dyslipidemia", "Osteoarthritis"]}
+            value={pmh.comorbidities.map((item) => item.comorbidity).join(", ")}
             onItemChange={this.onItemChange} />
           {
-            this.context[this.context.last_viewed].past_medical_history.comorbidities.map((item, index) =>
+            pmh.comorbidities.map((item, index) =>
               <Comorbidities key={index.toString()} comorbidity={item.comorbidity}
                 value={item} updateAnyObject={this.props.updateAnyObject} index={index} 
                 last_viewed={this.context.last_viewed}/>)
@@ -132,19 +139,19 @@ export default class PMHComponent extends React.Component {
             <div className="emr-clerking-tab-data-items">
               <SingleSelectOutputComponent name={"Blood Group"} id={"blood_group"}
                 items={["O", "A", "B", "AB", "Unknown"]}
-                value={this.context[this.context.last_viewed].past_medical_history.blood_group}
+                value={pmh.blood_group}
                 onItemChange={this.onItemChange} />
               <SingleSelectOutputComponent name={"Rhesus"} id={"rhesus"}
                 items={["Positive", "Negative", "Indeterminate", "Unknown"]}
-                value={this.context[this.context.last_viewed].past_medical_history.rhesus}
+                value={pmh.rhesus}
                 onItemChange={this.onItemChange} />
               <SingleSelectOutputComponent name={"Genotype"} id={"genotype"}
                 items={["AA", "AS", "AC", "SC", "SS"]}
-                value={this.context[this.context.last_viewed].past_medical_history.genotype}
+                value={pmh.genotype}
                 onItemChange={this.onItemChange} />
             </div>
           </details>
-          <NotesComponent id="notes" value={this.context[this.context.last_viewed].past_medical_history.notes}
+          <NotesComponent id="notes" value={pmh.notes}
             fields={["past_medical_history"]}
             onItemChange={this.props.updateAnyObject} />
         </div>

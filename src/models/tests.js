@@ -11,6 +11,9 @@ export const tests = {
     alt: -1,
     ggt: -1,
     albumin: -1,
+    total_protein: -1,
+    direct_bilirubin: -1,
+    total_bilirubin: -1,
     bilirubin: -1,
     alp: -1
   },
@@ -101,7 +104,13 @@ export const tests = {
     name: 'Viral Screening',
     hbsag: ['Positive', 'Negative'],
     antihbc: ['Positive', 'Negative'],
-    antihcv: ['Positive', 'Negative']
+    antihcv: ['Positive', 'Negative'],
+    rVS: ['Reactive', 'Nonreactive', 'Indeterminate'],
+    hBV_DNA: '',
+    hCV_RNA: '',
+    hbeAg: '',
+    hbeAb: '',
+    antiHBs: ''
   },
   autoantibodies: {
     name: 'Autoantibodies',

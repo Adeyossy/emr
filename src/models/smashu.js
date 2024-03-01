@@ -20,7 +20,7 @@ export const smashuItems = [
   {
     name: "Systemic Disease (Liver Cirrhosis, thrombocytopaenia, others) (S)",
     description: "Systemic or other determined cause for ICH, except for anticoagulation, hypertension or amyloid coagulopathy",
-    value: "S",
+    value: "S2",
     interpretation: ""
   },
   {

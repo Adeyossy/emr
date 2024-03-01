@@ -4,10 +4,15 @@ import FormGroupComponent from "./form_group";
 import FormItemComponent from "./form_item";
 
 export default class FormComponent extends React.Component {
+  /**
+   * This component organizes a form into:
+   * - A form group which coordinates the items in a form i.e. FormItemComponent
+   * 
+   */
   static contextType = PatientContext;
 
-  onValueChange = (event) => {
-    this.props.updateAnyObject(event.target.name, Number(event.target.value),
+  onValueChange = (name, value) => {
+    this.props.updateAnyObject(name, Number(value),
       [this.context.last_viewed, "forms", this.props.formTag], null);
   }
 
@@ -27,6 +32,7 @@ export default class FormComponent extends React.Component {
                     <div className="emr-clerking-tab-data-item" key={(key2 + 100).toString()}>
                       <FormItemComponent desc={formitem[0]} field={formitem[1]}
                         min={formitem[2]} max={formitem[3]} formTag={this.props.formTag}
+                        label={formitem.length > 4 ? formitem[4] : "Items"}
                         onItemChange={this.onValueChange} />
                     </div>
                   )
