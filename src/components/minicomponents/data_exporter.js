@@ -1,10 +1,7 @@
 import React from "react";
-import MultiItemSelectComponent from "./multi_item_select";
-import { newEmrPatient, past_medical_history, review_of_systems } from "../../models/patient";
+import { newEmrPatient } from "../../models/patient";
 import MultiSelectOutputComponent from "./multi_select_output";
-import { biodata } from "../../models/biodata";
 import { dataExporterHelper } from "../../data/data";
-import { presenting_complaint } from "../../models/complaint";
 import { apntmntForm } from "../../models/appointment";
 
 export default class DataExporter extends React.Component {
