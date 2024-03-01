@@ -67,7 +67,7 @@ export default class InvestigationComponent extends React.Component {
   }
 
   componentWillUnmount() {
-// console.log("investigations will unmount");
+    // console.log("investigations will unmount");
   }
 
   render() {
@@ -166,8 +166,9 @@ export default class InvestigationComponent extends React.Component {
                       </div>
                       <div className="row mt-3">
                         <div className="col-9 col-lg-11">
-                          {/* <button className="emr-button" onClick={this.uploadResult
-                            .bind(this, item.id)}>Upload</button> */}
+                          <a href={item.downloadURL} type="image/png" filename={item.name} download target="_blank">
+                            <button className="emr-button">Download</button>
+                          </a>
                         </div>
                         <div className="col-3 col-lg-1 m-0 p-0">
                           <button className="emr-button emr-clickable"
@@ -176,7 +177,8 @@ export default class InvestigationComponent extends React.Component {
                               message: "This investigation will be deleted",
                               action: getCurrentUser.bind(Object.create(null),
                                 deleteFromStorage.bind(this, this.props.modality.concat('/', item.name),
-                                  this.props.deleteUpload.bind(this, this.props.modality, item.id)))})}>
+                                  this.props.deleteUpload.bind(this, this.props.modality, item.id)))
+                            })}>
                             <i className="bi bi-trash-fill"></i>
                           </button>
                         </div>
