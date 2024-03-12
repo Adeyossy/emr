@@ -78,7 +78,7 @@ export default class BiodataComponent extends React.Component {
             </div>
           </div>
           <LabelAndInputComponent id="date_of_birth" title="Date of Birth"
-            value={biodata.hasOwnProperty('date_of_birth') ?
+            value={biodata.hasOwnProperty('date_of_birth') && biodata.date_of_birth ?
               new Date(biodata.date_of_birth).toISOString().substring(0, 10) : "1970-01-01"}
             type="date" onItemChange={this.onItemChange} />
           <LabelAndInputComponent id="ageinyears" title="Age (in years)"
