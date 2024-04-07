@@ -277,11 +277,503 @@ export const mdsItems = [
   ]
 ]
 
+const mdsUpdrsItems = [
+  [
+    [
+      "(0) Patient", "(1) Caregiver", "(2) Patient and Caregiver in Equal Proportion"
+    ],
+    "primarysourceinformation",
+    0,
+    2,
+    "Primary source of information",
+    "",
+    ""
+  ],
+  [
+    [
+      "(0) Normal: No cognitive impairment", `(1) Slight: Impairment appreciated by patient 
+      or caregiver with no concrete interference with the patient's ability to carry out 
+      normal activities and social interactions.`, `(2) Mild: Clinically evident cognitive 
+      dysfunction, but only minimal interference with the patient's ability to carry out normal
+      activities and social interactions.`, `(3) Moderate: Cognitive deficits interfere with 
+      but do not preclude the patient's ability to carry out normal activities and social 
+      interactions.`, `(4) Severe: Cognitive dysfunction precludes the patient's ability to 
+      carry out normal activities and social interactions.`
+    ],
+    "cognitiveimpairment",
+    0,
+    4,
+    "1.1 Cognitive impairment",
+    `Consider all types of altered level of cognitive function including slowing, impaired 
+    reasoning, memory loss, deficits in attention and orientation. Rate their impact on 
+    activities of daily living as perceived by the patient and/or caregiver.`,
+    `Over the past week have you had problems remembering things, following conversations, 
+    paying attention, thinking clearly, or finding your way around the house or in town?.
+    [If yes, examiner asks patient or caregiver to elaborate and probes for information]`
+  ],
+  [
+    [
+      `(0) Normal: No hallucinations or psychotic behaviour.`, `(1) Slight: Illusions or 
+      non-formed hallucinations, but patient recognizes them without loss of insight.`,
+      `(2) Mild: Formed hallucinations independent of environmental stimuli. No loss of 
+      insight.`, `(3) Moderate: Formed hallucinations with loss of insight.`, `(4) Severe: 
+      Patient has delusions or paranoia.`
+    ],
+    "hallucinationsandpsychosis",
+    0,
+    4,
+    "1.2 Hallucinations and Psychosis",
+    `Consider both illusions (minsinterpretations of real stimuli) and hallucinations 
+    (spontaneous false sensations). Consider all major sensory domains (visual, auditory, 
+    tactile, olfactory and gustatory). Determine presence of unformed (for example sense of 
+    presence or fleeting false impressions) as well as formed (fully developed and detailed) 
+    sensations. Rate the patients insight into hallucinations and identify delusions and 
+    psychotic thinking.`,
+    `Over the past week have you seen, heard, smelled or felt things that were not really there? 
+    [If yes, examiner asks patient or caregiver to elaborate and probes for information]`
+  ],
+  [
+    [
+      `(0) Normal: No depressed mood`, `(1) Slight: Episodes of deperessed mood that are not 
+      sustained for more than one day at a time. No interference with patient's ability to carry 
+      out normal activities and social interactions.`, `(2) Mild: Depressed mood that is sustained 
+      over days, but without interference with normal activities and social interactions.`, `(3) 
+      Moderate: Depressed mood that interferes with, but does not preclude, the patient's ability 
+      to carry out normal activities and social interactions.`, `(4) Severe: Depressed mood 
+      precludes patient's ability to carry out normal activities and social interactions.`
+    ],
+    "depressedmood",
+    0,
+    4,
+    "1.3 Depressed mood",
+    `Consider low mood, sadness, hopelessness, feelings of emptiness or loss of enjoyment. 
+    Determine their presence and duration over the past week and rate their interference with 
+    the patient's ability to carry out daily routines and engage in social interactions.`,
+    `Over the apst week have you felt low, sad, hopeless or unable to enjoy things? If yes, 
+    was this feeling for longer than one day at a time? Did it make it difficult for you carry 
+    out your usual activities or to be with people? [If yes, examiner asks patient or caregiver 
+    to elaborate and probes for information]`
+  ],
+  [
+    [
+      `(0) Normal: No anxious feelings.`, `(1) Slight: Anxious feelings present but not sustained 
+      for more than one day at a time. No interference with patient's ability to carry out 
+      normal activities and social interactions.`, `(2) Mild: Anxious feelings are sustained 
+      over more than one day at a time, but without interference with patient's ability to 
+      carry out normal activities and social interactions.`, `(3) Moderate: Anxious feelings 
+      interfere with, but do not preclude, the patient's ability to carry out normal activities 
+      and social interactions.`, `(4) Severe: Anxious feelings preclude patient's ability to 
+      carry out normal activities and social interactions.`
+    ],
+    "anxiousmood",
+    0,
+    4,
+    "1.4 Anxious mood",
+    `Determine nervous, tense, worried or anxious feelings (including panic attacks) over the 
+    past week and rate their duration and interference with the patient's ability to carry out 
+    daily routines and engage in social interactions.`,
+    `Over the past week have you felt nervous, worried or tense? If yes, was this feeling for 
+    longer than one day at a time? Did it make it difficult for you to follow your usual 
+    activities or to be with other people? [If yes, examiner asks patient or caregiver to 
+    elaborate and probes for information.]`
+  ],
+  [
+    [
+      `(0) Normal: No apathy`, `(1) Slight: Apathy appreciated by patient and/or caregiver, 
+      but no interference with daily activities and social interactions.`, `(2) Mild: Apathy 
+      interferes with isolated activities and social interactions.`,`(3) Moderate: Apathy 
+      interferes with most activities and social interactions.`, `(4) Severe: Passive and 
+      withdrawn, complete loss of initiative.`
+    ],
+    "apathy",
+    0,
+    4,
+    "1.5 Apathy",
+    `Consider level of spontaneious activity, assertiveness, motivation and initiative and rate 
+    the impact of reduced levels on performance of daily routines and social interactions. 
+    Here the examiner should attempt to distinguish between apathy and similar symptoms that 
+    are best explained by depression`,
+    `Over the past week, have you felt indifferent to doing activities or being with people?
+    [If yes, examiner asks patient or caregiver to elaborate and probes for information.]`
+  ],
+  [
+    [
+      `(0) Normal: No problems present.`, `(1) Slight: Problems are present but usually do not 
+      cause any difficulties`, `(2) Mild: Problems are present and usually cause a few 
+      difficulties in the patient's personal and family life.`, `(3) Moderate: Problems are 
+      present and usually cause a lot of difficulties in the patient's personal and family 
+      life.`, `(4) Severe: Problems are present and preclude the patient's ability to carry out 
+      normal activities or social interactions or to maintain previous standards in personal and 
+      family life.`
+    ],
+    "dopaminedysregulationsyndrome",
+    0,
+    4,
+    "1.6 Features of dopamine dysregulation syndrome",
+    `Consider involvement in a variety of activities including atypical or excessive gambling 
+    (e.g. casinos or lottery tickets), atypical or excessive sexual drive or interests (e.g., 
+    unusual interest in pornography, masturbation, sexual demands on partner), other repetititive 
+    activities (e.g. hobbies, dismantling objects, sorting or organizing), or taking extra 
+    non-prescribed medication for non-physical reasons (i.e. addictive beahviour). Rate the 
+    impact of such abnormal activities/behaviours on the patient's personal life and on his 
+    family and social relations (including need to borrow money or other financial difficulties 
+    like withdrawal of credit cards, major family conflicts, lost time from work, or missed meals 
+    or sleep because of the activity).`,
+    `Over the past week, have you had unusually strong urges that are hard to control? Do you 
+    feel driven to do or think about something and find it hard to stop? [Give patient examples 
+    such as gambling, cleaning, using the computer, taking extra medicine, obsessing about food 
+    or sex, all depending on the patients.]`
+  ]
+];
+
+// Patient questionnaire and motor examination done by collaborator
+
+const motorComplications = [
+  [
+    [
+      "(0) Normal: No dyskinesias.", `(1) Slight: <= 25% of waking day.`, `(2) Mild: 26 - 50% 
+      of waking day.`, `(3) Moderate: 51 - 75% of waking day.`, `(4) Severe: > 75% of waking day.`
+    ],
+    "timespentwithdyskinesias",
+    0,
+    4,
+    "4.1 Time spent with dyskinesias",
+    `Determine the hours in the usual waking day and then the hours of dyskinesias. Calculate 
+    the percentage. If the patient has dyskinesias in the office, you can point them out as a 
+    reference to ensure that patients and caregivers understand what they are rating. You may 
+    also use your own acting skills to enact the dyskinetic movements you have seen in the 
+    patient before or show them dyskinetic movements typical of other patients. Exclude from 
+    this question early morning and nighttime painful dystonia.`,
+    `Over the past week, how many hours do you usually sleep on a daily basis, including nightime 
+    sleep and daytime napping? Alright, if you sleep ____ hrs, you are awake ___ hrs. Out of 
+    those awake hours, how many hours in total do you have wiggling, twitching or jerking 
+    movements? Do not count the times when you have tremor, which is a regular back and forth 
+    shaking or times when you have painful foot cramps or spasms in the early morning or at 
+    nighttime. I will ask about those later. Concentrate only on these types of wiggling, 
+    jerking and irregular movements. Add up all the time during the waking day when these 
+    usually occur. How many hours ___ (use this number for your calculation).`
+  ],
+  [
+    [
+      "(0) Normal: No dyskinesias or no impact by dyskinesias on activities or social interactions.",
+      `(1) Slight: Dyskinesias impact on a few activities, but the patient usually performs all 
+      activities and participates in all social interactions during dyskinetic periods.`,
+      `(2) Mild: Dyskinesias impact on many activities, but the patient usually performs all 
+      activities and participates in all social interactions during dyskinetic periods.`,
+      `(3) Moderate: Dyskinesias impact on activities to the point that the patient usually does 
+      not perform some activities or does not usually participate in some social activities 
+      during dyskinetic episodes.`,
+      `(4) Severe: Dyskinesias impact on function to the point that the patient usually does not 
+      perform most activities or participate in most social interactions during dyskinetic 
+      episodes.`
+    ],
+    "functionalimpactofdyskinesias",
+    0,
+    4,
+    "4.2 Functional impact of dyskinesias",
+    `Determine the degree to which dyskinesias impact on the patient's daily function in terms of 
+    activities and social interactions. Use the patient's and caregiver's response to your 
+    question and your own observations during the office visit to arrive at the best answer.`,
+    `Over the past week, did you usually have trouble doing things or being with people when 
+    these jerking movements occurred? Did they stop you from doing things or from being with 
+    people?`
+  ],
+  [
+    [
+      `(0) Normal: No OFF time.`, `(1) Slight: <= 25% of waking day.`, `(2) Mild: 26 - 50% 
+      of waking day.`, `(3) Moderate: 51 - 75% of waking day.`, `(4) Severe: > 75% of waking day.`
+    ],
+    "timespentintheoffstate",
+    0,
+    4,
+    "4.3 Time spent in the OFF state",
+    `Use the number of waking hours derived from 4.1 and determine the hours spent in the "OFF" 
+    state. Calculate the percentage. If the patient has an OFF period in the office, you can point 
+    to this state as a reference. You may also use your knowledge of the patient to describe a 
+    typical OFF period. Additionally you may use your own acting skills to enact an OFF period 
+    you have seen in the patient before or show them OFF function typical of other patient. 
+    Mark down the typical number of OFF hours, because you will need this number for completing 
+    4.6`,
+    `Some patients with Parkinson's disease have a good effect from their medications throughout 
+    their awake hours and se call that "ON" time. Other patients take their medications but still 
+    have some hours of low time, bad time, slow time or shaking time. Doctors call these low 
+    periods "OFF" time. Over the past week, you told me before that you are generally awake ___
+    hrs each day. Out of these awake hours, how many hours in total do you usually have this 
+    type of low level or OFF function ____ (Use this number for your calculations).`
+  ],
+  [
+    [
+      `(0) Normal: No fluctuations or No impact by fluctuations on performance of activities 
+      or social interactions.`,
+      `(1) Slight: Fluctuations impact on a few activities, but during OFF, the patient usually 
+      performs all activities and participates in all social interactions that typically occur 
+      during the ON state.`,
+      `(2) Mild: Fluctuations impact many activities, but during OFF, the patient still usually 
+      performs all activities and participates in all social interactions that typically occur 
+      during the ON state.`,
+      `(3) Moderate: Fluctuations impact on the performance of activities during OFF to the 
+      point that the patient usually does not perform some activities or participate in some 
+      social interactions that are performed during ON periods.`,
+      `(4) Severe: Fluctuations impact on function to the point that, during OFF, the patient 
+      usually does not perform most activities or participate in most social interactions that 
+      are performed during ON periods.`
+    ],
+    "functionalimpactoffluctuations",
+    0,
+    4,
+    "4.4 Functional impact of fluctuations",
+    `Determine the degree to which motor fluctations impact on the patient's daily function in 
+    terms of activities and social interactions. Thie question concentrates on the difference 
+    between the ON state and the OFF state. If the patient has no OFF time, the rating must be 
+    0, but if patients have very mild fluctuations, it is still possible to be rated 0 on this 
+    item if no impact on activities occurs. Use the patient's and caregiver's response to your 
+    question and your own observations during the office visit to arrive at the best answer.`,
+    `Think about when those low or "OFF" periods have occurred over the past week. Do you usually 
+    have more problems doing things or being with people than compared to the rest of the day 
+    when you feel your medications working? Are there some things you usually do during a good 
+    period that you have trouble with or stop doing during a low period?`
+  ],
+  [
+    [
+      `(0) Normal: No motor fluctuations.`,
+      `(1) Slight: OFF times are predictable all or almost all of the time (> 75%).`,
+      `(2) Mild: OFF times are predictable most of the time (51 - 75%).`,
+      `(3) Moderate: OFF times are predictable some of the time (26 - 50%).`,
+      `(4) Severe: OFF episodes are rarely predictable (<= 25%).`
+    ],
+    "complexofmotorfluctuations",
+    0,
+    4,
+    "4.5 Complexity of motor fluctuations",
+    `Determine the usual predictability of OFF function whether due to dose, time of day, food 
+    intake or other factors. Use the information provided by the patients and caregiver and 
+    supplement with your own observations. You will ask if the patient can count on them always 
+    coming at a special time, mostly coming at a special time (in which case you will probe 
+    further to separate slight from mild), only sometimes coming at a special time or are they 
+    totally unpredictable? Narrowing down the percentage will allow you to find the correct 
+    answer.`,
+    `For some patients, the low or "OFF" periods happen at certain times during day or when they 
+    do activities like eating or exercising. Over the past week, do you usually know when your 
+    low periods will occur? In other words, do your low periods always come at a certain time? 
+    Do they mostly come at a certain time? Do they only sometimes come at a certain time? Are 
+    your low periods totally unpredictable?`
+  ],
+  [
+    [
+      "(0) Normal: No dystonia OR NO OFF TIME.",
+      "(1) Slight: < 25% of time in OFF state.",
+      "(2) Mild: 26 - 50% of time in OFF state.",
+      "(3) Moderate: 51 - 75% of time in OFF state.",
+      "(4) Severe: > 75% of time in OFF state."
+    ],
+    "painfuloffstatedystonia",
+    0,
+    4,
+    "4.6 Painful OFF-State dystonia",
+    `For patients who have motor fluctuations, determine what proportion of the OFF episodes 
+    usually includes painful dystonia? You have already determined the number of hours of OFF 
+    time (4.3). Of these hours, determine how many are associated with dystonia and calculate 
+    the percentage. If there is no OFF time, mark 0.`,
+    `In one of the questions I asked earlier, you said you generally have ____ hours of low 
+    or "OFF" time when your Parkinson's disease is under poor control. During these low or "OFF" 
+    periods, do you usually have painful cramps or spasms? Out of the total ____ hrs of this low 
+    time, if you add up all the time in a day when these painful cramps come, how many hours would 
+    this make?`
+  ]
+]
+
+const pdClinicalSeverityStageItems = [
+  [
+    [
+      "1 - Unilateral involvement only",
+      "1.5 - Unilateral and axial involvement",
+      `2 - Bilateral involvement without impairment of balance`,
+      `2.5 - Mild bilateral disease with recovery on pull test`,
+      `3 - Mild to moderate bilateral disease; some postural instability; physically independent`,
+      `4 - Severe disability; still able to walk or stand unassisted`,
+      `5 - Wheelchair bound or bedridden unless aided`
+    ],
+    "modifiedhoehnandyahrscale",
+    1,
+    5,
+    "Modified Hoehn and Yahr Scale",
+    "",
+    ""
+  ],
+  [
+    [
+      `(0) Initial: Very mild clinical manifestations; absence of diability; and no need for 
+      pharmacological treatment or only initial therapy at low effective doses`,
+      `(1) Mild: Mild clinical and functional manifestations; minimal or no complications; and 
+      satisfactory response to conventional pharmacological therapy`,
+      `(2) Moderate: Moderate clinical manifestations and disability; good response; some 
+      complications are present, although not satisfactory to the conventional pharmacological 
+      therapy`,
+      `(3) Advanced: Severe clinical manisfestations and disability; severe motor and non-motor 
+      complications; parital poor response to conventional pharmacological therapy`,
+      `(4) Late stage: Very severe clinical manifestations and disability; very severe motor 
+      and non-motor complications; no response to conventional pharmacological therapy`
+    ],
+    "pdclinicalstage",
+    0,
+    4,
+    "PD Clinical Stage (Clinical Judgement Martinez-Martin P et al 2018",
+    "",
+    ""
+  ],
+  [
+    [
+      "Other", "Idiopathic/sporadic", "Familial (unspecified inheritance)", "Autosomal dominant",
+      "Autosomal recessive", "X-linked dominant", "Unknown"
+    ],
+    "diseasetypeinheritance",
+    0,
+    6,
+    "Disease type: Inheritance",
+    "",
+    ""
+  ],
+  [
+    [
+      "Other or unspecified", "Progressive", "Non Progressive", "Unknown"
+    ],
+    "diseasetypeprogression",
+    0,
+    3,
+    "Disease type: Progression", "", ""
+  ],
+  [
+    [
+      "Other or unspecified", "Typical", "Atypical", "Unknown"
+    ],
+    "diseasetypecharacteristics",
+    0, 3, "Disease type: Characteristics", "", ""
+  ],
+  [
+    [
+      "Other or unspecified", "Chronic", "Episodic/intermittent", "Unknown"
+    ],
+    "diseasetypepersistence", 0, 3, "Disease type: Persistence", "", ""
+  ],
+  [
+    [ "Other or unspecified", "Pure (uncomplicated)", "Complicated", "Unknown" ],
+    "diseasetypecomplexity", 0, 3, "Disease type: Complexity", "", ""
+  ],
+  [
+    ["Tremor Dominant", "Mixed", "Akinetic/Rigid", "Postural Instability Gait Difficulty (PIGD)"],
+    "diseasetypepdtype", 0, 3, "Disease type: PD type", "", ""
+  ]
+]
+
+const cisiPdItems = [
+  [
+    [
+      "(0) Normal", "(1) Very mild", "(2) Mild", "(3) Mild to moderate", "(4) Moderate", 
+      "(5) Severe", "(6) Severe"
+    ],
+    "motorsigns",
+    0,
+    6,
+    "Motor signs",
+    "",
+    ""
+  ],
+  [
+    [
+      "(0) Normal", "(1) Minimal slowness and/or clumsiness", `(2) Slowness and/or clumsiness; 
+      no limitations`, `(3) Limitation for demanding activities; does not need help for basic 
+      ADL`, `(4) Limitation to perform basic ADL; help is required for some basic ADL`, `(5) 
+      Great limitation to perform basic ADL; help is required for most or all basic ADL`,
+      `(6) Severly disabled; helpless; complete assistance needed`
+    ],
+    "disability",
+    0,
+    6,
+    "Disability",
+    "", ""
+  ],
+  [
+    [
+      "(0) Not at all", "(1) Very mild", "(2) Mild", "(3) Mild to moderate", "(4) Moderate",
+      "(5) Severe", "(6) Very severe"
+    ],
+    "motorcomplications",
+    0, 6, "Motor complications (dyskinesia and fluctuations)", "", ""
+  ],
+  [
+    [
+      "(0) Normal", "(1) Slowness and/or minimal cognitive problems", `(2) Mild cognitive 
+      problems; no limitations`, `(3) Mild to moderate cognitive problems; does not need help 
+      for basic ADL`, `(4) Moderate cognitive problems; help is required for basic 
+      ADL`, `(5) Severe cognitive problems; help is required for most or all basic ADL`, 
+      `(6) Severely disabled; helpless; complete assistance needed`
+    ],
+    "cognitivestatus", 0, 6, "Cognitive status", "", ""
+  ]
+]
+
+const pthOptions = ["Not tried/not given", "Tried and responsive", "Inadequate dose", 
+                    "Tried and unresponsive", "Unknown"];
+
+const pthItems = [
+  [
+    pthOptions,
+    "levodopa",
+    0,
+    4,
+    "Levodopa",
+    "",
+    ""
+  ],
+  [ pthOptions, "dopaminereceptoragonist", 0, 4, "Dopamine receptor agonist", "", "" ],
+  [ pthOptions, "anticholinergic", 0, 4, "Anticholinergic", "", "" ],
+  [ pthOptions, "amantadine", 0, 4, "Amantadine", "", "" ],
+  [ pthOptions, "other", 0, 4, "Other", "", "" ],
+  [ [], "agestartedlevodopa", 0, 200, "Age started levodopa (if relevant) (years)", "", "" ]
+];
+
+const antiparkinsonianMeds = [
+  []
+]
+
 export const pdItems = [
   ["Features of Parkinson", featuresItems],
   ["Other features supportive of Parkinson's disease", otherFeatures],
   ["Atypical Motor Features", atypicalMotorFeatures],
   ["Neurobehavioural features", neurobehaviouralItems],
   ["Other non-motor features associated with atypical parkinsonism", otherNonMotorItems],
-  ["Response to therapy", responseToTherapyItems]
+  ["Response to therapy", responseToTherapyItems],
+  ["MDS Clinical Diagnostic Criteria for PD", mdsItems],
+  ["MDS UPDRS: Part 1 - NonMotor Aspects of Experiences of Daily Living (nM-EDL)", mdsUpdrsItems],
+  // Insert patient questionnaire here,
+  // Insert Part III - motor examination here
+  ["Part IV: Motor Complications", motorComplications, `Overview and Instructions: In this 
+  section, the rater uses historical and objective information to assess two motor complications, 
+  dyskinesias and motor flucturations that include OFF-state dystonia. Use all information from 
+  patient, caregiver, and the examination to answer the six questions that summarize function 
+  over the past week including today. As in the other sections, rate using only integers (no 
+  half points allowed) and leave no missing ratings. If the item cannot be rated, place UR 
+  FOR Unable to Rate. You will need to choose some answers based on percentages, and therefore 
+  you will need to establish how many hours generally are awake hours and use this figure as 
+  the denominator for "OFF" time and Dyskinesias. For "OFF dystonia", the total "Off" time will 
+  be the denominator. Operational definitions for examiner's use:||Dyskinesias: Involuntary 
+  random movements. |Words that patients often recognize for dyskinesias include 
+  "irregular jerking", "wiggling", "twitching". It is essential to stress to the patient the 
+  difference between dyskinesias and tremor, a common error when patients are assessing 
+  dyskinesias.||
+  Dystonia: contorted posture, often with a twisting component. |Words that patients often 
+  recognize for dystonia include "spasms", "cramps", "posture".||
+  Motor fluctuation: Variable response to medication:|Words that patients often recognize for 
+  motor fluctuation include "wearing out", "wearing off", "roller-coaster effect", "on-off", 
+  "uneven medication effects".||
+  OFF: Typical functional state when patients have a poor response in spite of taking mediation 
+  or the typical functional response when patients are on NO treatment for parkinsonism. Words 
+  that ptients often recognize include "low time", "bad time", "shaking time", "slow time", 
+  "time when my medications don't work".||
+  ON: Typical functional state when patients are receiving medication and have a good response:|
+  Words that patients often recognize include "good time", "walking time", 
+  "time when my medications work".`],
+  [
+    "PD Clinical Severity Stage", pdClinicalSeverityStageItems
+  ]
 ];
