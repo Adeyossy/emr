@@ -26,13 +26,17 @@ export default class FormComponent extends React.Component {
         <div className="emr-clerking-tab-data-items">
           {
             this.props.form.map((item, key) =>
-              <FormGroupComponent groupName={item[0]} formgroupitems={item[1]} key={key.toString()}>
+              <FormGroupComponent group={item} key={key.toString()}>
                 {
                   item[1].map((formitem, key2) =>
-                    <div className="emr-clerking-tab-data-item" key={(key2 + 100).toString()}>
+                    <div className={`emr-clerking-tab-data-item 
+                    p-0${parseInt(value[formitem[1]]) >= 0 ? " filled" : ""}`}
+                      key={(key2 + 100).toString()}>
                       <FormItemComponent desc={formitem[0]} field={formitem[1]}
                         min={formitem[2]} max={formitem[3]} formTag={this.props.formTag}
                         label={formitem.length > 4 ? formitem[4] : "Items"}
+                        examiner={formitem.length > 5 ? formitem[5] : ""}
+                        patientInstructions={formitem.length > 6 ? formitem[6] : ""}
                         onItemChange={this.onValueChange} />
                     </div>
                   )
