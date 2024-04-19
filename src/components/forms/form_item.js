@@ -18,22 +18,33 @@ export default class FormItemComponent extends React.Component {
     const value = thisForm[this.props.field];
     return (
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-9">
+        <div className="row px-5 pt-5 pb-4">
+          <div className="col-12">
             <div className="emr-form-item">
-            <label htmlFor={this.props.field}>{this.props.label}</label>
+              <label htmlFor={this.props.field}>{this.props.label}</label>
+              {
+                this.props.examiner ?
+                  <>
+                    <p className="text-wrap">{this.props.examiner}</p>
+                    <br />
+                  </> : null
+              }
               <SingleItemSelectComponent selectableItems={this.props.desc}
                 selectedItem={this.props.desc[value - this.props.min]} displayInBox={this.update} />
             </div>
           </div>
+        </div>
+        <div className="row g-0 bg-light px-5 py-3">
           {
             this.props.field ?
-              <div className="col-3">
+              <div className="col-12 col-md-6 col-lg-4">
                 <div className="emr-form-item-score">
-                  <input type="number" name={this.props.field} min={this.props.min}
+                  <span>Score: </span>
+                  <input type="text" name={this.props.field} min={this.props.min}
                     max={this.props.max} onChange={(event) => this.props.onItemChange(event.target.name,
-                      event.target.value)} value={value !== "" ? value : this.props.min - 1} 
-                      id={this.props.field}>
+                      event.target.value)} value={value !== "" ? value : this.props.min - 1}
+                    id={this.props.field} className={`d-inline w-auto 
+                    p-1${value || parseInt(value) === 0 ? " filled" : ""}`}>
                   </input>
                 </div>
               </div> : null
