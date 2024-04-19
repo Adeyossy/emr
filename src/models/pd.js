@@ -7,8 +7,8 @@ const featuresItems = [
     [
       "Yes (0)", "No (1)", "Uncertain (2)"
     ], "bradykinesia", 0, 3, "Bradykinesia is present and typical for parkinsonism",
-    `Slowness of movement and decrement in amplitude or speed or progressive hesitations/halts 
-    as movements are continued`
+    `Bradykinesia: Slowness of movement and decrement in amplitude or speed or progressive 
+    hesitations/halts as movements are continued`
   ],
   [
     [
@@ -112,7 +112,7 @@ const neurobehaviouralItems = [
     options2, "anxiety", 0, 3, `Anxiety`, ``
   ],
   [
-    options2, "apathy", 0, 3, `Apathy`, ``
+    options2, "apathy_neurobehavioural", 0, 3, `Apathy`, ``
   ],
 ]
 
@@ -385,7 +385,7 @@ const mdsUpdrsItems = [
       interferes with most activities and social interactions.`, `(4) Severe: Passive and 
       withdrawn, complete loss of initiative.`
     ],
-    "apathy",
+    "apathy_mdsupdrs",
     0,
     4,
     "1.5 Apathy",
@@ -733,8 +733,410 @@ const pthItems = [
 ];
 
 const antiparkinsonianMeds = [
-  []
+  [
+    [], "levodopacarbidopa", 0, 5000, "Levodopa/Carbidopa: Total active drug dose/24 hours", "", ""
+  ],
+  [
+    [], "levodopabenserazide", 0, 5000, "Levodopa/benserazide: Total active drug dose/24 hours",
+    "", ""
+  ],
+  [
+    [], "Nonergotdra", 0, 5000, "Non-ergot DRA: Total active drug dose/24 hours",
+    "", ""
+  ],
+  [
+    [], "bromocriptine", 0, 5000, "Bromocriptine: Total active drug dose/24 hours",
+    "", ""
+  ],
+  [
+    [], "artanetrihexyphenidyl", 0, 5000, "Artane/Trihexyphenidyl: Total active drug dose/24 hours",
+    "", ""
+  ],
+  [
+    [], "amantadinetotalactivedrug", 0, 5000, "Amantadine: Total active drug dose/24 hours",
+    "", ""
+  ],
+  [
+    [], "entacapone", 0, 5000, "Entacapone: Total active drug dose/24 hours",
+    "", ""
+  ],
+  [
+    [], "pramipaxole", 0, 5000, "Pramipaxole: Total active drug dose/24 hours",
+    "", ""
+  ],
+  [
+    [], "selegeline", 0, 5000, "Selegeline: Total active drug dose/24 hours",
+    "", ""
+  ],
+  [
+    [], "ropinirole", 0, 5000, "Ropinirole: Total active drug dose/24 hours",
+    "", ""
+  ]
+];
+
+const vitalSigns = [
+  [
+    [], "sbpsitting", 0, 400, "SBP (sitting):", "", ""
+  ],
+  [
+    [], "dbpsitting", 0, 400, "DBP (sitting):", "", ""
+  ],
+  [
+    [], "hrsitting", 0, 400, "HR (sitting):", "", ""
+  ],
+  [
+    [], "sbpstanding", 0, 400, "SBP (standing):", "", ""
+  ],
+  [
+    [], "dbpstanding", 0, 400, "DBP (standing):", "", ""
+  ],
+  [
+    [], "hrstanding", 0, 400, "HR (standing):", "", ""
+  ]
 ]
+
+const osAbnormalitiesOptions = ["(0) Normal", "(1) Abnormal", "(2) Cannot Assess"];
+const osAbnormalitiesItems = [
+  [
+    osAbnormalitiesOptions, "skinabnormalities", 0, 2, "Skin:", "", ""
+  ],
+  [
+    osAbnormalitiesOptions, "headnecklymphatic", 0, 2, "Head/Neck/Lymphatic:", "", ""
+  ],
+  [
+    osAbnormalitiesOptions, "eyesabnormalities", 0, 2, "Eyes:", "", ""
+  ],
+  [
+    osAbnormalitiesOptions, "earsnosethroat", 0, 2, "Ears/Nose/Throat", "", ""
+  ],
+  [
+    osAbnormalitiesOptions, "lungsabnormalities", 0, 2, "Lungs:", "", ""
+  ],
+  [
+    osAbnormalitiesOptions, "cardiovascular", 0, 2, `Cardiovascular (including peripheral 
+      vascular)`, "", ""
+  ],
+  [
+    osAbnormalitiesOptions, "abdomenabnormailities", 0, 2, "Abdomen:", "", ""
+  ],
+  [
+    osAbnormalitiesOptions, "musculoskeletalabnormalities", 0, 2, "Musculoskeletal:", "", ""
+  ],
+  [
+    osAbnormalitiesOptions, "neurological", 0, 2, "Neurological (not including PD, if applicable)",
+    "", ""
+  ]
+];
+
+const neurologicalExamOptions = ["(0) Normal", "(1) Abnormal", "(2) Not tested", 
+  "(3) Plantar response"];
+
+const neurologicalExamItem = [
+  [
+    neurologicalExamOptions, "mentalstatus", 0, 3, "Mental status", "", ""
+  ],
+  [
+    neurologicalExamOptions, "cniitoxii", 0, 3, "CN (II - XII)", "", ""
+  ],
+  [
+    neurologicalExamOptions, "motorneurologicalexam", 0, 3, "Motor", "", ""
+  ],
+  [
+    neurologicalExamOptions, "sensoryneurologicalexam", 0, 3, "Sensory", "", ""
+  ],
+  [
+    neurologicalExamOptions, "coordinationneurologicalexam", 0, 3, "Coordination", "", ""
+  ],
+  [
+    neurologicalExamOptions, "reflexesneurologicalexam", 0, 3, "Reflexes", "", ""
+  ],
+  [
+    neurologicalExamOptions, "gaitneurologicalexam", 0, 3, "Gait", "", ""
+  ]
+];
+
+const rfqOptions = ["(0) No", "(1) Yes", "(2) Possibly", "(3) DNK", "(4) Refused"];
+
+const rfqItems = [
+  [
+    rfqOptions, "drunkcaffeinatedcoffee", 0, 4, `In your lifetime, have you ever regularly 
+    drunk caffeinated coffee (that is, at least once per week for 6 months or longer)?`, "", ""
+  ],
+  [
+    rfqOptions, "drunkcaffeinatedblacktea", 0, 4, `In your lifetime, have you ever regularly 
+    drunk hot or iced caffeinated black tea (that is, at least once per week for 6 months or 
+    longer)?`, "", ""
+  ],
+  [
+    rfqOptions, "drunkcaffeinatedgreentea", 0, 4, `In your lifetime, have you ever regularly 
+    drink caffeinated green tea (that is, at least once per week for 6 months or longer)?`, "", ""
+  ],
+  [
+    rfqOptions, "drunkcaffeinatedsoda", 0, 4, `In your lifetime, have you ever regularly drunk 
+    caffeinated soda (that is, at least once per week for 6 months or longer)`, "", ""
+  ],
+  [
+    rfqOptions, "headinjuryorconcussion", 0, 4, `Have you ever had a head injury or concussion?`,
+    "", ""
+  ],
+  [
+    rfqOptions, "ibuprofenbasednonaspirin", 0, 4, `Have you ever regularly taken ibuprofen-based 
+    non-aspirin medications (that is, at least two pills per week for 6 months or longer)?`, "",
+    ""
+  ],
+  [
+    rfqOptions, "regularlytakenaspirin", 0, 4, `Have you ever regularly taken aspirin (that is, 
+    at least two pills per week for 6 months or longer)?`, "", ""
+  ],
+  [
+    rfqOptions, "antiinflammatorymedications", 0, 4, `Have you ever regularly taken other 
+    anti-inflammatory medications for pain, inflammation, or swelling (that is, at least two 
+    pills per week for 6 months or longer)?`, "", ""
+  ],
+  [
+    rfqOptions, "cigarettes100ormore", 0, 4, `In your lifetime, have you smoked 100 or more 
+    cigarettes (5 packs)?`, "", ""
+  ],
+  [
+    rfqOptions, "regularlysmokedcigarettes", 0, 4, `In your lifetime, have you ever regularly 
+    smoked cigarettes?`, "", ""
+  ],
+  [
+    rfqOptions, "smokelesstobacco", 0, 4, `Have you ever used smokeless tobacco such as chewing 
+    tobacco or snuff regularly (that is, at least once per day for 6 months or longer)?`, "", ""
+  ],
+  [
+    rfqOptions, "alcoholicdrinks100ormore", 0, 4, `In your lifetime, have you drunk 100 or more 
+    alcoholic drinks (beer, wine, liquor, spirits)?`, "", ""
+  ],
+  [
+    rfqOptions, "regularlydrunkalcohol", 0, 4, `In your lifetime, have you ever regularly drunk 
+    alcohol (that is, at least one drink per week for 6 months or longer)?`, "", ""
+  ]
+];
+
+const singleItemHyposmia = [
+  [
+    ["(0) Yes", "(1) No", "(2) Don't Know"], "experienceproblemssenseofsmell", 0, 2,
+    `Are you experiencing problems with your sense of smell?`, "", ""
+  ]
+];
+
+const hyposmiaRatingScale = [
+  [
+    [
+      "(0) I am unfamiliar or have never smelt fresh flowers.",
+      `(1) I am never aware of, even after being asked by others if I can smell it`,
+      `(2) I am only aware of, if asked by others whether I can smell it`,
+      `(3) I am sometimes aware of it, without others remarking on it.`,
+      `(4) I am always aware of it, without others remarking on it.`
+    ], "goingtofloristscentflowers", 0, 4, `1. When going to a florist; the scent of flowers 
+    (or When near flowers/plants):`, "", ""
+  ],
+  [
+    [
+      "(0) I am unfamiliar or have never smelt it",
+      "(1) I am never unaware of, even after being asked by others if I can smell it",
+      "(2) I am only aware of, if asked by others whether I can smell it",
+      "(3) I am sometimes aware of it, without others remarking on it.",
+      "(4) I am always aware of it, without others remarking on it."
+    ], "gasleaksmellunburnedgas", 0, 4, `2. If I am close to a gas leak, the smell of unburned 
+    gas:`, "", ""
+  ],
+  [
+    [
+      "(0) I am unfamiliar or have never smelt garbage or other foul odours",
+      "(1) I am never aware of, even after being asked by others if I can smell them",
+      "(2) I am only aware of, if asked by others whether I can smell them",
+      "(3) I am sometimes aware of it, without others remarking on it.",
+      "(4) I am always aware of it, without others remarking on it."
+    ], "garbagesewagefoulsmelling", 0, 4, `3. If I am close to garbage, sewage or other 
+    foul-smelling materials:`, "", ""
+  ],
+  [
+    [
+      "(0) I am unfamiliar of have never smelt perfume",
+      "(1) I am never aware of, even after being asked by others if I can smell it",
+      "(2) I am only aware of, if asked by others whether I can smell it",
+      "(3) I am sometimes aware of it, without others remarking on it.",
+      "(4) I am always aware of it, without others remarking on it."
+    ], "scentperfumestandingsitting", 0, 4, `4. The scent of perfume on someone I am standing 
+    or sitting quite close to:`, "", ""
+  ],
+  [
+    [
+      "(0) I am unfamiliar or have never smelt it",
+      "(1) I am never aware of, even after being asked by others if I can smell it",
+      "(2) I am only aware of, if asked by others whether I can smell it",
+      "(3) I am sometimes aware of it, without others remarking on it.",
+      "(4) I am always aware of it, without others remarking on it."
+    ], "closedconfinedspacesstuffiness", 0, 4, `5. In closed or confined spaces the smell of 
+    stuffiness or strong body odour:`, "", "" 
+  ],
+  [
+    [
+      "(0) I am unfamiliar or have never smelt the smell of home cooked food.",
+      "(1) I am never aware of, even after being asked by others if I can smell it",
+      "(2) I am only aware of, if asked by others whether I can smell it",
+      "(3) I am sometimes aware of it, without others remarking on it.",
+      "(4) I am always aware of it, without others remarking on it."
+    ], "smellhomecookingbeingcooked", 0, 4, `6. The smell of home cooking (smell from food 
+    being cooked):`, "", ""
+  ]
+];
+
+const remOptions = ["(0) No", "(1) Yes"];
+
+const remSleepAssessment = [
+  [
+    [
+      "(0) Participant", "(1) Caregiver/Informant", "(2) Both"
+    ], "remsleepsourceofinformation", 0, 2, `Source of information`, "", ""
+  ],
+  [
+    [ "(0) No", "(1) Yes" ], "actoutyourdreamswhileasleep", 0, 1, `Have you ever been told, or 
+    suspected yourself, that you seem to 'act out your dreams' while asleep (for example, 
+    punching, flailing your arms in the air, making running movements, etc.)?`, "", ""
+  ],
+  [
+    remOptions, "remsleepveryvividdreams", 0, 1, `1. I sometimes have very vivid dreams`, "", ""
+  ],
+  [
+    remOptions, "dreamsaggressiveactionpacked", 0, 1, `2. My dreams frequently have an aggressive or 
+    action-packed content.`, "", ""
+  ],
+  [
+    remOptions, "dreamcontentsnocturnalbehaviour", 0, 1, `3. The dream contents mostly match 
+    my nocturnal behaviour.`, "", ""
+  ],
+  [
+    remOptions, "knowarmslegsmovewhenasleep", 0, 1, `4. I know that my arms or legs move when I 
+    sleep.`, "", ""
+  ],
+  [
+    remOptions, "happenedhurtbedpartner", 0, 1, `5. It thereby happened that I (almost) jurt by 
+    bed partner or myself.`, "", ""
+  ],
+  [
+    remOptions, "speakingshoutingswearing", 0, 1, `6.1. I have or had the following phenomena during 
+    my dreams: speaking, shouting, swearing, laughing loudly`, "", ""
+  ],
+  [
+    remOptions, "suddenlimbmovementsfights", 0, 1, `6.2. I have or had the following phenomena 
+    during my dreams: sudden limb movements, "fights":`, "", ""
+  ],
+  [
+    remOptions, "gesturescomplexmovements", 0, 1, `6.3. I have or had the following phenomena 
+    during my dreams: gestures, complex movements, that are useless during sleep, e.g. to wave, 
+    to salute, to frighten mosquitoes, fall of the bed:`, "", ""
+  ],
+  [
+    remOptions, "thingsfelldownaroundbed", 0, 1, `6.4. I have or had the following phenomena 
+    during my dreams: things that fell down around the bed, e.g. bedside lamp, book, glasses:`,
+    "", ""
+  ],
+  [
+    remOptions, "ithappensmovementsawake", 0, 1, `7. It happens that my movements awake me.`, 
+    "", ""
+  ],
+  [
+    remOptions, "awakeningremembercontentdreams", 0, 1, `8. After awakening I mostly remember 
+    the content of my dreams well.`, "", ""
+  ],
+  [
+    remOptions, "sleepfrequentlydisturbed", 0, 1, `9. My sleep is frequently disturbed.`, "", ""
+  ],
+  [
+    remOptions, "parkinsondiseaseatypicalparknisonism", 0, 1, `10. I have Parkinson's disease 
+    or atypical parkinsonism`, "", ""
+  ]
+];
+
+const merqOptions = [ "(0) No", "(1) Yes", "(9) Uncertain" ];
+
+export const merqItems = [
+  [
+    merqOptions, "jobpesticideherbicides", 0, 9, `1. Over you lifetime, have you ever had a job in 
+    which you used any type of pesticide, including herbicides, insecticides, fungicides, or 
+    fumigants (e.g. gammalin)?`, "", ""
+  ],
+  [
+    merqOptions, "exposedpesticideshomepet", 0, 9, `2. Over your lifetime, were you ever exposed 
+    to pesticides including herbicides, insecticides, fungicides, or fumigants used on your home, 
+    lawn, garden or on a pet?`, "", ""
+  ],
+  [
+    merqOptions, "workedchemicalsolvents", 0, 9, `3. Over your lifetime, have you ever worked with 
+    chemical solvents for more than 6 months?`, "", ""
+  ],
+  [
+    merqOptions, "workedheavymetals", 0, 9, `4. Over your lifetime, have you ever worked with 
+    heavy metals (e.g. iron, lead) for more than 6 months?`, "", ""
+  ],
+  [
+    merqOptions, "workedchemicalsfumes", 0, 9, `5. Over your lifetime, have you ever worked with any 
+    other chemicals or fumes for more than 6 months?`, "", ""
+  ],
+  [
+    [], "parkinsoncaffeinebeverages", 0, 50, `6. Before now (if healthy control) or Before you 
+    developed symptoms of Parkinson's (if participant has PD or atypical PD), on average, how 
+    many cups of caffeine-containing beverage (e.g. coffee, tea, coke) did you drink each day, 
+    during the times you were drinking caffeine-containing beverages? ______ cups/day.`, "", ""
+  ],
+  [
+    [], "cupscaffeinecontainingbeverage", 0, 50, `7. At present, how many cups of a caffeine 
+    containing beverage (e.g. coffee, cocacola) do you drink on a typical day? ______ cups/day`,
+    "", ""
+  ],
+  [
+    merqOptions, "parkinsonsmokecigarettes", 0, 50, `8. Before now (if healthy control) or 
+    Before you developed symptoms of Parkinson's (if participant has PD or atypical PD), did 
+    you ever smoke cigarettes regularly, that is at least 1 cigarette per day for at least 6 
+    months?`, "", ""
+  ],
+  [
+    [], "parkinsonyearssmokecigarettes", 0, 100, `8.1. If yes to 8 above, for how many years 
+    did you smoke cigarettes regularly? _______ years`, "", ""
+  ],
+  [
+    [], "parkinsonyearssmokeperday", 0, 50, `8.2. If yes to 8 above, during the time that you 
+    smoked regularly, about how much did you smoke per day? (Record number of cigarettes smoked 
+    per day): _____sticks/day`, "", ""
+  ],
+  [
+    merqOptions, "smokecigarettesregularlynow9", 0, 9, `9. Do you smoke cigarettes regularly now?`,
+    "", ""
+  ],
+  [
+    [], "howmanysmokecigarettesregularlynow91", 0, 100, `9.1. If yes, how much do you smoke per
+    per day? (______ sticks per day)`, "", ""
+  ],
+  [
+    merqOptions, "developedsymptomsparkinson10", 0, 9, `10. Before now (if healthy control) or 
+    Before you developed symptoms of Parkinson's (if participant has PD or atypical PD), did you 
+    live with a smoker?`, "", ""
+  ],
+  [
+    merqOptions, "beforesymptomspdheadinjury", 0, 3000, `11. Before now (if healthy control) or 
+    Before you developed symptoms of Parkinson's (if relevant), did you ever have a head 
+    injury where you lost consciousness or were diagnosed with a concussion by a doctor?`, "", ""
+  ],
+  [
+    merqOptions, "femaledevelopedpdovaries", 0, 3000, `12. (Female only): Before now (if 
+    healthy control) or Before you developed symptoms of Parkinson's (if participant has 
+    PD or atypical PD), did you ever have one or both ovaries surgically removed?`, "", ""
+  ],
+  [
+    merqOptions, "beforedevelopedpddepression", 0, 3000, `13. Before now (if healthy control) 
+    or Before you developed symptoms of Parkinson's (if participant has PD or atypical PD), 
+    were you ever diagnosed with depression?`, "", ""
+  ],
+  [
+    merqOptions, "beforediagnosedpdanxiety", 0, 3000, `14. Before now (if healthy control) or 
+    Before you developed symptoms of Parkinson's (if participant has PD or atypical PD), were 
+    you ever diagnosed with anxiety?`, "", ""
+  ]
+];
 
 export const pdItems = [
   ["Features of Parkinson", featuresItems],
@@ -775,5 +1177,10 @@ export const pdItems = [
   "time when my medications work".`],
   [
     "PD Clinical Severity Stage", pdClinicalSeverityStageItems
-  ]
+  ],
+  ["CISI-PD (Select the appropriate stage for each item)", cisiPdItems],
+  // Create family history items,
+  ["Parkinsonism Treatment History", pthItems],
+  ["If on antiparkinsonian medication complete the table below", antiparkinsonianMeds],
+  ["Behavioural/Social History (RFQ)", rfqItems]
 ];
