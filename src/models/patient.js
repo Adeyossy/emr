@@ -294,7 +294,8 @@ export function parseFromDatabase(dbPatient) {
     appointment = new parseApntmntDB(JSON.parse(JSON.stringify(dbPatient.appointment)));
     this.last_viewed = appointment.date_seen;
   } else {
-    this.last_viewed = dbPatient.last_viewed;
+    this.last_viewed = dbPatient.appointment_keys.find(key => key === dbPatient.last_viewed) ? 
+      dbPatient.last_viewed : dbPatient.appointment_keys[0]
   }
 
   if (Object.hasOwn(dbPatient, 'appointments') &&

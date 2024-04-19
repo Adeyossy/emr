@@ -468,10 +468,10 @@ export class EMRComponent extends React.Component {
 
   switchToAppointment = (date_seen) => {
     const patient = this.state.patient;
-    // patient.appointment = patient.appointments.find(apntmnt =>
-    //   apntmnt.date_seen === date_seen);
+    const key = patient.appointment_keys.find(key => patient[key.toString()]
+      .date_seen === date_seen);
     // console.log("switched appointment forms => ", this.state.patient.appointment.forms);
-    patient.last_viewed = date_seen.toString();
+    patient.last_viewed = key.toString();
 
     this.setState({
       patient: patient
