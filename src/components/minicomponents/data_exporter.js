@@ -28,7 +28,7 @@ export default class DataExporter extends React.Component {
   onExportClicked = () => {
     // Begin Processing here
     const exportData = dataExporterHelper(this.props.patients, Object.assign(this.state));
-    console.log(exportData);
+    // console.log(exportData);
     this.setState({
       downloadFile: exportData.join("\r\n")
     });
