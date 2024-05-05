@@ -9,7 +9,7 @@ function processBasedOnType(data) {
     return Object.keys(data).map(d => `${d}: ${processBasedOnType(data[d])}`).join(", ");
   }
 
-  if (typeof data === "string") return data;
+  if (typeof data === "string") return data.replace(/\s/g, " ").replace(/;/g, "");
 }
 
 export function dataExporterHelper(patients, fields) {
@@ -23,6 +23,7 @@ export function dataExporterHelper(patients, fields) {
       // We're only picking the first appointment here but we need to export all appointments
       const apntmnt = patient[apntmntKey];
       patientForExport._id = patient._id; // export patient id
+      patientForExport.appointment_id = apntmntKey;
 
       const fieldsKeys = Object.keys(fields);
       for (let f = 0; f < fieldsKeys.length; f++) {
@@ -48,16 +49,15 @@ export function dataExporterHelper(patients, fields) {
 
       // console.log(patient);
 
-      patientForExport.electrical = apntmnt.electrical.notes;
-      // console.log('electrical => ', apntmnt.electrical);
-      patientForExport.imaging = apntmnt.imaging.notes;
+      console.log("apntmnt notes => ", processBasedOnType(apntmnt.notes));
+      patientForExport.appointment_notes = processBasedOnType(apntmnt.notes);
       patientForExport.primary_diagnosis = patient.primary_diagnosis;
       patientForExport.secondary_diagnosis = patient.secondary_diagnosis;
 
       const values = Object.values(patientForExport).join(';');
       if (index === 0 && index2 === 0) 
         return Object.keys(patientForExport).join(';').concat("\r\n", values);
-      console.log("values => ", values);
+      // console.log("values => ", values);
       return values;
     })
   })
