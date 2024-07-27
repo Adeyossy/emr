@@ -268,8 +268,8 @@ export class EMRComponent extends React.Component {
     const newPatient = newEmrPatient();
     if (name) {
       const [lastname, firstname] = name.split(" ");
-      newPatient[newPatient.last_viewed].biodata.firstname = firstname;
       newPatient[newPatient.last_viewed].biodata.lastname = lastname;
+      if (firstname) newPatient[newPatient.last_viewed].biodata.firstname = firstname;
     }
 
     if (id) {
