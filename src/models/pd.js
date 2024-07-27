@@ -1812,28 +1812,28 @@ const essOptions = ["Would never dose(0)", "Slight chance of dosing(1)", "Modera
 
 const essItems = [
   [
-    essOptions, "sittingandreading", 0, 3, "Sitting and reading", "", ""
+    essOptions, "esssittingandreading", 0, 3, "Sitting and reading", "", ""
   ],
   [
-    essOptions, "watchingtv", 0, 3, "Watching TV", "", ""
+    essOptions, "esswatchingtv", 0, 3, "Watching TV", "", ""
   ],
   [
-    essOptions, "inactiveinapublicplace", 0, 3,
+    essOptions, "essinactiveinapublicplace", 0, 3,
     "Sitting, inactive in a public place (e.g. a theatre or a meeting)", "", ""
   ],
   [
-    essOptions, "passengerinacar", 0, 3, "As a passenger in a car for an hour without a break",
+    essOptions, "esspassengerinacar", 0, 3, "As a passenger in a car for an hour without a break",
     "", ""
   ],
   [
-    essOptions, "lyingdowntorest", 0, 3,
+    essOptions, "esslyingdowntorest", 0, 3,
     "Lying down to rest in the afternoon when circumstances permit", "", ""
   ],
   [
-    essOptions, "talkingtosomeone", 0, 3, "Sitting and talking to someone", "", ""
+    essOptions, "esstalkingtosomeone", 0, 3, "Sitting and talking to someone", "", ""
   ],
   [
-    essOptions, "sittingquietlyafterlunch", 0, 3, "Sitting quietly after lunch without alcohol",
+    essOptions, "esssittingquietlyafterlunch", 0, 3, "Sitting quietly after lunch without alcohol",
     "", ""
   ]
 ];
@@ -1842,64 +1842,64 @@ const quipRSOptions = ["Never(0)", "Rarely(1)", "Sometimes(2)", "Often(3)", "Ver
 
 const quiprsItems1 = [
   [
-    quipRSOptions, "gambling", 0, 4, "How much do you think about gambling?", "", ""
+    quipRSOptions, "quiprs1gambling", 0, 4, "How much do you think about gambling?", "", ""
   ],
   [
-    quipRSOptions, "sexualbehavior", 0, 4, "How much do you think about sexual behavior?", "", ""
+    quipRSOptions, "quiprs1sexualbehavior", 0, 4, "How much do you think about sexual behavior?", "", ""
   ],
   [
-    quipRSOptions, "buying", 0, 4, "How much do you think about buying?", "", ""
+    quipRSOptions, "quiprs1buying", 0, 4, "How much do you think about buying?", "", ""
   ],
   [
-    quipRSOptions, "eating", 0, 4, "How much do you think about eating?", "", ""
+    quipRSOptions, "quiprs1eating", 0, 4, "How much do you think about eating?", "", ""
   ],
   [
-    quipRSOptions, "performingtasksorhobbies", 0, 4, 
+    quipRSOptions, "quiprs1performingtasksorhobbies", 0, 4,
     "How much do you think about performing tasks or hobbies?", "", ""
   ],
   [
-    quipRSOptions, "repeatingsimpleactivities", 0, 4,
+    quipRSOptions, "quiprs1repeatingsimpleactivities", 0, 4,
     "How much do you think about repeating simple activities?", "", ""
   ],
   [
-    quipRSOptions, "takingyourPDmedications", 0, 4,
+    quipRSOptions, "quiprs1takingyourPDmedications", 0, 4,
     "How much do you think about taking your PD medications?", "", ""
   ]
 ];
 
 const quiprsItems2 = [
   [
-    quipRSOptions, "gambling", 0, 4,
+    quipRSOptions, "quiprs2gambling", 0, 4,
     "Do you have urges or desires for gambling that you feel are excessive or cause you distress?",
     "", ""
   ],
   [
-    quipRSOptions, "sexualbehaviour", 0, 4,
+    quipRSOptions, "quiprs2sexualbehaviour", 0, 4,
     "Do you have urges or desires for sexual behaviour that you feel are excessive or cause you distress?",
     "", ""
   ],
   [
-    quipRSOptions, "buying", 0, 4,
+    quipRSOptions, "quiprs2buying", 0, 4,
     "Do you have urges or desires for buying that you feel are excessive or cause you distress?",
     "", ""
   ],
   [
-    quipRSOptions, "eating", 0, 4,
+    quipRSOptions, "quiprs2eating", 0, 4,
     "Do you have urges or desires for eating that you feel are excessive or cause you distress?",
     "", ""
   ],
   [
-    quipRSOptions, "performingtasksorhobbies", 0, 4,
+    quipRSOptions, "quiprs2performingtasksorhobbies", 0, 4,
     `Do you have urges or desires for performing tasks or hobbies that you feel are excessive 
     or cause you distress?`, "", ""
   ],
   [
-    quipRSOptions, "repeatingsimpleactivities", 0, 4,
+    quipRSOptions, "quiprs2repeatingsimpleactivities", 0, 4,
     `Do you have urges or desires for repeating simple activties that you feel are excessive 
     or cause you distress?`, "", ""
   ],
   [
-    quipRSOptions, "takingyourPDmedications", 0, 4,
+    quipRSOptions, "quiprs2takingyourPDmedications", 0, 4,
     `Do you have urges or desires for taking your PD medications that you feel are excessive 
     or cause you distress?`, "", ""
   ]
@@ -1907,62 +1907,62 @@ const quiprsItems2 = [
 
 const quiprsItems3 = [
   [
-    quipRSOptions, "gambling", 0, 4, "Do you have difficulty controlling gambling?", "", ""
+    quipRSOptions, "quiprs3gambling", 0, 4, "Do you have difficulty controlling gambling?", "", ""
   ],
   [
-    quipRSOptions, "sexualbehaviour", 0, 4, "Do you have difficulty controlling sexual behaviour?",
+    quipRSOptions, "quiprs3sexualbehaviour", 0, 4, "Do you have difficulty controlling sexual behaviour?",
     "", ""
   ],
   [
-    quipRSOptions, "buying", 0, 4, "Do you have difficulty controlling buying?", "", ""
+    quipRSOptions, "quiprs3buying", 0, 4, "Do you have difficulty controlling buying?", "", ""
   ],
   [
-    quipRSOptions, "eating", 0, 4, "Do you have difficulty controlling eating?", "", ""
+    quipRSOptions, "quiprs3eating", 0, 4, "Do you have difficulty controlling eating?", "", ""
   ],
   [
-    quipRSOptions, "performingtasksorhobbies", 0, 4,
+    quipRSOptions, "quiprs3performingtasksorhobbies", 0, 4,
     "Do you have difficulty controlling (performing) tasks or hobbies?", "", ""
   ],
   [
-    quipRSOptions, "repeatingsimpleactivities", 0, 4,
+    quipRSOptions, "quiprs3repeatingsimpleactivities", 0, 4,
     "Do you have difficulty in (controlling) repeating simple activities", "", ""
   ],
   [
-    quipRSOptions, "takingyourPDmedications", 0, 4,
+    quipRSOptions, "quiprs3takingyourPDmedications", 0, 4,
     "Do you have difficulty controlling taking your PD medications?", "", ""
   ]
 ];
 
 const quiprsItems4 = [
   [
-    quipRSOptions, "gambling", 0, 4,
+    quipRSOptions, "quiprs4gambling", 0, 4,
     "Do you engage in activities (such as lying or illegal acts) to continue gambling?", "", ""
   ],
   [
-    quipRSOptions, "sexualbehaviour", 0, 4,
+    quipRSOptions, "quiprs4sexualbehaviour", 0, 4,
     "Do you engage in activities (such as lying or illegal acts) to continue sexual behaviour?",
     "", ""
   ],
   [
-    quipRSOptions, "buying", 0, 4,
+    quipRSOptions, "quiprs4buying", 0, 4,
     "Do you engage in activities (such as lying or illegal acts) to continue buying?", "", ""
   ],
   [
-    quipRSOptions, "eating", 0, 4,
+    quipRSOptions, "quiprs4eating", 0, 4,
     "Do you engage in activities (such as lying or illegal acts) to continue eating?", "", ""
   ],
   [
-    quipRSOptions, "performingtasksorhobbies", 0, 4,
+    quipRSOptions, "quiprs4performingtasksorhobbies", 0, 4,
     `Do you engage in activities (such as lying or illegal acts) to continue performing 
     tasks or hobbies?`, "", ""
   ],
   [
-    quipRSOptions, "repeatingsimpleactivities", 0, 4,
+    quipRSOptions, "quiprs4repeatingsimpleactivities", 0, 4,
     "Do you engage in activities (such as lying or illegal acts) to continue repeating simple actvities?",
     "", ""
   ],
   [
-    quipRSOptions, "takingyourPDmedications", 0, 4,
+    quipRSOptions, "quiprs4takingyourPDmedications", 0, 4,
     "Do you engage in activities (such as lying or illegal acts) to continue taking your PD medications?",
     "", ""
   ]
@@ -1974,317 +1974,598 @@ const scopaautOptionsna = [...scopaautOptions, "N/A (4)"];
 const scopaautOptionsYesNo = ["Yes (0)", "No (1)"];
 
 const scopaautItems = [
-    [
-        scopaautOptions,
-        "scopaautswallowing",
-        0,
-        3,
-        "1. In the past month, have you had difficulty swallowing or have you choked?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautsalivadribbled",
-        0,
-        3,
-        "2. In the past month, has saliva dribbled out of your mouth?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautfoodeverbecomestuck",
-        0,
-        3,
-        "3. In the past month, has food ever become stuck in your throat?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautfeelingduringamealthatyouwerefull",
-        0,
-        3,
-        "4. In the past month, did you ever have the feeling during a meal that you were full very quickly?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautconstipation",
-        0,
-        3,
-        "5. In the past month, have you had constipation (bowel movement twice a week or less)?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautstrainhardtopassstools?",
-        0,
-        3,
-        "6. In the past month, did you have to strain hard to pass stools?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautinvoluntarylossofstools",
-        0,
-        3,
-        "7. In the past month, have you had involuntary loss of stools?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions1,
-        "scopaautdifficultyretainingurine",
-        0,
-        4,
-        "8. In the past month, have you had difficulty retaining urine?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions1,
-        "scopaautinvoluntarylossofurine",
-        0,
-        4,
-        "9. In the past month, have you had involuntary loss of urine?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions1,
-        "scopaautafterpassingurine",
-        0,
-        4,
-        "10. In the past month, have you had the feeling that after passing urine your bladder was not completely empty?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions1,
-        "scopaautstreamofurinebeenweak",
-        0,
-        4,
-        "11. In the past month, has the stream of urine been weak?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions1,
-        "scopaautpassurineagain",
-        0,
-        4,
-        "12. In the past month, have you had to pass urine again within 2 hours of te previous time?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions1,
-        "scopaautpassurineatnight",
-        0,
-        4,
-        "13. In the past month, have you had to pass urine at night?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautbecominglightheaded",
-        0,
-        3,
-        "14. In the past month, when standing up, have you had the feeling of either becoming lightheaded, or no longer beging able to see properly, or no longer being able to think clearly?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautbecomelightheadedafterstanding",
-        0,
-        3,
-        "15. In the past month, did you become light-headed after standing for some time?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautfainted",
-        0,
-        3,
-        "16. Have you fainted in the past 6 months?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautperspiredexcessivelyduringtheday",
-        0,
-        3,
-        "17. In the past month, have you ever perspired excessively during the day?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaautperspiredexcessivelyduringthenight",
-        0,
-        3,
-        "18. In the past month, have you ever perspired exxcessively during the night?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaauteyeseverbeenoversensitivetolight",
-        0,
-        3,
-        "19. In the past month, have your eyes been over sensitive to light?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaauttroubletoleratingcold",
-        0,
-        3,
-        "20. In the past month, how often have you had trouble tolerating cold?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptions,
-        "scopaauttroubletoleratingheat",
-        0,
-        3,
-        "21. In the past month, how often have you had trouble tolerating heat?",
-        "",
-        ""
-    ],
+  [
+    scopaautOptions,
+    "scopaautswallowing",
+    0,
+    3,
+    "1. In the past month, have you had difficulty swallowing or have you choked?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautsalivadribbled",
+    0,
+    3,
+    "2. In the past month, has saliva dribbled out of your mouth?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautfoodeverbecomestuck",
+    0,
+    3,
+    "3. In the past month, has food ever become stuck in your throat?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautfeelingduringamealthatyouwerefull",
+    0,
+    3,
+    "4. In the past month, did you ever have the feeling during a meal that you were full very quickly?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautconstipation",
+    0,
+    3,
+    "5. In the past month, have you had constipation (bowel movement twice a week or less)?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautstrainhardtopassstools?",
+    0,
+    3,
+    "6. In the past month, did you have to strain hard to pass stools?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautinvoluntarylossofstools",
+    0,
+    3,
+    "7. In the past month, have you had involuntary loss of stools?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautdifficultyretainingurine",
+    0,
+    4,
+    "8. In the past month, have you had difficulty retaining urine?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautinvoluntarylossofurine",
+    0,
+    4,
+    "9. In the past month, have you had involuntary loss of urine?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautafterpassingurine",
+    0,
+    4,
+    "10. In the past month, have you had the feeling that after passing urine your bladder was not completely empty?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautstreamofurinebeenweak",
+    0,
+    4,
+    "11. In the past month, has the stream of urine been weak?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautpassurineagain",
+    0,
+    4,
+    "12. In the past month, have you had to pass urine again within 2 hours of te previous time?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautpassurineatnight",
+    0,
+    4,
+    "13. In the past month, have you had to pass urine at night?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautbecominglightheaded",
+    0,
+    3,
+    "14. In the past month, when standing up, have you had the feeling of either becoming lightheaded, or no longer beging able to see properly, or no longer being able to think clearly?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautbecomelightheadedafterstanding",
+    0,
+    3,
+    "15. In the past month, did you become light-headed after standing for some time?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautfainted",
+    0,
+    3,
+    "16. Have you fainted in the past 6 months?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautperspiredexcessivelyduringtheday",
+    0,
+    3,
+    "17. In the past month, have you ever perspired excessively during the day?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautperspiredexcessivelyduringthenight",
+    0,
+    3,
+    "18. In the past month, have you ever perspired exxcessively during the night?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaauteyeseverbeenoversensitivetolight",
+    0,
+    3,
+    "19. In the past month, have your eyes been over sensitive to light?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaauttroubletoleratingcold",
+    0,
+    3,
+    "20. In the past month, how often have you had trouble tolerating cold?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaauttroubletoleratingheat",
+    0,
+    3,
+    "21. In the past month, how often have you had trouble tolerating heat?",
+    "",
+    ""
+  ],
 ]
 
 const scopaautItems1 = [
-    [
-        scopaautOptionsna,
-        "scopaautimpotent",
-        0,
-        4,
-        "22. In the past month, have you been impotent(unable to have or maintain an erection)?",
-        "This question is intended specifically for men.",
-        ""
-    ],
-    [
-        scopaautOptionsna,
-        "scopaautejaculate",
-        0,
-        4,
-        "23. In the past month, how often have you been able to ejaculate?",
-        "This question is intended specifically for men.",
-        ""
-    ],
-    [
-        scopaautOptionsYesNo,
-        "scopaauterectiondisorder",
-        0,
-        1,
-        "23a. In the past month, have you taken medication for an erection disorder?",
-        "This question is intended specifically for men.",
-        ""
-    ],
-    [
-        [], 
-        "scopaauterectiondisorderifyes",
-        0,
-        1,
-        "If yes, which medication?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptionsna,
-        "scopaautvaginaltoodryduringsexualactivity",
-        0,
-        4,
-        "24. In the past month, was your vagina too dry during sexual activity?",
-        "This question is intended specifically for women.",
-        ""
-    ],
-    [
-        scopaautOptionsna,
-        "scopaautdifficultyreachinganorgasm",
-        0,
-        4,
-        "25. In the past month, have you had difficulty reaching an orgasm?",
-        "This question is intended specifically for women.",
-        ""
-    ],
-    [
-        scopaautOptionsYesNo,
-        "scopaautconstipation",
-        0,
-        1,
-        "26a. In the past month, have you used medication for constipation?",
-        "",
-        ""
-    ],
-    [
-        [], 
-        "scopaautconstipationwhichmedication",
-        0,
-        1,
-        "Which medication?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptionsYesNo,
-        "scopaauturinaryproblems",
-        0,
-        1,
-        "26b. In the past month, have you used medication for urinary problems?",
-        "",
-        ""
-    ],
-    [
-        [],
-        "scopaauturinaryproblemsmedication",
-        0,
-        1,
-        "Which medication?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptionsYesNo,
-        "scopaautbloodpressure",
-        0,
-        1,
-        "26c. In the past month, have you used medication for blood pressure?",
-        "",
-        ""
-    ],
-    [
-        [],
-        "scopaautbloodpressuremedication",
-        0,
-        1,
-        "Which medication?",
-        "",
-        ""
-    ],
-    [
-        scopaautOptionsYesNo,
-        "scopaautnotrelatedtoparkingsonsdisease",
-        0,
-        1,
-        "26d. In the past month, have you used medication for other symptoms(not related to Parkinson's disease)?",
-        "",
-        ""
-    ],
+  [
+    scopaautOptionsna,
+    "scopaautimpotent",
+    0,
+    4,
+    "22. In the past month, have you been impotent(unable to have or maintain an erection)?",
+    "This question is intended specifically for men.",
+    ""
+  ],
+  [
+    scopaautOptionsna,
+    "scopaautejaculate",
+    0,
+    4,
+    "23. In the past month, how often have you been able to ejaculate?",
+    "This question is intended specifically for men.",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaauterectiondisorder",
+    0,
+    1,
+    "23a. In the past month, have you taken medication for an erection disorder?",
+    "This question is intended specifically for men.",
+    ""
+  ],
+  [
+    [],
+    "scopaauterectiondisorderifyes",
+    0,
+    1,
+    "If yes, which medication?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptionsna,
+    "scopaautvaginaltoodryduringsexualactivity",
+    0,
+    4,
+    "24. In the past month, was your vagina too dry during sexual activity?",
+    "This question is intended specifically for women.",
+    ""
+  ],
+  [
+    scopaautOptionsna,
+    "scopaautdifficultyreachinganorgasm",
+    0,
+    4,
+    "25. In the past month, have you had difficulty reaching an orgasm?",
+    "This question is intended specifically for women.",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaautconstipation",
+    0,
+    1,
+    "26a. In the past month, have you used medication for constipation?",
+    "",
+    ""
+  ],
+  [
+    [],
+    "scopaautconstipationwhichmedication",
+    0,
+    1,
+    "Which medication?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaauturinaryproblems",
+    0,
+    1,
+    "26b. In the past month, have you used medication for urinary problems?",
+    "",
+    ""
+  ],
+  [
+    [],
+    "scopaauturinaryproblemsmedication",
+    0,
+    1,
+    "Which medication?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaautbloodpressure",
+    0,
+    1,
+    "26c. In the past month, have you used medication for blood pressure?",
+    "",
+    ""
+  ],
+  [
+    [],
+    "scopaautbloodpressuremedication",
+    0,
+    1,
+    "Which medication?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaautnotrelatedtoparkingsonsdisease",
+    0,
+    1,
+    "26d. In the past month, have you used medication for other symptoms(not related to Parkinson's disease)?",
+    "",
+    ""
+  ]
+];
 
-]
+const pspchecklistOptions = ["Yes (0)", "No (1)"];
+
+const pspchecklistItems = [
+  [
+    pspchecklistOptions, "pspchecklistverticalsupranucleargazepalsy", 0, 1,
+    "1. Vertical supranuclear gaze palsy (O1)", "", ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistverticalsaccades", 0, 1, "2. Slow velocity of vertical saccades (O2)",
+    "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistmacrosquarewavejerks", 0, 1,
+    "3. Frequent marco square wave jerks or eyelid opening apraxia (O3)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistfallonthepulltest", 0, 1,
+    "4. Tendency to fall on the pull-test within 3 years (P2)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistbackwardonthepulltest", 0, 1,
+    "5. More than two steps backward on the pull-test within 3 years (P3)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistprogressivegaitfreezing", 0, 1,
+    "6. Progressive gait freezing within 3 years (A1)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistpredominantlyaxial", 0, 1,
+    "7. Parkinsonism, akinetic-rigid, predominantly axial, and levodopa resistant (A2)",
+    "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistasymmetric", 0, 1,
+    "8. Parkinsonism, with tremor and/or asymmetric and/or levodopa responsive (A3)",
+    "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistspeechlanguagedisorder", 0, 1,
+    `9. Speech/language disorder, i.e., nonfluent/agrammatic variant of 
+        primary progressive aphasia or progressive apraxia of speech (C1)`, "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistcognitivebehaviouralpresentation", 0, 1,
+    "10. Frontal cognitive/behavioural presentation (C2)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistcorticobasalsyndrome", 0, 1, "11. Corticobasal syndrome (C3)",
+    "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistspasticdysarthria", 0, 1,
+    "12. Hypokinetic, spastic dysarthria (CC2)", "", ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistdysphagia",
+    0,
+    1,
+    "13. Dysphagia (CC3)",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistphotophobia",
+    0,
+    1,
+    "14. Photophobia (CC4)",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistunexplainedimpairment",
+    0,
+    1,
+    "15. Predominant, otherwise unexplained impairment of episodic memory, suggestive of AD",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistunexplainedautonomicfailure",
+    0,
+    1,
+    "16. Predominant, otherwise unexplained autonomic failure, e.g., orthostatic hypotension (orthostatic reduction in blood pressure after 3 minutes standing >=30 mm Hg systolic or >=15 mm Hg diastolic), suggestive of multiple system atrophy or Lewy body",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistunexplainedvisualhallucinations",
+    0,
+    1,
+    "17. Predominant, otherwise unexplained visual hallucinations or fluctuations in alertness, suggestive of dementia with Lewy bodies",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistrapidprogressionofsymptoms",
+    0,
+    1,
+    "18. Sudden onset or step-wise or rapid progressive or symptoms, in conjunction with corresponding imaging or laboratory findings, suggestive of vascular etiology, autoimmune encephalitis, metabolic encephalopathies, or prion disease",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistencephalitis",
+    0,
+    1,
+    "19. History of encephalitis",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistappendicularataxia",
+    0,
+    1,
+    "20. Prominent appendicular ataxia",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistposturalinstability",
+    0,
+    1,
+    "21. Identifiable cause of postural instability, e.g., primary sensory deficit, vestibular dysfunction, severe spasticity, or lower motor neuron syndome",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistasymmetricalonset",
+    0,
+    1,
+    "22. Asymmetrical onset",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistlimbmyoclonus",
+    0,
+    1,
+    "23. Limb Myoclonus",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistlimbapraxia",
+    0,
+    1,
+    "24. Orobuccal or limb apraxia",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistsensorydeficit",
+    0,
+    1,
+    "25. Cortical sensory deficit",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistalienlimb",
+    0,
+    1,
+    "26. Alien limb more than simple elevation",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistdysfunction",
+    0,
+    1,
+    "27. Executive dysfunction",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistpersonalitychanges",
+    0,
+    1,
+    "28. Behavioural or personality changes",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistvisuospatialdeficits",
+    0,
+    1,
+    "29. Visuospatial deficits",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistagrammaticspeech",
+    0,
+    1,
+    "30. Effortful agrammatic speech",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistsentencecomprehension",
+    0,
+    1,
+    "31. Impaired grammar/sentence comprehension",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistapraxiaofspeech",
+    0,
+    1,
+    "32. Apraxia of speech",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklisturinaryincontinence",
+    0,
+    1,
+    "33. Urinary incontinence",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistsymmetriclimbrigidity",
+    0,
+    1,
+    "34. Axial or symmetric limb rigidity or akinesia",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistposturalinstabilty",
+    0,
+    1,
+    "35. Postural instability or falls",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistverticalgazepalsy",
+    0,
+    1,
+    "36. Supranuclear vertical gaze palsy",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistverticalsaccades",
+    0,
+    1,
+    "37. Decreased velocity of vertical saccades",
+    "",
+    ""
+  ],
+];
 
 export const pdItems = [
   ["Features of Parkinson", featuresItems],
@@ -2387,5 +2668,7 @@ export const pdItems = [
     is a highly intimate subject, we would still like you to answer these questions. 
     For the questions on sexual activity, consider every form of sexual contact with a partner 
     or masturbation (self-gratification). Questions 22 and 23 are intended specifically for 
-    men, 24 and 25 for women.`]
+    men, 24 and 25 for women.`],
+  // insert PSP here,
+  [`PSP CHECKLIST`, pspchecklistItems, `(To be completed by study neurologist. Items 1 - 37)`]
 ];
