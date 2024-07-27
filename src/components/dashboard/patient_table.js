@@ -1,6 +1,10 @@
 import React from "react";
 
 export default class PatientTableComponent extends React.Component {
+  getName = (name) => {
+    return name ? name : "--";
+  }
+
   render() {
     return (
       <div className="emr-patient-list">
@@ -32,8 +36,8 @@ export default class PatientTableComponent extends React.Component {
                         <i className="bi bi-person-fill emr-center-icon"></i>
                       </div>
                     </td>
-                    <td>{item[item.last_viewed].biodata.firstname || item[item.last_viewed].biodata.lastname ?
-                      item[item.last_viewed].biodata.lastname + " " + item[item.last_viewed].biodata.firstname : "--"}</td>
+                    <td>{this.getName(item[item.last_viewed].biodata.lastname) + " " + 
+                      this.getName(item[item.last_viewed].biodata.firstname) }</td>
                     <td>{item[item.last_viewed].biodata.ageinyears ? `${item[item.last_viewed].biodata.ageinyears} 
                     yrs` : "--"}</td>
                     <td className="d-none d-lg-table-cell">{item[item.last_viewed].biodata.id}</td>
