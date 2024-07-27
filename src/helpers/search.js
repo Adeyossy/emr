@@ -1,7 +1,9 @@
 export const searchOneForName = (name, patient) => {
   const apntmnt = patient[patient.last_viewed];
-  const names = apntmnt.biodata.lastname.concat(" ", apntmnt.biodata.firstname);
-  const namesBackward = apntmnt.biodata.firstname.concat(" ", apntmnt.biodata.lastname);
+  const lastname = apntmnt.biodata.lastname ? apntmnt.biodata.lastname : "";
+  const firstname = apntmnt.biodata.firstname ? apntmnt.biodata.firstname : "";
+  const names = lastname.concat(" ", firstname);
+  const namesBackward = firstname.concat(" ", apntmnt.biodata.lastname);
   return names.toLowerCase().includes(name.toLowerCase()) ||
     namesBackward.toLowerCase().includes(name.toLowerCase());
 }
