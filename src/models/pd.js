@@ -634,256 +634,256 @@ const m_EDL = [
   ]
 ];
 
-const m_Exam =[
+const m_Exam = [
   [
-      [
-          "No (0)", "Yes (1)"
-      ], "medication",
-      0,
-      1, 
-      "Is the patient on medication for treating the symptoms of Parkinson's Disease?",
-      "",
-      ""
+    [
+      "No (0)", "Yes (1)"
+    ], "motorexammedication",
+    0,
+    1,
+    "Is the patient on medication for treating the symptoms of Parkinson's Disease?",
+    "",
+    ""
   ],
   [
-      [
-          "ON: On is the typical functional state when patients are receiving medication and have a good response (0)", "OFF: Off is the typical functional state when patients have a poor response in spite of taking medications (1)", 
-      ], "if",
-      0,
-      1, 
-      "If the patient is receiving medication for treating the symptoms of Parkinson's Disease, mark the patient's clinical state using the following defintions: ",
-      "",
-      ""
+    [
+      "ON: On is the typical functional state when patients are receiving medication and have a good response (0)", "OFF: Off is the typical functional state when patients have a poor response in spite of taking medications (1)",
+    ], "motorexamclinicalstate",
+    0,
+    1,
+    "If the patient is receiving medication for treating the symptoms of Parkinson's Disease, mark the patient's clinical state using the following defintions: ",
+    "",
+    ""
   ],
   [
-      [
-          "No(0)", "Yes (1)", "If yes, minutes since last levodopa dose (2)"
-      ], "levodopa",
-      0,
-      2, 
-      "Is the patient on Levodopa?",
-      "",
-      ""
+    [
+      "No(0)", "Yes (1)", "If yes, minutes since last levodopa dose (2)"
+    ], "motorexamlevodopa",
+    0,
+    2,
+    "Is the patient on Levodopa?",
+    "",
+    ""
   ],
   [
-      [
-          "Normal: No speech problems (0)", "Slight: Loss of modulation, diction or volume, but still all words easy to understand.(1)", "Mild: Loss of modulation, diction, or volume, with a few words unclear, but the overall sentences easy to follow. (2)", "Speech is difficult to understand to the point that some, but not most, sentences are poorly understood. (3)", "Severe: Most speech is difficult to understand or unintelligible. (4)"
-      ], "speech",
-      0,
-      4, 
-      "Speech",
-      "Listen to the patient's free-flowing speech and engage in conversation if necessary. Suggested topics: ask about the patient's work, hobbies, exercise, or how he got to the doctor's office. Evaluate volume, modulation (prosody) and clarity, including slurring, palilalia (repetition or syllables) and tachyphemia (rapid speech, running syllables together)",
-      ""
-  ],  
-  [
-      [
-          "Normal: Normal facial expression (0)", "Slight: Minimal masked facies manifested only by decreased frequency of blinking. (1)", "Mild: In addition to decreased eye-blink frequency, Masked facies present in the lower face as well, namely fewer movements around the mouth, such as less spontaneous smiling, but lips not parted. (2)", "Moderate: Masked facies with lips parted some of the time when the mouth is at rest. (3)", "Severe: Masked facies with lips parted most of the time when the mouth is at rest. (4)"
-      ], "facial_expression",
-      0,
-      4, 
-      "Facial Expression",
-      "Observe the patient sitting at rest for 10 seconds, without talking and also while talking, observe eye-blink frequency, masked facies or loss of facial expression, spontaneous smiling and parting of lips. ",
-      ""
+    [
+      "Normal: No speech problems (0)", "Slight: Loss of modulation, diction or volume, but still all words easy to understand.(1)", "Mild: Loss of modulation, diction, or volume, with a few words unclear, but the overall sentences easy to follow. (2)", "Speech is difficult to understand to the point that some, but not most, sentences are poorly understood. (3)", "Severe: Most speech is difficult to understand or unintelligible. (4)"
+    ], "motorexamspeech",
+    0,
+    4,
+    "Speech",
+    "Listen to the patient's free-flowing speech and engage in conversation if necessary. Suggested topics: ask about the patient's work, hobbies, exercise, or how he got to the doctor's office. Evaluate volume, modulation (prosody) and clarity, including slurring, palilalia (repetition or syllables) and tachyphemia (rapid speech, running syllables together)",
+    ""
   ],
   [
-      [
-          "Normal: No rigidity (0)", "Slight: Rigidity only detected with activation maneuver. (1)", "Mild: Rigidity detected without the activation maneuver, but full range of motion is easily achieved. (2)", "Moderate: Rigidity detected without activation maneuver; full range of motion is achieved with effort. (3)", "Severe: Rigidity detected without the activation maneuver and full range of motion not achieved.(4)"
-      ], "rigidity",
-      0,
-      4, 
-      "Rigidity",
-      "Rigidity is judged on slow passive movement of major joints with the patient in a relaxed position and the examiner manipulating the limbs and neck. First, test without an activation maneuver. Test and rate neck and each limb separately. For arms, test the wrist and elbow joints simultaneously. For legs, test the hip and knee joints simultaneously. if no rigidity is detected, use an activation maneuver such as tapping fingers, fist opening/closing, or heel tapping in a limb not being tested. Explain to the patient to go as limp as possible as you test for rigidity. ",
-      ""
+    [
+      "Normal: Normal facial expression (0)", "Slight: Minimal masked facies manifested only by decreased frequency of blinking. (1)", "Mild: In addition to decreased eye-blink frequency, Masked facies present in the lower face as well, namely fewer movements around the mouth, such as less spontaneous smiling, but lips not parted. (2)", "Moderate: Masked facies with lips parted some of the time when the mouth is at rest. (3)", "Severe: Masked facies with lips parted most of the time when the mouth is at rest. (4)"
+    ], "motorexamfacialexpression",
+    0,
+    4,
+    "Facial Expression",
+    "Observe the patient sitting at rest for 10 seconds, without talking and also while talking, observe eye-blink frequency, masked facies or loss of facial expression, spontaneous smiling and parting of lips. ",
+    ""
   ],
   [
-      [
-          "Normal: No problems. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the tapping movement; b) slight slowing; c) the amplitude decrements near the end of the 10 taps. (1)", "Mild: Any of the following: a) 3 to 5 interruptions during tapping; b) mild slowing; c) the amplitude decrements midway in the 10-tap sequence. (2)", "Moderate: Any of the following: a) more than 5 interruptions during tapping or least one longer arrest (freeze) in ongoing movement; b) mdoerate slowing; c) the amplitude decrements starting after the first tap. (3)", "Severe: Cannot or can only barely perform the task because of slowing, interruptions or decrements. (4)"
-      ], "tapping",
-      0,
-      4, 
-      "Finger Tapping",
-      "Each hand is tested separately. Demonstrate the task, but do not continue to perform the task while the patient is being tested. Instruct the patient to tap the index finger on the thumb 10 times as quickly and as big as possible. Rate each side separately, evaluating speed, amplitude, hesitations, halts and decrementing amplitude. ",
-      ""
+    [
+      "Normal: No rigidity (0)", "Slight: Rigidity only detected with activation maneuver. (1)", "Mild: Rigidity detected without the activation maneuver, but full range of motion is easily achieved. (2)", "Moderate: Rigidity detected without activation maneuver; full range of motion is achieved with effort. (3)", "Severe: Rigidity detected without the activation maneuver and full range of motion not achieved.(4)"
+    ], "motorexamrigidity",
+    0,
+    4,
+    "Rigidity",
+    "Rigidity is judged on slow passive movement of major joints with the patient in a relaxed position and the examiner manipulating the limbs and neck. First, test without an activation maneuver. Test and rate neck and each limb separately. For arms, test the wrist and elbow joints simultaneously. For legs, test the hip and knee joints simultaneously. if no rigidity is detected, use an activation maneuver such as tapping fingers, fist opening/closing, or heel tapping in a limb not being tested. Explain to the patient to go as limp as possible as you test for rigidity. ",
+    ""
   ],
   [
-      [
-          "Normal: No problems. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the movement; b) slight slowing; c) the amplitude decrements near the end of the task. (1)", "Mild: Any of the following: a) 3 to 5 interruptions during the movements; b) mild slowing; c) the amplitude decrements midway in the task. (2)", "Moderate: Any of the following: a) more than 5 interruptions during the movements or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) the amplitude devrements starting after the 1st open-and-close sequence. (3)", "Severe: Cannot or can only barely perform the task perform the task because of slowing, interruptions or documents. (4)"
-      ], "hand_movements",
-      0,
-      4, 
-      "Hand Movements",
-      "Test each hand separately. Demonstarate the task, but do not continue to perform the task while the patient is being tested. Instruct the patient to make a tight fist with the arm bent at the elbow so that the palm faces the examiner. Have the patient open the hand 10 times as fully AND as quickly as possible. If the patient fails to make a tight fist or to open the hand fully, remind him/her to do so. Rate each side separately, evaluating speed, amplitude, hestitations, halts, and decrementing amplitudes. ",
-      ""
+    [
+      "Normal: No problems. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the tapping movement; b) slight slowing; c) the amplitude decrements near the end of the 10 taps. (1)", "Mild: Any of the following: a) 3 to 5 interruptions during tapping; b) mild slowing; c) the amplitude decrements midway in the 10-tap sequence. (2)", "Moderate: Any of the following: a) more than 5 interruptions during tapping or least one longer arrest (freeze) in ongoing movement; b) mdoerate slowing; c) the amplitude decrements starting after the first tap. (3)", "Severe: Cannot or can only barely perform the task because of slowing, interruptions or decrements. (4)"
+    ], "motorexamtapping",
+    0,
+    4,
+    "Finger Tapping",
+    "Each hand is tested separately. Demonstrate the task, but do not continue to perform the task while the patient is being tested. Instruct the patient to tap the index finger on the thumb 10 times as quickly and as big as possible. Rate each side separately, evaluating speed, amplitude, hesitations, halts and decrementing amplitude. ",
+    ""
   ],
   [
-      [
-          "Normal: No problems. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the movement; b) slight slowing; c) the amplitude decremtns near the end of the sequence. (1)", "Moderate: Any of the following: a) 3 to 5 interruptions during the movements; b) mild slowing; c) the amplitude decrements midway in the sequence. (2)", "Moderate: Any of the following: a) more than 5 interruptions during the movement or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) the amplitude decrements starting after the 1st supination-pronation sequence. (3)", "Severe: Cannot or can only barely perform the task because of slowing, interruptions or decrements. (4)"
-      ], "pronation-supination",
-      0,
-      4, 
-      "Pronation-Supination movements of Hands",
-      "Test each hand separately. Demonstrate the task, but do not continue to perform the task while the patient is being tested. Instruct the patient to extend the arm out in front of his/her body with the palms down; then to turn the palm up and down alternately 10 times as fast and as fully as possible. Rate each side separately, evaluating speed, amplitude, hesitations, halts and decrementing amplitude. ",
-      ""
+    [
+      "Normal: No problems. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the movement; b) slight slowing; c) the amplitude decrements near the end of the task. (1)", "Mild: Any of the following: a) 3 to 5 interruptions during the movements; b) mild slowing; c) the amplitude decrements midway in the task. (2)", "Moderate: Any of the following: a) more than 5 interruptions during the movements or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) the amplitude devrements starting after the 1st open-and-close sequence. (3)", "Severe: Cannot or can only barely perform the task perform the task because of slowing, interruptions or documents. (4)"
+    ], "motorexamhandmovements",
+    0,
+    4,
+    "Hand Movements",
+    "Test each hand separately. Demonstarate the task, but do not continue to perform the task while the patient is being tested. Instruct the patient to make a tight fist with the arm bent at the elbow so that the palm faces the examiner. Have the patient open the hand 10 times as fully AND as quickly as possible. If the patient fails to make a tight fist or to open the hand fully, remind him/her to do so. Rate each side separately, evaluating speed, amplitude, hestitations, halts, and decrementing amplitudes. ",
+    ""
   ],
   [
-      [
-          "Normal: No problem. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the tapping movement; b) slight slowing; c) amplitude decremtns near the end of the tap taps. (1)", "Mild: Any of the following: a) 3 to 5 interruptions during the tappin movements; b) mild slowing; c) amplitude decrements midway in the task. (2)", "Moderate: Any of the following: a) more than 5 interruptions during the tapping movements or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) amplitude decrements after the first tap. (3)", "Severe: Cannot or can only barely perform the task because of slowing, interruptions or decrements. (4)"
-      ], "toe-tapping",
-      0,
-      4, 
-      "Top Tapping",
-      "Have the patient sit in a straight-backed chair with arms, both feet on the floor. Test each foot separately. Demonstrate the task while the patient is being tested. Instruct the patient to place the heel on the ground in a comfortable position and then tap the toes 10 times as big and as fast as possible. Rate each side separately, evaluating speed, amplitude, hesitations, halts and decrementing amplitude. ",
-      ""
+    [
+      "Normal: No problems. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the movement; b) slight slowing; c) the amplitude decremtns near the end of the sequence. (1)", "Moderate: Any of the following: a) 3 to 5 interruptions during the movements; b) mild slowing; c) the amplitude decrements midway in the sequence. (2)", "Moderate: Any of the following: a) more than 5 interruptions during the movement or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) the amplitude decrements starting after the 1st supination-pronation sequence. (3)", "Severe: Cannot or can only barely perform the task because of slowing, interruptions or decrements. (4)"
+    ], "motorexampronationsupination",
+    0,
+    4,
+    "Pronation-Supination movements of Hands",
+    "Test each hand separately. Demonstrate the task, but do not continue to perform the task while the patient is being tested. Instruct the patient to extend the arm out in front of his/her body with the palms down; then to turn the palm up and down alternately 10 times as fast and as fully as possible. Rate each side separately, evaluating speed, amplitude, hesitations, halts and decrementing amplitude. ",
+    ""
   ],
   [
-      [
-          "Normal: No problems. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the movement; b) slight slowing; c) amplitude decrements near the end of the task. (1)", "Mild: Any of the following: a) 3 to 5 interruptions during the movements; b) mild slowness; c) amplitude decremtns midway in the task. (2)", "Moderate: Any of the following: a) more than 5 interruptions during the movement or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing in speed; c) amplitude decrements after the first tap. (3)", "Severe: Cannot or can only barely perform the task because of slowing, interruptions or decrements. (4)"
-      ], "agility",
-      0,
-      4, 
-      "Leg Agility",
-      "Have the patient sit in a straight-backed chair with arms. The patient should have both feet comfortably on the floor. Test each leg separately. Demonstrate the task, but do not continue to perform the test while the patient is being tested. Instruct the patient to place the foot on the ground in a comfortable position and then raise the stomp the foot on the ground 10 times as high and as fast possible. Rate each side separately, evaluating speed, amplitude, hesitations, halts and decrementing amplitude. ",
-      ""
+    [
+      "Normal: No problem. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the tapping movement; b) slight slowing; c) amplitude decremtns near the end of the tap taps. (1)", "Mild: Any of the following: a) 3 to 5 interruptions during the tappin movements; b) mild slowing; c) amplitude decrements midway in the task. (2)", "Moderate: Any of the following: a) more than 5 interruptions during the tapping movements or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing; c) amplitude decrements after the first tap. (3)", "Severe: Cannot or can only barely perform the task because of slowing, interruptions or decrements. (4)"
+    ], "motorexamtoetapping",
+    0,
+    4,
+    "Top Tapping",
+    "Have the patient sit in a straight-backed chair with arms, both feet on the floor. Test each foot separately. Demonstrate the task while the patient is being tested. Instruct the patient to place the heel on the ground in a comfortable position and then tap the toes 10 times as big and as fast as possible. Rate each side separately, evaluating speed, amplitude, hesitations, halts and decrementing amplitude. ",
+    ""
   ],
   [
-      [
-          "Normal: No problems. Able to arise quickly without hesitations. (0)", "Slight: Arising is slower than normal; or may need more than one attempt; or may need to move forward in the chair to arise. No need to use the arms of the chair. (1)", "Mild: Pushes self up from arms of chair without difficulty. (2)", "Moderate: Needs to push off, but tends to fall back; or may have to try more than one time using arms of chair, but can get up without help. (3)", "Severe: Unable to arise without help. (4)"
-      ], "arising",
-      0,
-      4, 
-      "Arising from chair",
-      "Have the patient sit in a straight-backed chair with arms, with both feet on the floor and sitting back in the chair (if the patient is not too short). Ask the patient to cross his/her arms across the chest and then to stand up. If the patient is not successful, repeat this attempt a maximumm up to two more times. If still unsuccessful, allow the patient to move forward in the chair to arise with arms folded across the chest. Allow a maximum of three trials of pushing off. If still not successful, assist the patient to arise. After the patient stands up, observe the posture for item 3.13",
-      ""
+    [
+      "Normal: No problems. (0)", "Slight: Any of the following: a) the regular rhythm is broken with one or two interruptions or hesitations of the movement; b) slight slowing; c) amplitude decrements near the end of the task. (1)", "Mild: Any of the following: a) 3 to 5 interruptions during the movements; b) mild slowness; c) amplitude decremtns midway in the task. (2)", "Moderate: Any of the following: a) more than 5 interruptions during the movement or at least one longer arrest (freeze) in ongoing movement; b) moderate slowing in speed; c) amplitude decrements after the first tap. (3)", "Severe: Cannot or can only barely perform the task because of slowing, interruptions or decrements. (4)"
+    ], "motorexamlegagility",
+    0,
+    4,
+    "Leg Agility",
+    "Have the patient sit in a straight-backed chair with arms. The patient should have both feet comfortably on the floor. Test each leg separately. Demonstrate the task, but do not continue to perform the test while the patient is being tested. Instruct the patient to place the foot on the ground in a comfortable position and then raise the stomp the foot on the ground 10 times as high and as fast possible. Rate each side separately, evaluating speed, amplitude, hesitations, halts and decrementing amplitude. ",
+    ""
   ],
   [
-      [
-          "Normal: No problems. (0)", "Slight: Independent walking with minor gait impairment. (1)", "Mild: Independent walking but with substantial gait impairment (2)", "Moderate: Requires an assistance device for safe walking (walking stick, walker) but not a person. (3)", "Cannot walk at all or only with another person's assistance. (4)"
-      ], "gait",
-      0,
-      4, 
-      "Gait",
-      "Testing gait is best performed by having the patient walking away from and towards the examiner so that both right and left sides of the body can be easily observed simultaneously. The patient should walk at least 10 meters (30 feet), then turn around and return to the examiner. This item measures multiple behaviors; stride amplitude, stride speed, height of foot lift, heel strike during walking, turning, and arm swing, but not freezing. Assess also for 'freezing of gait' (next item 3.11) while patient is walking. Observe posture for item 3.13",
-      ""
+    [
+      "Normal: No problems. Able to arise quickly without hesitations. (0)", "Slight: Arising is slower than normal; or may need more than one attempt; or may need to move forward in the chair to arise. No need to use the arms of the chair. (1)", "Mild: Pushes self up from arms of chair without difficulty. (2)", "Moderate: Needs to push off, but tends to fall back; or may have to try more than one time using arms of chair, but can get up without help. (3)", "Severe: Unable to arise without help. (4)"
+    ], "motorexamarising",
+    0,
+    4,
+    "Arising from chair",
+    "Have the patient sit in a straight-backed chair with arms, with both feet on the floor and sitting back in the chair (if the patient is not too short). Ask the patient to cross his/her arms across the chest and then to stand up. If the patient is not successful, repeat this attempt a maximumm up to two more times. If still unsuccessful, allow the patient to move forward in the chair to arise with arms folded across the chest. Allow a maximum of three trials of pushing off. If still not successful, assist the patient to arise. After the patient stands up, observe the posture for item 3.13",
+    ""
   ],
   [
-      [
-          "Normal: No freezing. (0)", "Slight: Freezes on starting, turning or walking through doorway with a single halt during any of these events, but then continues smoothly without freezing during straight walking. (1)", "Mild: Freezes on starting, turning or walking through doorway with more than one halt during any of these activities, but continues smoothly without freezing during straight walking. (2)", "Freezes once during straight walking. (3)", "Freezes multiple times during straight walking. (4)"
-      ], "freezing_gait",
-      0,
-      4, 
-      "Freezing of Gait",
-      "While assessing gait, also assess for the presence of any gait freezing episodes. Observe for start hesitation and stuttering movements especially when turning and reaching the end of the task. To the extent that safety permits, patients may NOT use sensory tricks during the assessment. ",
-      ""
+    [
+      "Normal: No problems. (0)", "Slight: Independent walking with minor gait impairment. (1)", "Mild: Independent walking but with substantial gait impairment (2)", "Moderate: Requires an assistance device for safe walking (walking stick, walker) but not a person. (3)", "Cannot walk at all or only with another person's assistance. (4)"
+    ], "motorexamgait",
+    0,
+    4,
+    "Gait",
+    "Testing gait is best performed by having the patient walking away from and towards the examiner so that both right and left sides of the body can be easily observed simultaneously. The patient should walk at least 10 meters (30 feet), then turn around and return to the examiner. This item measures multiple behaviors; stride amplitude, stride speed, height of foot lift, heel strike during walking, turning, and arm swing, but not freezing. Assess also for 'freezing of gait' (next item 3.11) while patient is walking. Observe posture for item 3.13",
+    ""
   ],
   [
-      [
-          "Normal: No problems. Recovers with one or two steps. (0)", "Slight: 3 to 5 steps, but subject recovers unaided. (1)", "Mild: More than 5 steps, but subject recovers unaided. (2)", "Moderate: Stands safely, but with absence of postural responsem falls if not caught by examiner. (3)", "Very unstable, tends to lose balance spontaneously or with just a gentle pull on the shoulders. (4)"
-      ], "postural_stability",
-      0,
-      4, 
-      "Postural stability",
-      "The test examines the response to sudden body displacement produced by a 'quick, forceful' pull on the shoulders while the patient is standing erect with eyes open and feet comfortably apart and parallel to each other. Test retropulsion. Stand behind the patient and instruct the patient on what is about to happen. Explain that s/he is allowed to take a step backwards to avoid falling. There should be a solid wall behind the examiner, at least 1-2 meters away to allow  for the observation of the number of retropulsive steps. The first pull is an instructional demonstration and is purposely milder and not rated. The second time the shoulders are pulled briskly and forcefully towards the examiner with enough force to displace the center of gravity so that patient MUST take a step backwards. The examiner needs to be ready to catch the tpatient, but must stand sufficiently back so as to allow enough room for the patient to take several steps to recover independently. do not allow the patient to flex the body abnormally forward in anticipation of the pull. Observe for the number of steps backwards or falling. Up to and including two steps for recovery is considered normal, so abnormal ratings begin with three steps. If the patient fails to understand the test, the examiner can repeat the test so that the rating is based on an assessment that the examiner feels reflects the patient's limitations rather than misunderstanding or lack of preparedness. Observe standing posture for item 3.13",
-      ""
+    [
+      "Normal: No freezing. (0)", "Slight: Freezes on starting, turning or walking through doorway with a single halt during any of these events, but then continues smoothly without freezing during straight walking. (1)", "Mild: Freezes on starting, turning or walking through doorway with more than one halt during any of these activities, but continues smoothly without freezing during straight walking. (2)", "Freezes once during straight walking. (3)", "Freezes multiple times during straight walking. (4)"
+    ], "motorexamfreezinggait",
+    0,
+    4,
+    "Freezing of Gait",
+    "While assessing gait, also assess for the presence of any gait freezing episodes. Observe for start hesitation and stuttering movements especially when turning and reaching the end of the task. To the extent that safety permits, patients may NOT use sensory tricks during the assessment. ",
+    ""
   ],
   [
-      [
-          "Normal: NO problems. (0)", "Slight: Not quite erect, but posture could be normal for older person. (1)", "Mild: Definite flexion, scoliosis or leaning to one side, but patient can correct posture to normal posture when asked to do so. (2)", "Moderate: Stooped posture, scoliosis or leaning to one side that cannot be corrected volitionally to a normal posture by the patient. (3)", "Flexion, scoliosis or leaning with extreme abnormality of posture. (4)"
-      ], "posture",
-      0,
-      4, 
-      "Posture",
-      "Posture is assessed with the patient standing erect after arising from a chir, enduring walking, and while being tested for postural reflexes. If you notice poor posture, tell the patient to stand up straight and see if the posture improves (see option 2 below). Rate the worst posture seen in these three observation points. Observe for flexion and side-to-side leaning. ",
-      ""
+    [
+      "Normal: No problems. Recovers with one or two steps. (0)", "Slight: 3 to 5 steps, but subject recovers unaided. (1)", "Mild: More than 5 steps, but subject recovers unaided. (2)", "Moderate: Stands safely, but with absence of postural responsem falls if not caught by examiner. (3)", "Very unstable, tends to lose balance spontaneously or with just a gentle pull on the shoulders. (4)"
+    ], "motorexamposturalstability",
+    0,
+    4,
+    "Postural stability",
+    "The test examines the response to sudden body displacement produced by a 'quick, forceful' pull on the shoulders while the patient is standing erect with eyes open and feet comfortably apart and parallel to each other. Test retropulsion. Stand behind the patient and instruct the patient on what is about to happen. Explain that s/he is allowed to take a step backwards to avoid falling. There should be a solid wall behind the examiner, at least 1-2 meters away to allow  for the observation of the number of retropulsive steps. The first pull is an instructional demonstration and is purposely milder and not rated. The second time the shoulders are pulled briskly and forcefully towards the examiner with enough force to displace the center of gravity so that patient MUST take a step backwards. The examiner needs to be ready to catch the tpatient, but must stand sufficiently back so as to allow enough room for the patient to take several steps to recover independently. do not allow the patient to flex the body abnormally forward in anticipation of the pull. Observe for the number of steps backwards or falling. Up to and including two steps for recovery is considered normal, so abnormal ratings begin with three steps. If the patient fails to understand the test, the examiner can repeat the test so that the rating is based on an assessment that the examiner feels reflects the patient's limitations rather than misunderstanding or lack of preparedness. Observe standing posture for item 3.13",
+    ""
   ],
   [
-      [
-          "Normal: No problems. (0)", "Slight: Slight global slowness and poverty of spontaneous movements. (1)", "Mild: Mild global slowness and poverty of spontaneous movements. (2)", "Moderate: Moderate global slowness and poverty of spontaneous movements. (3)", "Severe: Severe global slowness and poverty of spontaneous movements. (4)"
-      ], "global",
-      0,
-      4, 
-      "Global Spontaneity of Movement (Body Bradykinesia)",
-      "This global rating combines all observations on slowness, hesitancy, and small amplitude and poverty of movement in general, including a reduction of gesturing and of crossing the legs. This assessment is based on the examiner's global impression after observing for spontaneous gestures while sitting, and the nature of arising and walking. ",
-      ""
+    [
+      "Normal: NO problems. (0)", "Slight: Not quite erect, but posture could be normal for older person. (1)", "Mild: Definite flexion, scoliosis or leaning to one side, but patient can correct posture to normal posture when asked to do so. (2)", "Moderate: Stooped posture, scoliosis or leaning to one side that cannot be corrected volitionally to a normal posture by the patient. (3)", "Flexion, scoliosis or leaning with extreme abnormality of posture. (4)"
+    ], "motorexamposture",
+    0,
+    4,
+    "Posture",
+    "Posture is assessed with the patient standing erect after arising from a chir, enduring walking, and while being tested for postural reflexes. If you notice poor posture, tell the patient to stand up straight and see if the posture improves (see option 2 below). Rate the worst posture seen in these three observation points. Observe for flexion and side-to-side leaning. ",
+    ""
   ],
   [
-      [
-          "Normal: No tremor. (0)", "Slight: Tremor is present but less than 1cm in amplitude. (1)", "Mild: Tremor is at least 1 but less than 3cm in amplitude. (2)", "Moderate: Tremor is at least 3 but less than 10cm in amplitude. (3)", "Severe: Tremor is at least 10cm in amplitude. (4)"
-      ], "tremor_hands",
-      0,
-      4, 
-      "Postural tremor of the hands",
-      "All tremor, including re-emergent rest tremor, that is present in this posture is to be included in this rating. Rate each hand separately. Rate the highest amplitude seen. Instruct the patient to stretch the arms out in front of the body with palms down. The wrist should be straight and the fingers comfortably separated so that they do not touch each other. Observe this posture for 10 seconds. ",
-      ""
+    [
+      "Normal: No problems. (0)", "Slight: Slight global slowness and poverty of spontaneous movements. (1)", "Mild: Mild global slowness and poverty of spontaneous movements. (2)", "Moderate: Moderate global slowness and poverty of spontaneous movements. (3)", "Severe: Severe global slowness and poverty of spontaneous movements. (4)"
+    ], "motorexambodybradykinesia",
+    0,
+    4,
+    "Global Spontaneity of Movement (Body Bradykinesia)",
+    "This global rating combines all observations on slowness, hesitancy, and small amplitude and poverty of movement in general, including a reduction of gesturing and of crossing the legs. This assessment is based on the examiner's global impression after observing for spontaneous gestures while sitting, and the nature of arising and walking. ",
+    ""
   ],
   [
-      [
-          "Normal:  No tremor. (0)", "Slight: Tremor is present but less than 1cm in amplitude. (1)", "Mild: Tremor is at least 1 but 3 cm in amplitude. (2)", "Moderate: Tremor is at least 3 but less than 10 cm in amplitude. (3)", "Severe: Tremor is at least 10cm in amplitude. (4)"
-      ], "kinetic_tremor",
-      0,
-      4, 
-      "Kinetic tremor of the Hands",
-      "This is tested by the finger-to-nose maneuver. With the arm starting from the outstretched position, have the patient perform at least three finger-to-nose maneuvers with each hand reaching as far as possible to touch the examiner's finger. The finger-to-nose maneuver should be performed slowly enough not to hide any tremor that could occur with very fast arm movements. Repeat with the other hand, rating each hand separately. The tremor can be present throughout the movement or as the tremor reaches either target (nose or finger). Rate the highest amplitude seen. ",
-      ""
+    [
+      "Normal: No tremor. (0)", "Slight: Tremor is present but less than 1cm in amplitude. (1)", "Mild: Tremor is at least 1 but less than 3cm in amplitude. (2)", "Moderate: Tremor is at least 3 but less than 10cm in amplitude. (3)", "Severe: Tremor is at least 10cm in amplitude. (4)"
+    ], "motorexamposturaltremorhands",
+    0,
+    4,
+    "Postural tremor of the hands",
+    "All tremor, including re-emergent rest tremor, that is present in this posture is to be included in this rating. Rate each hand separately. Rate the highest amplitude seen. Instruct the patient to stretch the arms out in front of the body with palms down. The wrist should be straight and the fingers comfortably separated so that they do not touch each other. Observe this posture for 10 seconds. ",
+    ""
   ],
   [
-      [
-          "Normal: No tremor. (0)", "Slight: Less than 1cm in maximal amplitude. (1)", "Mild: Greater than 1cm but less than 3cm in maximal amplitude. (2)", "Moderate: 3-10cm in maximal amplitude. (3)", "Severe: Greater than 10cm in maximal amplitude. (4)"
-      ], "rest_tremor_amplitude_1",
-      0,
-      4, 
-      "Extremity ratings of the rest tremor amplitude ",
-      "This and the next item have been placed purposefully at the end of the examination to allow the rater to gather observations on rest tremor that may appear at any time during the exam, including when quietly sitting, during walking and during activities when some body parts are moving but others are at rest. Score the maximum amplitude that is seen at any time as the final score. Rate only tha amplitude and not the persistence or the intermittency of the tremor. As part of this rating, the patient should sit quietly in a chair with the hands placed on the arms of the chair (not in the lap) and the feet comfortably supported on the floor for 10 seconds with no other directives. Rest tremor is assessed separately for all four limbs and also for the lip/jaw. Rate only the maximum amplitude that is seen at any time as the final rating. ",
-      ""
+    [
+      "Normal:  No tremor. (0)", "Slight: Tremor is present but less than 1cm in amplitude. (1)", "Mild: Tremor is at least 1 but 3 cm in amplitude. (2)", "Moderate: Tremor is at least 3 but less than 10 cm in amplitude. (3)", "Severe: Tremor is at least 10cm in amplitude. (4)"
+    ], "motorexamkinetictremor",
+    0,
+    4,
+    "Kinetic tremor of the Hands",
+    "This is tested by the finger-to-nose maneuver. With the arm starting from the outstretched position, have the patient perform at least three finger-to-nose maneuvers with each hand reaching as far as possible to touch the examiner's finger. The finger-to-nose maneuver should be performed slowly enough not to hide any tremor that could occur with very fast arm movements. Repeat with the other hand, rating each hand separately. The tremor can be present throughout the movement or as the tremor reaches either target (nose or finger). Rate the highest amplitude seen. ",
+    ""
   ],
   [
-      [
-          "Normal: No tremor. (0)", "Slight: Less than 1cm in maximal amplitude. (1)", "Mild: Greater than 1cm but less than 2cm in maximal amplitude. (2)", "Moderate: Greater than 2cm but less than 3cm in maximal amplitude. (3)", "Severe: Greater than 3cm in maximal amplitude. (4)"
-      ], "rest_tremor_amplitude_2",
-      0,
-      4, 
-      "Lip/Jaw ratings of the rest tremor amplitude",
-      "This and the next item have been placed purposefully at the end of the examination to allow the rater to gather observations on rest tremor that may appear at any time during the exam, including when quietly sitting, during walking and during activities when some body parts are moving but others are at rest. Score the maximum amplitude that is seen at any time as the final score. Rate only tha amplitude and not the persistence or the intermittency of the tremor. As part of this rating, the patient should sit quietly in a chair with the hands placed on the arms of the chair (not in the lap) and the feet comfortably supported on the floor for 10 seconds with no other directives. Rest tremor is assessed separately for all four limbs and also for the lip/jaw. Rate only the maximum amplitude that is seen at any time as the final rating. ",
-      ""
+    [
+      "Normal: No tremor. (0)", "Slight: Less than 1cm in maximal amplitude. (1)", "Mild: Greater than 1cm but less than 3cm in maximal amplitude. (2)", "Moderate: 3-10cm in maximal amplitude. (3)", "Severe: Greater than 10cm in maximal amplitude. (4)"
+    ], "motorexamextremityratingsresttremoramplitude",
+    0,
+    4,
+    "Extremity ratings of the rest tremor amplitude ",
+    "This and the next item have been placed purposefully at the end of the examination to allow the rater to gather observations on rest tremor that may appear at any time during the exam, including when quietly sitting, during walking and during activities when some body parts are moving but others are at rest. Score the maximum amplitude that is seen at any time as the final score. Rate only tha amplitude and not the persistence or the intermittency of the tremor. As part of this rating, the patient should sit quietly in a chair with the hands placed on the arms of the chair (not in the lap) and the feet comfortably supported on the floor for 10 seconds with no other directives. Rest tremor is assessed separately for all four limbs and also for the lip/jaw. Rate only the maximum amplitude that is seen at any time as the final rating. ",
+    ""
   ],
   [
-      [
-          "Normal: No tremor. (0)", "Slight: Tremor at rest is present <25% of the entire examination period. (1)", "Mild: Tremor at rest is present 26-50% of the examination period. (2)", "Moderate: Tremor at rest is present 51-75% of the entire examination period. (3)", "Severe: Tremor at rest is present >75% of the entire examination period. (4)"
-      ], "constancy_tremor",
-      0,
-      4, 
-      "Constancy of rest tremor",
-      "This item receives one rating for all rest tremor and focuses on the constancy of rest tremor during the examination period when different body parts are variously at rest. It is rated purposefully at the end of the examination so that several minutes of information can be coalesced into the rating. ",
-      ""
+    [
+      "Normal: No tremor. (0)", "Slight: Less than 1cm in maximal amplitude. (1)", "Mild: Greater than 1cm but less than 2cm in maximal amplitude. (2)", "Moderate: Greater than 2cm but less than 3cm in maximal amplitude. (3)", "Severe: Greater than 3cm in maximal amplitude. (4)"
+    ], "motorexamjawratingsresttremoramplitude",
+    0,
+    4,
+    "Lip/Jaw ratings of the rest tremor amplitude",
+    "This and the next item have been placed purposefully at the end of the examination to allow the rater to gather observations on rest tremor that may appear at any time during the exam, including when quietly sitting, during walking and during activities when some body parts are moving but others are at rest. Score the maximum amplitude that is seen at any time as the final score. Rate only tha amplitude and not the persistence or the intermittency of the tremor. As part of this rating, the patient should sit quietly in a chair with the hands placed on the arms of the chair (not in the lap) and the feet comfortably supported on the floor for 10 seconds with no other directives. Rest tremor is assessed separately for all four limbs and also for the lip/jaw. Rate only the maximum amplitude that is seen at any time as the final rating. ",
+    ""
   ],
   [
-      [
-          "No (0)", "Yes (1)"
-      ], "dyskinesias_1",
-      0,
-      1, 
-      "Dyskinesia Impact on part III ratings",
-      "Were dyskinesias (chorea or dystonia) present during examination? ",
-      ""
+    [
+      "Normal: No tremor. (0)", "Slight: Tremor at rest is present <25% of the entire examination period. (1)", "Mild: Tremor at rest is present 26-50% of the examination period. (2)", "Moderate: Tremor at rest is present 51-75% of the entire examination period. (3)", "Severe: Tremor at rest is present >75% of the entire examination period. (4)"
+    ], "motorexamconstancytremor",
+    0,
+    4,
+    "Constancy of rest tremor",
+    "This item receives one rating for all rest tremor and focuses on the constancy of rest tremor during the examination period when different body parts are variously at rest. It is rated purposefully at the end of the examination so that several minutes of information can be coalesced into the rating. ",
+    ""
   ],
   [
-      [
-          "No (0)", "Yes (1)"
-      ], "dyskinesias_2",
-      0,
-      1, 
-      "Dyskinesia Impact on part III ratings",
-      "If yes, did these movements interfere with your ratings? ",
-      ""
+    [
+      "No (0)", "Yes (1)"
+    ], "motorexamdyskinesias1",
+    0,
+    1,
+    "Dyskinesia Impact on part III ratings",
+    "Were dyskinesias (chorea or dystonia) present during examination? ",
+    ""
   ],
   [
-      [
-          "Asymptomatic (0)", "Unilateral involvement (1)", "Bilateral involvement without impairment of balance (2)", "Mile to moderate involvement; some postural instability but physically independent; needs assistance to recover from pull test. (3)", "Severe disability; still able to walk or stand unassisted. (4)", "Wheelchair bound or bedridden unless aided (5)"
-      ], "hoehn_yahr",
-      0,
-      5, 
-      "Hoehn and Yahr Stage",
-      "",
-      ""
+    [
+      "No (0)", "Yes (1)"
+    ], "motorexamdyskinesias2",
+    0,
+    1,
+    "Dyskinesia Impact on part III ratings",
+    "If yes, did these movements interfere with your ratings? ",
+    ""
+  ],
+  [
+    [
+      "Asymptomatic (0)", "Unilateral involvement (1)", "Bilateral involvement without impairment of balance (2)", "Mile to moderate involvement; some postural instability but physically independent; needs assistance to recover from pull test. (3)", "Severe disability; still able to walk or stand unassisted. (4)", "Wheelchair bound or bedridden unless aided (5)"
+    ], "motorexamhoehnyahr",
+    0,
+    5,
+    "Hoehn and Yahr Stage",
+    "",
+    ""
   ]
 ]
 
@@ -1193,64 +1193,64 @@ const pthItems = [
 
 const antiparkinsonianMeds = [
   [
-    [], "levodopacarbidopa", 0, 5000, "Levodopa/Carbidopa: Total active drug dose/24 hours", "", ""
+    [], "antipdlevodopacarbidopa", 0, 5000, "Levodopa/Carbidopa: Total active drug dose/24 hours", "", ""
   ],
   [
-    [], "levodopabenserazide", 0, 5000, "Levodopa/benserazide: Total active drug dose/24 hours",
+    [], "antipdlevodopabenserazide", 0, 5000, "Levodopa/benserazide: Total active drug dose/24 hours",
     "", ""
   ],
   [
-    [], "Nonergotdra", 0, 5000, "Non-ergot DRA: Total active drug dose/24 hours",
+    [], "antipdnonergotdra", 0, 5000, "Non-ergot DRA: Total active drug dose/24 hours",
     "", ""
   ],
   [
-    [], "bromocriptine", 0, 5000, "Bromocriptine: Total active drug dose/24 hours",
+    [], "antipdbromocriptine", 0, 5000, "Bromocriptine: Total active drug dose/24 hours",
     "", ""
   ],
   [
-    [], "artanetrihexyphenidyl", 0, 5000, "Artane/Trihexyphenidyl: Total active drug dose/24 hours",
+    [], "antipdartanetrihexyphenidyl", 0, 5000, "Artane/Trihexyphenidyl: Total active drug dose/24 hours",
     "", ""
   ],
   [
-    [], "amantadinetotalactivedrug", 0, 5000, "Amantadine: Total active drug dose/24 hours",
+    [], "antipdamantadinetotalactivedrug", 0, 5000, "Amantadine: Total active drug dose/24 hours",
     "", ""
   ],
   [
-    [], "entacapone", 0, 5000, "Entacapone: Total active drug dose/24 hours",
+    [], "antipdentacapone", 0, 5000, "Entacapone: Total active drug dose/24 hours",
     "", ""
   ],
   [
-    [], "pramipaxole", 0, 5000, "Pramipaxole: Total active drug dose/24 hours",
+    [], "antipdpramipaxole", 0, 5000, "Pramipaxole: Total active drug dose/24 hours",
     "", ""
   ],
   [
-    [], "selegeline", 0, 5000, "Selegeline: Total active drug dose/24 hours",
+    [], "antipdselegeline", 0, 5000, "Selegeline: Total active drug dose/24 hours",
     "", ""
   ],
   [
-    [], "ropinirole", 0, 5000, "Ropinirole: Total active drug dose/24 hours",
+    [], "antipdropinirole", 0, 5000, "Ropinirole: Total active drug dose/24 hours",
     "", ""
   ]
 ];
 
 const vitalSigns = [
   [
-    [], "sbpsitting", 0, 400, "SBP (sitting):", "", ""
+    [], "vitalssbpsitting", 0, 400, "SBP (sitting):", "", ""
   ],
   [
-    [], "dbpsitting", 0, 400, "DBP (sitting):", "", ""
+    [], "vitalsdbpsitting", 0, 400, "DBP (sitting):", "", ""
   ],
   [
-    [], "hrsitting", 0, 400, "HR (sitting):", "", ""
+    [], "vitalshrsitting", 0, 400, "HR (sitting):", "", ""
   ],
   [
-    [], "sbpstanding", 0, 400, "SBP (standing):", "", ""
+    [], "vitalssbpstanding", 0, 400, "SBP (standing):", "", ""
   ],
   [
-    [], "dbpstanding", 0, 400, "DBP (standing):", "", ""
+    [], "vitalsdbpstanding", 0, 400, "DBP (standing):", "", ""
   ],
   [
-    [], "hrstanding", 0, 400, "HR (standing):", "", ""
+    [], "vitalshrstanding", 0, 400, "HR (standing):", "", ""
   ]
 ]
 
@@ -1260,19 +1260,19 @@ const osAbnormalitiesItems = [
     osAbnormalitiesOptions, "skinabnormalities", 0, 2, "Skin:", "", ""
   ],
   [
-    osAbnormalitiesOptions, "headnecklymphatic", 0, 2, "Head/Neck/Lymphatic:", "", ""
+    osAbnormalitiesOptions, "headnecklymphaticabnormalities", 0, 2, "Head/Neck/Lymphatic:", "", ""
   ],
   [
     osAbnormalitiesOptions, "eyesabnormalities", 0, 2, "Eyes:", "", ""
   ],
   [
-    osAbnormalitiesOptions, "earsnosethroat", 0, 2, "Ears/Nose/Throat", "", ""
+    osAbnormalitiesOptions, "earsnosethroatabnormalities", 0, 2, "Ears/Nose/Throat", "", ""
   ],
   [
     osAbnormalitiesOptions, "lungsabnormalities", 0, 2, "Lungs:", "", ""
   ],
   [
-    osAbnormalitiesOptions, "cardiovascular", 0, 2, `Cardiovascular (including peripheral 
+    osAbnormalitiesOptions, "cardiovascularabnormalities", 0, 2, `Cardiovascular (including peripheral 
       vascular)`, "", ""
   ],
   [
@@ -1282,7 +1282,7 @@ const osAbnormalitiesItems = [
     osAbnormalitiesOptions, "musculoskeletalabnormalities", 0, 2, "Musculoskeletal:", "", ""
   ],
   [
-    osAbnormalitiesOptions, "neurological", 0, 2, "Neurological (not including PD, if applicable)",
+    osAbnormalitiesOptions, "neurologicalabnormalities", 0, 2, "Neurological (not including PD, if applicable)",
     "", ""
   ]
 ];
@@ -1292,10 +1292,10 @@ const neurologicalExamOptions = ["(0) Normal", "(1) Abnormal", "(2) Not tested",
 
 const neurologicalExamItem = [
   [
-    neurologicalExamOptions, "mentalstatus", 0, 3, "Mental status", "", ""
+    neurologicalExamOptions, "neurologicalmentalstatus", 0, 3, "Mental status", "", ""
   ],
   [
-    neurologicalExamOptions, "cniitoxii", 0, 3, "CN (II - XII)", "", ""
+    neurologicalExamOptions, "neurologicalcniitoxii", 0, 3, "CN (II - XII)", "", ""
   ],
   [
     neurologicalExamOptions, "motorneurologicalexam", 0, 3, "Motor", "", ""
@@ -1597,6 +1597,976 @@ export const merqItems = [
   ]
 ];
 
+// Parkinson's Diseases Quality of Life Questionnaire (PDQ 8)
+const pdQOLOptions = ["Never (0)", "Occassionally (1)", "Sometimes (2)", "Often (3)", "Always or cannot do at all (4)"];
+
+const parkinsondiseaseItems = [
+  [
+    pdQOLOptions, "pddifficultygettingaround", 0, 4, "Had difficulty getting around in public?",
+    "", ""
+  ],
+  [
+    pdQOLOptions, "pddifficultydressing", 0, 4, "Had difficulty dressing yourself", "", ""
+  ],
+  [
+    pdQOLOptions, "pdfeltdepressed", 0, 4, "Felt depressed?", "", ""
+  ],
+  [
+    pdQOLOptions, "pdproblemswithyourclosepersonalrelationships", 0, 4,
+    "Had probelms with your close personal relationships?", "", ""
+  ],
+  [
+    pdQOLOptions, "pdproblemswithyourconcentration", 0, 4,
+    "Had problems with your concentration, e.g. when reading or watching TV?", "", ""
+  ],
+  [
+    pdQOLOptions, "pdunabletocommunicate", 0, 4, "Felt unable to communicate with people properly?",
+    "", ""
+  ],
+  [
+    pdQOLOptions, "pdpainfulmusclecramps", 0, 4, "Had painful muscle cramps or spasms?", "", ""
+  ],
+  [
+    pdQOLOptions, "pdembarrassedinpublic", 0, 4, "Felt embarrassed in public due to having Parkinson's disease?",
+    "",
+    ""
+  ],
+];
+
+// Assessment for Constipation (ROME III DIAGNOSTIC CRITERIA)
+const constipationOptions = ["Yes (0)", "No (1)"]
+
+const constipationItems = [
+  [
+    constipationOptions, "constipationthreedefecationsperweek", 0, 1,
+    "Fewer than 3 defecations per week", "", ""
+  ],
+  [
+    constipationOptions, "constipationinordertotomovebowel", 0, 1,
+    "Straining in order to move bowel (in at least 25% or 1 in 4 defecations)", "", ""
+  ],
+  [
+    constipationOptions, "constipationhardstools", 0, 1,
+    "Lumpy or hard stools (in at least 25% or 1 in 4 defecations)", "", ""
+  ],
+  [
+    constipationOptions, "constipationanorectalobstruction", 0, 1,
+    "Sensation of anorectal obstruction for at least 25% or 1 in 4 defecations", "", ""
+  ],
+  [
+    constipationOptions, "constipationincompletedefecation", 0, 1,
+    "Sensation of incomplete defecation for at least 25% or 1 in 4 defecation", "", ""
+  ],
+  [
+    constipationOptions, "constipationmaneuversrequiredtodefecate", 0, 1,
+    "Manual maneuvers required to defecate (in at least 25% or 1 in 4 defecations)", "", ""
+  ],
+  [
+    constipationOptions, "constipationaboveforatleast3months", 0, 1,
+    ">=2 of the above for at least 3 months", "", ""
+  ],
+  [
+    constipationOptions, "constipationstoolsarerarelypresent", 0, 1,
+    "Loose stools are rarely present without use of laxatives", "", ""
+  ],
+  [
+    constipationOptions, "insufficientcriteriaforirritablebowelsyndrome", 0, 1,
+    `There are insufficient criteria for irritable bowel syndrome (IBS criteria: recurrent 
+    abdominal discomfort >=3 days per month for >=3 months associated with at least 2 of: 
+    improvement with defecation; onset associated with change in frequency in stool; onset 
+    associated with change in form of stool; <25% of bowel movements are loose stools.)`,
+    "", ""
+  ],
+  [
+    ["Present (0)", "Absent (1)"], "conclusionconstipationromecriteria", 0, 1,
+    `Conclusion: Constipation by Rome III criteria:`, "", ""
+  ]
+];
+
+const gdsOptions = ["No (0)", "Yes (1)", "N/A (2)"];
+
+const gdsItems = [
+  [
+    gdsOptions, "gdsbasicallysatisfied", 0, 2, "Are you basically satisfied with your life?", "", ""
+  ],
+  [
+    gdsOptions, "gdsdroppedactivitiesandinterests", 0, 2,
+    "Have you dropped many of your activities and interests?", "", ""
+  ],
+  [
+    gdsOptions, "gdsfeellifeempty", 0, 2, "Do you feel that your life is empty?", "", ""
+  ],
+  [
+    gdsOptions, "gdsoftengetbored", 0, 2, "Do you often get bored?", "", ""
+  ],
+  [
+    gdsOptions, "gdsgoodspirits", 0, 2, "Are you in good spirits most of the time?", "", ""
+  ],
+  [
+    gdsOptions, "gdsafraidsomethingbad", 0, 2,
+    "Are you afraid that something bad is going to happen to you?", "", ""
+  ],
+  [
+    gdsOptions, "gdsfeelhappymosttime", 0, 2, "Do you feel happy most of the time?", "", ""
+  ],
+  [
+    gdsOptions, "gdsoftenfeelhelpless", 0, 2, "Do you often feel helpless?", "", ""
+  ],
+  [
+    gdsOptions, "gdsprefertostayathome", 0, 2,
+    "Do you prefer to stay at home, rather than going out and doing new things?", "", ""
+  ],
+  [
+    gdsOptions, "gdsmoreprobelmswithmemories", 0, 2,
+    "Do you feel you have more problems with memories than most?", "", ""
+  ],
+  [
+    gdsOptions, "gdsthinkitiswonderfultobealive", 0, 2, "Do you think it is wonderful to be alive?",
+    "", ""
+  ],
+  [
+    gdsOptions, "gdsfeelprettyworthless", 0, 2, "Do you feel pretty worthless the way you are now?",
+    "", ""
+  ],
+  [
+    gdsOptions, "gdsfeelfullofenergy", 0, 2, "Do you feel full of energy?", "", "",
+  ],
+  [
+    gdsOptions, "gdsfeelsituationishopeless", 0, 2, "Do you feel that you situation is hopeless?",
+    "", ""
+  ],
+  [
+    gdsOptions, "gdsmostpeoplearebetteroff", 0, 2,
+    "Do you think that most people are better off than you are?", "", "",
+  ]
+];
+
+const hadsItems = [
+  [
+    ["Most of the time (0)", "A lot of the time (1)", "From time to time (2)",
+      "Not at all (3)"], "hadstenseorwoundup", 0, 3, "I feel tense or 'wound up'", "", ""
+  ],
+  [
+    ["Definitely as much (0)", "Not quite so much (1)", "Only a little (2)", "Hardly at all (3)"],
+    "hadsthingsiusedtoenjoy", 0, 3, "I still enjoy the things I used to enjoy", "", ""
+  ],
+  [
+    ["Very definitely and quite badly (0)", "Yes, but not too badly (1)",
+      "A little but it doesn't worry me (2)", "Not at all (3)"], "hadsfrightenedfeeling", 0, 3,
+    "I get a sort of frightened feeling as if something awful is about to happen", "", ""
+  ],
+  [
+    ["As much as I always could (0)", "Not quite so much now (1)",
+      "Definitely not so much (2)", "Not at all (3)"], "hadsseethefunnysideofthings", 0, 3,
+    "I can laugh and see the funny side of things", "", ""
+  ],
+  [
+    ["A great deal of the time (0)", "A lot of time (1)",
+      "From time to time, but not too often (2)", "Only occasionally (3)"],
+    "hadsworryingthoughts", 0, 3, "Worrying thoughts go through my mind", "", ""
+  ],
+  [
+    ["Not at all (0)", "Not often (1)", "Sometimes (2)", "Most of the time (3)"],
+    "hadsfeelcheerful", 0, 3, "I feel cheerful", "", ""
+  ],
+  [
+    ["Definitely (0)", "Usually (1)", "Not often (2)", "Not at all (3)"],
+    "hadssitatease", 0, 3, "I can sit at ease and feel relaxed", "", ""
+  ],
+  [
+    ["Nearly all the time (0)", "Very often (1)", "Sometimes (2)", "Not at all (3)"],
+    "hadssloweddown", 0, 3, "I feel as if I am slowed down", "", ""
+  ],
+  [
+    ["Not at all (0)", "Occasionally (1)", "Quite often (2)", "Very often (3)"],
+    "hadsfrightenedfeelinglikebutterfliesinthestomach", 0, 3,
+    "I get sort of a frightened feeling like 'butterflies' in the stomach", "", ""
+  ],
+  [
+    ["Definitely (0)", "I don't take as much care as I should (1)",
+      "I may not take quite as much care (2)", "I take just as much care as ever(3)"],
+    "hadslostinterestinmyappearance", 0, 3, "I have lost interest in my appearance", "", ""
+  ],
+  [
+    ["Very much indeed(0)", "Quite a lot(1)", "Not very much(2)", "Not at all(3)"],
+    "hadsfeelrestlessasihavetobeonthemove", 0, 3, "I feel restless as I have to be on the move",
+    "", ""
+  ],
+  [
+    ["As much as I ever did(0)", "Rather less than I used to(1)", "Definitely less than I used to(2)",
+      "Hardly at all(3)"], "hadslookforwardwithenjoymenttothings", 0, 3,
+    "I look forward with enjoyment to things", "", ""
+  ],
+  [
+    ["Very often indeed(0)", "Quite often(1)", "Not very often(2)", "Not at all(3)"],
+    "hadssuddenfeelingsofpanic", 0, 3, "I get sudden feeling of panic", "", ""
+  ],
+  [
+    ["Often(0)", "Sometimes(1)", "Not often(2)", "Very seldom(3)"],
+    "hadsenjoyagoodbook", 0, 3, "I can enjoy a good book or radio or TV program", "", ""
+  ],
+];
+
+const essOptions = ["Would never dose(0)", "Slight chance of dosing(1)", "Moderate chance of dosing(2)",
+  "High chance of dosing(3)"]
+
+const essItems = [
+  [
+    essOptions, "esssittingandreading", 0, 3, "Sitting and reading", "", ""
+  ],
+  [
+    essOptions, "esswatchingtv", 0, 3, "Watching TV", "", ""
+  ],
+  [
+    essOptions, "essinactiveinapublicplace", 0, 3,
+    "Sitting, inactive in a public place (e.g. a theatre or a meeting)", "", ""
+  ],
+  [
+    essOptions, "esspassengerinacar", 0, 3, "As a passenger in a car for an hour without a break",
+    "", ""
+  ],
+  [
+    essOptions, "esslyingdowntorest", 0, 3,
+    "Lying down to rest in the afternoon when circumstances permit", "", ""
+  ],
+  [
+    essOptions, "esstalkingtosomeone", 0, 3, "Sitting and talking to someone", "", ""
+  ],
+  [
+    essOptions, "esssittingquietlyafterlunch", 0, 3, "Sitting quietly after lunch without alcohol",
+    "", ""
+  ]
+];
+
+const quipRSOptions = ["Never(0)", "Rarely(1)", "Sometimes(2)", "Often(3)", "Very often(4)"]
+
+const quiprsItems1 = [
+  [
+    quipRSOptions, "quiprs1gambling", 0, 4, "How much do you think about gambling?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs1sexualbehavior", 0, 4, "How much do you think about sexual behavior?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs1buying", 0, 4, "How much do you think about buying?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs1eating", 0, 4, "How much do you think about eating?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs1performingtasksorhobbies", 0, 4,
+    "How much do you think about performing tasks or hobbies?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs1repeatingsimpleactivities", 0, 4,
+    "How much do you think about repeating simple activities?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs1takingyourPDmedications", 0, 4,
+    "How much do you think about taking your PD medications?", "", ""
+  ]
+];
+
+const quiprsItems2 = [
+  [
+    quipRSOptions, "quiprs2gambling", 0, 4,
+    "Do you have urges or desires for gambling that you feel are excessive or cause you distress?",
+    "", ""
+  ],
+  [
+    quipRSOptions, "quiprs2sexualbehaviour", 0, 4,
+    "Do you have urges or desires for sexual behaviour that you feel are excessive or cause you distress?",
+    "", ""
+  ],
+  [
+    quipRSOptions, "quiprs2buying", 0, 4,
+    "Do you have urges or desires for buying that you feel are excessive or cause you distress?",
+    "", ""
+  ],
+  [
+    quipRSOptions, "quiprs2eating", 0, 4,
+    "Do you have urges or desires for eating that you feel are excessive or cause you distress?",
+    "", ""
+  ],
+  [
+    quipRSOptions, "quiprs2performingtasksorhobbies", 0, 4,
+    `Do you have urges or desires for performing tasks or hobbies that you feel are excessive 
+    or cause you distress?`, "", ""
+  ],
+  [
+    quipRSOptions, "quiprs2repeatingsimpleactivities", 0, 4,
+    `Do you have urges or desires for repeating simple activties that you feel are excessive 
+    or cause you distress?`, "", ""
+  ],
+  [
+    quipRSOptions, "quiprs2takingyourPDmedications", 0, 4,
+    `Do you have urges or desires for taking your PD medications that you feel are excessive 
+    or cause you distress?`, "", ""
+  ]
+];
+
+const quiprsItems3 = [
+  [
+    quipRSOptions, "quiprs3gambling", 0, 4, "Do you have difficulty controlling gambling?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs3sexualbehaviour", 0, 4, "Do you have difficulty controlling sexual behaviour?",
+    "", ""
+  ],
+  [
+    quipRSOptions, "quiprs3buying", 0, 4, "Do you have difficulty controlling buying?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs3eating", 0, 4, "Do you have difficulty controlling eating?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs3performingtasksorhobbies", 0, 4,
+    "Do you have difficulty controlling (performing) tasks or hobbies?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs3repeatingsimpleactivities", 0, 4,
+    "Do you have difficulty in (controlling) repeating simple activities", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs3takingyourPDmedications", 0, 4,
+    "Do you have difficulty controlling taking your PD medications?", "", ""
+  ]
+];
+
+const quiprsItems4 = [
+  [
+    quipRSOptions, "quiprs4gambling", 0, 4,
+    "Do you engage in activities (such as lying or illegal acts) to continue gambling?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs4sexualbehaviour", 0, 4,
+    "Do you engage in activities (such as lying or illegal acts) to continue sexual behaviour?",
+    "", ""
+  ],
+  [
+    quipRSOptions, "quiprs4buying", 0, 4,
+    "Do you engage in activities (such as lying or illegal acts) to continue buying?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs4eating", 0, 4,
+    "Do you engage in activities (such as lying or illegal acts) to continue eating?", "", ""
+  ],
+  [
+    quipRSOptions, "quiprs4performingtasksorhobbies", 0, 4,
+    `Do you engage in activities (such as lying or illegal acts) to continue performing 
+    tasks or hobbies?`, "", ""
+  ],
+  [
+    quipRSOptions, "quiprs4repeatingsimpleactivities", 0, 4,
+    "Do you engage in activities (such as lying or illegal acts) to continue repeating simple actvities?",
+    "", ""
+  ],
+  [
+    quipRSOptions, "quiprs4takingyourPDmedications", 0, 4,
+    "Do you engage in activities (such as lying or illegal acts) to continue taking your PD medications?",
+    "", ""
+  ]
+];
+
+const scopaautOptions = ["Never (0)", "Sometimes (1)", "Regularly (2)", "Often (3)"]
+const scopaautOptions1 = ["Never (0)", "Sometimes (1)", "Regularly (2)", "Often (3)", "Catheter (4) "]
+const scopaautOptionsna = [...scopaautOptions, "N/A (4)"];
+const scopaautOptionsYesNo = ["Yes (0)", "No (1)"];
+
+const scopaautItems = [
+  [
+    scopaautOptions,
+    "scopaautswallowing",
+    0,
+    3,
+    "1. In the past month, have you had difficulty swallowing or have you choked?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautsalivadribbled",
+    0,
+    3,
+    "2. In the past month, has saliva dribbled out of your mouth?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautfoodeverbecomestuck",
+    0,
+    3,
+    "3. In the past month, has food ever become stuck in your throat?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautfeelingduringamealthatyouwerefull",
+    0,
+    3,
+    "4. In the past month, did you ever have the feeling during a meal that you were full very quickly?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautconstipation",
+    0,
+    3,
+    "5. In the past month, have you had constipation (bowel movement twice a week or less)?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautstrainhardtopassstools?",
+    0,
+    3,
+    "6. In the past month, did you have to strain hard to pass stools?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautinvoluntarylossofstools",
+    0,
+    3,
+    "7. In the past month, have you had involuntary loss of stools?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautdifficultyretainingurine",
+    0,
+    4,
+    "8. In the past month, have you had difficulty retaining urine?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautinvoluntarylossofurine",
+    0,
+    4,
+    "9. In the past month, have you had involuntary loss of urine?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautafterpassingurine",
+    0,
+    4,
+    "10. In the past month, have you had the feeling that after passing urine your bladder was not completely empty?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautstreamofurinebeenweak",
+    0,
+    4,
+    "11. In the past month, has the stream of urine been weak?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautpassurineagain",
+    0,
+    4,
+    "12. In the past month, have you had to pass urine again within 2 hours of te previous time?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions1,
+    "scopaautpassurineatnight",
+    0,
+    4,
+    "13. In the past month, have you had to pass urine at night?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautbecominglightheaded",
+    0,
+    3,
+    "14. In the past month, when standing up, have you had the feeling of either becoming lightheaded, or no longer beging able to see properly, or no longer being able to think clearly?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautbecomelightheadedafterstanding",
+    0,
+    3,
+    "15. In the past month, did you become light-headed after standing for some time?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautfainted",
+    0,
+    3,
+    "16. Have you fainted in the past 6 months?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautperspiredexcessivelyduringtheday",
+    0,
+    3,
+    "17. In the past month, have you ever perspired excessively during the day?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaautperspiredexcessivelyduringthenight",
+    0,
+    3,
+    "18. In the past month, have you ever perspired exxcessively during the night?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaauteyeseverbeenoversensitivetolight",
+    0,
+    3,
+    "19. In the past month, have your eyes been over sensitive to light?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaauttroubletoleratingcold",
+    0,
+    3,
+    "20. In the past month, how often have you had trouble tolerating cold?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptions,
+    "scopaauttroubletoleratingheat",
+    0,
+    3,
+    "21. In the past month, how often have you had trouble tolerating heat?",
+    "",
+    ""
+  ],
+]
+
+const scopaautItems1 = [
+  [
+    scopaautOptionsna,
+    "scopaautimpotent",
+    0,
+    4,
+    "22. In the past month, have you been impotent(unable to have or maintain an erection)?",
+    "This question is intended specifically for men.",
+    ""
+  ],
+  [
+    scopaautOptionsna,
+    "scopaautejaculate",
+    0,
+    4,
+    "23. In the past month, how often have you been able to ejaculate?",
+    "This question is intended specifically for men.",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaauterectiondisorder",
+    0,
+    1,
+    "23a. In the past month, have you taken medication for an erection disorder?",
+    "This question is intended specifically for men.",
+    ""
+  ],
+  [
+    [],
+    "scopaauterectiondisorderifyes",
+    0,
+    1,
+    "If yes, which medication?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptionsna,
+    "scopaautvaginaltoodryduringsexualactivity",
+    0,
+    4,
+    "24. In the past month, was your vagina too dry during sexual activity?",
+    "This question is intended specifically for women.",
+    ""
+  ],
+  [
+    scopaautOptionsna,
+    "scopaautdifficultyreachinganorgasm",
+    0,
+    4,
+    "25. In the past month, have you had difficulty reaching an orgasm?",
+    "This question is intended specifically for women.",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaautconstipation",
+    0,
+    1,
+    "26a. In the past month, have you used medication for constipation?",
+    "",
+    ""
+  ],
+  [
+    [],
+    "scopaautconstipationwhichmedication",
+    0,
+    1,
+    "Which medication?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaauturinaryproblems",
+    0,
+    1,
+    "26b. In the past month, have you used medication for urinary problems?",
+    "",
+    ""
+  ],
+  [
+    [],
+    "scopaauturinaryproblemsmedication",
+    0,
+    1,
+    "Which medication?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaautbloodpressure",
+    0,
+    1,
+    "26c. In the past month, have you used medication for blood pressure?",
+    "",
+    ""
+  ],
+  [
+    [],
+    "scopaautbloodpressuremedication",
+    0,
+    1,
+    "Which medication?",
+    "",
+    ""
+  ],
+  [
+    scopaautOptionsYesNo,
+    "scopaautnotrelatedtoparkingsonsdisease",
+    0,
+    1,
+    "26d. In the past month, have you used medication for other symptoms(not related to Parkinson's disease)?",
+    "",
+    ""
+  ]
+];
+
+const pspchecklistOptions = ["Yes (0)", "No (1)"];
+
+const pspchecklistItems = [
+  [
+    pspchecklistOptions, "pspchecklistverticalsupranucleargazepalsy", 0, 1,
+    "1. Vertical supranuclear gaze palsy (O1)", "", ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistverticalsaccades", 0, 1, "2. Slow velocity of vertical saccades (O2)",
+    "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistmacrosquarewavejerks", 0, 1,
+    "3. Frequent marco square wave jerks or eyelid opening apraxia (O3)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistfallonthepulltest", 0, 1,
+    "4. Tendency to fall on the pull-test within 3 years (P2)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistbackwardonthepulltest", 0, 1,
+    "5. More than two steps backward on the pull-test within 3 years (P3)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistprogressivegaitfreezing", 0, 1,
+    "6. Progressive gait freezing within 3 years (A1)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistpredominantlyaxial", 0, 1,
+    "7. Parkinsonism, akinetic-rigid, predominantly axial, and levodopa resistant (A2)",
+    "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistasymmetric", 0, 1,
+    "8. Parkinsonism, with tremor and/or asymmetric and/or levodopa responsive (A3)",
+    "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistspeechlanguagedisorder", 0, 1,
+    `9. Speech/language disorder, i.e., nonfluent/agrammatic variant of 
+        primary progressive aphasia or progressive apraxia of speech (C1)`, "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistcognitivebehaviouralpresentation", 0, 1,
+    "10. Frontal cognitive/behavioural presentation (C2)", "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistcorticobasalsyndrome", 0, 1, "11. Corticobasal syndrome (C3)",
+    "", ""
+  ],
+  [
+    pspchecklistOptions, "pspchecklistspasticdysarthria", 0, 1,
+    "12. Hypokinetic, spastic dysarthria (CC2)", "", ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistdysphagia",
+    0,
+    1,
+    "13. Dysphagia (CC3)",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistphotophobia",
+    0,
+    1,
+    "14. Photophobia (CC4)",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistunexplainedimpairment",
+    0,
+    1,
+    "15. Predominant, otherwise unexplained impairment of episodic memory, suggestive of AD",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistunexplainedautonomicfailure",
+    0,
+    1,
+    "16. Predominant, otherwise unexplained autonomic failure, e.g., orthostatic hypotension (orthostatic reduction in blood pressure after 3 minutes standing >=30 mm Hg systolic or >=15 mm Hg diastolic), suggestive of multiple system atrophy or Lewy body",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistunexplainedvisualhallucinations",
+    0,
+    1,
+    "17. Predominant, otherwise unexplained visual hallucinations or fluctuations in alertness, suggestive of dementia with Lewy bodies",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistrapidprogressionofsymptoms",
+    0,
+    1,
+    "18. Sudden onset or step-wise or rapid progressive or symptoms, in conjunction with corresponding imaging or laboratory findings, suggestive of vascular etiology, autoimmune encephalitis, metabolic encephalopathies, or prion disease",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistencephalitis",
+    0,
+    1,
+    "19. History of encephalitis",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistappendicularataxia",
+    0,
+    1,
+    "20. Prominent appendicular ataxia",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistposturalinstability",
+    0,
+    1,
+    "21. Identifiable cause of postural instability, e.g., primary sensory deficit, vestibular dysfunction, severe spasticity, or lower motor neuron syndome",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistasymmetricalonset",
+    0,
+    1,
+    "22. Asymmetrical onset",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistlimbmyoclonus",
+    0,
+    1,
+    "23. Limb Myoclonus",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistlimbapraxia",
+    0,
+    1,
+    "24. Orobuccal or limb apraxia",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistsensorydeficit",
+    0,
+    1,
+    "25. Cortical sensory deficit",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistalienlimb",
+    0,
+    1,
+    "26. Alien limb more than simple elevation",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistdysfunction",
+    0,
+    1,
+    "27. Executive dysfunction",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistpersonalitychanges",
+    0,
+    1,
+    "28. Behavioural or personality changes",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistvisuospatialdeficits",
+    0,
+    1,
+    "29. Visuospatial deficits",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistagrammaticspeech",
+    0,
+    1,
+    "30. Effortful agrammatic speech",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistsentencecomprehension",
+    0,
+    1,
+    "31. Impaired grammar/sentence comprehension",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistapraxiaofspeech",
+    0,
+    1,
+    "32. Apraxia of speech",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklisturinaryincontinence",
+    0,
+    1,
+    "33. Urinary incontinence",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistsymmetriclimbrigidity",
+    0,
+    1,
+    "34. Axial or symmetric limb rigidity or akinesia",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistposturalinstabilty",
+    0,
+    1,
+    "35. Postural instability or falls",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistverticalgazepalsy",
+    0,
+    1,
+    "36. Supranuclear vertical gaze palsy",
+    "",
+    ""
+  ],
+  [
+    pspchecklistOptions,
+    "pspchecklistverticalsaccades",
+    0,
+    1,
+    "37. Decreased velocity of vertical saccades",
+    "",
+    ""
+  ],
+];
+
 export const pdItems = [
   ["Features of Parkinson", featuresItems],
   ["Other features supportive of Parkinson's disease", otherFeatures],
@@ -1609,7 +2579,7 @@ export const pdItems = [
   // Insert patient questionnaire here,
   ["Patient Questionnaire: Part I - NonMotor Aspects of Experiences of Daily Living (nM-EDL)",
     nM_EDL],
-  ["Patient Questionnaire: Part I - Motor Aspects of Experiences of Daily Living (nM-EDL)",
+  ["Patient Questionnaire: Part I - Motor Aspects of Experiences of Daily Living (M-EDL)",
     m_EDL],
   // Insert Part III - motor examination here,
   ["Part III: Motor Examination", m_Exam, `Overview: This portion of the scale assesses the motor
@@ -1655,6 +2625,50 @@ export const pdItems = [
   ["General Physical Exam: Neurological examination (other than PD):", neurologicalExamItem],
   ["Behavioural/Social History (RFQ)", rfqItems],
   ["Hyposmia Assessment: Single Item Hyposmia Assessment", singleItemHyposmia],
-  ["Hyposmia Assessment: Hyposmia Rating Scale", singleItemHyposmia],
-  ["REM SLEEP BEHAVIOURAL DISORDER ASSESSMENT", remSleepAssessment]
+  ["Hyposmia Assessment: Hyposmia Rating Scale", hyposmiaRatingScale],
+  ["REM SLEEP BEHAVIOURAL DISORDER ASSESSMENT", remSleepAssessment],
+  ["MINI ENVIRONMENTAL RISK QUESTIONNAIRE (MERQ)-PD", merqItems],
+  // insert IDEA cognitive screen here,
+  // insert Modified Schwab and England here
+  ["PARKINSON'S DISEASE QUALITY OF LIFE QUESTIONNAIRE (PDQ-8)", parkinsondiseaseItems,
+    `Due to having Parkinson's disease, how often during the last month have you...:| 
+    (Please select one response for each question).`
+  ],
+  ["ASSESSMENT FOR CONSTIPATION (ROME III DIAGNOSTIC CRITERIA)", constipationItems,
+    `Please indicate Yes or No for each criterion`
+  ],
+  ["GERIATRIC DEPRESSION SCALE-15", gdsItems, `Choose the best answer for how you have felt 
+    over the past week.||
+    (0 = No, 1 = Yes, N/A - not answered)`],
+  // insert MOCA here,
+  // insert NMSS here,
+  ["HADS - HOSPITAL ANXIETY AND DEPRESSION SCALE", hadsItems],
+  ["EPWORTH SLEEPINESS SCALE (ESS)", essItems, `How likely are you to doze off or fall asleep in the 
+    following situations, in contrast to feeling just tired? This refers to your usual way of 
+    life in recent times. Even if you have not done some of these things recently try to work 
+    out how they would have affected you. Use the following scale to choose the most 
+    appropriate statement for each situation:`],
+  [`QUIP-RS (Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease - 
+    Rating Scale`, quiprsItems1, `1. How much do you think about the following behaviours 
+    (such as having trouble keeping thoughts out of your mind or feeling guilty)?`],
+  [`QUIP-RS (Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease - 
+    Rating Scale`, quiprsItems2, `2. Do you have urges or desires for the following behaviours 
+    that you feel are excessive or cause you distress (including becoming restless or irritable 
+    when unable to participate in them)?`],
+  [`QUIP-RS (Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease - 
+    Rating Scale`, quiprsItems3, `3. Do you have difficulty controlling the following 
+    behaviours (such as increasing them over time, or having trouble cutting down or 
+    stopping them)?`],
+  [`QUIP-RS (Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease - 
+    Rating Scale`, quiprsItems4, `4. Do you engage in activities specially to continue the 
+    following behaviours (such as hiding what you are doing, lying hoarding things, borrowing 
+    from others, accumulating debt, stealing, or being involved in illegal acts)?`],
+  [`SCOPA-AUT: SCALES FOR OUTCOMES IN PARKINSON'S DISEASE - AUTONOMIC`, scopaautItems],
+  [`SCOPA-AUT`, scopaautItems1, `The following questions are about sexuality. Although it 
+    is a highly intimate subject, we would still like you to answer these questions. 
+    For the questions on sexual activity, consider every form of sexual contact with a partner 
+    or masturbation (self-gratification). Questions 22 and 23 are intended specifically for 
+    men, 24 and 25 for women.`],
+  // insert PSP here,
+  [`PSP CHECKLIST`, pspchecklistItems, `(To be completed by study neurologist. Items 1 - 37)`]
 ];
