@@ -117,7 +117,7 @@ export default class BiodataComponent extends React.Component {
               </div>
               <div className="col">
                 <LabelAndInputComponent id="agetodayinyears" title="Age Today (in years)"
-                  value={age}
+                  value={ age > 0 ? age.toString() : "" }
                   type="text" onItemChange={() => {}} />
               </div>
             </div>
