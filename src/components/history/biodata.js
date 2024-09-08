@@ -50,11 +50,38 @@ export default class BiodataComponent extends React.Component {
     this.onItemChange(id, "");
   }
 
+  differenceInYears = (past) => {
+    let age = 0;
+    const pastDate = new Date(past);
+    const today = new Date();
+    if (pastDate) age = today.getFullYear() - pastDate.getFullYear();
+    if (pastDate.getMonth() > today.getMonth()) age = age - 1;
+    else 
+      if (pastDate.getMonth() === today.getMonth() && pastDate.getDate() > today.getDate()) --age;
+    return age;
+  }
+
   render() {
     // console.log("this.props.patient => ", this.props.patient);
     const apntmnt = this.props.patient[this.props.patient.last_viewed];
     const biodata = apntmnt.biodata;
-    
+    let age = 0;
+
+    // Estimating patient age from date of birth if the property exists
+    if (biodata.date_of_birth) {
+      console.log("date_of_birth => ", biodata.date_of_birth);
+      age = this.differenceInYears(biodata.date_of_birth);
+    } else {
+      let first_seen = this.props.patient["first_seen"];
+      if (typeof first_seen === "string") first_seen = parseInt(first_seen);
+      const ageinyears = typeof biodata.ageinyears === "string" 
+      ? 
+        biodata.ageinyears === "" ? 0 : parseInt(biodata.ageinyears)
+      : 
+        biodata.ageinyears;
+      age = ageinyears + this.differenceInYears(first_seen);
+    }
+
     return (
       <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Identifying Information</h4>
@@ -81,9 +108,20 @@ export default class BiodataComponent extends React.Component {
             value={biodata.hasOwnProperty('date_of_birth') && biodata.date_of_birth ?
               new Date(biodata.date_of_birth).toISOString().substring(0, 10) : "1970-01-01"}
             type="date" onItemChange={this.onItemChange} />
-          <LabelAndInputComponent id="ageinyears" title="Age (in years)"
-            value={biodata.ageinyears}
-            type="text" onItemChange={this.onItemChange} />
+          <div className="container-fluid p-0">
+            <div className="row mb-4 pb-3">
+              <div className="col">
+                <LabelAndInputComponent id="ageinyears" title="Age at first visit (in years)"
+                  value={biodata.ageinyears}
+                  type="text" onItemChange={this.onItemChange} />
+              </div>
+              <div className="col">
+                <LabelAndInputComponent id="agetodayinyears" title="Age Today (in years)"
+                  value={ age > 0 ? age.toString() : "" }
+                  type="text" onItemChange={() => {}} />
+              </div>
+            </div>
+          </div>
           <SingleSelectOutputComponent name={"Gender"} id={"gender"} items={["Male", "Female"]}
             value={biodata.gender}
             onItemChange={this.onItemChange} />

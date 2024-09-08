@@ -4,6 +4,8 @@ export default class PatientItemComponent extends React.Component {
   render() {
     const item = this.props.patient;
     const apntmnt = item[item.last_viewed];
+    const lastname = apntmnt.biodata.lastname ? apntmnt.biodata.lastname : "";
+    const firstname = apntmnt.biodata.firstname ? apntmnt.biodata.firstname : "";
     return (
       <div className="emr-patient-list-item bg-white" key={item._id.toString()}
         onClick={this.props.goToPatient.bind(this, item._id)}>
@@ -12,8 +14,7 @@ export default class PatientItemComponent extends React.Component {
           <i className="bi bi-person-fill emr-center-icon"></i>
         </div>
         <div className="emr-patient-description">
-          <p className="emr-patient-name">
-            {apntmnt.biodata.lastname + " " + apntmnt.biodata.firstname}</p>
+          <p className="emr-patient-name">{lastname + " " + firstname}</p>
           <div className="emr-patient-biodata">
             <p className="emr-patient-gender">
               {apntmnt.biodata.gender.charAt(0).toUpperCase() + " / " + 
