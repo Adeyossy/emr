@@ -52,11 +52,12 @@ export default class BiodataComponent extends React.Component {
 
   differenceInYears = (past) => {
     let age = 0;
-    const birthDate = new Date(past);
+    const pastDate = new Date(past);
     const today = new Date();
-    if (birthDate) age = today.getFullYear() - birthDate.getFullYear();
-    if (birthDate.getMonth() > today.getMonth()) age = age - 1;
-    else if (birthDate.getDate() > today.getDate()) --age;
+    if (pastDate) age = today.getFullYear() - pastDate.getFullYear();
+    if (pastDate.getMonth() > today.getMonth()) age = age - 1;
+    else 
+      if (pastDate.getMonth() === today.getMonth() && pastDate.getDate() > today.getDate()) --age;
     return age;
   }
 
@@ -68,11 +69,17 @@ export default class BiodataComponent extends React.Component {
 
     // Estimating patient age from date of birth if the property exists
     if (biodata.date_of_birth) {
+      console.log("date_of_birth => ", biodata.date_of_birth);
       age = this.differenceInYears(biodata.date_of_birth);
     } else {
       let first_seen = this.props.patient["first_seen"];
       if (typeof first_seen === "string") first_seen = parseInt(first_seen);
-      age = biodata.ageinyears + this.differenceInYears(first_seen);
+      const ageinyears = typeof biodata.ageinyears === "string" 
+      ? 
+        biodata.ageinyears === "" ? 0 : parseInt(biodata.ageinyears)
+      : 
+        biodata.ageinyears;
+      age = ageinyears + this.differenceInYears(first_seen);
     }
 
     return (
@@ -102,9 +109,9 @@ export default class BiodataComponent extends React.Component {
               new Date(biodata.date_of_birth).toISOString().substring(0, 10) : "1970-01-01"}
             type="date" onItemChange={this.onItemChange} />
           <div className="container-fluid p-0">
-            <div className="row g-0">
+            <div className="row mb-4 pb-3">
               <div className="col">
-                <LabelAndInputComponent id="ageinyears" title="Age (in years)"
+                <LabelAndInputComponent id="ageinyears" title="Age at first visit (in years)"
                   value={biodata.ageinyears}
                   type="text" onItemChange={this.onItemChange} />
               </div>
