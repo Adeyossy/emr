@@ -101,9 +101,20 @@ export default class BiodataComponent extends React.Component {
             value={biodata.hasOwnProperty('date_of_birth') && biodata.date_of_birth ?
               new Date(biodata.date_of_birth).toISOString().substring(0, 10) : "1970-01-01"}
             type="date" onItemChange={this.onItemChange} />
-          <LabelAndInputComponent id="ageinyears" title="Age (in years)"
-            value={biodata.ageinyears}
-            type="text" onItemChange={this.onItemChange} />
+          <div className="container-fluid p-0">
+            <div className="row g-0">
+              <div className="col">
+                <LabelAndInputComponent id="ageinyears" title="Age (in years)"
+                  value={biodata.ageinyears}
+                  type="text" onItemChange={this.onItemChange} />
+              </div>
+              <div className="col">
+                <LabelAndInputComponent id="agetodayinyears" title="Age Today (in years)"
+                  value={age}
+                  type="text" onItemChange={() => {}} />
+              </div>
+            </div>
+          </div>
           <SingleSelectOutputComponent name={"Gender"} id={"gender"} items={["Male", "Female"]}
             value={biodata.gender}
             onItemChange={this.onItemChange} />
