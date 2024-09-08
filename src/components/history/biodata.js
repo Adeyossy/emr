@@ -50,24 +50,31 @@ export default class BiodataComponent extends React.Component {
     this.onItemChange(id, "");
   }
 
+  differenceInYears = (past) => {
+    let age = 0;
+    const birthDate = new Date(past);
+    const today = new Date();
+    if (birthDate) age = today.getFullYear() - birthDate.getFullYear();
+    if (birthDate.getMonth() > today.getMonth()) age = age - 1;
+    else if (birthDate.getDate() > today.getDate()) --age;
+    return age;
+  }
+
   render() {
     // console.log("this.props.patient => ", this.props.patient);
     const apntmnt = this.props.patient[this.props.patient.last_viewed];
     const biodata = apntmnt.biodata;
     let age = 0;
-    
+
     // Estimating patient age from date of birth if the property exists
     if (biodata.date_of_birth) {
-      const birthDate = new Date(biodata.date_of_birth);
-      const today = new Date();
-      if (birthDate) age = today.getFullYear() - birthDate.getFullYear();
-      if (birthDate.getMonth() > today.getMonth()) age = age - 1;
-      else if (birthDate.getDate() > today.getDate()) --age;
+      age = this.differenceInYears(biodata.date_of_birth);
     } else {
-      const first_seen = this.props.patient["first_seen"];
+      let first_seen = this.props.patient["first_seen"];
+      if (typeof first_seen === "string") first_seen = parseInt(first_seen);
+      age = biodata.ageinyears + this.differenceInYears(first_seen);
     }
 
-    
     return (
       <div className="emr-clerking-tab-data m-0">
         <h4 className="emr-card-headers">Identifying Information</h4>
